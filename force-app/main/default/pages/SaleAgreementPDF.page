@@ -1,0 +1,222 @@
+<apex:page renderAs="pdf" applyBodyTag="false" showHeader="false">
+    <html>
+    <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+            <style type="text/CSS">
+             
+                
+                
+                </style>
+        </head>
+        
+        <body style="font-family: Arial, sans-serif; font-size: 12px; margin: 20px;">
+            <!-- Document Header -->
+            <div class="header" style="Text-align:center"><h1>SALE AGREEMENT</h1></div>
+            
+            <div style="display: table; width: 100%;">
+                <div style="display: table-cell; width: 50%; padding: 10px;text-align:left; vertical-align: top;">
+                    <h3 style="margin-bottom: 5px;">Kurian Thomas</h3>  
+                    <p style="margin-top: 0;">(Director – Marketing and Administration of Promoter company)</p>    
+                </div>   
+                
+                <div style="display: table-cell; width: 50%; padding: 10px;text-align:right; vertical-align: top;">
+                    <h3 style="margin-bottom: 5px;">Abhinand S. Vijay</h3>  
+                    <p style="margin-top: 0;">(Presenter)</p>    
+                </div>   
+            </div>
+                       
+                  
+                  
+                  <!-- Document Footer
+
+            <div style="display: table; width: 100%;position: fixed; bottom: 0; width: 100%; text-align: center; padding: 10px;height: 200px;">
+                <div style="display: table-cell; width: 50%; padding: 10px; text-align:left; vertical-align: top;">
+                    <h4 style="margin-bottom: 5px;">Promoter :</h4>  
+                    <p style="margin-top: 0;">VEEGALAND DEVELOPERS PRIVATE LIMITED <br> </br>
+                       Represented by its Director – Marketing , Administration Mr. Kurian Thomas
+                     </p>    
+                </div>   
+                <div style="display: table-cell; width: 50%; padding: 10px;text-align:right; vertical-align: top;">
+                    <h4 style="margin-bottom: 5px;">Allottee:</h4>  
+                    <p style="margin-top: 0;">Lino Mathew <br> </br> Rep.  by his POAholder and father Mr. Mathai M. J.</p>   
+                </div>   
+            </div>  -->
+             
+
+            <!-- Agreement Introduction -->
+            <div class="content" style="margin-bottom:200px ">
+                <p><strong>THIS AGREEMENT FOR SALE</strong> is executed on this the <span style="background-color:yellow">Thirtieth day of January  Two Thousand and Twenty Five (30-01-2025)</span>by:</p>
+                
+                <div style="display: table; width: 100% ;page-break-after:always;">
+                <div style="display: table-cell; width: 50%; padding: 10px; text-align:left; vertical-align: top;">
+                    <h4 style="margin-bottom: 5px;">Promoter :</h4>  
+                    <p style="margin-top: 0;">VEEGALAND DEVELOPERS PRIVATE LIMITED <br> </br>
+                       Represented by its Director – Marketing , Administration Mr. Kurian Thomas
+                     </p>    
+                </div> 
+                <div style="display: table-cell; width:50%;padding: 10px;text-align:right; vertical-align: top; ">
+                    <h4 style="margin-bottom: 5px;background-color:yellow">Allottee:</h4>  
+                    <p style="margin-top: 0; background-color:yellow">Lino Mathew <br> </br> Rep.  by his POAholder and father Mr. Mathai M. J.</p>   
+                </div>   
+          
+            
+                
+            </div>
+            </div>
+            
+            
+             
+                <div style="display: table; width: 100%;">
+
+                <div style="display: table-cell; width: 50%; padding: 10px; text-align:left vertical-align: top">
+                  <p style="background-color:yellow"> Lino Mathew <br></br> (Allottee) </p>
+                  </div>
+                                  <div style="display: table-cell; width: 50%; text-align:right;padding: 10px; vertical-align: top;">
+
+                  <p style="background-color:yellow">Mathai M. J. <br></br> (POA holder of Allottee)</p>
+             </div>
+            </div>
+                        
+            
+            
+            
+            <!-- Content -->
+            <div >
+            <p style="line-height:20px;text-align:justify"><strong>VEEGALAND DEVELOPERS PRIVATE LIMITED,</strong> (CIN U45201KL2007PTC021107), a  Private Limited  Company incorporated under the Companies Act 1956, having its Registered  office  at  XIII/300  E-26,  4th floor,  K C F  Tower, Bharath               Matha College  Road,  Kakkanad  Desom, Thrikkakara  P.O., Vazhakkala               Village, Kanayannur Taluk,  Ernakulam  District , Pin code – 682 021, <strong> (PAN AACCV 5457 F)</strong>, represented by its Director – Marketing and Administration,            <strong> Mr. Kurian Thomas </strong>, aged 48 (Forty Eight) years, Private company employee, son of Mr. V.M. Thomas, having address at Vengathanam House, Florican Road, Nedugatoor Desom, Karaparamba P.O., Vengeri Village, Kozhikode Taluk, Kozhikode District, Pin Code  - 673 010 (Aadhaar No. 4036 1211 2022 issued by Government of India); duly authorised under resolution passed  in the meeting of  Board of Directors of the company held on 30-09-2023; hereinafter referred to as the <strong> “Promoter” </strong>, (which expression unless repugnant to the context or meaning thereof be deemed to mean and include all its legal heirs, successors, executors and permitted assignees)</p>
+           
+            <p style="Text-align:center"> <strong>AND</strong></p>
+            
+           <p style="line-height:20px;text-align:justify"><strong>Lino mathew</strong>, (Aadhaar No. 6164 5629 0678 issued by Government of India) and (PAN BCAPM 7060 D), aged 44 (Forty Four) years, Procurement Head, son of Mr. Mathai M. J., having address at Munduvelil Lino Bhavan, Puthur Desom, Puthur  P.O., Kulakkada Village, Kottarakkara  Taluk,   Kollam   District,  Pin  code  – 691507, represented by his Power of Attorney holder and father Mr. Mathai M. J., (Aadhaar No. 2416 4147 9114 issued by Government of India) and (PAN AWCPM 8892 N), aged 76 (Seventy Six) years, Retired, son of Mr. Cherian Mathai, having address at Munduvelil Lino Bhavan, Pretheeksha Nagar, Puthur Desom, Puthur  P.O., Kulakkada Village, Kottarakkara  Taluk,   Kollam   District,  Pin  code  – 691 507, signed before Mathew George, Advocate and Notary, Reg No. 04/2001/KLM, Kottarakara, Kollam District, on 03-01-2025; hereinafter called the “Allottee”  (which expression shall, wherever the context so admits or requires, mean and include her successors-in-interest, legal representatives, executors administrators and assigns)
+
+The Promoter and Allottee shall hereinafter collectively be referred to as the "Parties" and individually as a "Party".
+
+
+WHEREAS Promoter obtained 78.93 Ares of land made up of 4.95 Ares in Re. Sy. No.  51/2, with 4 Meter wide passage from the PWD Road as the southern boundary and PWD Road as the western boundary, 1.34 Ares in Re. Sy. No.  68, 23.07 Ares in Re. Sy. No.  51/4, 25.29 Ares in Re. Sy. No.  51/3, and 24.28 Ares in Re. Sy. No.  51, Block No. 369, (Old Sy. Nos. 193/2 and 193/3) in Thekkumbhagom Village, together with all easements and other similar rights appurtenant thereto, together with right of way over 4 meter wide passage from the PWD Road on the West, for all kinds of traffic and for taking all kinds of service connections thereto, Kanayannur Taluk of Ernakulam District under Sale deed No. 1729/2022, entered on pages 103 to 126,  Volume  No. 515, Book No. 1 of Sub Registry Office, Tripunithura.
+
+AND WHEREAS the above said properties are lying contiguous as one plot having a total area of 78.93 Ares of land in Thekkumbhagom Village. As per village records the 4.95 Ares of land subdivided and now included in                  Re. Sy. No. 51/2-2, Block  No. 369, in Thekkumbhagom Village. 
+
+AND WHEREAS Promoter is the absolute and lawful owner of 78.93 Ares of land made up of 4.95 Ares in Re. Sy. No.  51/2-2, 1.34 Ares in Re. Sy. No.  68, 23.07 Ares in Re. Sy. No.  51/4, 25.29 Ares in Re. Sy. No.  51/3, and 24.28 Ares in Re. Sy. No.  51, Block No. 369, in Thekkumbhagom Village, Kanayannur Taluk of Ernakulam District. Promoter has carried out mutation of rights in Thekkumbhagom Village records and is paying land tax as Pattadhar under Thandaper account number 10015 in Thekkumbhagom Village office.
+
+AND WHEREAS Promoter envisaged a project to put up a multi – storied residential apartment building consisting of 141 (One Hundred and Forty one) Apartments with common amenities and facilities by developing the                 property having an extent of 78.93 Ares of land made up of 4.95 Ares in Re. Sy. No.  51/2-2, 1.34 Ares in Re. Sy. No.  68, 23.07 Ares in Re. Sy. No.  51/4, 25.29 Ares in Re. Sy. No.  51/3, and 24.28 Ares in Re. Sy. No.  51, Block No. 369, in Thekkumbhagom Village (hereinafter referred to as “Schedule A” property) and the said project shall be known as “VEEGALAND GREEN HEIGHTS”. 
+
+AND WHEREAS the Promoter is fully competent to enter into this Agreement and all the legal formalities with respect to the right, title and interest of the Promoter regarding the said land on which Project is to be constructed, have been completed.
+
+AND WHEREAS Promoter obtained building Permit No. PW4/BA-255/2022-23 dated 08/09/2023 from Thripunithura Municipality, to put up multi – storied building and obtained plan approved from statutory Authorities to put up the same.
+
+AND WHEREAS the Promoter has obtained the final layout plan approvals for the Project from Thripunithura Municipality and the Promoter agrees and undertakes that it shall not make any changes to these layout plans except in strict compliance with section 14 of the Real Estate (Regulation and Development) Act 2016 (hereinafter called the “Act”) The Kerala Real Estate (Regulation and Development) Rules 2018 (hereinafter called the “Rules”) and other laws as applicable;
+
+AND WHEREAS the Promoter has opened a separate account No. 923020054133084 in Thrikkakara (Kakkanad) Branch of Axis Bank for the purpose as provided in the Act. A collection account bearing no. 923020053714107 at Thrikkakara (Kakkanad)  Branch of Axis Bank is also opened.
+
+AND WHEREAS the Promoter has obtained registration from K-RERA vide Registration No.  K-RERA/PRJ/ERN/182/2023.
+
+AND WHEREAS The Allottee had applied for an apartment in the Project vide application GH/134/1224 dated 31-12-2024 and has been allotted Apartment no. 7C having carpet area of 1308 Square feet (Super Built up area of 1826 Sq.ft), on 7th floor along with right to use one covered parking slot no. 171 having dimension 270 cm (Width) X 550 cm (Length) on the Basement Floor of the building and of pro rata share in the common areas as defined under clause (n) of Section 2 of the Act (hereinafter referred to as the "Apartment" more particularly described in Schedule C and the floor plan of the apartment is annexed hereto and marked as Schedule F, Electrical drawing of the apartment is annexed and marked as Schedule G, Plumbing drawing of the apartment is annexed and marked as Schedule H and Covered parking of the apartment is annexed and marked as Schedule I);
+
+AND WHEREAS Allottee has examined all the documents pertaining to this project and is convinced of the good, valid and marketable title of the Promoter on Schedule – A, B and C properties and has expressed desire to purchase Schedule – B and C properties after reading the rights and responsibilities set out in this Agreement.
+
+AND WHEREAS the Parties, relying on the confirmations, representations and assurances of each other to faithfully abide by all the terms, conditions and stipulations contained in this Agreement and all applicable laws, are now willing to enter into this Agreement on the terms and conditions appearing hereinafter;<br></br> <br></br>
+
+<strong>NOW THEREFORE, in consideration of the mutual representations, covenants, assurances, promises and agreements contained herein and other good and valuable consideration, the Parties agree as follows:</strong>
+
+
+
+  
+    
+    <div style="text-align:justify;">
+                    <h2 style="text-align:left;font-size:14px;text-align:justify;">
+                        1. Terms
+                    </h2> 
+                    
+                    <ol >
+                       
+                       <li style="list-style-type:none" >        
+                    <ol style="list-style-type:none;line-height:20px;
+                           padding: 0;
+                margin-left:0px;">
+                <li style="margin-bottom:10px"><span style="font-size:14px"><strong >1.1</strong></span>Subject to the terms and conditions as detailed in this Agreement, the  Promoter agrees to sell to the Allottee and the Allottee hereby agree   to  purchase, the Apartment no. 7C on the 7th floor of the building.</li>
+                <li> <span style="font-size:14px"><strong >1.2</strong></span> The Price for the Apartment based on the carpet area is Rs.1,28,80,280/- (Rupees One Crore Twenty Eight Lakh Eighty Thousand Two Hundred and Eighty Only) and includes costs of apartment, common area share, undivided share of land and parking. In addition to the above price, the Allottee shall pay Rs.6,44,014/- (Rupees Six Lakh Forty Four Thousand and Fourteen Only) as GST calculated as per the existing rate. Thus the total price of apartment is Rs.1,35,24,294/- (Rupees One Crore Thirty Five Lakh Twenty Four Thousand Two Hundred and Ninety Four Only).</li>
+              
+              
+              <table  style="width:400px;margin:auto;border: 2px solid black;margin-top:40px;page-break-after:always; " >
+        <tr >
+            <th  style="border-right: 1px solid black;">Apartment Number</th>
+            <td>7C</td>
+        </tr>
+        <tr>
+            <th style="border-right: 1px solid black;">Floor  </th>
+            <td>7 <sup>th</sup></td>
+        </tr>
+        <tr>
+            <th style="border-right: 1px solid black;">Type  </th>
+            <td>3 BHK</td>
+        </tr>
+        
+        
+        <tr>
+            <th style="border-right: 1px solid black;">Carpet Area</th>
+            <td>121.53 Sq. Mtrs (1308 Sqft)</td>
+        </tr>
+        <tr>
+            <th style="border-right: 1px solid black;">Super Built-up Area </th>
+            <td> 169.71 Sq. Mtrs (1826 Sqft)</td>
+        </tr>
+        <tr>
+            <th style="border-right: 1px solid black;">Undivided Share of land </th>
+            <td>0.65%</td>
+        </tr>
+    </table>
+    
+     
+     
+     
+   <strong>  Explanation:  </strong> <br></br>
+
+    <ol style="line-height:20px;
+                           padding: 0;">
+    <li style="margin-bottom:10px">
+     The Total Price above includes the booking amount paid by the   Allottee to the Promoter towards the Apartment
+.
+    </li >
+    
+    <li style="margin-bottom:10px">
+    The Total Price Rs.1,35,24,294/- (Rupees One Crore Thirty Five Lakh Twenty Four Thousand Two Hundred and Ninety Four Only) includes Taxes consisting of tax paid or payable by the Promoter by way of GST, local tax, rates, duties, levies, one time building tax, contribution towards construction workers welfare fund, all service connection charges for water  supply, electricity supply, telephone, including related deposits and duties leviable on the land and apartment and Cess or any other similar taxes which may be levied, in connection with the construction of the Project up to the date of handing over the possession of the Apartment.
+    Provided that in case there is any change / modification in the taxes, the  subsequent amount payable by the Allottee to the promoter shall be  increased/reduced based on such change / modification;
+    Provided further that if the Allottee wishes to transfer the Apartment  after execution of this Agreement for Sale and scheduled payments, the  proportionate taxes paid in the name of the Allottee cannot be  refunded and the same should be additionally paid on behalf of new  Allottee. 
+
+    
+    </li>
+    
+    <li style="margin-bottom:10px">
+    
+     The Promoter shall periodically intimate to the Allottee, the amount    payable as stated in (i) above and the Allottee shall make payment  within 30 (thirty) days from the date of such written intimation. In    addition, the   Promoter  shall provide to the Allottee  the details of the     taxes paid or demanded along with the acts/rules/notifications together     with dates from which such taxes/levies etc. have been imposed or   become effective;
+    </li>
+    
+    
+    <li style="margin-bottom:10px">
+    The Total Price of Apartment includes: 1) pro rata share in the Common Areas; 2) Undivided share of land and parking as provided in the     agreement.
+    </li>
+    
+    
+    </ol>
+    
+    
+    <li style="list-style-type:none">
+  <span style="font-size:14px"><strong >1.3</strong></span>
+     The Total Price is escalation-free, save and except increases which the     Allottee hereby agrees to pay, due to increase on account of    development charges payable to the competent authority and/or any   other increase in   charges which may be levied or imposed by the   competent authority from time to time. The Promoter undertakes and  agrees that while raising a demand on the Allottee for increase in  development charges, cost/charges imposed by the competent  authorities, the Promoter shall enclose the said notification/order/    rule/regulation to that effect along with the demand letter being issued    to the Allottee, which shall only be applicable on subsequent   payments.
+    </li>
+    
+    </ol>
+            
+        </li>
+
+        </ol>
+     </div>
+          
+</p>
+
+
+            
+            
+             </div>
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,907 @@
+<apex:page standardController="Quote__c" extensions="FinalBookingFormCtrl" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false"  standardStylesheets="false" renderAs="PDF">
+    <html>
+        <head>
+            <style type="text/css" media="print">
+                @page {
+                size: A4;
+                background-image: url('{!$Resource.BackgroundImage}');
+                background-size: cover; 
+                background-position: 0% 80%;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                margin-left: 20px;
+                margin-right: 20px;
+                
+                @top-center { 
+                content: element(header);
+                }
+                @bottom-left {
+                content: element(footer);
+                }
+                }
+                div.header {
+                padding: 10px;
+                position: running(header);
+                }
+                div.footer {
+                display: block;
+                padding: 5px;
+                position: running(footer);
+                }
+                .pagenumber:before {
+                content: counter(page);
+                }
+                .pagecount:before {
+                content: counter(pages);
+                }
+                *{
+                font-family: 'Times New Roman', Times, serif;
+                font-size:14px
+                }
+                div.header {
+                padding: 20px;
+                position: running(header);
+                margin-left: -200px;
+                }
+                div.footer {
+                padding: 10px;
+                position: running(footer);
+                font-size: 9px;
+                text-align:left;
+                
+                }
+                div.footer :first-child{
+                text-align:right;
+                }
+                
+                div.content, div.content p{
+                padding:0 20px;
+                line-height:1.5;
+                font-size:18px;
+                }
+                th, td {
+                padding: 2px 5px;
+                font-size:14px;
+                
+                }
+                p{
+                line-height:1;
+                padding:1px;
+                }
+                table, tr {
+                width:100%;
+                
+                border-collapse: collapse;
+                }
+                .photo-box {
+                width: 100px;
+                height: 120px;
+                border: 1px solid black;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 12px;
+                margin: auto;
+                }
+                .bottom-border{
+                border-bottom: 0.3px solid black;
+                }
+                .right-bottom-border{
+                border-right: 0.3px solid black;
+                }
+                li{
+                line-height:1.3;
+                font-size:12px;
+                }
+                ol{
+                margin-top:2px;
+                margin-bottom:2px;
+                }
+                
+            </style> 
+        </head>
+        <body>
+            <div class="content" >
+                <apex:outputPanel >
+                    <table width="100%">
+                        <tr>
+                            <td width="50%" colspan="2"  valign="top" >
+                                <div style="font-weight:700">
+                                    Veegaland Developers (P) Ltd.
+                                </div>
+                                <div style="font-size:12px;">
+                                    XIII/300 E-26 (XXXV/564)<br/>
+                                    4th Floor, K Chittilappilly Tower,<br/>
+                                    Bharath Matha College Road,<br/>
+                                    Kakkanad, Thrikakkara P.O.,<br/>
+                                    Ernakulam-682021.<br/>
+                                    CIN U45201KL2007PTC021107
+                                </div>
+                            </td>
+                            <td width="50%" colspan="2" style="text-align:right" valign="middle">
+                                <img src="{!$Resource.veegaland}" width="160px" height="80px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="background-color:#fbca0c;text-align:center">
+                                APPLICATION FOR BOOKING
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td colspan="2" width="50%">
+                                ProjectName: {!Quote__c.Project__c }
+                            </td>
+                            <td  width="35%">
+                                Location: {!quote.Projects__r.Locality_Name__c}, {!quote.Projects__r.City__c}
+                            </td>
+                            <td  width="25%">
+                                Unit: {!Quote__c.Unit__r.Name }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="background-color:#fbca0c;text-align:center">
+                                PERSONAL INFORMATION (TO BE FILLED IN BLOCK/CAPITAL LETTERS ONLY)
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    
+                    <div style="display: table; width: 100%;Page-break-after:always;">
+                        <!-- Primary Applicant -->
+                        <div style="display: table-cell; width: 50%; vertical-align: top;">
+                            <table border='1' style="width: 100%; border: 1px solid black;">
+                                <tr>
+                                    <td style="text-align:center;border-top:none;border-bottom:none" width="50%">
+                                        Details of Sole / First Applicant
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:center;border-top:none;border-bottom:none">
+                                        <div class="photo-box">
+                                            <apex:repeat value="{!fileUrls}" var="key"> <!--yourMapVariable is a map and you are not sure whether it contains or not the key 'Name' -->
+                                                <apex:outputText rendered="{!key==Quote__c.Id}"> <!-- kind of containsKey(...) -->
+                                                    <apex:image url="{!fileUrls[Quote__c.Id]}" width="100px" height="120px"/> <!-- this is now safe and will never produces an exception -->
+                                                </apex:outputText>
+                                            </apex:repeat>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="20%" style="padding-bottom:25px;border-top:none;" >
+                                        Name: {!Quote__c.Primary_Applicant_Saluaion__c}.{!Quote__c.Primary_Applicant_Name__c}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Date of Birth/Age: &nbsp;
+                                        <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                                            <apex:param value="{!Quote__c.Primary_Applicant_DoB__c}" /> 
+                                        </apex:outputText>
+                                    </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td >
+                                        NRI / RI: {!Quote__c.Primary_Applicant_NRI_RI__c}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td >
+                                        Profession: {!Quote__c.Primary_Applicant_Profession__c}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td  >
+                                        Son / Daughter / Wife of: {!Quote__c.Primary_Applicant_Father_Husband_s_Name__c}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td >
+                                        PAN (Mandatory): {!Quote__c.Primary_Applicant_PAN__c}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td >
+                                        Aadhar No.:{!Quote__c.Primary_Applicant_Aadhaar_No__c}<br/> 
+                                        Passport No.: {!Quote__c.Primary_Applicant_Passport_No__c}<br/>
+                                        Driving Licence No.: {!Quote__c.Primary_Applicant_Driving_License_No__c}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td  >
+                                        Email Id: {!Quote__c.Primary_Applicant_Email__c}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Mobile No: {!Quote__c.Primary_Applicant_Mobile_No__c}<br/> 
+                                        Telephone No: {!Quote__c.Primary_Applicant_Telephone_No__c}<br/> 
+                                        International No (if NRI): {!Quote__c.Primary_Applicant_International_No__c}<br/> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td  >
+                                        Permanent Address:<br/> 
+                                        House No/Name: {!Quote__c.Permanent_House_No_Name__c}<br/>
+                                        Street/Location: {!Quote__c.Permanent_Street_Location__c}<br/>
+                                        Post Office: {!Quote__c.Permanent_Post_Office__c}<br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: table; width: 100%;">
+                                            <!-- First Row: City & Postal Code -->
+                                            <div style="display: table-row;">
+                                                <div style="display: table-cell; width: 50%; text-align: left;">
+                                                    City: {!Quote__c.Permanent_City__c}
+                                                </div>
+                                                <div style="display: table-cell; width: 50%; text-align: left;">
+                                                    Postal Code: <apex:outputText value="{!TEXT(Quote__c.Permanent_Postal_Code__c)}" />
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Second Row: State & Country -->
+                                            <div style="display: table-row;">
+                                                <div style="display: table-cell; width: 50%; text-align: left;">
+                                                    State: {!Quote__c.Permanent_State__c}
+                                                </div>
+                                                <div style="display: table-cell; width: 50%; text-align: left;">
+                                                    Country: {!Quote__c.Permanent_Country__c}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                
+                                <tr>
+                                    <td >
+                                        Correspondence Address:<br/>
+                                        House No/Name: {!Quote__c.Correspondence_House_No_Name__c}<br/>
+                                        Street/Location: {!Quote__c.Correspondence_Street_Location__c}<br/>
+                                        Post Office: {!Quote__c.Correspondence_Post_Office__c}<br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> 
+                                        <div style="display: table; width: 100%;">
+                                            <!-- First Row: City & Postal Code -->
+                                            <div style="display: table-row;">
+                                                <div style="display: table-cell; width: 50%; text-align: left;">
+                                                    City: {!Quote__c.Correspondence_City__c}
+                                                </div>
+                                                <div style="display: table-cell; width: 50%; text-align: left;">
+                                                    Postal Code: <apex:outputText value="{!TEXT(Quote__c.Correspondence_Postal_Code__c)}" />
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Second Row: State & Country -->
+                                            <div style="display: table-row;">
+                                                <div style="display: table-cell; width: 50%; text-align: left;">
+                                                    State: {!Quote__c.Correspondence_State__c}
+                                                </div>
+                                                <div style="display: table-cell; width: 50%; text-align: left;">
+                                                    Country: {!Quote__c.Correspondence_Country__c}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <apex:outputPanel rendered="{!NOT(ISNULL(secApplicant.Id))}">
+                            
+                            <div style="display: table-cell; width: 50%; vertical-align: top;">
+                                <table border="1" style="width: 100%; border: 1px solid black;">
+                                    <tr>
+                                        <td style="text-align:center;border-top:none;border-bottom:none" width="50%">
+                                            Details of Second Applicant
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center;border-top:none;border-bottom:none">
+                                            <div class="photo-box">
+                                                <apex:repeat value="{!fileUrls}" var="key"> <!--yourMapVariable is a map and you are not sure whether it contains or not the key 'Name' -->
+                                                    <apex:outputText rendered="{!key==secApplicant.Id}"> <!-- kind of containsKey(...) -->
+                                                        <apex:image url="{!fileUrls[secApplicant.Id]}" width="100px" height="120px"/> <!-- this is now safe and will never produces an exception -->
+                                                    </apex:outputText>
+                                                </apex:repeat>
+                                                
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%" style="padding-bottom:25px;border-top:none;" >
+                                            Name: {!secApplicant.Salutation__c}.{!secApplicant.Name}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Date of Birth/Age: &nbsp;
+                                            <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                                                <apex:param value="{!secApplicant.Date_of_Birth__c}" /> 
+                                            </apex:outputText>
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td >
+                                            NRI / RI: {!secApplicant.Co_Applicant_NRI_RI__c}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td >
+                                            Profession: {!secApplicant.Co_Applicant_Profession__c}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td  >
+                                            Son / Daughter / Wife of: {!secApplicant.Co_Applicant_Father_Husband_s_Name__c}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td >
+                                            PAN (Mandatory): {!secApplicant.PAN_Number__c}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td >
+                                            Aadhar No.: {!secApplicant.Aadhar_Number__c}<br/> 
+                                            Passport No.: {!secApplicant.Passport_No__c}<br/>
+                                            Driving Licence No.: {!secApplicant.Co_Applicant_Driving_License_No__c}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td  >
+                                            Email Id: {!secApplicant.Email__c}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Mobile No: {!secApplicant.Mobile__c}<br/> 
+                                            Telephone No: {!secApplicant.Phone__c}<br/> 
+                                            International No (if NRI): {!secApplicant.International_Phone__c}<br/> 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td  >
+                                            Permanent Address:<br/> 
+                                            House No/Name: {!secApplicant.Permanent_House_No_Name__c}<br/>
+                                            Street/Location: {!secApplicant.Permanent_Street_Location__c}<br/>
+                                            Post Office: {!secApplicant.Permanent_Post_Office__c}<br/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div style="display: table; width: 100%;">
+                                                <!-- First Row: City & Postal Code -->
+                                                <div style="display: table-row;">
+                                                    <div style="display: table-cell; width: 50%; text-align: left;">
+                                                        City: {!secApplicant.Permanent_City__c}
+                                                    </div>
+                                                    <div style="display: table-cell; width: 50%; text-align: left;">
+                                                        Postal Code: <apex:outputText value="{!TEXT(secApplicant.Permanent_Postal_Code__c)}" />
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Second Row: State & Country -->
+                                                <div style="display: table-row;">
+                                                    <div style="display: table-cell; width: 50%; text-align: left;">
+                                                        State: {!secApplicant.Permanent_State__c}
+                                                    </div>
+                                                    <div style="display: table-cell; width: 50%; text-align: left;">
+                                                        Country: {!secApplicant.Permanent_Country__c}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    
+                                    <tr>
+                                        <td >
+                                            Correspondence Address:<br/>
+                                            House No/Name: {!secApplicant.Correspondence_House_No_Name__c}<br/>
+                                            Street/Location: {!secApplicant.Correspondence_Street_Location__c}<br/>
+                                            Post Office: {!secApplicant.Correspondence_Post_Office__c}<br/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> 
+                                            <div style="display: table; width: 100%;">
+                                                <!-- First Row: City & Postal Code -->
+                                                <div style="display: table-row;">
+                                                    <div style="display: table-cell; width: 50%; text-align: left;">
+                                                        City: {!secApplicant.Correspondence_City__c}
+                                                    </div>
+                                                    <div style="display: table-cell; width: 50%; text-align: left;">
+                                                        Postal Code: <apex:outputText value="{!TEXT(secApplicant.Correspondence_Postal_Code__c)}" />
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Second Row: State & Country -->
+                                                <div style="display: table-row;">
+                                                    <div style="display: table-cell; width: 50%; text-align: left;">
+                                                        State: {!secApplicant.Correspondence_State__c}
+                                                    </div>
+                                                    <div style="display: table-cell; width: 50%; text-align: left;">
+                                                        Country: {!secApplicant.Correspondence_Country__c}
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </apex:outputPanel>
+                    </div>
+                   
+                    <apex:variable var="index" value="{!0}" />
+                    <apex:variable var="totalApplicants" value="{!applicants.size}" />
+                    <apex:repeat value="{!applicants}" var="applicant" id="applicantList">
+                        
+                        
+                        <!-- Open a new row every 2 applicants -->
+                        <apex:outputPanel rendered="{!MOD(index,2) = 0}" layout="block" style="display:flex">
+                            <div style="display: table; width: 100%; border-collapse: collapse;Page-break-after:always;">
+                                <div style="display: table-cell; width: 50%; vertical-align: top;">
+                                    
+                                    <table style="width: 100%; border: 1px solid black;">
+                                        <tr>
+                                            <td style="text-align:center" width="50%">
+                                                Details of {!applicantTitles[index]} Applicant
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center">
+                                                <div class="photo-box">
+                                                    <apex:repeat value="{!fileUrls}" var="key"> <!--yourMapVariable is a map and you are not sure whether it contains or not the key 'Name' -->
+                                                        <apex:outputText rendered="{!key==applicant.Id}"> <!-- kind of containsKey(...) -->
+                                                            <apex:image url="{!fileUrls[applicant.Id]}" width="100px" height="120px"/> <!-- this is now safe and will never produces an exception -->
+                                                        </apex:outputText>
+                                                    </apex:repeat>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="20%" style="padding-bottom:25px" >
+                                                {!applicant.Salutation__c} :  {!applicant.Name}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Date of Birth/Age: &nbsp;
+                                                <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                                                    <apex:param value="{!applicant.Date_of_Birth__c}" /> 
+                                                </apex:outputText>
+                                            </td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                NRI / RI: {!applicant.Co_Applicant_NRI_RI__c}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                Profession: {!applicant.Co_Applicant_Profession__c}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td  >
+                                                Son / Daughter / Wife of: {!applicant.Co_Applicant_Father_Husband_s_Name__c}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                PAN (Mandatory): {!applicant.PAN_Number__c}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                Aadhar No.: {!applicant.Aadhar_Number__c}<br/> 
+                                                Passport No.: {!applicant.Passport_No__c}<br/>
+                                                Driving Licence No.: {!applicant.Co_Applicant_Driving_License_No__c}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td  >
+                                                Email Id: {!applicant.Email__c}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Mobile No: {!applicant.Mobile__c}<br/> 
+                                                Telephone No: {!applicant.Phone__c}<br/> 
+                                                International No (if NRI): {!applicant.International_Phone__c}<br/> 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td  >
+                                                Permanent Address:<br/> 
+                                                House No/Name: {!applicant.Permanent_House_No_Name__c}<br/>
+                                                Street/Location: {!applicant.Permanent_Street_Location__c}<br/>
+                                                Post Office: {!applicant.Permanent_Post_Office__c}<br/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div style="display: table; width: 100%;">
+                                                    <!-- First Row: City & Postal Code -->
+                                                    <div style="display: table-row;">
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            City: {!applicant.Permanent_City__c}
+                                                        </div>
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            Postal Code: <apex:outputText value="{!TEXT(applicant.Permanent_Postal_Code__c)}" />
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- Second Row: State & Country -->
+                                                    <div style="display: table-row;">
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            State: {!applicant.Permanent_State__c}
+                                                        </div>
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            Country: {!applicant.Permanent_Country__c}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        
+                                        <tr>
+                                            <td >
+                                                Correspondence Address:<br/>
+                                                House No/Name: {!applicant.Correspondence_House_No_Name__c}<br/>
+                                                Street/Location: {!applicant.Correspondence_Street_Location__c}<br/>
+                                                Post Office: {!applicant.Correspondence_Post_Office__c}<br/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> 
+                                                <div style="display: table; width: 100%;">
+                                                    <!-- First Row: City & Postal Code -->
+                                                    <div style="display: table-row;">
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            City: {!applicant.Correspondence_City__c}
+                                                        </div>
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            Postal Code: <apex:outputText value="{!TEXT(applicant.Correspondence_Postal_Code__c)}" />
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- Second Row: State & Country -->
+                                                    <div style="display: table-row;">
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            State: {!applicant.Correspondence_State__c}
+                                                        </div>
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            Country: {!applicant.Correspondence_Country__c}
+                                                        </div>
+                                                    </div>
+                                                </div>  
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="display: table-cell; width: 50%; vertical-align: top;">
+                                    <!-- Second Applicant in the Row (If Exists) -->
+                                    <apex:variable var="nextIndex" value="{!index+1}" />
+                                    <apex:outputPanel rendered="{!nextIndex < totalApplicants}" >
+                                        
+                                        <table style="width: 100%; border: 1px solid black;">
+                                            <tr>
+                                            <td style="text-align:center" width="50%">
+                                                Details of {!applicantTitles[nextIndex]} Applicant
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center">
+                                                <div class="photo-box">
+                                                    <apex:repeat value="{!fileUrls}" var="key"> <!--yourMapVariable is a map and you are not sure whether it contains or not the key 'Name' -->
+                                                        <apex:outputText rendered="{!key==applicants[nextIndex].Id}"> <!-- kind of containsKey(...) -->
+                                                            <apex:image url="{!fileUrls[applicants[nextIndex].Id]}" width="100px" height="120px"/> <!-- this is now safe and will never produces an exception -->
+                                                        </apex:outputText>
+                                                    </apex:repeat>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="20%" style="padding-bottom:25px" >
+                                                {!applicants[nextIndex].Salutation__c} :  {!applicants[nextIndex].Name}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Date of Birth/Age: &nbsp;
+                                                <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                                                    <apex:param value="{!applicants[nextIndex].Date_of_Birth__c}" /> 
+                                                </apex:outputText>
+                                            </td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                NRI / RI: {!applicants[nextIndex].Co_Applicant_NRI_RI__c}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                Profession: {!applicants[nextIndex].Co_Applicant_Profession__c}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td  >
+                                                Son / Daughter / Wife of: {!applicants[nextIndex].Co_Applicant_Father_Husband_s_Name__c}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                PAN (Mandatory): {!applicants[nextIndex].PAN_Number__c}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                Aadhar No.: {!applicants[nextIndex].Aadhar_Number__c}<br/> 
+                                                Passport No.: {!applicants[nextIndex].Passport_No__c}<br/>
+                                                Driving Licence No.: {!applicants[nextIndex].Co_Applicant_Driving_License_No__c}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td  >
+                                                Email Id: {!applicants[nextIndex].Email__c}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Mobile No: {!applicants[nextIndex].Mobile__c}<br/> 
+                                                Telephone No: {!applicants[nextIndex].Phone__c}<br/> 
+                                                International No (if NRI): {!applicants[nextIndex].International_Phone__c}<br/> 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td  >
+                                                Permanent Address:<br/> 
+                                                House No/Name: {!applicants[nextIndex].Permanent_House_No_Name__c}<br/>
+                                                Street/Location: {!applicants[nextIndex].Permanent_Street_Location__c}<br/>
+                                                Post Office: {!applicants[nextIndex].Permanent_Post_Office__c}<br/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div style="display: table; width: 100%;">
+                                                    <!-- First Row: City & Postal Code -->
+                                                    <div style="display: table-row;">
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            City: {!applicants[nextIndex].Permanent_City__c}
+                                                        </div>
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            Postal Code: <apex:outputText value="{!TEXT(applicants[nextIndex].Permanent_Postal_Code__c)}" />
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- Second Row: State & Country -->
+                                                    <div style="display: table-row;">
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            State: {!applicants[nextIndex].Permanent_State__c}
+                                                        </div>
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            Country: {!applicants[nextIndex].Permanent_Country__c}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        
+                                        <tr>
+                                            <td >
+                                                Correspondence Address:<br/>
+                                                House No/Name: {!applicants[nextIndex].Correspondence_House_No_Name__c}<br/>
+                                                Street/Location: {!applicants[nextIndex].Correspondence_Street_Location__c}<br/>
+                                                Post Office: {!applicants[nextIndex].Correspondence_Post_Office__c}<br/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> 
+                                                <div style="display: table; width: 100%;">
+                                                    <!-- First Row: City & Postal Code -->
+                                                    <div style="display: table-row;">
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            City: {!applicants[nextIndex].Correspondence_City__c}
+                                                        </div>
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            Postal Code: <apex:outputText value="{!TEXT(applicants[nextIndex].Correspondence_Postal_Code__c)}" />
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- Second Row: State & Country -->
+                                                    <div style="display: table-row;">
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            State: {!applicants[nextIndex].Correspondence_State__c}
+                                                        </div>
+                                                        <div style="display: table-cell; width: 50%; text-align: left;">
+                                                            Country: {!applicants[nextIndex].Correspondence_Country__c}
+                                                        </div>
+                                                    </div>
+                                                </div>  
+                                            </td>
+                                        </tr>
+                                        </table>
+                                        
+                                    </apex:outputPanel>
+                                </div> </div>
+                        </apex:outputPanel>   
+                        
+                        <apex:variable var="index" value="{!index+1}" />  
+                        
+                    </apex:repeat>
+                    
+                    
+                    <div style="Page-break-before:always;">
+                        <table>
+                            <tr>
+                                <td colspan="12"  style="background-color:#fbca0c;text-align:center">
+                                    UNIT DETAILS
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" width="20%">
+                                    Unit Allotted: {!Quote__c.Unit__r.Name }
+                                </td>
+                                <td colspan="1" width="10%"></td>
+                                <td colspan="2" width="20%">
+                                    Super Built-up Area (Sq. ft.): {!Quote__c.Built_up_area__c }</td>
+                                <td colspan="1" width="10%"></td>
+                                <td colspan="2" width="20%">
+                                    
+                                    Carpet Area (Sq. ft.) : {!Quote__c.Carpet_Area__c }</td>
+                                <td colspan="1" width="10%"></td>
+                                <td colspan="2" width="20%">
+                                    Total Sale Value: Rs.{!Quote__c.Apartment_Cost_Including_Car_Parking_T__c }</td>
+                                <td colspan="1" width="10%"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="12"  style="background-color:#fbca0c;text-align:center">
+                                    PAYMENT DETAILS: ACCOUNT NAME: “Veegaland Developers Pvt. Ltd.”
+                                </td>
+                            </tr>
+                            <tr >
+                                <td colspan="12" class="bottom-border">
+                                    Booking Amount: Rs. {!Quote__c.Advance_Amount__c }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" width="50%" style="padding-bottom:10px;">Draft/Cheque/RTGS/NEFT No.: {!Quote__c.Draft_Cheque_RTGS_NEFT_No__c }</td>
+                                <td colspan="6" width="50%">Date of transaction: &nbsp;
+                                    <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                                        <apex:param value="{!Quote__c.Date_Of_Transaction__c}" /> 
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12"  style="background-color:#fbca0c;text-align:center;">
+                                    TERMS AND CONDITIONS
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12">
+                                    <ol>
+                                        <li>The basic sale price of the apartment may change depending on the rates prevalent at the time of acceptance of the application
+                                            by the builder.</li>
+                                        <li>The buyer should make all the payments / installments in accordance with the schedule of payment forming part of the
+                                            agreement.
+                                        </li><li>GST is payable as applicable on all payments (i.e. booking amount, all installments and additional charges etc.).
+                                        </li><li>The buyer should not transfer the application and/or allotment without the prior approval of the builder and without
+                                        complying with the policies/procedures of the builder in this regard.
+                                        </li><li>The agreement for sale shall be executed once 10% of total apartment cost is received by elaborating all terms and conditions
+                                        for allotment of apartments and the same shall be registered before concerned Sub Registrar at the expense of the buyer.
+                                        </li><li>In case of cancellation of the booking by the buyer before execution of the agreements the entire booking amount would be
+                                        refunded without any interest within 30 days from the receipt of such request in writing from the buyer after deducting the
+                                        administrative and clerical charges as fixed by the builder. The refund of the tax amount is subject to the provisions / laws in
+                                        this regard.
+                                        </li><li>Self-attested proof of address and Pan Card copy needs to be attached along with this form. If the booking is in joint name,
+                                        then both applicants need to sign this form and submit all necessary documents.
+                                        </li><li>Registration charges / Stamp duty / related expenses / association fund and all other taxes/deposits applicable during the
+                                        pendency of the agreement or after its completion shall be extra and payable to concerned authorities directly by the customer.
+                                        </li><li>All payments should be made by way of DD/Bank Transfer/Crossed Cheques payable at Ernakulam drawn in favour of
+                                        “Veegaland Developers Pvt. Ltd.” Overseas buyers should make their payments though proper banking channels.
+                                        </li><li>The buyer is liable to deduct and remit tax @ 1% on the total cost of the apartment as per income tax rules.
+                                        </li><li>If the buyer intents to extend any other finishing / alteration works in the apartment then the builder need to execute
+                                        separate/Supplemental agreement and register it to that effect and payments along with necessary taxes will be extra.
+                                        </li><li>All disputes relating to/arising out of this application form are subject to the exclusive jurisdiction of the courts in Ernakulam.
+                                        </li><li>In case of cancellation of the booking after the execution of agreement, 10% of the total cost, being advanced as per the
+                                        agreement, will be forfeited for the purpose of cancellation.</li>
+                                    </ol>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12"  style="background-color:#fbca0c;text-align:center">
+                                    DECLARATION
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" style="text-align:justify;">
+                                    I/We, the undersigned applicant(s) (Sole/First and Co/Second applicant), do hereby declare that the above mentioned particulars/information given by me/us are irrevocable, true and correct to my/our knowledge and no material fact has been concealed
+                                    there from. I/We have gone through the terms and conditions written in this form and accept the same and which shall ipso-facto
+                                    be applicable to my/our legal heirs and successors. I/We declare that in case of non-allotment of the apartment/unit, my/our claim
+                                    shall be limited only to the extent of amount paid by me/us in relation to this application form. 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="text-align:left;padding-top:50px;">
+                                    <div style="position:relative;">
+                                        <div style="position:absolute;left:0;right:0;top:-50px;text-align: center; font-size: 9.5px">
+                                            <apex:repeat value="{!signatureUrls}" var="key">
+                                                <apex:outputText rendered="{!key==Quote__c.Id}">
+                                                    <apex:image url="{!signatureUrls[Quote__c.Id]}" width="120px" height="60px"/>
+                                                </apex:outputText>
+                                            </apex:repeat>
+                                        </div>
+                                        <div style="text-align: center; font-size: 9.5px;border-top: 0.5px solid #000;padding:5px;width:80%">
+                                            Signature of First Applicant
+                                        </div>
+                                    </div>
+                                </td>
+                                <td colspan="4" style="text-align:center;padding-top:50px;">
+                                    <div style="text-align: center; font-size: 9.5px;border-top: 0.5px solid #000;padding:5px;width:80%">
+                                        Date:
+                                    </div>
+                                    
+                                </td>
+                                <td colspan="4" style="text-align:right;border-top;padding:50px 0 15px 0;">
+                                    <apex:outputPanel rendered="{!NOT(ISNULL(secApplicant.Id))}">
+                                        <div style="text-align: center; font-size: 9.5px;border-top: 0.5px solid #000;padding:5px 0;width:100%">
+                                            Signature of Second Applicant
+                                        </div>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12"  style="background-color:#fbca0c;text-align:center">
+                                    OFFICE USE
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" width="33.3%" style="text-align:left;padding-top:20px;">
+                                    Date of Booking:  &nbsp;
+                                    <apex:outputText value="{0,date,dd/MM/yyyy}"> 
+                                        <apex:param value="{!Quote__c.Quote_date__c}" /> 
+                                    </apex:outputText>
+                                </td>
+                                <td colspan="4" width="33.3%" style="text-align:center;padding-top:20px;">
+                                    Apartment allotted: {!Quote__c.Unit__r.Name }
+                                </td>
+                                <td colspan="4"  width="33.3%" style="text-align:right;padding-top:20px;">
+                                    Total cost: {!Quote__c.Advance_Amount__c }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" width="33.3%" style="text-align:left;padding-top:30px;">
+                                    <div style="text-align: center; font-size: 9.5px;border-top: 0.5px solid #000;padding:5px;width:80%">
+                                        Manager Sales &amp; Marketing
+                                    </div>
+                                </td>
+                                <td colspan="4" width="33.3%" style="text-align:center;padding-top:100px;">
+                                    <div style="text-align: center; font-size: 9.5px;border-top: 0.5px solid #000;padding:5px;width:80%">
+                                        Director Marketing &amp; Admin
+                                    </div>
+                                    
+                                </td>
+                                <td colspan="4" width="33.3%" style="text-align:right;border-top;padding-top:30px;">
+                                    <div style="text-align: center; font-size: 9.5px;border-top: 0.5px solid #000;padding:5px 0;width:100%">
+                                        Assistant Sales Manager
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <div style="text-align: center; font-size: 9.5px;border-top: .5px solid #000;padding:5px 0;width:100%;margin-top:30px"></div>
+                    </div>
+                </apex:outputPanel>
+            </div>
+        </body>
+    </html>
+</apex:page>

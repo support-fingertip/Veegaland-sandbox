@@ -1,0 +1,41 @@
+<aura:component controller="QuoteController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >     <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+    <aura:attribute name="emailContent" type="String" />
+    <aura:attribute name="recepients" type="String" />
+    <aura:attribute name="ownerEmail" type="String" />
+    <aura:attribute name="ownerPhone" type="String" />
+    <aura:attribute name="ownerName" type="String" />
+    <aura:attribute name="customerEmail" type="String" />
+    <aura:attribute name="record" type="Object" /> 
+    <aura:attribute name="vfPage" type="string" />
+    <aura:attribute name="showPdf" type="boolean" default="false" />
+    <aura:attribute name="hasEmail" type="boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+    
+    <aura:html tag="style">
+        .lightningInputRichText{
+        --lwc-sizeSmall: 23rem;
+        }
+        .panel.slds-modal > .modal-container{
+        width: 75%;
+        max-width: 70rem;
+        }
+    </aura:html>
+    <section class="slds-modal slds-fade-in-open">
+        <header class="slds-modal__header">
+            <h2 class="slds-text-heading_medium slds-hyphenate">Generate Final Booking Form</h2>
+            <lightning:messages />
+        </header>
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <aura:if isTrue="{!v.vfPage}">
+                <iframe src="{!v.vfPage}" width="100%" height="520px;" frameBorder="0" />
+            </aura:if>
+        </div>
+        <footer class="slds-modal__footer ">
+            <button class="slds-button slds-button_neutral" onclick="{!c.close}">Cancel</button>
+            <aura:if isTrue="{!v.hasEmail}">
+            <button class="slds-button slds-button_brand" onclick="{!c.send}">Send Email</button>
+                </aura:if>
+        </footer>
+    </section>
+</aura:component>

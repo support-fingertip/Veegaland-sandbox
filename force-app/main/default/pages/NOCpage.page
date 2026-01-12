@@ -1,0 +1,139 @@
+<apex:page renderAs="pdf" applyBodyTag="false" showHeader="false">
+    <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+            <style type="text/CSS">
+                
+            </style>
+        </head>
+        
+        <body style="font-family: Arial, sans-serif; font-size: 14px; margin: 20px;">
+            
+            <div class="address">
+                
+                <span style="text-align:left">
+                    The Branch Manager<br/> 
+                    State Bank of India<br/>
+                    Ernakulam     <br/> <br/> <br/>
+                    
+                    02.12.2024
+                    
+                </span> <br/> <br/> <br/>
+                
+                <span style="text-align:left">Dear Sir,</span> <br/> <br/> <br/>
+                
+                <span style=" text-align:left; display: inline-block; margin-bottom:10px" >
+                    We, Veegaland Developers Pvt Ltd , here by certify that :
+                </span><br/>
+            </div>
+            
+            <p style="text-align:left;line-height:20px;margin-left:50px;text-align: justify;">
+                <strong>Ms. Renu S. Pai,</strong> (Aadhaar No. 5917 7400 4021 issued by Government of India) and (PAN BNYPP 7018 P), aged 34 (Thirty Four) years, Working professional in MNC, daughter of Mr. G. Sadananda Pai, having address at 49/206D, Visakham, Punnakkal Desom, Elamakkara P. O., Edappally South Village, Kanayannur Taluk, Ernakulam District, Pin code – 682 026; herein after referred to as the “Allottees”, subject to the due and proper  performance and compliances of all the terms and conditions of the Registered Sale dated 10.12.2024 (herein after referred to as the “Sale document”).
+                
+            </p>
+            
+            
+            
+            <table  style="width:500px;margin-top:30px;" >
+                <tr >
+                    <th  >Flat No./ House No    </th>
+                    <td>: 5C</td>
+                </tr>
+                <tr>
+                    <th >Building No./Name    </th>
+                    <td>: Veegaland Queens Park </td>
+                </tr>
+                <tr>
+                    <th >Plot No </th>
+                    <td>: Re.Sy no. 7/6-2 in 7/3, 7/4-2 in Block No. 246</td>
+                </tr>
+                
+                
+                <tr>
+                    <th >Street No./Name</th>
+                    <td>: Thamburatti Parambu Road</td>
+                </tr>
+                <tr>
+                    <th >Locality Name              </th>
+                    <td>:   Mamangalam (1826 Sqft)</td>
+                </tr>
+                
+                <tr>
+                    <th>Area Name               </th>
+                    <td>     :    Elamakkara</td>
+                </tr>
+                
+                <tr>
+                    <th>City Name                     </th>
+                    <td>            :    Ernakulam  </td>
+                </tr>
+                
+                <tr>
+                    <th>Pin Code               </th>
+                    <td>                   :   682024    </td>
+                </tr>
+            </table>
+            
+            
+            <div class="content">
+                <p style="line-height:20px;text-align:justify">
+                    2. That the total consideration for this transaction including taxes is<strong> Rs.1,53,04,800/- (Rupees 	One Crore Fifty Three Lakh Four Thousand and Eight Hundred Only)</strong>towards sale document.
+                    
+                </p>
+                
+                <p style="line-height:20px;text-align:justify">
+                    3. The title of the property described above is clear, marketable and free from all encumbrances and   doubts.	                
+                </p>
+                
+                <p style="line-height:20px;text-align:justify">
+                    4. I/We confirm that I/we have no objection whatsoever to the said purchasers, at their own costs, charges, risks and consequences mortgaging the said property to STATE BANK OF INDIA (herein after referred to as “the Bank”) as security for the amount advanced by the Bank to them subject to the due and proper Performance and compliances of all the terms and conditions of the sale document by the said purchasers.
+                    
+                </p>
+                
+                <p style="line-height:20px;text-align:justify">
+                    5. We have not borrowed from any financial institution for the purchase /development of the property and have not created and will not create any encumbrances on the property allotted to the said purchasers during the currency of the loan sanctioned/to be sanctioned by the Bank to them subject to the due and proper performance and compliances of all the terms and conditions of the sale document by the said purchasers.               
+                </p>
+                
+                <p style="line-height:20px;text-align:justify">
+                    6. After creation of proper charge/mortgage and after receipt of the copies there of and after receipt of proper nomination in favour of the Bank, from the said purchasers, we are agreeable to accept State Bank of India as a nominee of the above  named  purchaser  for  the  property described  above  and  once  the nomination favouring the Bank has been registered and advice sent to the Bank of having done so, I/We note not to change the same without the written NOC of the Bank.                </p>
+                
+                <p style="line-height:20px;text-align:justify">
+                    7. After creation of charge/mortgage and after receipt of the copies thereof and after receipt of the proper nomination in favour of the Bank, from the above named purchaser, I/We undertake to inform the society about the Bank’s charge on the said flat as and when the society is formed.
+                </p>
+                
+                
+                <p style="line-height:20px;text-align:justify">
+                    8. Please note that the payment for this transaction should be made by crossed Cheque/Transfer of funds favouring ‘Veegaland Developers Private Limited’ RERA  Account no. 0587073000000353 with THE SOUTH INDIAN Bank Ltd Kakkanad Branch.
+                    
+                </p>
+                
+                <p style="line-height:20px;text-align:justify">
+                    
+                    9. In case of cancellation of the sale-agreement for any reason, I/We shall refund the amount by crossed cheque favouring the Bank A/c no……………………… (Name………………………………. ), and forward the same to you directly.                
+                </p>
+                
+                <p style="line-height:20px;text-align:justify">
+                    10. The signatory to this letter draws authority to sign this undertaking on behalf of the company/firm vide Resolution Dated 30.09.2023.  
+                    
+                </p>
+                
+            </div>
+            
+            <span style="display:inline-block;margin-bottom:20px">Yours faithfully,</span> <br/>
+            
+            <span style="display:inline-block;font-weight:bold;margin-bottom:35px">For Veegaland Developers Pvt Ltd</span> <br/>
+            
+            <p style="font-weight:bold">
+                Kurian Thomas <br/>
+                Director
+            </p>
+            <span>
+                Place – Kochi.<br/>
+                Date -   02.12.2024
+            </span>
+            
+        </body>
+        
+        
+    </html>
+</apex:page>

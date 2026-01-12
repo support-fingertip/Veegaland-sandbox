@@ -1,0 +1,91 @@
+<aura:component controller="QuoteController" implements="force:appHostable,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,force:lightningQuickActionwithoutHeader" access="global" >    
+    <!-- Attributes -->
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="kycData" type="Quote__c"/>
+    <aura:attribute name="picklistValues" type="List"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+    <aura:html tag="style">
+        .slds-modal__container{ 
+        } 
+        
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }
+        .slds-modal__content{
+        
+        height:unset !important;
+        max-height:unset !important;
+        }
+        
+        .closeIcon{
+        display:none;
+        }
+        .slds-col{
+        margin-left:5px;
+        }
+    </aura:html >
+    <header class="slds-modal__header">
+        <lightning:buttonIcon iconName="utility:close"
+                              onclick="{! c.closeModel }"
+                              alternativeText="close"
+                              variant="bare-inverse"
+                              class="slds-modal__close"/>
+        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">KYC Verification</h2>
+    </header>
+    <div class="slds-p-around_large cust-ht">
+        
+        <!-- Checkboxes -->
+        <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+                <lightning:input type="checkbox" label="All Applicants Photo Verified" 
+                                 name="All_Applicants_Photo_Verified__c"
+                                 checked="{!v.kycData.All_Applicants_Photo_Verified__c}"
+                                 onchange="{!c.handleCheckboxChange}" required="true" aura:id="field" />
+            </div>
+            <div class="slds-form__item" role="listitem">
+                <lightning:input type="checkbox" label="All Applicants Passport Verified" 
+                                 name="All_Applicants_Passport_Verified__c"
+                                 checked="{!v.kycData.All_Applicants_Passport_Verified__c}"
+                                 onchange="{!c.handleCheckboxChange}" required="true" aura:id="field" />
+            </div>
+        </div>
+        <div class="slds-form__row">
+            <div class="slds-form__item" role="listitem">
+                <lightning:input type="checkbox" label="All Applicants PAN Verified" 
+                                 name="All_Applicants_PAN_Verified__c"
+                                 checked="{!v.kycData.All_Applicants_PAN_Verified__c}"
+                                 onchange="{!c.handleCheckboxChange}" required="true" aura:id="field" />
+            </div>
+            <div class="slds-form__item" role="listitem">
+                <lightning:input type="checkbox" label="All Applicants Aadhar Verified" 
+                                 name="All_Applicants_Aadhar_Verified__c"
+                                 checked="{!v.kycData.All_Applicants_Aadhar_Verified__c}"
+                                 onchange="{!c.handleCheckboxChange}" required="true" aura:id="field" />
+            </div>
+        </div>
+        <!-- Picklist for Status -->
+        <div>
+                <lightning:select label="KYC Status"
+                                  name="KYC_Documents_Verification_Status__c"
+                                  value="{!v.kycData.KYC_Documents_Verification_Status__c}"
+                                  onchange="{!c.handleFieldChange}" required="true" aura:id="field">
+                     <option value="">-options-</option>
+                    <option value="Verified">Verified</option>
+                    <option value="Needs Rework">Needs Rework</option>
+                </lightning:select>
+            </div>
+    </div>
+    <div class="slds-modal__footer">   
+        <lightning:button  label="Close" title="Brand action" onclick="{!c.closeModel}" />
+        <lightning:button  variant="brand" label="Save" title="Brand action" onclick="{!c.saveKYCData}" />
+    </div>
+    
+    <div>
+        <aura:if isTrue="{!v.spinner}">
+            <lightning:spinner class="spins" size="large" variant="brand" alternativeText="Loading" />
+        </aura:if>
+    </div>
+</aura:component>

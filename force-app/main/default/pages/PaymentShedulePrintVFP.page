@@ -1,0 +1,274 @@
+<apex:page controller="SalesAgreement1ApplicantController" renderAs="pdf" applyBodyTag="false" showHeader="false">
+    <head>
+        
+        
+        <style type="text/css" media="print">
+            *{
+            
+            
+            line-spacing:1.5;
+            font-family: "Times New Roman", Times, serif;
+            
+            
+            }
+            
+            @page {
+            size: A4;
+            margin-right:10px;
+            margin-left:10px;
+            margin-top:50px;
+            margin-bottom: 180px;
+            @bottom-center {
+            content: element(footer);
+            }
+            }
+            @page:first {
+            @bottom-center {
+            content: none;
+            }
+            }
+            .margi{
+            padding-left:50px;
+            padding-right:50px;
+            padding-top:50px;
+            padding-bottom: 180px;
+            
+            }
+            
+            .lastpart{
+            
+            margin-left:10px;
+            margin-right:10px;
+            margin-top:50px;
+            margin-bottom: 180px;
+            }
+            strong{
+            font-weight:600;
+            }
+            p{font-size:12px;font-family: "Times New Roman", Times, serif;line-height:1.5;}
+            ol{
+            font-size:12px;
+            font-family: "Times New Roman", Times, serif;
+            text-align:left; 
+            line-height:1.5;
+            
+            
+            }
+            .page-break { page-break-before: always; } 
+            .no-break { page-break-inside: avoid; } 
+            
+            .footer {
+            position: fixed;
+            position: running(footer);
+            height: 150px;
+            padding-top: 10px;
+            margin-bottom:20px;
+            margin-left:50px;
+            margin-right:50px;
+            
+            color: #CCC;
+            }
+            
+            .highlight{background-color:none;}
+            @page {
+            @top-center {
+            content: counter(page) ;
+            }
+            }
+            .header {
+            position: fixed;
+            top: 10px;
+            width: 100%;
+            text-align: right;
+            font-size: 12px;
+            color: #333;
+            }
+            div.parastyle{
+            text-align:justify;
+            line-height:1.5; 
+            font-size:12px;
+            width:100%;
+            }
+            .speci{
+            text-align:justify;
+            line-height:1.5; 
+            font-size:12px;
+            width:100%;
+            
+            }
+            div.sub{
+            text-align:justify;
+            line-height:1.5; 
+            font-size:12px;
+            width:100%;
+            margin-left:20px;
+            
+            }
+            .rows1{
+            width:5%; 
+            vertical-align: top;
+            text-align:justify; 
+            line-height:1.5; 
+            font-size:12px;
+            
+            }
+            .rows2{
+            width:95%;
+            text-align:justify; 
+            line-height:1.5; 
+            font-size:12px;
+            margin-left:20px;
+            
+            
+            }
+            .thrw{font-size:12px;
+            font-family: "Times New Roman", Times, serif;
+            
+            text-align:justify;
+            
+            
+            }
+            .row1{
+            width:8%; 
+            vertical-align: top; 
+            text-align:justify; 
+            line-height:1.5;
+            font-size:12px; 
+            padding-left:40px;
+            }
+            .row2{
+            width:72%; 
+            text-align:justify; 
+            line-height:1.5; 
+            font-size:12px; 
+            padding-left:42px;
+            }
+            ol{
+            font-size:12px;
+            font-family: "Times New Roman", Times, serif;
+            text-align:left; 
+            line-height:1.5;
+            
+            
+            }
+            
+            
+        </style>
+    </head>
+    <div class="lastpart">
+        <div class="no-break" >
+            <table  width="100%" border="1" cellpadding="5" cellspacing="0" style="margin:0 auto;line-height:1; ">
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <td colspan="10" style="text-align:center; font-size:15px;"><span class="highlight"><strong>SCHEDULE- E</strong></span></td>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <td colspan="10" style="text-align:center; font-size:11.5px;">
+                        <span class="highlight" style="text-align:center; font-size:11.5px;"><u><strong>Installment Payment Plan - Apartment No. {!Booking.Plot__r.Name}</strong></u></span><br/>
+                        <span class="highlight " style="text-align:center; font-size:11.5px;"><u><strong>{!UPPER(booking.Project1__r.Name)}</strong></u> </span>
+                        
+                    </td>
+                    
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px">
+                    <td  colspan="5" width="40%" style="text-align:center"><span class="highlight">Name</span></td>
+                    <td  colspan="5" width="60%" style="text-align:center"><span class="highlight"><strong>{!booking.First_Applicant_Name__c}</strong></span></td>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;">
+                    <td colspan="5" width="45%" style="text-align:center"><span class="highlight">Carpet Area</span></td>
+                    <td  colspan="5" width="55%" style="text-align:center"><span class="highlight"><strong>{!booking.Carpet_Area__c} Sq. Mtrs ({!carpetAreaSqft} Sqft)</strong></span></td>
+                </tr >
+                <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;">
+                    <td colspan="5" width="45%" style="text-align:center"><span class="highlight">Super built up Area</span></td>
+                    <td  colspan="5" width="55%" style="text-align:center"><span class="highlight"><strong>{!Booking.Plot__r.Super_built_up_area__c} Sq. Mtrs ({!superBuiltUpAreaSqft} Sqft)</strong></span></td>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;" >
+                    <td colspan="5" width="45%" style="text-align:center"><span class="highlight">Type</span></td>
+                    <td  colspan="5" width="55%" style="text-align:center"><span class="highlight"><strong>{!Booking.Plot__r.BHK_Type__c}</strong></span></td>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;" >
+                    <td colspan="5" width="45%" style="text-align:center"><span class="highlight">Floor</span></td>
+                    <td  colspan="5" width="55%" style="text-align:center"><span class="highlight"><strong>{!Booking.Plot__r.Floor__c}</strong></span></td>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;" >
+                    <td colspan="5" width="45%" style="text-align:center"><span class="highlight">Apartment No.</span></td>
+                    <td  colspan="5" width="55%" style="text-align:center"><span class="highlight"><strong>{!Booking.Plot__r.Name}</strong></span></td>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;" >
+                    <td colspan="5" width="45%" style="text-align:center"><span class="highlight"><strong>Apartment Cost (Excluding Tax)</strong></span> </td>
+                    <td  colspan="5" width="55%" style="text-align:center"><span class="highlight"><strong>{!TEXT(Booking.Sub_Total__c)}</strong></span></td>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;" >
+                    <td colspan="5" width="45%" style="text-align:center"><span class="highlight">GST (CGST &amp; SGST) Variable as per rules</span> </td>
+                    <td  colspan="5" width="65%" style="text-align:center"><span class="highlight"><strong>{!TEXT(booking.GST_Amount__c)}</strong></span></td>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;" >
+                    <td colspan="5" width="45%" style="text-align:center"><span class="highlight"><strong>Total Cost (Including Tax)</strong></span>  </td>
+                    <td  colspan="5" width="65%" style="text-align:center"><span class="highlight"><strong>{!TEXT(booking.Total__c)}</strong></span></td>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px" >
+                    <td height="10px" colspan="10" style="text-align:center"></td>
+                </tr>
+                <apex:variable var="rowNum" value="{!1}" />
+                <tr style="page-break-inside: avoid; page-break-after: auto;text-align:center; font-size:11.5px" >
+                    <th width="2%" colspan="2" style="font-size:11.5px"><span class="highlight" ><strong>SL NO:</strong></span></th>
+                    <!---<th width="5"></th>--->
+                    <th width="32%" style="font-size:11.5px"><span class="highlight"><strong>Installment</strong></span></th>
+                    <th width="10%"  style="font-size:11.5px"><span class="highlight"><strong>&emsp;&emsp;%&emsp;&emsp;</strong></span></th>
+                    <!---<th width="10"></th>--->
+                    <th width="9" colspan="2" style="font-size:11.5px"><span class="highlight"><strong>Due Date</strong></span></th>
+                    <th width="13%" style="font-size:11.5px"><span class="highlight"><strong>Amount towards Apartment Cost</strong></span> </th>
+                    <th width="10%" style="font-size:11.5px"><span class="highlight"><strong>CGST</strong></span></th>
+                    <th width="10%" style="font-size:11.5px"><span class="highlight"><strong>SGST</strong></span></th>
+                    <th width="14%" style="font-size:11.5px"><span class="highlight"><strong>Total</strong></span></th>
+                    
+                </tr>
+                <apex:repeat value="{!paymentSchedule}" var="p">
+                    <tr style="page-break-inside: avoid; page-break-after: auto;font-size:11.5px">
+                        <td width="5" style="text-align:center" colspan="2"><span class="highlight" ><apex:outputText value="{!p.S_No__c}" /></span></td>
+                        
+                        <td width="25"><span class="highlight"><strong>{!p.Name}</strong></span></td>
+                        <td width="10" style="text-align:center"><span class="highlight">
+                            <apex:outputText value="{!p.Payment_percent__c}" /> %
+                            </span></td>
+                        
+                        <td width="15" style="text-align:center" colspan="2"><span class="highlight">
+                            <apex:outputText value="{0,date,dd . MM . yyyy}">
+                                <strong><apex:param value="{!p.Payment_Due_Date__c}"/></strong>
+                            </apex:outputText>
+                            </span></td>
+                        <td width="10%" style="text-align:center"><span class="highlight">{!p.Amount_Excluding_Taxes__c}</span> </td>
+                        <td width="10%" style="text-align:center"><span class="highlight">{!p.CGST_Amount__c}</span></td>
+                        <td width="10%" style="text-align:center"><span class="highlight">{!p.SGST_Amount__c}</span></td>
+                        <td width="10%" style="text-align:center"><span class="highlight">{!p.AmountB__c}</span>    </td>
+                    </tr>
+                </apex:repeat>
+                
+                
+                <tr style="page-break-inside: avoid; page-break-after: auto;text-align:center; font-size:11.5px">
+                    <td colspan="6" width="10%"><span class="highlight">TOTAL</span></td>
+                    <td><span class="highlight">{!TEXT(exclusiveTax)}</span></td>
+                    <td><span class="highlight"><apex:outputText >{!TEXT(cgstTotal)}</apex:outputText></span></td>
+                    <td><span class="highlight">{!TEXT(sgstTotal)}</span></td>
+                    <td><span class="highlight">{!TEXT(inclusiveTax)}</span></td> 
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto; line-height:1.2;font-size:11.5px">
+                    <td style="text-align:center"><span class="highlight">1</span></td>
+                    <td  colspan="9"><span class="highlight">Stamp duty &amp; Registration charges for agreement &amp; Sale deed are extra and shall be payable as and when requires</span></td>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto; line-height:1.2; font-size:11.5px">
+                    <td style="text-align:center"><span class="highlight">2</span></td>
+                    <td colspan="9"><span class="highlight">GST has been calculated at prevailing rate and can vary as per statutory rules.</span></td>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto; line-height:1.2; font-size:11.5px">
+                    <td style="text-align:center"><span class="highlight">3</span></td>
+                    <td colspan="9"><span class="highlight">TDS on immovable property shall be deducted as applicable and as per the rules.</span></td>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto; line-height:1.2; font-size:11.5px">
+                    <td style="text-align:center"><span class="highlight">4</span></td>
+                    <td colspan="9"><span class="highlight">Association deposit of Rs.{!booking.Association_Deposit__c}/- would be additional and be paid to the association along with the last installment</span></td>
+                </tr>
+                
+            </table>
+        </div>
+    </div>
+</apex:page>

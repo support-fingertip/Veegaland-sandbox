@@ -1,0 +1,49 @@
+<template>
+    <!--<lightning-button label="Refresh" slot="actions" onclick={handleRefresh}></lightning-button>-->
+        <lightning-spinner if:true={isUploading} alternative-text="Uploading..." size="medium"></lightning-spinner>
+
+        <div class="slds-box slds-tile">
+            <!-- Combobox for Document Type Selection -->
+            <div class="slds-p-bottom_x-small">
+                <lightning-combobox label="Select a document" value={selectedDocumentName} options={picklistList}
+                    aria-describedby="comboboxDescription" onchange={handleFileChange}>
+                </lightning-combobox>
+            </div>
+            <!-- File upload section -->
+            <template if:true={selectedDocumentName}>
+                <lightning-tile class="slds-grid slds-grid_align-center slds-grid_vertical-align-center">
+                    <div class="slds-col">
+                        <lightning-file-upload label={UploadLabel} name="fileUploader" accept={acceptedFormats}
+                            record-id={recordId} onuploadfinished={handleUploadFinished} file-field-name={fileFieldName}
+                            file-field-value={fileNamePrefix} multiple>
+                        </lightning-file-upload>
+                    </div>
+                </lightning-tile>
+            </template>
+
+            <!-- Preview Toggle -->
+            <lightning-card title="File Preview and Download">
+                <div class="slds-scrollable_y" style="max-height: 480px;">
+                    <template for:each={filesList} for:item="file">
+                        <div key={file.value} class="slds-box">
+                            <div class="slds-grid slds-wrap">
+                                <div
+                                    class="slds-col slds-large-size_6-of-12 slds-medium-size_6-of-12 slds-size_12-of-12">
+                                    <p><strong>FileName - </strong>{file.label}</p>
+                                </div>
+                                <div
+                                    class="slds-col slds-large-size_3-of-12 slds-medium-size_3-of-12 slds-size_12-of-12">
+                                    <a href={file.url} target="_blank" class="slds-p-left_x-small" download>Download</a>
+                                </div>
+                                <div
+                                    class="slds-col slds-large-size_3-of-12 slds-medium-size_3-of-12 slds-size_12-of-12">
+                                    <lightning-button label="Preview" variant="brand" data-id={file.value}
+                                        onclick={previewHandler}></lightning-button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </lightning-card>
+        </div>
+</template>

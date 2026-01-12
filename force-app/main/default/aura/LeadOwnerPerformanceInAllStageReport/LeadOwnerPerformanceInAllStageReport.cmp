@@ -1,0 +1,76 @@
+<aura:component controller="LeadOwnerPerformanceReportApex" implements="flexipage:availableForAllPageTypes">
+    <aura:attribute name="records" type="List" />
+    <aura:attribute name="FromCreatedDateFilter" type="date" default=""/>
+    <aura:attribute name="ToCreatedDateFilter" type="date" default=""/>
+    <aura:attribute name="selectedDate" type="string" default="TODAY" />
+    <aura:attribute name="selectedDateValue" type="string" default="TODAY" />
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <lightning:card>
+         <div class="highlight-title">User Performance Report - All Stages</div>
+        <div class="slds-grid  slds-wrap">
+            <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                <label class="slds-text-title_bold" for="createDate">Created Date</label>
+                <div class="slds-select_container">
+                    <select class="slds-select" aura:id="Dates" onchange="{!c.handleChange}" value="{!v.selectedDateValue}">
+                        <option value="TODAY">Today</option> 
+                        <option value="YESTERDAY">Yesterday</option>
+                        <option value="THIS_WEEK">This Week</option>
+                        <option value="LAST_WEEK">Last Week</option>
+                        <option value="THIS_MONTH">This Month</option>
+                        <option value="LAST_MONTH">Last Month</option>
+                        <option value="Date_Range">Date Range</option>
+                    </select>
+                </div>
+            </div>
+            <aura:if isTrue="{!v.selectedDateValue=='Date_Range'}">
+                <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                    <lightning:input label="From" type="date" value="{!v.FromCreatedDateFilter}" name="createdDateInput" onchange="{!c.handleOnChange}" placeholder="Created Date"/>
+                </div>
+                <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                    <lightning:input label="To" type="date" value="{!v.ToCreatedDateFilter}" name="createdDateInput" onchange="{!c.handleOnChange}" placeholder="Created Date"/>
+                </div>
+            </aura:if>
+        </div>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-p-around_medium">
+            <thead>
+                <tr class="slds-text-title_bold">
+                    <th scope="col">Slno</th>
+                    <th scope="col">User Name</th>
+                    <!--<th scope="col">Lead</th>-->
+                    <th scope="col">Followup</th>
+                    <th scope="col">Scheduled</th>
+                    <th scope="col">Missed</th>
+                    <th scope="col">Completed</th>
+                    <th scope="col">Total Completed Followup(%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.records}" var="record" indexVar="index">
+                    <tr>
+                        <td>{!index + 1}</td>
+                        <td style="{!record.color}">
+                            {!record.userName}
+                        </td>
+                        <!--<td style="{!record.color}">
+                            {!record.leadNames}
+                        </td>-->
+                        <td>{!record.followUpCount}</td>
+                        <td>{!record.scheduledCount}</td>
+                        <td>{!record.missedCount}</td>
+                        <td>{!record.completedCount}</td>
+                        <td>{!record.followUpPercentage}</td>
+                        <!--<td>{!record.leadCount}</td>
+                        <td>{!record.followUpCount}</td>
+                        <td>{!record.followUpPercentage}</td>-->
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+    </lightning:card>
+    <div>
+        <aura:if isTrue="{!v.spinner}">
+            <lightning:spinner class="spins" size="large" variant="brand" alternativeText="Loading" />
+        </aura:if>
+    </div>
+</aura:component>

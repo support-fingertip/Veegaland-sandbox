@@ -1,0 +1,322 @@
+<aura:component controller="CoApplicantController" implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="showPopup" type="Boolean"/>
+    <aura:attribute name="coApplicants" type="List"/>
+    <aura:attribute name="uploadedFilesMap" type="Map" />
+    <aura:attribute name="uploadedFiles" type="List"/>
+    <aura:attribute name="picklistValues" type="Object"/>
+    <aura:attribute name="files" type="List" default="[]" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+    
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close">
+                <span class="slds-assistive-text">Cancel and close</span>
+            </button>
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate" tabindex="-1">Co-Applicants</h1>
+            </div>
+            <div class="slds-modal__content cont-height" id="modal-content-id-1">
+                <div class="slds-m-around_x-small">
+                    <aura:iteration items="{!v.coApplicants}" var="coApplicant" indexVar="index">
+                        <lightning:accordion allowMultipleSectionsOpen="true">
+                            <lightning:accordionSection name="{!index}" label="{!coApplicant.Name !='' ? coApplicant.Name : 'Co-Applicant'+ index}">
+                                <div class="slds-form" role="list">
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:select label="Salutation" value="{!coApplicant.Salutation__c}">
+                                                <aura:iteration items="{!v.picklistValues.SalutationValues}" var="salutation">
+                                                    <option value="{!salutation}" selected="{!salutation == coApplicant.Salutation__c ? true : false}">{!salutation}</option>
+                                                </aura:iteration>
+                                            </lightning:select>                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Full Name" value="{!coApplicant.Name}" required="true"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input type="date" label="Date of Birth" value="{!coApplicant.Date_of_Birth__c}" required="true"/>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:select label="NRI/RI Status" value="{!coApplicant.Co_Applicant_NRI_RI__c}">
+                                                <aura:iteration items="{!v.picklistValues.NRIRIValues}" var="nriri">
+                                                    <option value="{!nriri}" selected="{!nriri == coApplicant.Co_Applicant_NRI_RI__c ? true : false}">{!nriri}</option>
+                                                </aura:iteration>
+                                            </lightning:select>  
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:select label="Profession" value="{!coApplicant.Co_Applicant_Profession__c}">
+                                                <aura:iteration items="{!v.picklistValues.ProfessionValues}" var="profession">
+                                                    <option value="{!profession}" selected="{!profession == coApplicant.Co_Applicant_Profession__c ? true : false}">{!profession}</option>
+                                                </aura:iteration>
+                                            </lightning:select>  
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Father/Husband's Name" value="{!coApplicant.Co_Applicant_Father_Husband_s_Name__c}"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <legend class="slds-form-element__legend slds-form-element__label">KYC details</legend>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="PAN Number" value="{!coApplicant.PAN_Number__c}"/>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Aadhar Number" value="{!coApplicant.Aadhar_Number__c}"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Passport Number" value="{!coApplicant.Passport_No__c}"/>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Driving License Number" value="{!coApplicant.Co_Applicant_Driving_License_No__c}"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <legend class="slds-form-element__legend slds-form-element__label">Contact Details</legend>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input type="email" label="Email" value="{!coApplicant.Email__c}"/>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input type="phone" label="Phone" value="{!coApplicant.Phone__c}"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input type="phone" label="Mobile" value="{!coApplicant.Mobile__c}"/>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input type="phone" label="International Phone" value="{!coApplicant.International_Phone__c}"/>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                        </div>
+                                    </div>
+                                    <!-- Permanent Address -->
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <legend class="slds-form-element__legend slds-form-element__label">Permanent Address</legend>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            
+                                            <lightning:input label="Permanent House No/Name" value="{!coApplicant.Permanent_House_No_Name__c}"/>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Permanent Street/Location" value="{!coApplicant.Permanent_Street_Location__c}"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Permanent Post Office" value="{!coApplicant.Permanent_Post_Office__c}"/>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Permanent City" value="{!coApplicant.Permanent_City__c}"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:select label="Permanent State" value="{!coApplicant.Permanent_State__c}">
+                                                <aura:iteration items="{!v.picklistValues.PermanentState}" var="state">
+                                                    <option value="{!state}" selected="{!state == coApplicant.Permanent_State__c ? true : false}">{!state}</option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Permanent Postal Code" value="{!coApplicant.Permanent_Postal_Code__c}"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:select label="Permanent Country" value="{!coApplicant.Permanent_Country__c}">
+                                                <aura:iteration items="{!v.picklistValues.PermanentCountry}" var="country">
+                                                    <option value="{!country}" selected="{!country == coApplicant.Permanent_Country__c ? true : false}">{!country}</option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                        </div>
+                                    </div> 
+                                    <!-- Correspondence Address -->
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <legend class="slds-form-element__legend slds-form-element__label">Correspondence Address</legend>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Correspondence House No/Name" value="{!coApplicant.Correspondence_House_No_Name__c}"/>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Correspondence Street/Location" value="{!coApplicant.Correspondence_Street_Location__c}"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Correspondence Post Office" value="{!coApplicant.Correspondence_Post_Office__c}"/>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Correspondence City" value="{!coApplicant.Correspondence_City__c}"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:select label="Correspondence State" value="{!coApplicant.Correspondence_State__c}">
+                                                <aura:iteration items="{!v.picklistValues.CorrespondenceState}" var="state">
+                                                    <option value="{!state}" selected="{!state == coApplicant.Permanent_State__c ? true : false}" >{!state}</option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:input label="Correspondence Postal Code" value="{!coApplicant.Correspondence_Postal_Code__c}"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <lightning:select label="Correspondence Country" value="{!coApplicant.Correspondence_Country__c}">
+                                                <aura:iteration items="{!v.picklistValues.CorrespondenceCountry}" var="country">
+                                                    <option value="{!country}" selected="{!country == coApplicant.Permanent_Country__c ? true : false}">{!country}</option>
+                                                </aura:iteration>
+                                            </lightning:select>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item">
+                                            <div class="slds-form-element slds-form-element_stacked">
+                                                <label>Upload Passport Size Photo</label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="file" accept=".png,.jpg,.jpeg" onchange="{!c.handleFileChange}" data-name="Applicant Passport Size Photo" data-id="{!coApplicant.Id}" />
+                                                </div>
+                                            </div>
+                                            <div class="preview-container"></div>
+                                        </div>
+                                        <div class="slds-form__item">
+                                            <div class="slds-form-element slds-form-element_stacked">
+                                                <label>Upload Aadhar</label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="file" accept=".pdf,.png,.jpg" onchange="{!c.handleFileChange}" data-name="Applicant Aadhar Card" data-id="{!coApplicant.Id}"/>
+                                                </div>
+                                            </div>
+                                            <div class="preview-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item">
+                                            <div class="slds-form-element slds-form-element_stacked">
+                                                <label>Upload PAN</label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="file" accept=".pdf,.png,.jpg" onchange="{!c.handleFileChange}" data-name="Applicant PAN Card" data-id="{!coApplicant.Id}"/>
+                                                </div>
+                                            </div>
+                                            <div class="preview-container"></div>
+                                        </div>
+                                        <div class="slds-form__item">
+                                            <div class="slds-form-element slds-form-element_stacked">
+                                                <label>Upload Passport</label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="file" accept=".pdf,.png,.jpg" onchange="{!c.handleFileChange}" data-name="Applicant Passport" data-id="{!coApplicant.Id}"/>
+                                                </div>
+                                            </div>
+                                            <div class="preview-container"></div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item">
+                                            <aura:if isTrue="{!not(empty(coApplicant.Aadhar_Document_Title__c))}">
+                                                <div class="slds-form-element slds-form-element_stacked">
+                                                    <label>Uploaded Aadhar</label>
+                                                    <div class="slds-form-element__control">
+                                                        <a href="{!coApplicant.Aadhar_Document_Title__c}" target="_blank">Download Aadhar Document</a>
+                                                    </div>
+                                                </div>
+                                            </aura:if>
+                                        </div>
+                                        <div class="slds-form__item">
+                                            <aura:if isTrue="{!not(empty(coApplicant.PAN_Document_Title__c))}">
+                                                <div class="slds-form-element slds-form-element_stacked">
+                                                    <label>Uploaded PAN</label>
+                                                    <div class="slds-form-element__control">
+                                                        <a href="{!coApplicant.PAN_Document_Title__c}" target="_blank">Download PAN Document</a>
+                                                    </div>
+                                                </div>
+                                            </aura:if>
+                                        </div>
+                                        <div class="slds-form__item">
+                                            <aura:if isTrue="{!not(empty(coApplicant.Photo_Document_Title__c))}">
+                                                <div class="slds-form-element slds-form-element_stacked">
+                                                    <label>Uploaded Passport Size Photo</label>
+                                                    <div class="slds-form-element__control">
+                                                        <a href="{!coApplicant.Photo_Document_Title__c}" target="_blank">Download Passport Size Photo</a>
+                                                    </div>
+                                                </div>
+                                            </aura:if>
+                                        </div>
+                                    </div>
+                                    <!--<tr>
+                                            <td>
+                                                <aura:if isTrue="{!not(empty(coApplicant.Aadhar_Document_Title__c))}">
+                                                    <a href="{!coApp.Aadhar_Document_Title__c}" target="_blank">Download Aadhar Document</a>
+                                                    <aura:set attribute="else">
+                                                        No Aadhar Document
+                                                    </aura:set>
+                                                </aura:if>
+                                            </td>
+                                            
+                                            <td>
+                                                <aura:if isTrue="{!not(empty(coApplicant.PAN_Document_Title__c))}">
+                                                    <a href="{!coApp.PAN_Document_Title__c}" target="_blank">Download PAN Document</a>
+                                                    <aura:set attribute="else">
+                                                        No PAN Document
+                                                    </aura:set>
+                                                </aura:if>
+                                            </td>
+                                            
+                                            <td>
+                                                <aura:if isTrue="{!not(empty(coApplicant.Photo_Document_Title__c))}">
+                                                    <a href="{!coApp.Photo_Document_Title__c}" target="_blank">Download Photo Document</a>
+                                                    <aura:set attribute="else">
+                                                        No Photo Document
+                                                    </aura:set>
+                                                </aura:if>
+                                            </td>
+                                        </tr>-->
+                                    
+                                </div>
+                                <!-- Remove Co-Applicant -->
+                                <lightning:button label="Remove" name="{!coApplicant.Id}" onclick="{!c.removeCoApplicant}" />
+                            </lightning:accordionSection>
+                        </lightning:accordion>
+                    </aura:iteration>
+                    
+                    
+                    
+                    
+                    <!-- Save Button -->
+                </div>
+            </div>
+            <div class="slds-modal__footer slds-modal__footer_directional">
+                <div>
+                    <!-- Add New Co-Applicant -->
+                    <lightning:button variant="brand-outline" label="Add Co-Applicant" onclick="{!c.addCoApplicant}"/>
+                </div>
+                <lightning:button variant="neutral" label="Cancel" onclick="{!c.cancel}"/>
+                <lightning:button variant="brand" type="submit" label="Save" onclick="{!c.save}"/>
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</aura:component>

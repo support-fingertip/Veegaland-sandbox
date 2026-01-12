@@ -1,0 +1,51 @@
+<apex:page controller="ReceiptTemplateController"
+           contentType="application/vnd.ms-excel"
+           cache="true" expires="3600"
+           showHeader="false" sidebar="false">
+
+    <!-- An HTML table is perfectly readable by Excel when served with Excel MIME type -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Booking Id</th>
+                <th>Total Amount</th>
+                <th>Bank Name</th>
+                <th>Branch</th>
+                <th>Transaction Number</th>
+                <th>Mode Of Payment</th>
+                <th>Payment From</th>
+                <th>Receipt Date</th>
+                <th>Instrument Date</th>
+                <th>Approval Status</th>
+                <th>Skip Approval</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Optional: include one sample row for users -->
+            <tr>
+                <td>B-000</td>
+                <td>12000</td>
+                <td>HDFC Bank</td>
+                <td>Koramangala</td>
+                <td>TXN123456</td>
+                <td>NEFT</td>
+                <td>Bank</td>
+                <td>20/12/2025</td>
+                <td>18/12/2025</td>
+                <td>Approved by Finance Team</td>
+                <td>TRUE</td>
+            </tr>
+
+            <!-- Then render blank rows for easy data entry -->
+            <apex:repeat value="{!rows}" var="r">
+                <tr>
+                    <td></td><td></td>
+                    <td></td><td></td>
+                    <td></td><td></td>
+                    <td></td><td></td>
+                    <td></td><td></td><td></td>
+                </tr>
+            </apex:repeat>
+        </tbody>
+    </table>
+</apex:page>

@@ -1,0 +1,238 @@
+<apex:page standardController="Demand_Raised__c" extensions="Demand_Note_SendController" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false"  standardStylesheets="false" renderAs="PDF" >
+    <head>    
+        <style type="text/css">
+            @page {
+            size: A4;    
+            padding; 0  
+            }
+            
+            .invoice_table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 10px;
+            }
+            
+            .invoice_td{
+            border: 1px solid #00040a;
+            text-align: left;
+            padding: 5px 5px;
+            
+            }
+            
+            .invoice_th{
+            border: 1px solid #00040a;
+            text-align: center;
+            
+            }
+            .page-break {
+            page-break-before: always;
+            }
+            
+        </style>    
+    </head> 
+    <div style="margin:15px;padding: 10px 0; border: 2px solid #000000;">
+        
+        <div style="padding: 0 5px;">
+            
+            
+            <center> <apex:image url="{!$Resource.invoiceLogo}" width="160" height="60"/></center>
+            <center> <b style="font-size:9.5px">Regd.Office Address: XIII/300 E- 26, 4th Floor, K Chittilappilly Tower, Bharatha Matha College Road,Kakkanadu, Thrikkakkara, GSTIN:32AACCV5457F1ZF,
+                Ernakulam - 682021, PH: 0484 2584000, CIN: U45201KL2007PTC021107<br/>
+                http://www.veegaland.com, mail@veegaland.in
+                </b></center><br/><br/>
+            
+            <table style="font-size:11px;font-weight:bold;" width="100%">
+                <tr>
+                    <td style="text-align:left;">GSTIN : 32AACCV5457F1ZF</td>
+                    <td style="text-align:right;">PAN : AACCV5457F</td>
+                    <td style="text-align:right;">MSME UDYAM REG NO:UDYAM-KL-02-0014172</td>
+                </tr>
+            </table>
+            <center style="font-size:18px;font-weight:bold;margin-top:10px;">Bill of Supply</center>
+            <center style="font-size:9.5px;margin-top:15px;">(See: Rule:49 of GST Rule; Sec 31(3)(c) of GST Act)</center><br/>
+            
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                <tr>
+                    <td style="width: 34%; vertical-align: top;">
+                        <u><b style="font-size: 11.5px;">RECIPIENT DETAILS</b></u><br/>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                            <tr style="">
+                                <td style="vertical-align: top;">Name</td>
+                                <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">:&nbsp;{!Demand_Raised__c.Booking__r.salutation_Applicant1__c} {!Demand_Raised__c.Booking__r.First_Applicant_Name__c}<br/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">Address</td>
+                                <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">
+                                    :&nbsp;{!Demand_Raised__c.Booking__r.Permanent_House_No_Name__c},<br/>
+                                    {!Demand_Raised__c.Booking__r.Permanent_Street_Location__c}, {!Demand_Raised__c.Booking__r.Permanent_Post_Office__c},<br/>
+                                    {!Demand_Raised__c.Booking__r.Permanent_City__c}, {!Demand_Raised__c.Booking__r.Permanent_State__c}- {!formattedPin}<br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">GSTIN:</td>
+                                <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">:&nbsp;32AACCV5457F1ZF<br/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">PAN</td>
+                                <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">:&nbsp;{!Demand_Raised__c.Booking__r.PAN_Number1__c}<br/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; white-space: nowrap;">Place of Supply</td>
+                                <td style="font-weight: bold; padding-bottom:7px; padding-left:40px; white-space: nowrap;">:&nbsp;Eroor, Ernakulam<br/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;">State</td>
+                                <td style="font-weight: bold; padding-left:40px">:&nbsp;Kerala</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width: 32%;">
+                        <br/><br/>
+                        
+                        <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                            <tr>
+                                <td></td>
+                                <td style="font-weight: bold;"> <br/></td>
+                            </tr>
+                            <tr>
+                                <td ></td>
+                                <td style="font-weight: bold;">
+                                    <br/><br/><br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td ></td>
+                                <td style="font-weight: bold;"> <br/></td>
+                            </tr>
+                            <tr>
+                                <td ></td>
+                                <td style="font-weight: bold;"> <br/></td>
+                            </tr>
+                            <tr>
+                                <td ></td>
+                                <td style="font-weight: bold;"> <br/></td>
+                            </tr>
+                            
+                        </table>
+                    </td>
+                    <td style="width: 34%; vertical-align: top;">
+                        <b style="font-size: 10px; ">Bill of Supply No :</b><br/>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                            <tr style="">
+                                <td style="vertical-align: top; "><strong>Date of Issue:</strong> </td>
+                                <td style=" "><apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!TODAY()}" /> </apex:outputText><br/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;"></td>
+                                <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;"></td>
+                                <td style="font-weight: bold; padding-bottom:7px; padding-left:40px"><br/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; white-space: nowrap;"></td>
+                                <td style="font-weight: bold; padding-bottom:7px; padding-left:40px; white-space: nowrap;"><br/></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; white-space: nowrap;"></td>
+                                <td style="font-weight: bold; padding-bottom:7px; padding-left:40px; white-space: nowrap;"><br/></td>
+                            </tr>
+                            
+                            
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <table class="invoice_table" >
+            <tr style="background-color: #dddddd; text-align:center; font-size: 10px;">
+                <th class="invoice_th" width="4%" style="vertical-align: top;">Sr.No
+                </th>
+                
+                <th  class="invoice_th"  width="8%"  style="vertical-align: top;">HSN/SAC
+                </th>
+                
+                <th  class="invoice_th" width="63%" colspan="4" style="vertical-align: top;">Description of Goods or/and Services
+                </th>
+                
+                <th  class="invoice_th" width="25%" style="vertical-align: top;">Value of Supply
+                </th>
+            </tr>
+            <tr>
+                <td class="invoice_td" style="text-align:center">1
+                </td>
+                <td class="invoice_td" style="text-align:center;">
+                </td>
+                
+                <td class="invoice_td" colspan="4" style="padding">Apartment Cost({!Demand_Raised__c.Booking__r.Plot__r.Name},{!Demand_Raised__c.Booking__r.Project1__r.Name}, Eroor, Ernakulam)
+                </td>
+                <td class="invoice_td" style="text-align:right;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!Demand_Raised__c.Current_Demand_amount__c}" /></apex:outputText>
+                </td>
+                
+            </tr>
+            <tr>
+                <td class="invoice_td" style="text-align:center;padding:8px;">
+                </td>
+                <td class="invoice_td" style="text-align:center;padding:3px;">
+                </td>
+                
+                <td class="invoice_td" colspan="4" style="padding:3px;">
+                </td>
+                <td class="invoice_td" style="text-align:right;padding:3px;">
+                </td>
+                
+            </tr>
+            
+            
+            <tr style="font-weight:bold;font-size: 12px;">
+                <td class="invoice_td" colspan="6" style="text-align:center;">Total
+                </td>
+                <td class="invoice_td" style="text-align:center;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!Demand_Raised__c.Current_Demand_amount__c}" /></apex:outputText>
+                </td>
+            </tr>
+            
+            <tr style="font-weight:bold;font-size: 12px;">
+                <td class="invoice_td" style="text-align:center;" colspan="7">{!Demand_Raised__c.Current_Demand_Amount_In_Words__c}
+                </td>
+            </tr>
+            <tr style="font-weight:bold;font-size: 10px;">
+                <td class="invoice_td" style="text-align:left;" colspan="3" width="22%">Bank Details :-
+                </td>
+                
+                
+                <td class="invoice_td" style="text-align:left;" colspan="4">Bank Name:- Axis Bank Ltd, Branch:- Thrikkakara (Kakkanad), Account Number:- 919020061280961,  IFSC Code:- UTIB0001161, SWIFT Code :- AXISINBB081
+                </td>
+                
+            </tr>
+            
+            <tr style="font-size: 10px;">
+                <td class="invoice_td" colspan="4" width="45%">
+                    <b>Declaration :</b> <br/>
+                    1) I/We Certify that to the best of my/our knowledge the particulars furnished above are True and Correct.<br/><br/>
+                    2) Any dispute shall be subject to Ernakulam jurisdiction.<br/><br/>
+                    3) For Delayed Payments Interest will be applicable as per the agreement.<br/><br/>                 
+                </td>
+                <td class="invoice_td" width="20%">
+                </td>
+                <td class="invoice_td" style="text-align:center;font-weight:bold;vertical-align:top;" colspan="2" width="35%">
+                    For Veegaland Developers Private Limited <br/><br/><br/><br/><br/><br/> 
+                    
+                    Authorised Signatory
+                </td>
+                
+            </tr>
+            
+            <tr style="font-weight:bold;font-size: 10px;">
+                <td class="invoice_td" style="text-align:center;" colspan="7">
+                    ***This is system generated printout and no signature required***
+                </td>
+            </tr>
+        </table>
+    </div>
+</apex:page>

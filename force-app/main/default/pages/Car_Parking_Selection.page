@@ -1,0 +1,759 @@
+<apex:page controller="CarparkingSelectionController" showHeader="false">
+    <apex:includeLightning />
+    <script>
+    // These should be populated from Apex variables
+    const backToBackParking = {!backToBackParking};
+    const individualParking = {!individualParking};
+    
+    let selectedSlots = new Set();
+    
+    function loadPDFViewer(fileId, containerId) {
+        if (!fileId || !containerId) return;
+        
+        const container = document.getElementById(containerId);
+        if (container) container.innerHTML = ""; // Clear previous viewer
+        
+        $Lightning.use("c:pdfViewerApp", function () {
+            $Lightning.createComponent(
+                "c:pdfViewerLWC",
+                {
+                    fileId: fileId,
+                    heightInRem: "10"
+                },
+                containerId,
+                function (cmp) {
+                    console.log("PDF Viewer loaded into:", containerId);
+                }
+            );
+        });
+    }
+    
+    function showFloor(floorId) {
+        // Hide all panels and tabs first
+        const allPanels = document.querySelectorAll('.floor-panel');
+        const allTabs = document.querySelectorAll('.tab-button');
+        allPanels.forEach(panel => panel.style.display = 'none');
+        allTabs.forEach(tab => tab.classList.remove('active'));
+        
+        // Hide all zoom containers and zoom buttons first
+        const allPDFs = document.querySelectorAll('.zoom');
+        //const allZoomButtons = document.querySelectorAll('.zoom-buttons');
+        allPDFs.forEach(pdf => pdf.style.display = 'none');
+        //allZoomButtons.forEach(button => button.style.display = 'none');
+        
+        // Show the active floor panel, tab, zoom container, and zoom buttons
+        const activePanel = document.getElementById('floor-' + floorId);
+        const activeTab = document.getElementById('tab-' + floorId);
+        const activePDF = document.getElementById('zoom-' + floorId);
+        //const activeButtons = document.getElementById('zoombutton-' + floorId);
+        
+        // Display the active elements
+        if (activePanel) activePanel.style.display = 'grid';
+        if (activeTab) activeTab.classList.add('active');
+        if (activePDF) {
+            activePDF.style.display = 'block';  // Show zoom container
+            //activeButtons.style.display = 'block';  // Show zoom buttons
+        }
+        
+        // Update filled and empty slots
+        const slots = activePanel.querySelectorAll('.slot');
+        let filled = 0, empty = 0;
+        slots.forEach(s => {
+            if (s.classList.contains('filled')) filled++;
+            else if (s.classList.contains('empty')) empty++;
+        });
+        
+        // Update slot count display
+        document.getElementById('filled').textContent = filled;
+        document.getElementById('empty').textContent = empty;
+        
+        // Call any necessary function to update display (if needed)
+        updateDisplay();
+    }
+    
+    function selectSlot(el) {
+        const id = el.id;
+        const type = el.dataset.type; // "Back to Back" or "Individual"
+        
+        // Count selected slots by type
+        let backToBackCount = 0;
+        let individualCount = 0;
+        
+        selectedSlots.forEach(slotId => {
+            const slotEl = document.getElementById(slotId);
+            if (slotEl) {
+            const slotType = slotEl.dataset.type;
+            if (slotType === 'Back to Back') backToBackCount++;
+            else if (slotType === 'Individual') individualCount++;
+        }
+                              });
+        
+        if (el.classList.contains('selected')) {
+            // Deselect
+            el.classList.remove('selected');
+            selectedSlots.delete(id);
+        } else {
+            // Check limit before selecting
+            if (type === 'Back to Back' && backToBackCount >= backToBackParking) {
+                alert(`You can select up to ${backToBackParking} back-to-back slots only.`);
+                return;
+            } else if (type === 'Individual' && individualCount >= individualParking) {
+                alert(`You can select up to ${individualParking} individual slots only.`);
+                return;
+            }
+            
+            el.classList.add('selected');
+            selectedSlots.add(id);
+        }
+        
+        updateDisplay();
+    }
+    
+    function updateDisplay() {
+        const selected = Array.from(selectedSlots);
+        let totalCost = 0;
+        
+        selected.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+            const cost = parseFloat(el.dataset.cost);
+            totalCost += cost;
+        }
+                         });
+        
+        document.getElementById('selectedSlots').textContent = selected.length ? selected.join(', ') : 'None';
+        document.getElementById('slotCount').textContent = selected.length;
+        document.getElementById('totalCost').textContent = totalCost.toFixed(0);
+    }
+    function saveSelectedSlots() {
+        const comment = document.getElementById('parkingComments').value.trim();
+        const selected = Array.from(selectedSlots);
+        const bookingId = document.getElementById('bookingId').value;
+        const slotNames = [];
+        const parkingIds = [];
+        
+        let backToBackCount = 0;
+        let individualCount = 0;
+        
+        selected.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+            const recId = el.dataset.recid;
+            const fcode = el.dataset.fcode;
+            const pname = el.dataset.pname;
+            const name = el.textContent.replace(/\s+/g, ' ').trim();
+            const type = el.dataset.type.trim();
+            
+            slotNames.push(`${fcode}-${pname} ${type}`);
+        parkingIds.push(recId);
+        
+        if (type === 'Back to Back') backToBackCount++;
+        else if (type === 'Individual') individualCount++;
+    }
+    });
+    
+    if (slotNames.length === 0) {
+        alert("Please select at least one slot.");
+        return;
+    }
+    
+    const selectedCount = selected.length;    
+    Visualforce.remoting.Manager.invokeAction(
+        '{!$RemoteAction.CarparkingSelectionController.saveSelectedSlots}',
+        bookingId,
+        slotNames.join(', '),
+        parkingIds,
+        comment,
+        individualCount,
+        backToBackCount,
+        function (result, event) {
+            if (event.status) {
+                document.getElementById('carParkingForm').style.display = 'none';
+                document.getElementById('thankYouMessage').style.display = 'block';
+                alert('Slots saved successfully!');
+            } else {
+                alert('Failed Please refresh the page and select again');
+            }
+        }
+    );
+    }
+    
+    
+    window.onload = function () {
+        const firstTab = document.querySelector('.tab-button');
+        if (firstTab) firstTab.click();
+    };
+    
+    </script>
+    
+    
+    <head>
+        
+        
+        <style>
+            :root {
+            --font-size: 14px;
+            --surface: #fff;
+            --white: #fff;
+            --tertiary: #767676;
+            --accent: #9354fb;
+            --border-radius: 0.5rem;
+            --border-radius-l: 0.75rem;
+            --spacing: 0.75rem;
+            --spacing-s: 0.5rem;
+            }
+            /* Global Styles */
+            body {
+            font-family: "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            /*  display: flex; */
+            }
+            .outer-container{
+            display:block;
+            background-color: #f8f9fc;
+            padding: 20px;
+            }
+            .container {
+            display: flex;
+            width: 100%;
+            }
+            
+            /* Sidebar */
+            .sidebar {
+            width: auto%;
+            /*margin: 0 5px 5px 10px;*/
+            background-color: #f8f9fc;
+            padding: 2px;
+            display: block;
+            min-height:45vh;
+            }
+            
+            .outer-container h2 {
+            color: #5a5c69;
+            font-size: 24px;
+            }
+            
+            .sidebar nav ul {
+            list-style: none;
+            padding: 30px 0;
+            }
+            
+            .sidebar nav ul li {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            }
+            
+            .sidebar nav ul li a {
+            margin-left: 10px;
+            color: #858796;
+            text-decoration: none;
+            font-size: 16px;
+            }
+            
+            .sidebar nav ul li.active a {
+            color: #4e73df;
+            }
+            
+            .sidebar nav ul li i {
+            font-size: 18px;
+            }
+            
+            .profile {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            }
+            
+            .profile img {
+            border-radius: 50%;
+            margin-right: 10px;
+            }
+            
+            .profile p {
+            margin: 0;
+            font-size: 14px;
+            }
+            
+            /* Main Content */
+            .content 
+            {  display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            width: 80%;
+            padding:15px;
+            background-color: #eef2f7;
+            }
+            .floor-panel {
+            flex-grow: 1;
+            }
+            header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-right: 26px;
+            margin-top:12px;
+            }
+            
+            .floor-selection button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #f1f1f1;
+            color: #333;
+            margin-right: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            }
+            
+            .floor-selection button.active {
+            background-color: #4e73df;
+            color: #ff538a;
+            }
+            
+            .stats {
+            display: flex;
+            gap: 20px;
+            font-size: 16px;
+            }
+            
+            .report-btn {
+            background-color: #e74a3b;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            }
+            
+            .parking-grid {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(7, 0fr);
+            gap: 5px;
+            }
+            
+            .slot {
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            color: white;
+            height: 46px;
+            width: 52px;
+            margin: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            }
+            
+            .slot.filled {
+            background-color: #e2e2e2; /* red */
+            pointer-events: none; /* disables clicking */
+            color: #ffffff;
+            }
+            
+            .slot.empty {
+            color:black;
+            background-color: #ceecca; /* green */
+            }
+            
+            .slot.selected {
+            background-color: #43a6f9 !important; /* blue (selected) */
+            color: #ffffff;
+            }
+            .leg-filled {
+            border-color: #b3b3b3 !important;/* red */
+            }
+            
+            .leg-empty {
+            border-color: #ceecca !important; /* green */
+            }
+            
+            .leg-selected {
+            border-color: #43a6f9 !important; /* blue (selected) */
+            }
+            .tabs {
+            display: flex;
+            gap: var(--spacing-s);
+            }
+            
+            .tab-button {
+            background-color: var(--light-gray);
+            border: transparent;
+            border-radius: var(--border-radius);
+            padding: 0.5rem 1.5rem;
+            cursor: pointer;
+            font-family: var(--font-family);
+            font-size: var(--font-size);
+            transition: background-color 0.2s ease, color 0.2s ease;
+            background: white;
+            }
+            
+            .tab-button.active {
+            background-color: var(--accent);
+            color: var(--surface);
+            }
+            
+            .tab-button:hover {
+            background-color: var(--accent);
+            color: var(--white);
+            }
+            .pdf-frame {
+            width:48vw ;
+            height: 100%;
+            border: none;
+            }
+            
+            .legend {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background: #FFF;
+            padding: 10px 6px 0 6px;
+            font-size: 13px;
+            box-shadow: 1px -1px 1px #DDD, -1px 1px 1px #BBB;
+            2px 2px 0 #BBB;
+            }
+            .legend li {
+            width: 80px;
+            height: 1.25em;
+            margin-bottom: 0.7em;
+            padding-left: 0.5em;
+            border-left: 1.25em solid black;
+            }
+            .legend em {
+            font-style: normal;
+            }
+            .legend span {
+            float: right;
+            }
+            .pieID {
+            display: flex;
+            vertical-align: top;
+            justify-content: center;
+            }
+            .submit-footer {
+            margin-top: auto;
+            padding: 0 15px;
+            background: #f1f1f1;
+            }
+            .comment-section {
+            flex: 1 1 60%;
+            }
+            
+            .comment-section textarea {
+            width: 98%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            }
+            
+            .submit-button-section {
+            text-align: center;
+            padding-top: 10px;
+            }
+            
+            .submit-button {
+            padding: 10px 20px;
+            font-size: 15px !important;
+            background: #0070d2 !important;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            }
+            
+            .submit-button:hover {
+            background-color: #005bb5;
+            }
+            .info-box {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+            }
+            
+            .info-box strong {
+            display: inline-block;
+            width: 125px;
+            color: #333;
+            }
+            .slot-number {
+            font-weight: bold;
+            font-size: 14px;
+            }
+            
+            .slot-type {
+            font-size: 9px;
+            }
+            .slot-cost {
+            font-size: 9px;
+            }
+            
+            .zoom-container {
+            width: 97%%;
+            height: 30vw;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ccc;
+            margin-left: 20px; /* Add margin on the left if you need space from the left edge */
+            cursor: grab;
+            }
+            
+            /* The image inside the container */
+            .zoom-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensures the image is contained within the container */
+            transition: transform 0.3s ease; /* Smooth transition for zooming */
+            }
+            
+            /* Zoom buttons placed below the image */
+            .zoom-buttons {
+            text-align: center;
+            margin-top: 10px;
+            }
+            
+            .zoom-buttons button {
+            padding: 10px !important;
+            margin: 0 5px !important;
+            cursor: pointer !important;
+            background: #007bff !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 5px !important;
+            }
+            
+            .zoom-buttons button:hover {
+            background-color: #0056b3;
+            }
+            
+            
+            figure.zoom {
+            background-position: 50% 50%;
+            position: relative;
+            width: 500px;
+            overflow: hidden;
+            cursor: zoom-in;
+            max-height: 100vh;
+            border: 2px solid #9354fb;
+            }
+            figure.zoom img:hover {
+            opacity: 0;
+            }
+            figure.zoom img {
+            transition: opacity 0.5s;
+            display: block;
+            width: 100%;
+            }
+            
+        </style>
+        <title>Car parking Selection</title>
+    </head>
+    <input type="hidden" id="bookingId" value="{!bookingId}" />
+    <div class="outer-container" id="carParkingForm">
+        <h2>Parking Selection</h2>
+        <header>
+            <div class="tabs">
+                <apex:repeat value="{!floorList}" var="f">
+                    <button type="button"
+                            id="tab-{!f.floor.Id}"
+                            class="tab-button"
+                            onclick="showFloor('{!f.floor.Id}')">
+                        {!f.floor.Name}
+                    </button>
+                </apex:repeat>
+            </div>
+            <div class="stats">
+                <p>Booked: <span id="filled">--</span></p>
+                <p>Available: <span id="empty">--</span></p>
+            </div>
+        </header>
+        
+        <div class="container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!--   <apex:repeat value="{!floorList}" var="f">
+<div class="pdf-frame" id="pdf-{!f.floor.Id}" data-fileid="{!f.floor.Layout_Public_url__c}" style="display: none;"></div>
+</apex:repeat>-->
+                <apex:repeat value="{!floorList}" var="f">
+                    <figure class="zoom" id="zoom-{!f.floor.Id}" onmousemove="zoom(event)" 
+                            style="background-image: url({!f.floor.Layout_Public_url__c});display: none;">
+                        <img id="zoomImage" src="{!f.floor.Layout_Public_url__c}"  alt="Parking floor Image"/>
+                    </figure>
+                    <!--<div class="zoom-container" id="zoomContainer-{!f.floor.Id}" style="display: none;">
+                        <img id="zoomImage" src="{!f.floor.Layout_Public_url__c}" alt="Zoom Image" />
+                    </div>
+                    
+                    
+                    <div class="zoom-buttons" id="zoombutton-{!f.floor.Id}" style="display: none;">
+                        <button onclick="zoomIn('{!f.floor.Id}')">Zoom In</button>
+                        <button onclick="zoomOut('{!f.floor.Id}')">Zoom Out</button>
+                    </div>-->
+                </apex:repeat>
+            </aside>
+            
+            <!-- Main Content -->
+            <main class="content">
+                <ul class="pieID legend">
+                    <li class="leg-selected">
+                        <em>Selected</em>
+                    </li>
+                    <li class="leg-empty">
+                        <em>Available</em>
+                    </li>
+                    <li class="leg-filled">
+                        <em>Booked</em>
+                    </li>
+                </ul>
+                
+                <apex:repeat value="{!floorList}" var="f">
+                    <section id="floor-{!f.floor.Id}" class="floor-panel parking-grid" style="display:none;">
+                        <apex:variable var="filledCount" value="{!0}" />
+                        <apex:variable var="emptyCount" value="{!0}" />
+                        
+                        <apex:repeat value="{!f.parkings}" var="p">
+                            <apex:outputPanel rendered="{!p.Status__c != 'Available'}">
+                                <div class="slot filled" id="{!f.floor.Floor_Short_Name__c}-{!p.Name}" data-cost="{!p.Cost__c}" data-type="{!p.Parking_Type__c}" data-recid="{!p.Id}" data-fcode="{!f.floor.Floor_Short_Name__c}">
+                                    <div class="slot-number">{!p.Name}</div>
+                                    <div class="slot-type">{!p.Parking_Type__c}</div>
+                                    <div class="slot-cost">  
+                                        <apex:outputText value="₹{0, number, ###,##0}" styleClass="slot-cost"> <apex:param value="{!p.Cost__c}" /></apex:outputText>
+                                    </div>
+                                </div>
+                                <apex:variable var="filledCount" value="{!filledCount + 1}" />
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!p.Status__c == 'Available'}">
+                                <div class="slot empty" 
+                                     id="{!f.floor.Floor_Short_Name__c}-{!p.Name}" 
+                                     data-cost="{!p.Cost__c}" 
+                                     data-type="{!p.Parking_Type__c}" 
+                                     data-fcode="{!f.floor.Floor_Short_Name__c}" 
+                                     data-recid="{!p.Id}"
+                                     data-pname="{!p.Name}"
+                                     onclick="selectSlot(this)">
+                                    
+                                    <div class="slot-number">{!p.Name}</div>
+                                    <div class="slot-type">{!p.Parking_Type__c}</div>
+                                    <div class="slot-cost" >
+                                        <apex:outputText value="₹{0, number, ###,##0}" styleClass="slot-cost"> <apex:param value="{!p.Cost__c}" /></apex:outputText>
+                                    </div>
+                                </div>                                    
+                                <apex:variable var="emptyCount" value="{!emptyCount + 1}" />
+                            </apex:outputPanel>
+                        </apex:repeat>
+                        <script>
+                        // Update stats dynamically when floor is loaded
+                        document.getElementById('filled').textContent = '{!filledCount}';
+                        document.getElementById('empty').textContent = '{!emptyCount}';
+                        </script>
+                    </section>
+                </apex:repeat>
+                
+                <div class="info-box">
+                    <strong>Selected Slots:</strong> <span id="selectedSlots">None</span><br />
+                    <strong>Total Selected:</strong> <span id="slotCount">0</span><br />
+                    <strong>Total Cost:</strong> <span id="totalCost">0</span><br />
+                </div>
+                <footer class="submit-footer">
+                    <div class="comment-section">
+                        <label for="parkingComments"><strong>Comments:</strong></label><br />
+                        <textarea id="parkingComments" rows="3" placeholder="Enter comments here..."></textarea>
+                    </div>
+                    <div class="submit-button-section">
+                        <button onclick="saveSelectedSlots()" class="submit-button">Submit</button>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <div class="thanks" id="thankYouMessage" style="display: none;">
+        <img src="{!$Resource.veegaland}" width="122px" height="60px" />
+        <p class="title">Thank You!</p>
+        <p><strong>Your parking slot selections have been successfully submitted.</strong></p>
+        <p>Thank you for choosing Veegaland Homes!</p>
+        <!-- <div class="home"><a href="/">Return to Home Page</a></div> -->
+    </div>
+    <script>
+    /*  let scale = 1;
+    let startX, startY, isDragging = false;
+    
+    // Zoom in function
+    function zoomIn(floorId) {
+        const image = document.querySelector(`#zoom-${floorId} #zoomImage`);
+                                             scale += 0.2; // Increase scale by 0.2 on each zoom in
+                                             image.style.transform = `scale(${scale})`;
+    }
+    
+    // Zoom out function
+    function zoomOut(floorId) {
+        const image = document.querySelector(`#zoom-${floorId} #zoomImage`);
+                                             if (scale > 0.2) { // Prevent zooming out beyond the original size
+            scale -= 0.2; // Decrease scale by 0.2 on each zoom out
+            image.style.transform = `scale(${scale})`;
+        }
+    }
+    
+    // Add mouse event listeners for dragging functionality
+    document.querySelectorAll('.zoom').forEach(zoomContainer => {
+        zoomContainer.addEventListener('mousedown', startDrag);
+        zoomContainer.addEventListener('mousemove', dragImage);
+        zoomContainer.addEventListener('mouseup', stopDrag);
+        zoomContainer.addEventListener('mouseleave', stopDrag);
+    });
+        
+        function startDrag(e) {
+        isDragging = true;
+        startX = e.clientX - e.target.offsetLeft;
+        startY = e.clientY - e.target.offsetTop;
+        e.target.style.cursor = 'grabbing'; // Change cursor to grabbing
+    }
+        
+        function dragImage(e) {
+        if (isDragging) {
+        let offsetX = e.clientX - startX;
+        let offsetY = e.clientY - startY;
+        e.target.style.left = offsetX + 'px';
+        e.target.style.top = offsetY + 'px';
+    }
+    }
+        
+        function stopDrag(e) {
+        isDragging = false;
+        e.target.style.cursor = 'grab'; // Reset cursor back to grab
+    }
+      */
+    function zoom(e) {
+        var zoomer = e.currentTarget;
+        var offsetX, offsetY;
+        
+        // For mouse events
+        if (e.offsetX && e.offsetY) {
+            offsetX = e.offsetX;
+            offsetY = e.offsetY;
+        }
+        // For touch events
+        else if (e.touches && e.touches[0]) {
+            offsetX = e.touches[0].pageX;
+            offsetY = e.touches[0].pageY;
+        }
+        
+        // Calculate percentage based on image container size
+        var x = offsetX / zoomer.offsetWidth * 100;
+        var y = offsetY / zoomer.offsetHeight * 100;
+        
+        // Set background position to zoom in on the image
+        zoomer.style.backgroundPosition = x + '% ' + y + '%';
+    }
+
+        </script>
+    
+</apex:page>

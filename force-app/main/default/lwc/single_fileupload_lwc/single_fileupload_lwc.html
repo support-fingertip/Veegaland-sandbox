@@ -1,0 +1,8 @@
+<template>
+     <lightning-tile class="slds-grid slds-grid_align-center slds-grid_vertical-align-center">
+                        <lightning-file-upload label={UploadLabel} name="fileUploader" accept={acceptedFormats}
+                            record-id={recordId} onuploadfinished={handlefileUploadFinished} file-field-name={fileFieldName}
+                            file-field-value={fileNamePrefix}>
+                        </lightning-file-upload>
+                </lightning-tile>
+</template>

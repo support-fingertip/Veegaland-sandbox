@@ -1,0 +1,93 @@
+<apex:page renderAs="pdf" applyBodyTag="false" showHeader="false">
+    <html>
+    <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+            <style type="text/CSS">
+ 
+            </style>
+    </head>
+        
+        <body style="font-family: Arial, sans-serif; font-size: 14px; margin: 20px;">
+            
+           <div class="address">
+               <span style=" text-align:left; display: inline-block; margin-bottom:10px" >
+                From
+               </span><br/>
+               <span style="background-color:yellow ; text-align:left">
+                    ………………………….(name of Allottee/Allottees) <br/>
+                    
+               </span><br/>
+               <span style="background-color:yellow ; text-align:left">
+                   ………………………….(address)
+               </span>
+               
+               <br/>
+               <span style=" text-align:left; display: inline-block; margin-top:20px; margin-bottom:10px" >
+                To
+               </span><br/>
+               
+               <span style="text-align:left;line-height:20px">
+                   <strong>VEEGALAND DEVELOPERS PRIVATE LIMITED</strong><br/>
+                        XIII/300  E-26,  4th floor,  K C F  Tower, <br/>
+                        Bharath  Matha College  Road,  Kakkanad  Desom, <br/>
+                        Thrikkakara  P. O., Vazhakkala  Village, Kanayannur Taluk, <br/> 
+                        Ernakulam  District , Pin code – 682 021<br/>
+
+               </span>
+            </div>
+            
+            <p>
+                <strong>Subject: Declaration of Indemnity for Non-Registration of Agreement</strong>
+            </p>
+            
+            <div class="content">
+                <p style="line-height:20px;text-align: justify; ">
+                    <span style="background-color:yellow ;font-weight:bold "> I/We, …………………………………………….,</span> have booked an Apartment at <span style="background-color:yellow ;font-weight:bold "> ……………… </span>project of Veegaland Developers Private Limited and you have allotted the apartment having unit No.<span style="background-color:yellow ;font-weight:bold "> ………</span> at<span style="background-color:yellow ;font-weight:bold "> ………… </span>. Floor.
+                    <span style="background-color:yellow ;font-weight:bold ">I/WE</span> acknowledge that, as per the terms of the booking and as per Section 17(1)(f) of The Registration Act, 1908 and Section 13(1) of Real Estate (Regulation and Development) Act, 2016, it is required that the Agreement for Sale be executed and registered within 120 days of its execution at concerned Sub Registrar office in physical presence of Allottee/ Allottees.<span style="background-color:yellow ;font-weight:bold "> I/WE</span> also understand that it is the responsibility of the Allottee/ Allottees to facilitate the completion of necessary documentation including registration of Agreement for Sale in a timely manner.
+                    </p>
+                   
+                <p style="line-height:20px;text-align: justify;"> Due to <span style="background-color:yellow ;font-weight:bold ">………………………………………………………………., I/WE</span> are unable to be present in person at the Sub Registrar office to complete the process of executing the Sale Agreement. I also am not in a position to execute a Power of Attorney in favour of a blood relative due to<span style="background-color:yellow ;font-weight:bold "> ………………………………………</span>.. 
+                </p>
+                
+                <p style="line-height:20px;text-align: justify;">
+                    
+               
+                    <span style="background-color:yellow ;font-weight:bold ">  I/WE</span> hereby request your company to prepare the Agreement for Sale in required stamp paper and send across to us for duly signing at<span style="background-color:yellow ;font-weight:bold "> ……………………</span>. Station. <span style="background-color:yellow ;font-weight:bold ">I/WE</span> hereby consent and request your company to consider the Agreement for Sale duly signed by us, to be in order and to proceed with the terms stated therein, including collection of payments as per the payment schedule therein, in the due course. We shall inform our bank/ financial institution about this documentation process followed and align our credit approval process with the same.
+                </p>
+                
+                <p style="line-height:20px;text-align: justify;">
+                    
+                
+                    <span style="background-color:yellow ;font-weight:bold ">WE</span> hereby agree to pay such stamp duty and registration fees for registration of Sale Deed at the time of completion of the project as directed by the sub registrar.
+                    
+                </p>
+                
+                <p style="line-height:20px;text-align: justify;">
+                    
+             
+                    This declaration of indemnity shall remain valid till the date of assessment of the matter by any statutory bodies w.r.t. the same.
+                    </p>
+                <br/>
+                
+                
+                <span style="display:inline-block;margin-bottom:60px">Yours Sincerely</span> <br/>
+                
+                <span style="
+            background-color: yellow;text-align:left;
+            ">
+                    
+                    &lt;Customer Name&gt;
+                <br/>
+            &lt;Place&gt;<br/>
+                    
+            &lt;Date&gt;
+
+                </span>
+
+            </div>
+            
+        </body>
+        
+        
+    </html>
+</apex:page>

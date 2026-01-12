@@ -1,0 +1,10 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">
+    <aura:attribute name="recordId" type="String" description="Record to which the files should be attached" />
+    <aura:attribute name="myRecordID" type="String" description="Record to which the files should be attached" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:card title="Project Documents Upload" iconName="custom:custom14" class="slds-p-around_small">
+        <div class="slds-p-vertical_xx-small">      
+            <c:GenericFileUploadComponent recordId="{!v.recordId}" picklistValues="FAQ,RERA Certificate,Alteration Policy" displaySelectedDocs="true"/>
+        </div> 
+    </lightning:card>
+</aura:component>

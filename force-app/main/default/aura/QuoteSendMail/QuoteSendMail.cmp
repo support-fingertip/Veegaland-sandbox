@@ -1,0 +1,7 @@
+<aura:component controller="quotePdfController"
+				implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >     <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+    	  <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="vfPage" type="string" />
+    <aura:attribute name="showPdf" type="boolean" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+</aura:component>

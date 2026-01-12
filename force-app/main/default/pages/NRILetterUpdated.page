@@ -1,0 +1,97 @@
+<apex:page standardController="Booking__c" extensions="NriLetterController" renderAs="pdf" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false">
+    <style>
+        @page {
+            margin: 20mm 10mm;
+            @top-center {
+                content: element(header);
+            }
+            @bottom-left {
+                content: element(footer);
+            }
+        }
+        p {
+            font-family: Calibri, sans-serif;
+            font-size: 20px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        	
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        
+        .bold {
+            font-weight: bold;
+        }
+        .highlight {
+            color: #2a6ad4;
+        }
+        .footer {
+            text-align: left;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+        .signature {
+            margin-top: 40px;
+        }
+    </style>
+
+    <div class="container">
+        <p>From<br/><br/>{!allotteeName}<br/>
+         <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_House_No_Name__c))}">
+                                {!Booking__c.Permanent_House_No_Name__c},<br/>
+            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Desom__c))}">
+                                {!Booking__c.Desom__c} Desom,<br/>
+            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_Post_Office__c))}">
+                               {!Booking__c.Permanent_Post_Office__c} P. O.,
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Village_Panchayath__c))}">
+                               {!Booking__c.Village_Panchayath__c} Village,
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Taluk__c))}">
+                               {!Booking__c.Taluk__c} Taluk,<br/>
+            </apex:outputPanel>
+            				  <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.District__c))}">
+                               {!Booking__c.District__c} District,
+                            </apex:outputPanel>
+            			    <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_Postal_Code__c))}">	
+                              Pin code - {!primaryPincode} 
+            </apex:outputPanel></p>
+
+        <p>To<br/><br/>
+            <b>VEEGALAND DEVELOPERS LIMITED</b><br/>
+            XXXV/564, 4TH FLOOR, K C F TOWER,<br/> BHARAT MATHA COLLEGE ROAD, KAKKANADU, <br/> Thrikkakara,
+            Ernakulam- 682021, Kerala</p>
+
+        <h4>Subject: <u>Declaration of Indemnity for Non-Registration of Agreement</u></h4>
+
+        <p style="text-align:justify;">I/We, <span class="bold">{!allotteeName}</span>, have booked an Apartment at <span class="bold">{!projectName}</span> project of Veegaland Developers Limited and you have allotted the apartment having unit No. <span class="bold">{!unitNo}</span> at <span class="bold">{!floorNumberWithSuffix}</span> Floor.</p>
+
+        <p style="text-align:justify;">I/We acknowledge that, as per the terms of the booking and as per Section 17(1)(f) of The Registration Act, 1908 and Section 13(1) of Real Estate (Regulation and Development) Act, 2016, it is required that the Agreement for Sale be executed and registered within 120 days of its execution at the concerned Sub Registrar office in the physical presence of the Allottee/Allottees. I/We also understand that it is the responsibility of the Allottee/Allottees to facilitate the completion of necessary documentation, including registration of Agreement for Sale in a timely manner.</p>
+
+        <p style="text-align:justify;">Due to <span class="bold">{!reasonForNonRegistration}</span>, I/We are unable to be present in person at the Sub Registrar office to complete the process of executing the Sale Agreement. I also am not in a position to execute a Power of Attorney in favour of a blood relative due to <span class="bold">{!reasonForNonRegistration}</span>.</p>
+
+        <p style="text-align:justify;">I/We hereby request your company to prepare the Agreement for Sale in required stamp paper and send across to us for duly signing at <span class="bold">{!signingLocation}</span> Station. I/We hereby consent and request your company to consider the Agreement for Sale duly signed by us, to be in order and to proceed with the terms stated therein, including collection of payments as per the payment schedule therein, in the due course. We shall inform our bank/financial institution about this documentation process followed and align our credit approval process with the same.</p>
+
+        <p style="text-align:justify;">We hereby agree to pay such stamp duty and registration fees for registration of Sale Deed at the time of completion of the project as directed by the sub registrar.</p>
+
+        <p style="text-align:justify;">This declaration of indemnity shall remain valid till the date of assessment of the matter by any statutory bodies w.r.t. the same.</p>
+
+        <p class="footer">Yours Sincerely,</p>
+
+        <p class="signature"><span class="bold">{!allotteeName}</span></p>
+
+        <p class="footer">Place – {!place}<br/>
+        Date – <apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!TODAY()}" /> </apex:outputText></p>
+    </div>
+</apex:page>

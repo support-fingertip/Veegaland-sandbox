@@ -1,0 +1,111 @@
+@isTest
+public class PendingPaymentReminderTest {
+    
+    @isTest
+    public static void pendingPayment(){
+        
+        //project
+         Project__c project = new  Project__c();
+        project.Name = 'Veegaland Green Heights';
+        project.Project_Type__c='Apartments';
+      //  project.Finance_User__c = owner.Id;
+       // project.CRM_Manager__c =  owner.Id;
+       // project.Legal_User__c = owner.Id;
+       // project.Legal_User2__c = owner.Id;
+        insert project;
+        
+        //unit
+         Plot__c unit = new Plot__c();
+        unit.Name = '101';
+        unit.Status__c = 'Available';
+        unit.Project__c = project.Id;
+        unit.Block__c = 'A4';
+        unit.Plot_Type__c = 'Residential';
+      //  unit.Block1__c = block.Id;
+        unit.Carpet_Area__c = 850;
+        unit.Balcony_Sq_mts__c = 20;
+        unit.Balcony_Area__c = 100;
+        unit.BHK_Type__c = '3 BHK + 2T';
+        unit.Premium_Status__c = 'Premium';
+        unit.Floor__c = '1';
+        unit.Share__c = 'MHPL';
+        unit.Facing__c = 'EAST';
+        unit.Carpet_Sq_mts__c = 80;
+        unit.CA__c = 75;
+        unit.Built_up_area__c = 1200;
+        unit.UDS__c = 300;
+        unit.UDS_Sq_mts__c = 50;
+        unit.Super_built_up_area__c = 1500;
+        unit.Price_Per_Sq_Ft__c = 5000;
+        unit.Floor_Rise__c = 200;
+        unit.Premium_Charge__c = 100000;
+        unit.Covered_Park_Parking__c = 50000;
+        unit.Other_Charges__c = 20000;
+        unit.Solar_Charges__c = 15000;
+        unit.GST1__c = 18;
+        unit.Floor__c = '30';
+        insert unit;
+        
+       
+        
+        //booking
+         Booking__c book = new Booking__c();
+       // book.SLead__c = ld.Id;
+       // book.Quote__c = Qt.Id;
+        //book.Payment_Plan__c = payplan.Id;
+        book.Followup_Date__c = system.today();
+        book.Followup_Subject__c = 'test22';
+        book.Last_Comment__c = 'test22';
+        book.Project__c = 'Veegaland Green Heights';
+        book.Payment_Type__c = 'Custom';
+        book.Sale_Agreement_Completed__c = false;
+        book.Agreement_Amount_Cleared__c ='Received Partial Amount';
+        book.Stage__c ='Welcome Email';
+        book.Demand_Number__c = '12345'; 
+        book.Project1__c = project.Id; 
+        book.Date_of_Booking__c = System.today(); 
+        book.Mode_Of_Payment__c = 'Credit Card';
+        book.Funding_Type__c = 'Self';
+        book.Plot__c = unit.Id;
+        book.Loan_Sanction_Confirmed__c = true;
+        book.Loan_Sanctioned_Amount__c = 10000;
+       // book.Sales_Manager1__c = owner.Id;
+       // book.Sales_Executive__c = owner.Id;
+       /// book.Finance_User__c = owner.Id;
+       // book.First_Applicant_Name__c = 'Akhil';
+       // book.CRM_Manager__c=owner.Id;
+       // book.Legal_Team__c = owner.Id;
+       // book.Legal_Advocate_Assigned__c = owner.Id;
+        book.Email1__c = 'Test@gamil.com';
+        insert book;
+        
+         //master payment schedule
+         Master_payment_schedule__c mpy1 = new Master_payment_schedule__c ();
+        mpy1.S_No__c = 2;
+        mpy1.Payment_Percent__c = 50;
+        //mpy1.Status__c = 'Completed';
+        mpy1.Project__c = project.id;
+       // mpy1.Payment_Plan__c = payplan.Id;
+        insert mpy1;
+        mpy1.Status__c = 'Completed';
+        update mpy1;
+        
+        //payment schedule
+        Payment_schedule__c pys = new Payment_schedule__c();
+        pys.Payment_Percent__c=10;
+        pys.Payment_Due_Date__c = system.today()+3;
+        pys.Booking__c = book.id;
+        pys.Master_Payment_Schedule__c = mpy1.Id;
+        pys.name ='on booking';
+        pys.Interest_Percent__c=25;
+        pys.Is_Demanded__c = true;
+        insert pys;
+        
+        Test.startTest();
+        PendingPaymentReminder batch = new PendingPaymentReminder();
+        Database.executeBatch(batch, 100);
+         Test.stopTest();
+        
+    }
+
+}

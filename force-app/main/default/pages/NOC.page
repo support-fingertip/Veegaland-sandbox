@@ -1,0 +1,135 @@
+<apex:page standardController="Booking__c" extensions="NocLetterController" renderAs="pdf" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false">
+    <style>
+        @page {
+            margin: 20mm 10mm;
+            @top-center {
+                content: element(header);
+            }
+            @bottom-left {
+                content: element(footer);
+            }
+        }
+        p {
+            font-family: Calibri, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+        	text-align: justify;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .bold {
+            font-weight: bold;
+        }
+        .highlight {
+            color: #2a6ad4;
+        }
+        .footer {
+            text-align: left;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+        .signature {
+            margin-top: 40px;
+        }
+    </style>
+
+    <div class="container">
+        <!-- Header Section -->
+        <p>
+            The Branch Manager<br/>
+            State Bank of India<br/>
+            Ernakulam<br/><br/>
+            <apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!TODAY()}" /> </apex:outputText>
+        </p>
+
+        <p>Dear Sir,</p>
+
+        <p>We, {!companyName}, hereby certify that:</p>
+        <p style="text-align:justify;"><b>{!Booking__c.salutation_Applicant1__c}.</b> <b>{!Booking__c.First_Applicant_Name__c}</b>, ({!purchaserDetails},
+            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Occupation__c))}">
+                {!Booking__c.Occupation__c},
+            
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Primary_Applicant_Father_Husband_s_Name__c))}">
+               {!Booking__c.Primary_Applicant_Relationship_Type__c}  {!Booking__c.Primary_Applicant_Father_Husband_s_Name__c},
+            
+            </apex:outputPanel>
+            
+            having address at
+            
+            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_House_No_Name__c))}">
+                                {!Booking__c.Permanent_House_No_Name__c},
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Desom__c))}">
+                                &nbsp;{!Booking__c.Desom__c} Desom,
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_Post_Office__c))}">
+                                &nbsp;{!Booking__c.Permanent_Post_Office__c} P. O.,
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Village_Panchayath__c))}">
+                                &nbsp;{!Booking__c.Village_Panchayath__c} Village,
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Taluk__c))}">
+                               {!Booking__c.Taluk__c} Taluk,
+                            </apex:outputPanel>
+            				  <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.District__c))}">
+                               {!Booking__c.District__c} District,
+                            </apex:outputPanel>
+            			    <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_Postal_Code__c))}">	
+                              Pin code - {!primaryPincode} 
+                            </apex:outputPanel>; herein after referred to as the “Allottees”, subject to the due and proper performance and compliance of all the terms and conditions of the Registered Sale dated {!registrationDate} (herein after referred to as the “Sale document”).</p>
+        <p><span class="bold">Description of the property:</span><br/><br/>
+        Flat No./ House No: {!flatNo}<br/>
+        Building No./Name: {!projectName}<br/>
+        Plot No: {!flatNo}<br/>
+        Street Name: {!street}<br/>
+        Locality: {!locality}<br/>
+        Area: {!areaName}<br/>
+        City: {!cityName}<br/>
+        Pin Code: {!projectPincode}</p>
+
+        <p style="text-align:justify;">2. The total consideration for this transaction, including taxes, is <span class="highlight"><b>{!transactionAmount}</b></span>.</p>
+
+        <p style="text-align:justify;">3. The title of the property described above is clear, marketable, and free from all encumbrances and doubts.</p>
+
+        <p style="text-align:justify;">4. We confirm that we have no objection whatsoever to the said purchasers mortgaging the property to <span class="highlight">{!bankName}</span> as security for the amount advanced by the bank to them, subject to the proper performance and compliance of the sale document by the said purchasers.</p>
+
+        <p style="text-align:justify;">5. We have not borrowed from any financial institution for the purchase/development of the property and have not created and will not create any encumbrances on the property allotted to the said purchasers.</p>
+
+        <p style="text-align:justify;">6. After creation of the proper charge/mortgage and after receipt of the copies thereof and proper nomination in favor of the bank, we are agreeable to accept <span class="highlight">{!bankName}</span> as a nominee of the above-named purchaser for the property described above.</p>
+
+        <p style="text-align:justify;">7. After creation of the charge/mortgage and after receipt of the copies thereof and the proper nomination in favor of the bank, we undertake to inform the society about the bank’s charge on the said flat as and when the society is formed.</p>
+
+        <p style="text-align:justify;">8. Please note that the payment for this transaction should be made by crossed Cheque/Transfer of funds favoring ‘Veegaland Developers Private Limited’ RERA Account no. 0587073000000353 with THE SOUTH INDIAN Bank Ltd, Kakkanad Branch.</p>
+
+        <p style="text-align:justify;">9. In case of cancellation of the sale agreement, we shall refund the amount by crossed cheque favoring the Bank A/c no {!Booking__c.Account_Number__c} (Name {!Booking__c.Bank__c}), and forward the same to you directly.</p>
+
+        <p style="text-align:justify;">10. The signatory to this letter draws authority to sign this undertaking on behalf of the company/firm vide Resolution Dated <span class="highlight">{!resolutionDate}</span>.</p>
+
+        <p class="footer">Yours faithfully,</p>
+
+        <p class="signature"><span class="bold"><b>For {!companyName}</b></span></p>
+
+        <p class="signature"><span class="bold"><b>{!directorName}</b></span><br/>
+        <b>Director</b></p>
+
+        <p class="footer">Place – Kochi<br/>
+        Date – <apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!TODAY()}" /> </apex:outputText></p>
+    </div>
+</apex:page>

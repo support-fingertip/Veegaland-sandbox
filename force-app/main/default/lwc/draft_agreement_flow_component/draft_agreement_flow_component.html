@@ -1,0 +1,252 @@
+<template>
+    <lightning-tile>
+        <div class="multi_step_form">
+            <div class="msform">
+                <div class="progress-bg">
+                    <div class="tittle slds-card__header">
+                        <h2>
+                            <lightning-icon class="h2-icon" icon-name="standard:stage_collection" size="medium">
+                            </lightning-icon> Draft Sale Agreement Flow
+                        </h2>
+                        <p>Please upload the draft sales agreement for the customer’s review and approval. Once finalized, upload the approved version and send it via email.</p>
+                    </div>
+                    <ul class="progressbar">
+                        <li class={agreementDetailsClass}>Agreement Details Request</li>
+                        <li class={drftAgreementClass}>Draft Agreement</li>
+                        <li class={customerApprovalClass}>Customer Approval</li>
+                        <li class={finalDraftAgreementClass}>Final Draft Agreement</li>
+                    </ul>
+                </div>
+                <div class="slds-p-horizontal_medium action-area-bg"></div>
+                <template if:true={showAgreementDetails}>
+                    <section class="task-section">
+                        <h2 class="section-title">Send Agreement Details Request to Customer</h2>
+                        <ul class="taskList">
+                            <li class="task">
+                                <span>Request for agreement details</span>
+                                <template if:true={requestDetailsPending}>
+                                    <lightning-button class="slds-m-top_small" variant="brand"
+                                        label="Send Agreement Details Request" onclick={showModalAgreementDetails}>
+                                    </lightning-button>
+                                </template>
+                                <template if:true={requestDetailsNotSend}>
+                                    <span>Sale agreement details request send pending from CRM.</span>
+                                </template>
+                                <template if:true={agreementDetailsSend}>
+                                    <span>Sale agreement details request send.</span>
+                                </template>
+                            </li>
+                            <li class="task">
+                                <span>Agreement details Status</span>
+                                <span>
+                                    <template if:true={agreementDetailStatus}>
+                                        <span>Received</span>
+                                    </template>
+                                    <template if:false={agreementDetailStatus}>
+                                        <span>Not Received</span>
+                                    </template>
+                                </span>
+                            </li>
+                            <li class="task">
+                                <span>Agreement details verification</span>
+                                <template if:true={agreementDetailRequestApproved}>
+                                    <span>Agreement Details Approved</span>
+                                </template>
+                                <template if:true={agreementDetailRequestRejected}>
+                                    <span>Agreement Details Rejected</span>
+                                </template>
+                                <template if:true={agreementDetailRequestNotVerified}>
+                                    <span>Verification pending from Legal team</span>
+                                </template>
+                                <div>
+                                    <template if:true={agreementDetailRequestStatusPending}>
+                                        <lightning-button class="slds-m-top_small slds-p-right_x-small"
+                                            variant="destructive-text" label="Reject"
+                                            onclick={handleOpenRejectionPopup}></lightning-button>
+                                        <lightning-button class="slds-m-top_small" variant="brand" label="Approve"
+                                            onclick={handleApproveAgreementDetails}></lightning-button>
+                                    </template>
+                                </div>
+                                <template if:true={agreementDetailsRequest}>
+                                    <lightning-button class="slds-m-top_small" variant="brand"
+                                        label="Submit for Approval" onclick={handleRequestDetailsApproval}>
+                                    </lightning-button>
+                                </template>
+                            </li>
+                        </ul>
+                    </section>
+                </template>
+                <template if:true={showDraftAgreement}>
+                    <section class="task-section">
+                        <h2 class="section-title">Draft Sale Agreement</h2>
+                        <ul class="taskList">
+                            <li class="task">
+                                <span>Upload draft sale agreement</span>
+
+                                <template if:true={draftSaleAgreementUploadedPending}>
+                                    <c-single_fileupload_lwc record-id={recordId} label="Draft Sale Agreement"
+                                        onuploadfinished={handleUploadFinished}></c-single_fileupload_lwc>
+                                </template>
+                                <template if:true={draftSaleAgreementNotUploaded}>
+                                    <span>Draft sale agreement upload pending from Legal team</span>
+                                </template>
+                                <template if:true={draftSaleAgreementUploaded}>
+                                    <span>Draft Sale Agreement Uploaded</span>
+                                </template>
+                            </li>
+                            <li class="task">
+                                <span>Send Draft Sale Agreement</span>
+                                <template if:true={draftSaleAgreementMailSentPending}>
+                                    <lightning-button class="slds-m-top_small" variant="brand" label="Send Draft"
+                                        onclick={handleSendDraftAgreement}>
+                                    </lightning-button>
+                                </template>
+                                <template if:true={draftSaleAgreementMailSent}>
+                                    <span>Draft Sale Agreement Sent</span>
+                                </template>
+                                <template if:true={draftSaleAgreementMailNotSent}>
+                                    <span>Draft Sale Agreement Send pending from Legal</span>
+                                </template>
+                                <template if:false={draftSaleAgreementUploaded}>
+                                    <span>Draft Sale Agreement Not Uploaded</span>
+                                </template>
+                            </li>
+                        </ul>
+                    </section>
+                </template>
+                <template if:true={showCustomerDraftApproval}>
+                    <section class="task-section">
+                        <h2 class="section-title">Draft Agreement Customer Approval</h2>
+                        <ul class="taskList">
+                            <li class="task">
+                                <span>Customer Approval Status</span>
+                                <span>{agreementApprovalStatus}</span>
+                            </li>
+                            <template if:true={draftCustomerApprovalRejected}>
+                                <li class="task">
+                                    <span>Re-upload Draft Agreement</span>
+                                    <template if:true={draftSaleAgreementReUploadPending}>
+                                        <span>Draft Agreement Re-upload Pending from Legal</span>
+                                    </template>
+                                    <template if:true={draftCustomerApprovalReUpload}>
+                                        <c-single_fileupload_lwc record-id={recordId} label="Draft Sale Agreement"
+                                            onuploadfinished={handleUploadFinished}></c-single_fileupload_lwc>
+                                    </template>
+                                    <template if:true={draftSaleAgreementUploaded}>
+                                        <span>Draft Sale Agreement Uploaded</span>
+                                    </template>
+                                </li>
+                                <li class="task">
+                                    <span>Send Draft Sale Agreement</span>
+                                    <template if:true={draftSaleAgreementUploaded}>
+                                        <lightning-button class="slds-m-top_small" variant="brand" label="Send Draft"
+                                            onclick={handleSendDraftAgreement}>
+                                        </lightning-button>
+                                    </template>
+                                    <template if:false={draftSaleAgreementUploaded}>
+                                        <span>Draft Sale Agreement Not Uploaded</span>
+                                    </template>
+                                </li>
+                            </template>
+                        </ul>
+                    </section>
+                </template>
+                <template if:true={showFinalDraftAgreement}>
+                    <section class="task-section">
+                        <h2 class="section-title">Final Draft Sale Agreement</h2>
+                        <ul class="taskList">
+                            <li class="task">
+                                <span>Upload Final Draft Agreement</span>
+
+                                <template if:true={finalDraftSaleAgreementUploadPending}>
+                                    <c-single_fileupload_lwc record-id={recordId} label="Final Draft Agreement"
+                                        onuploadfinished={handleFinalDraftUploaded}></c-single_fileupload_lwc>
+                                </template>
+                                <template if:true={finalDraftSaleAgreementNotUploaded}>
+                                    <span>Final Draft Agreement Upload Pending From Legal Team</span>
+                                </template>
+                                <template if:true={finalDraftSaleAgreementUploaded}>
+                                    <span>Final Draft Agreement Uploaded</span>
+                                </template>
+                            </li>
+                            <li class="task">
+                                <span>Send Final Draft Agreement</span>
+                                <template if:true={finalDraftSaleAgreementEmailPending}>
+                                    <lightning-button class="slds-m-top_small" variant="brand" label="Send Final Draft"
+                                        onclick={handleSendFinalDraftAgreement}>
+                                    </lightning-button>
+                                </template>
+                                <template if:false={finalDraftSaleAgreementUploaded}>
+                                    <span>FInal Draft Agreement Not Uploaded</span>
+                                </template>
+                                <template if:true={finalDraftSaleAgreementEmailNotSend}>
+                                    <span>Final Draft Agreement Email Panding From Legal Team</span>
+                                </template>
+                                <template if:true={finalDraftSaleAgreementEmailSend}>
+                                    <span>Final Draft Agreement Email Sent</span>
+                                </template>
+                            </li>
+                        </ul>
+                    </section>
+                </template>
+            </div>
+        </div>
+    </lightning-tile>
+
+      <template if:true={toggleAgreementDetailsMail}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <!-- Header -->
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">Agreement Details</h2>
+                </header>
+
+                <!-- Body -->
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-input-rich-text
+                        value={agreementDetailsemailContent}
+                        disabled>
+                    </lightning-input-rich-text>
+                </div>
+
+                <!-- Footer -->
+               <div class="slds-modal__footer">
+                    <lightning-button variant="neutral" class="slds-p-right_x-small" label="Cancel"
+                        onclick={handleCancelAgreementDetails}>
+                    </lightning-button>
+                    <lightning-button variant="brand" label="Send Mail" disabled={isSendDisabled}
+                        onclick={handleRequestAgreementDetails}>
+                    </lightning-button>
+                </div>
+
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={showRejectionComments}>
+        <section role="dialog" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">Rejection Comments</h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium" tabindex="0">
+                    <lightning-textarea label="Comments" value={rejectionComments} rows="8" class="big-textarea"
+                        onchange={handleRejectionComments}>
+                    </lightning-textarea>
+                </div>
+
+                <div class="slds-modal__footer">
+                    <lightning-button class="slds-button slds-button_neutral" label="Cancel" onclick={handleCancelRejectionPopup}>
+                    </lightning-button>
+                    <lightning-button class="slds-button slds-button_brand" label="Submit" variant="brand"
+                        onclick={handleRejectAgreementDetails}></lightning-button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+</template>

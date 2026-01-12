@@ -1,0 +1,133 @@
+<aura:component controller="DemandRaiseLWCController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global">
+    
+    <aura:attribute name="projectOptions" type="List" access="PRIVATE"/>
+    <aura:attribute name="planOptions" type="List" access="PRIVATE"/>
+    <aura:attribute name="scheduleOptions" type="List" access="PRIVATE"/>
+    <aura:attribute name="selectedProject" type="String" access="PRIVATE"/>
+    <aura:attribute name="selectedPlan" type="String" access="PRIVATE"/>
+    <aura:attribute name="selectedSchedule" type="String" access="PRIVATE"/>
+    <aura:attribute name="projectData" type="List[]" access="PRIVATE"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />    
+    
+    <section class="slds-card">
+        <header class="slds-builder-header">
+            <div class="slds-builder-header__item slds-p-left_small slds-p-right_small">
+                <lightning:buttonIcon iconName="utility:back" variant="bare-inverse" onclick="{! c.handleClick }" alternativeText="Back" title="Back" />
+            </div>
+            <div class="slds-builder-header__item">
+                <div class="slds-builder-header__item-label slds-media slds-media_center">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-utility-builder slds-current-color">
+                            <lightning:icon size="x-small" iconName="utility:swarm_request" alternativeText="Demand" title="Demand" />
+                        </span>
+                    </div>
+                    <div class="slds-media__body">Bulk Demand Raise</div>
+                </div>
+            </div>
+        </header>
+        <div class="slds-builder-toolbar builder-toolbar" role="toolbar">
+            <div class="slds-form__row">
+                <div class="slds-form__item" role="listitem">
+                    <fieldset class="slds-form-element slds-form-element_compound slds-is-editing slds-form-element_stacked">
+                        <div class="slds-form-element__control">
+                            <div class="slds-form-element__row">
+                                <div class="slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:select name="Project" label="Project" aura:id="colorId" value="{!v.selectedProject}" onchange="{!c.handleProjectChange}">
+                                            <option text="--Select Project--" value="" />
+                                            <aura:iteration items="{!v.projectOptions}" var="option">
+                                                <option text="{!option.label}" value="{!option.value}" />
+                                            </aura:iteration>
+                                        </lightning:select>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:select name="PaymentPlan" label="Payment Plan" aura:id="colorId" value="{!v.selectedPlan}">
+                                            <option text="--Select Payment Plan--" value="" />
+                                            <aura:iteration items="{!v.planOptions}" var="option">
+                                                <option text="{!option.label}" value="{!option.value}"/>
+                                            </aura:iteration>
+                                        </lightning:select>
+                                    </div>
+                                </div>
+                                <div class="slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <lightning:button variant="brand" label="Get Schedules" title="Brand action" onclick="{! c.handleGetMPS }" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="slds-welcome-mat">
+            <div class="slds-welcome-mat__content slds-grid">
+                <div class=" slds-size_1-of-3" tabindex="0" role="region">
+                    <div class="slds-welcome-mat__info-content">
+                        <div class="slds-modal__content slds-grid slds-grow slds-p-around_x-small" id="modal-content-id-1">
+                            <div class="slds-grid slds-grid_vertical">
+                                <div class="slds-p-vertical_x-small slds-p-horizontal_large slds-shrink-none slds-theme_shade">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label slds-assistive-text" for="example-unique-id-180" id="combobox-label-id-21">Search</label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-combobox_container">
+                                                <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+                                                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                                        <input type="text" class="slds-input slds-combobox__input" id="example-unique-id-180" aria-autocomplete="list" aria-controls="example-unique-id-181" aria-expanded="false" aria-haspopup="listbox" autoComplete="off" role="combobox" placeholder="Search Salesforce"/>
+                                                        <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-scrollable slds-grow">
+                                    <div class="slds-scrollable_none">
+                                        <table aria-multiselectable="true" class="slds-table slds-no-row-hover slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols" role="grid" aria-label="Example product list">
+                                            <thead>
+                                                <tr class="slds-line-height_reset">
+                                                    <th class="" scope="col" style="width:1rem"></th>
+                                                    <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                                                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                                            <span class="slds-truncate" title="Name">Schedule Name</span>
+                                                        </div>
+                                                    </th>
+                                                    <th aria-sort="none" class="slds-is-resizable slds-is-sortable" scope="col">
+                                                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                                            <span class="slds-truncate" title="Name">Combined</span>
+                                                        </div>
+                                                    </th>
+                                                    <th class="" scope="col" style="width:3.75rem"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr aria-selected="false" class="slds-hint-parent">
+                                                    <th scope="row"></th>
+                                                    <th scope="row">
+                                                        <div class="slds-truncate" title="Analytics">Analytics</div>
+                                                    </th>
+                                                    <td role="gridcell">
+                                                        <div class="slds-truncate" title="ANTLY">ANTLY</div>
+                                                    </td>
+                                                    <td class="slds-text-align_right" role="gridcell" tabindex="0">
+                                                        <label class="slds-checkbox-button" for="example-unique-id-182">
+                                                            <lightning:buttonIconStateful iconName="utility:forward" selected="{! v.selectedSchedule }" onclick="{! c.handleSelectButtonClick }" alternativeText="Select" />
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</aura:component>

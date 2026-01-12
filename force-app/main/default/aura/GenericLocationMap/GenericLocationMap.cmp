@@ -1,0 +1,35 @@
+<aura:component Controller="GenericLocationMapController" implements="force:appHostable,force:hasRecordId" access="global">
+    <aura:attribute name="latitude" type="Decimal" access="global"/>
+    <aura:attribute name="longitude" type="Decimal" access="global"/>
+    <aura:attribute name="objectName" type="String" access="global"/>
+    <aura:attribute name="recordId" type="String" access="global"/>
+    <aura:attribute name="locationName" type="String" access="global"/>
+    <aura:attribute name="cityName" type="String" access="global"/>
+    <aura:attribute name="cityField" type="String" access="global"/>
+    <aura:attribute name="locationNameField" type="String" default="LocationName__c" access="global"/>
+    <aura:attribute name="locationField" type="String" default="Location__c" access="global"/>
+    <aura:attribute name="errorMessage" type="String" default=""/>
+     <aura:attribute name="mapUrl" type="String"/>
+    <aura:attribute name="mapMarkers" type="Object"/>
+    <aura:attribute name="zoomLevel" type="Integer" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+<div class="slds-is-relative">
+    
+        <lightning:map 
+        mapMarkers="{! v.mapMarkers }" 
+        zoomLevel="{!v.zoomLevel}" />
+    
+    <!-- Google Map Container
+        <iframe src="{!v.mapUrl}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+    
+    <!-- Show in Google Maps Button -->
+    <div class="slds-text-align_center slds-is-absolute btn-location">
+        <lightning:button label="Show in Google Maps" onclick="{!c.showInGoogleMaps}" />
+    </div>
+    </div>
+    <!-- Display missing data message -->
+    <aura:if isTrue="{!not(empty(v.errorMessage))}">
+        <div class="slds-text-color_error">{!v.errorMessage}</div>
+    </aura:if>
+
+</aura:component>

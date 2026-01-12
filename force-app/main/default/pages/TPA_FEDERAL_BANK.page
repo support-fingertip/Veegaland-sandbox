@@ -1,0 +1,352 @@
+<apex:page renderAs="pdf" applyBodyTag="false" showHeader="false" >
+    <head>
+        <style type="text/css" media="print">
+            * {
+            font-weight: normal; /* Reset bold styling */
+            }
+            
+            @page {
+            size: A4;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            margin-right:5px
+            }
+            
+            strong {
+            font-weight: 600;
+            }
+            table {
+            width: 100%;
+            border: 1.5px solid black;
+            border-collapse: collapse;
+            }
+            
+            th, td {
+            border: 1.5px solid black;
+            padding-left:6px;
+            padding-bottom:10px;
+            
+            }
+            .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            
+           
+        }
+            
+            
+            
+        </style>
+        <body>
+            <div class="footer" style="margin-left:-30px">
+                <table width="90%">
+                    <tr>
+                    <td style="border:0; width:30%"><strong>BORROWERS   </strong></td>
+                        <td style="border:0; width:30%"><strong>BUILDER                                                    </strong></td>
+                        <td style="border:0; width:30%"><strong>BANK</strong></td>
+                    </tr>
+                </table>
+            </div>
+            
+            
+            <div style="padding-left:70px; padding-right:50px">
+                <div style="padding-top:350px"></div>
+                
+                
+                <p style="text-align:center">
+                    
+                    <strong><u>Tripartite Agreement </u></strong>
+                </p> 
+                <p style="text-align:justify">
+                    THIS AGREEMENT made at Ernakulam on this the ……..........….day of …........................................……..<strong>BETWEEN 1. Mr. Vishnu S. Menon,</strong> (Aadhaar No. 8136 3490 5801 issued by Government of India) and (PAN AQUPV 7716 N), aged 32 (Thirty Two) years, Application Development Specialist, son of Mr. Sasi M., Manjalavil House, Kalathial Road, Akkikkavu Desom, Akkikavu P.O., Akathiyoor Village, Kunnamkulam Taluk, Thrissur District, Pin Code  - 680519; and <strong>2. Mrs. Navami R.,</strong> (Aadhaar No. 4178 8852 9054 issued by Government of India) and (PAN AVUPR 7355 L), aged 32 (Thirty Two) years, Assistant Manager, wife of Mr. Vishnu S. Menon, having address at 29/2726, Nandanam, Petta Prasanthi Lane, Petta Desom, Poonithura P.O., Poonithura Village, Kanayannur Taluk,  Ernakulam  District, Pin Code  - 682038; (hereinafter called the ‘borrower(s)’ which expression shall unless the context otherwise requires means and includes his/her heirs, executors, administrators, receivers and permitted assigns). 
+                    
+                </p>
+                <p style="text-align:justify">
+                    <strong> VEEGALAND DEVELOPERS PRIVATE LIMITED,</strong> (CIN U45201KL2007PTC021107), a  Private Limited  Company incorporated under the Companies Act 1956, having its Registered  office  at  XIII/300  E-26,  4th floor,  K C F  Tower, Bharath  Matha College  Road,  Kakkanad  Desom, Thrikkakara  P. O., Vazhakkala  Village, Kanayannur Taluk,  Ernakulam  District , Pin code – 682 021,<strong> (PAN AACCV 5457 F)</strong>, represented by its Director – Marketing &amp; Administration,<strong> Mr. Kurian Thomas,</strong> aged 48 (Forty Eight) years, Private company employee, son of    Mr. V.M. Thomas, having address at Vengathanam House, Florican Road, Nedugatoor Desom, Karaparamba P.O., Vengeri Village, Kozhikode Taluk, Kozhikode District, Pin Code  - 673 010 (Aadhaar No. 4036 1211 2022 issued by Government of India); duly authorised under resolution passed  in the meeting of  Board of Directors of the company held on 30-09-2023; (hereinafter called the ‘builder” which expression shall include his/their respective heirs, executors, administrators and assigns).  
+                </p>
+                <p style="text-align:center">
+                    AND
+                </p>
+                <div style="page-break-after:always"></div>
+                <p>
+                    The Federal Bank Ltd., a Company registered under the Companies Act, 1956 having its registered office at Aluva, Kerala and having a branch office among other places at Pathanamthitta Branch, of Ernakulam district (hereinafter called “the bank” which expression shall include its successors and assigns).  
+                </p>
+                
+                <div style="padding-top:350px">  </div>
+                <p style="text-align:justify">
+                    WHEREAS the immovable property scheduled as ‘A Schedule’ in this agreement is purchased by the builder vide sale deed Nos. Sale deed No. 1729/2022 of Sub Registry Office, Tripunithura and the builder is the absolute owner and is in possession and enjoyment of the property and has the right to sell/alienate/encumber in any manner as the builder desires  
+                </p>
+                <p style="text-align:justify">
+                    AND WHEREAS the “BORROWER” approached the builder for construction of a flat/independent building in Schedule A property with proportionate undivided share therein and to execute the sale deed of the flat/independent building in favour of the borrower on completion of the construction of the flat/independent house. The specification/details of the flat/independent house is shown in Schedule B to the agreement.  
+                </p>
+                <p style="text-align:justify">
+                    AND WHEREAS by an agreement dated 29.06.2024 by and between the builder and the borrower the builder has agreed to sell to the borrower the proportionate undivided and inseparable share/interest in the ‘A’ Schedule property and to construct a flat/ as per the specifications in ‘C’ Schedule  for a total consideration of Rs.1,20,18,616/- (Rupees One Crore Twenty Lakh Eighteen Thousand Six Hundred and Sixteen Only). In furtherance thereof the borrower has already paid to the builder a sum of<strong> Rs.12,10,252/- (Rupees Twelve lakh ten thousand two  hundred and fifty two Only) </strong> by way of advance out of the total consideration agreed.  
+                </p>
+                <p style="text-align:justify">
+                    AND WHEREAS the borrower has approached the Bank for a loan of Rs………..……. (Rupees………………………………………….…..only) for paying the balance amount of the total sale consideration to the builder and agreed the terms and conditions of the loan of the Bank.  
+                </p>
+                <div style="page-break-after:always"> </div>
+                <p style="text-align:justify">
+                    And the BORROWER agrees to pay the entire sum of of <strong>Rs.1,20,18,616/- (Rupees One Crore Twenty Lakh Eighteen Thousand Six Hundred and Sixteen Only)</strong> to the builder towards full settlement of the sale consideration for the flat specified in Schedule C with proportionate undivided share in the Schedule A Property by availing the loan from the bank.  
+                </p>
+                <p style="text-align:justify">
+                    AND WHEREAS the bank has sanctioned/agreed to sanction the loan for an amount of Rs…………..…………..(Rupees …………………………………….…………..only) to the the Bank and the borrower agreed to mortgage the C schedule flat along with the proportionate  borrower subject to the terms and conditions as agreed and executed between the BORROWER and undivided share/interest in A Schedule property to the Bank on execution of the sale deed by the builder in favour of the borrower.  
+                </p>
+                <p style="padding-bottom:5px">
+                     Now, it is mutually agreed between the parties as follows:  
+                </p>
+                <p style="text-align:justify">
+                   
+                    (1) The Bank shall make payment of the loan amount of Rs……………………(Rupees………………………………………………..…only) directly to the builder on execution of loan documents by the borrower in favour of the Bank and the borrower hereby agrees  and  undertake  that  the loan amount paid by the Bank directly to the builder is at the specific request of the borrower. The disbursement of payment to the builder shall be as per the Schedule ‘C’ to the agreement.  
+                </p>
+                <p style="text-align:justify">
+                    (2) The payment of the above said sum of Rs……………………(Rupees………………………………………………..…only) by the Bank to the builder as per Schedule E shall be deemed as the payment made by the borrower and on completion of the construction and receipt of the entire sale consideration the builder shall execute sale deed in favour of the borrower. The borrower hereby specifically authorise the builder and the builder hereby specifically agree that the sale deed shall be entrusted/delivered directly to the Bank allowing the borrower to mortgage the same to create equitable mortgage.  
+                </p>
+                <p style="text-align:justify">
+                    (3) The builder shall build and completely finish and make the said flat habitable and execute the sale deed and hand over possession of the flat to the borrower on or before 30.12.2028 
+                </p>
+                <p style="text-align:justify">
+                    (4) The builder shall build the flat under his direct personal supervision and in the best workmanlike manner and complete the construction and handover possession to the borrower within the time stipulated above.  
+                </p>
+                <p style="text-align:justify">
+                    The builder agrees and admit that the payment of Rs……………………(Rupees………………………………………………..…only) made by the bank to the builder is at the request of the borrower and the said amount shall be treated as a loan to the borrower by the Bank and the Bank is having a charge on the Schedule C Properties with proportionate undivided share in the A Schedule property.  
+                </p>
+                <p style="text-align:justify">
+                    (6) The borrower agrees that the Bank shall have a charge on the C Schedule Property with proportionate undivided share in the A Schedule property for the recovery of the loan sanctioned to the borrower and the borrower hereby undertake to create Equitable mortgage in favour of the Bank over the C Schedule property with proportionate undivided share in the A Schedule Property as security to the loan sanctioned by the Bank as and when the sale deed is executed by the builder.  
+                </p>
+                <div style="page-break-after:always"></div>
+                <p style="text-align:justify">
+                    (7) The builder and the borrower shall be liable to and indemnify the bank for any loss caused to the bank on account of any delay in completion of construction of the flat, execution of the sale deed in favour of the borrower and handing over of possession to the borrower and/or loss caused on account of non performance of the terms of the agreement.  
+                    
+                    
+                </p>
+                <p style="text-align:justify">
+                    
+                    (8) It is hereby expressly agreed that during the subsistence of this agreement none of the parties shall create any charge, lien or mortgage the right, title and possession of C Schedule properties and proportionate  share  in  the  A  schedule  property  at  the  detriment  interest of the Bank. In case the builder is exercising the option of terminating the construction agreement with the borrower for non-payment of balance consideration or for any other valid reason, the builder shall obtain prior permission from the Bank to resell the C schedule property along with undivided proportionate share in the A schedule property. It is also made explicit that the borrower and/or the builder and/or the land owner shall not avail loan from any Bank, financial institution or Government with respect to C Schedule Property and proportionate undivided share in A Schedule property without the consent of the Bank in writing.  
+                </p>
+                
+                <p style="text-align:center">
+                    <strong><u>A Schedule </u></strong>
+                </p>
+                
+                
+                
+                
+                
+            </div>
+            
+            <div style="padding-left:70px; padding-right:15px">
+                <table style="padding:7px">
+                    <tr>
+                        <td>1. </td>
+                        <td>Serial number </td>
+                        <td>1 </td>
+                    </tr>
+                    <tr>
+                        <td>2. </td>
+                        <td>District </td>
+                        <td>Ernakulam  </td>
+                    </tr>
+                    <tr>
+                        <td>3. </td>
+                        <td>Sub District </td>
+                        <td>Thripunithura </td>
+                    </tr>
+                    <tr>
+                        <td>4. </td>
+                        <td>Taluk </td>
+                        <td>Kanayannur </td>
+                    </tr>
+                    <tr>
+                        <td>5. </td>
+                        <td>Village </td>
+                        <td>Thekkumbhagom  </td>
+                    </tr>
+                    <tr>
+                        <td>6. </td>
+                        <td>Desom </td>
+                        <td>Thekkumbhagom </td>
+                    </tr>
+                    <tr>
+                        <td>7. </td>
+                        <td>Municipality </td>
+                        <td>Thripunithura Municipality </td>
+                    </tr>
+                    <tr>
+                        <td>8. </td>
+                        <td>Resurvey block number </td>
+                        <td>369 </td>
+                    </tr>
+                    <tr>
+                        <td>9. </td>
+                        <td>Resurvey numbers </td>
+                        <td>51 </td>
+                    </tr>
+                    <tr>
+                        <td>10. </td>
+                        <td>Resurvey sub division numbers</td>
+                        <td>2-2 </td>
+                    </tr>
+                    <tr>
+                        <td>11. </td>
+                        <td>Old Survey numbers </td>
+                        <td><span>193</span>   <span style="padding-left:20px">193</span>       </td>
+                    </tr>
+                    <tr>
+                        <td>12. </td>
+                        <td>Survey sub division numbers  </td>
+                        <td><span>2</span>   <span style="padding-left:20px">3</span></td>
+                    </tr>
+                    <tr>
+                        <td>13. </td>
+                        <td>Extent in Ares  </td>
+                        <td><strong>4.95 </strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Total Extent in Ares </td>
+                        <td><strong>78.93 (Seventy eight decimal nine three) Ares. </strong></td>
+                    </tr>
+                    <tr>
+                        <td>14. </td>
+                        <td>Tenure, Nature of Land   </td>
+                        <td>Jenmom, Purayidom  </td>
+                    </tr>
+                    <tr>
+                        <td>15. </td>
+                        <td>Thandapper Number of Promoter </td>
+                        <td>10015 </td>
+                    </tr>
+                    <tr>
+                        <td>16. </td>
+                        <td colspan="2">Thandapper Number of Allottees </td>
+                        
+                    </tr>
+                    <tr>
+                        <td>17.</td>
+                        <td colspan="2"> <strong>DESCRIPTION:  </strong><br/>
+                            All that piece and parcel of land having an area of <strong>78.93 Ares</strong> of land made up of 4.95 Ares in Re. Sy. No.  51/2-2, 1.34 Ares in Re. Sy. No.  68, 23.07 Ares in Re. Sy. No. 
+                        </td>
+                        
+                    </tr>
+                    
+                </table>
+                <div style="page-break-after:always"></div>
+                <table>
+                    <tr>
+                        <td>17.</td>
+                        <td colspan="2" > <strong>DESCRIPTION:  </strong><br/>
+                            51/4, 25.29 Ares in Re. Sy. No.  51/3, and 24.28 Ares in         <span style="padding-left:40px">        Re. Sy. No.  51 in Block No. 369, together with right of way over 4 meter wide passage from the PWD Road on the West, in Thekkumbhagom Village, Kanayannur Taluk of Ernakulam District under Sale deed No. 1729/2022, of Sub Registry Office, Thripunithura with all easements and all other rights appurtenant thereto.</span>
+                        </td>
+                        
+                    </tr>
+                    
+                </table>
+                <table>
+                    <tr>
+                        <td><strong>18. BOUNDARIES </strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><strong>East   </strong></td>
+                        <td>Thodu </td>
+                    </tr>
+                    <tr>
+                        <td><strong>South  </strong></td>
+                        <td>4 Meter wide private road and Property of Unnikrishnan, <br/>
+                            Jayachandran, Leela and Madhusoodanan 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>West   </strong></td>
+                        <td>Property of Leela, Krishnadas, R. Gopalakrishnan alias Gopalakrishna Karthavu, PWD Road, Property of Sushama Harikumar and Suresh Bhaskaran </td>
+                    </tr>
+                    
+                </table>
+                
+                
+            </div>
+            
+            <div style="padding-left:70px; padding-right:50px">
+                <p style="text-align:center">
+                    <strong><u>SCHEDULE – B </u></strong>
+                </p>
+                
+                <p style="text-align:justify">
+                    <strong> 0.57% </strong>Undivided  interest in respect  of  the property described in <strong>SCHEDULE A</strong> in order to hold <strong>SCHEDULE C</strong> Apartment.  
+                </p>
+                <p style="text-align:center">
+                    <strong><u>SCHEDULE – C </u></strong>
+                </p>
+                <p style="text-align:justify">
+                    <strong>Apartment No. 11E</strong> having a Carpet area of <strong>106.71 Sq. Mtrs (1149 Sq.ft)</strong>, situated on the <strong>11th</strong>  floor, together with the proportionate share of common areas and facilities (Super built up area of <strong>148.45 Sq. Mtrs (1598 Sq. ft)</strong> along with right to use one covered parking Slot No. 48 having dimension 270 cm (Width) X 550 cm (Length) on the ground floor of the building as a special privilege attached to the apartment in the project named <strong>“VEEGALAND GREEN HEIGHTS”</strong>, together with individual electricity connection, all easements, rights and improvements thereon constructed vide Building Permit No. PW4/BA-255/2022-23 dated 08/09/2023 from Thripunithura Municipality. 
+                </p>
+                
+            </div>
+            <div>
+                <p style="text-align:center">
+                    <strong><u>  SCHEDULE E</u></strong>
+                </p>
+                
+                <div style="padding-left:70px; padding-right:50px">
+                    <table>
+                        
+                        <tr>
+                            <td>SL      NO: </td>
+                            <td>Installment </td>
+                            <td>% </td>
+                            <td>Due Date </td>
+                            <td>Total </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                    </table>
+                    
+                </div>
+                <p>
+                    IN WITNESS WHEREOF the parties hereto signed this deed and delivered on the date hereinabove mentioned.  
+                </p>
+                <strong>Name &amp; Signature of Borrower  </strong>
+                
+                
+                
+                
+                <p>
+                    <strong>For M/s Veegaland Developers Pvt . Ltd  </strong>
+                </p>
+                <p>
+                    Authorized signatory 
+                </p>
+                <p style="paddint-top:20px">
+                    Director  
+                </p>
+                <p>
+                    <strong>For Federal Bank,  <br/>
+                    Pathanamthitta Branch 
+                    </strong>
+                </p>
+                
+                <p style="padding-top:20px">
+                    Represented by its authorized official <br/>
+                    Signatory 
+                    <br/><br/>
+                    Witness: 
+                    Name &amp; Address 
+                </p>
+            </div>
+            
+            
+            
+        </body>
+        
+    </head>
+</apex:page>

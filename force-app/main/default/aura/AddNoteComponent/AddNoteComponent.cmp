@@ -1,0 +1,60 @@
+<aura:component controller="AddNoteController" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" 
+                access="global" >
+    <aura:attribute name="leadId" type="String" />
+    <aura:attribute name="newNote" type="String" />
+    <aura:attribute name="ShowRecords" type="List"/>
+    <aura:handler  name="init" value="{!this}" action="{!c.DisplayNotes}" />
+    
+    <aura:html tag="style">
+        .slds-modal__container{ 
+        max-width: 50rem !important;
+        width:75% !important;
+        } 
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }
+        .slds-modal__content{
+        
+        height:unset !important;
+        max-height:unset !important;
+        }
+        .closeIcon{
+        display:none;
+        }
+        .slds-col{
+        margin-left:15px;
+        }
+    </aura:html>
+ <lightning:card>
+  <div class="modal-footer slds-modal__footer slds-size_1-of-1">
+        <div class="forceChangeRecordTypeFooter">
+            <ui:button class="custom-round-button slds-button slds-button--destructive" label="Clears Note" press="{!c.Clear}" /> 
+            <ui:button class="custom-round-button slds-button slds-button--brand slds-button_neutral"
+                       label="Add Note" press="{!c.addNote}"/>
+        </div>
+    </div>
+    
+    <div class="slds-modal__content slds-p-around--x-large  slds-size_1-of-1 " aura:id="modalbody" id="modalbody">
+        <form class="slds-form--stacked">
+            <label><b>Please Enter Notes:</b></label>
+            <lightning:textarea  value="{!v.newNote}" placeholder="Type Here ..."/>
+        </form>
+    </div>
+    
+    
+    <div style="text-align: center; font-weight: bold; color: blue; text-decoration: underline;font-size: 17px;">
+        -: All Notes :-
+    </div><br/>
+         <div class="note-container">
+        <aura:iteration items="{!v.ShowRecords}" var="note">
+            <tr>
+                <td>{!note}</td>
+            </tr>
+        </aura:iteration>
+      </div>
+    </lightning:card>  
+</aura:component>

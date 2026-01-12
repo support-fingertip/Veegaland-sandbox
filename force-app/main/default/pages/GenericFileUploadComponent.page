@@ -1,0 +1,288 @@
+<apex:page controller="CustomerFileUploadController" showHeader="false" sidebar="false">
+    <apex:includeScript value="/soap/ajax/43.0/connection.js"/>
+    <apex:includeScript value="/support/console/43.0/integration.js"/>
+    <style>
+        *, *:after, *:before {
+        box-sizing: border-box;
+        }
+        
+        :root {
+        --c-action-primary: #0070d2;
+        --c-action-primary-accent: #e9e5ff;
+        --c-action-secondary: #e5e5e5;
+        --c-text-primary: #0d0f21;
+        --c-text-secondary: #6a6b76;
+        --c-background-primary: #d0d1de;
+        }
+        body button:hover, body .btn:hover, body .btnCancel:hover, body .menuButton .menuButtonButton:hover {
+        background-position: right 0 !important;
+        }
+        body {
+        font-family: "Inter", sans-serif;
+        color: var(--c-text-primary);
+        background-color: var(--c-background-primary);
+        line-height: 1.5;
+        }
+        input, button, select, textarea {
+        font: inherit;
+        }
+        
+        .modal {
+        width: 90%;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+        background-color: #FFF;
+        border-radius: 0.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 1.5rem 1.5rem 1rem;
+        }
+        
+        .logo-circle {
+        width: 3.5rem;
+        height: 3.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background-color: var(--c-action-primary-accent);
+        }
+        .logo-circle svg {
+        max-width: 1.5rem;
+        }
+        
+        .btn-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 0.25rem;
+        border: none;
+        background-color: transparent;
+        }
+        .btn-close:hover, .btn-close:focus {
+        background-color: var(--c-action-primary-accent);
+        }
+        
+        .modal-body {
+        padding: 1rem 1.5rem;
+        }
+        
+        .modal-title {
+        font-weight: 700;
+        }
+        
+        .modal-description {
+        color: var(--c-text-secondary);
+        }
+        
+        .upload-area {
+        margin-top: 1.25rem;
+        border: none;
+        background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23ccc' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        background-color: transparent;
+        padding: 3rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+        .upload-area:hover, .upload-area:focus {
+        background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%232e44ff' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
+        
+        .upload-area-icon {
+        display: block;
+        width: 2.25rem;
+        height: 2.25rem;
+        }
+        .upload-area-icon svg {
+        max-height: 100%;
+        max-width: 100%;
+        }
+        
+        .upload-area-title {
+        margin-top: 1rem;
+        display: block;
+        font-weight: 700;
+        color: var(--c-text-primary);
+        }
+        
+        .upload-area-description {
+        display: block;
+        color: var(--c-text-secondary);
+        }
+        .upload-area-description strong {
+        color: var(--c-action-primary);
+        font-weight: 700;
+        }
+        
+        .modal-footer {
+        padding: 1rem 1.5rem 1.5rem;
+        display: flex;
+        justify-content: flex-end;
+        }
+        .modal-footer [class*=btn-] {
+        margin-left: 0.75rem;
+        }
+        
+        .btn-secondary, .btn-primary {
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        border: 2px solid var(--c-action-secondary);
+        border-radius: 0.25rem;
+        background: transparent;
+        }
+        
+        .btn-primary {
+        color: #FFF;
+        background-color: var(--c-action-primary);
+        border-color: var(--c-action-primary);
+        }
+    </style>
+    <script>
+    let bookingId = '{!bookingId}';
+    let fileNaming = '{!fileNaming}';
+    
+ function uploadFileJS() {
+    const fileInput = document.getElementById('file');
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        alert('Please select a file.');
+        return;
+    }
+
+    // Check if the file size is more than 3MB (3 * 1024 * 1024 bytes = 3145728 bytes)
+    const maxFileSize = 3 * 1024 * 1024; // 3MB in bytes
+    if (file.size > maxFileSize) {
+        alert('File size exceeds the 3MB limit. Please upload a smaller file.');
+        return;
+    }
+    
+    const reader = new FileReader();
+    reader.onloadend = function () {
+        const fileContent = reader.result.split(',')[1];
+        const fileName = file.name;
+        
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.CustomerFileUploadController.uploadFile}',
+            fileNaming, // Ensure the correct parameter names are used
+            fileName,
+            fileContent,
+            bookingId,
+            function (result, event) {
+                if (event.status) {
+                    alert(result);
+                    removeSelectedFile();
+                    document.getElementById('uploadModal').style.display = 'none';
+                    document.getElementById('thankYouMessage').style.display = 'block';
+                    preventBackNavigation();
+                    // Optionally reset after successful upload
+                } else {
+                    alert("Upload failed: " + event.message);
+                }
+            },
+            { escape: true }
+        );
+    };
+    reader.readAsDataURL(file);
+}
+function preventBackNavigation() {
+    // Disable browser back button (by pushing history state)
+    history.pushState(null, document.title, location.href);
+    window.onpopstate = function () {
+        history.pushState(null, document.title, location.href);
+    };
+
+    // Optionally, add a confirmation dialog when trying to leave the page
+    window.onbeforeunload = function () {
+        return "You cannot leave this page while the process is ongoing.";
+    };
+}
+    
+    function triggerFileInput() {
+        const fileInput = document.getElementById('file');
+        fileInput.click();
+        
+        fileInput.onchange = function () {
+            const selectedFile = fileInput.files[0];
+            const fileNameDisplay = document.getElementById('selectedFileName');
+            const selectedFileInfo = document.getElementById('selectedFileInfo');
+            const uploadMessage = document.getElementById('uploadMessage');
+            
+            if (selectedFile) {
+                fileNameDisplay.innerText = selectedFile.name;
+                selectedFileInfo.style.display = 'inline-block';
+                uploadMessage.style.display = 'none';
+            } else {
+                fileNameDisplay.innerText = '';
+                selectedFileInfo.style.display = 'none';
+                uploadMessage.style.display = 'inline-block';
+            }
+        };
+    }
+    
+    function removeSelectedFile() {
+        const fileInput = document.getElementById('file');
+        fileInput.value = '';
+        
+        document.getElementById('selectedFileName').innerText = '';
+        document.getElementById('selectedFileInfo').style.display = 'none';
+        document.getElementById('uploadMessage').style.display = 'inline-block';
+    }
+    </script>  
+    
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-logo">
+                <span class="">
+                    <img src="{!$Resource.veegaland}" alt="Upload Icon" class="slds-icon slds-icon_small" height="50px" width="125px"/>
+                </span>
+            </div>
+        </div>
+        
+        <div class="modal-body">
+            <h2 class="modal-title">Upload {!fileNaming}</h2>
+            <p class="modal-description">Attach the file below</p>
+            <div id="uploadModal" >
+                <button class="upload-area" onclick="triggerFileInput()">
+                    <span class="upload-area-icon">
+                        <img src="{!$Resource.attachment}" alt="Upload Icon" class="slds-icon slds-icon_small" height="35px" width="30px"/>
+                    </span>
+                    <span id="uploadMessage">
+                        <span class="upload-area-title">Drag {!fileNaming} here to upload.</span>
+                        <span class="upload-area-description">
+                            Alternatively, you can select a file by <br/><strong>clicking here</strong>
+                        </span>
+                    </span>
+                    <span id="selectedFileInfo" style="display:none; font-weight:bold;margin-top:15px">
+                        <span id="selectedFileName"></span>
+                        <button type="button" onclick="removeSelectedFile()" style="margin-left: 10px; background-color: #e74c3c; color: white; border: none; padding: 2px 6px; border-radius: 4px;">X</button>
+                    </span>
+                </button>
+                
+                <input type="file" id="file" style="display: none;" />
+                <p id="selectedFileName" style="margin-top: 10px; font-weight: bold;"></p>
+                
+                <div class="modal-footer">
+                    <button class="btn-secondary" onclick="window.close()">Cancel</button>
+                    <button class="btn-primary" onclick="uploadFileJS()">Upload File</button>
+                </div>
+            </div>
+            <div id="thankYouMessage" style="display: none; text-align: center; padding: 40px;">
+                <h2>Thank you!</h2>
+                <p>Your file has been successfully uploaded.</p>
+            </div>
+        </div>
+    </div>
+</apex:page>

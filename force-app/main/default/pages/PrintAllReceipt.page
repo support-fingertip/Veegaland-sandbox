@@ -1,0 +1,165 @@
+<apex:page standardController="Booking__c" extensions="PrintAllReceiptController" renderAs="pdf" applyHtmlTag="false" showHeader="false" standardStylesheets="false" >
+    <head>
+        <style type="text/css" media="print">
+            * {
+            font-weight: normal; /* Reset bold styling */
+            }
+            
+            @page {
+            size: A4;
+            margin: 0;
+            }
+            
+            strong {
+            font-weight: 600;
+            }
+            
+            /* Only one border for the entire table */
+            table {
+            width: 100%;
+            border: 1.5px solid black;
+            border-collapse: collapse;
+            }
+            
+            th, td {
+            border: 1.5px solid black;
+            
+            }
+            
+            tr.break {
+            page-break-before: always;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div style="text-align:center; padding-top:20px">
+            <apex:image url="{!URLFOR($Resource.veegaland)}" width="175" height="75"/>
+        </div>
+        <div style="padding-right:40px; padding-left:20px; padding-top:5px; line-height:1.5;font-size:11.5px;" >
+            <div class="main-margin-top" style="text-align:center; font-size:13px">
+                <strong> Veegaland Developers Private Limited	</strong>
+            </div>
+            <div style="text-align:center; font-size:11.5px;padding:0 3px;line-height:1.2">
+                <strong>Regd.Office Address: XXXV/564 (Old No. XIII/300 E- 26), 4th Floor, K Chittilappilly Tower (formerly KCF Tower) , Bharatha Matha College Road,Kakkanadu, Thrikkakkara, Ernakulam - 682021, PH: 0484 2584000, CIN: U45201KL2007PTC021107 
+                    http://www.veegaland.com, mail@veegaland.in		</strong>																																																						
+            </div>
+            
+            
+            <div style="text-align:center; font-size:15px; padding-bottom:10px; padding-top:10px"> <strong>RECEIPT </strong></div>
+            
+            
+            
+            
+            <table width="100%" style="font-size:12px; ">
+                
+                
+               
+                <tr>
+                    <th style="width:" colspan="3"> Received From:</th>
+                    <th style="width:" colspan="3">{!Booking__c.salutation_Applicant1__c}. {!Booking__c.First_Applicant_Name__c} </th>
+                </tr>
+                <tr>
+                    <th style="width:" colspan="3"> <p>Address:
+                        
+                        </p></th>
+                    <th style="width:%" colspan="3"> 
+                        
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_House_No_Name__c))}">
+                            {!Booking__c.Permanent_House_No_Name__c},
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_Street_Location__c))}">
+                            &nbsp;{!Booking__c.Permanent_Street_Location__c},
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_Post_Office__c))}">
+                            &nbsp;{!Booking__c.Permanent_Post_Office__c},
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_City__c))}">
+                            &nbsp;{!Booking__c.Permanent_City__c},
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_State__c))}">
+                            {!Booking__c.Permanent_State__c}
+                        </apex:outputPanel>
+                    </th>
+                </tr>
+                <tr>
+                    <th style="width:" colspan="3">PAN:</th>
+                    <th style="width:" colspan="3">{!Booking__c.PAN_Number1__c} </th>
+                </tr>
+                <!--<tr>
+<th style="width:" colspan="3">Co-Applicant PAN</th>
+<th style="width:70%" colspan="4"> {!coApplicants.PAN_Number__c}</th>
+</tr>-->
+                <tr>
+                    <th colspan="6" style="text-align:center; height:30px" > </th>
+                    
+                </tr>
+                <tr>
+                    <th style="width:; text-align:center" colspan="2" >Project Details</th>
+                    <th style="width:; text-align:center"  >Unit No </th>
+                    
+                    <th style="width:; text-align:center"  >Unit Type </th>
+                    <th style="width:; text-align:center"  >Floor No </th>
+                    <th style="width:; text-align:center"  >Apartment Area </th>
+                    
+                </tr>
+                <tr>
+                    <th style=" height:50px; text-align:center; text-transform:uppercase;" colspan="2" >{!Booking__c.Project_Name__c}</th>
+                    <th style=" height:50px; text-align:center" >{!Booking__c.Plot__r.Name} </th>
+                    
+                    <th style=" height:50px; text-align:center" > {!Booking__c.Plot__r.Unit_Common_Type__c} </th>
+                    <th style=" height:50px; text-align:center" > {!Booking__c.Plot__r.Floor__c}</th>
+                    <th style=" height:50px; text-align:center" >{!Booking__c.Plot__r.Apartment_area__c} </th>
+                    
+                </tr>
+                <tr>
+                    <th colspan="6" style="text-align:center; height:30px"> </th>
+                </tr>
+                <tr>
+                    <th style="text-align:center" >Instrument No:(Cash/Cheque/DD  No./RTGS)</th>
+                    <th colspan="" style="text-align:center">Instrument Type (Cash/Cheque/DD  No./RTGS)</th>
+                    <th style="text-align:center">Instrument Date</th>
+                    <th style="text-align:center" >Drawn On</th>
+                    <th style="text-align:center">Branch </th>
+                    <th style="text-align:center">Amount </th>
+                </tr>
+                <apex:repeat value="{!receipt}" var="r">
+                    <tr>
+                        <th style="text-align:center">{!r.Instrument_N__c}</th>
+                        <th colspan="" style="text-align:center">{!r.Mode_of_payment__c}</th>
+                        <th style="width:10%" >
+                        <apex:outputText value="{0,date,MMM dd, yyyy}">
+                            <apex:param value="{!r.Receipt_date__c}" />
+                        </apex:outputText>
+                            </th>
+                        
+                        <th style="text-align:center" colspan="">{!r.Payment_Received_Bank__c}</th>
+                        <th style="text-align:center; width:15%">{!r.Branch__c} </th>
+                        <th style="text-align:center; width:15%">{!r.Total_Received_Amount__c} </th>
+                        
+                    </tr>
+                </apex:repeat>
+                <tr>
+                    <th style="text-align:center" colspan="5"><strong>Total</strong> </th>
+                    <th style="text-align:center"><strong>{!formattedTotal}</strong></th>
+                </tr>
+                <tr>
+                    <th style="text-align:center" colspan="6"><strong>Rupees: {!AmountInWords}</strong>.</th>
+                    
+                </tr>
+                
+                
+                <tr>
+                    <th colspan="6" style="text-align:right; height:150px; padding-right: 140px; padding-top:40px"><Strong>Authorised Signatory</Strong> </th>
+                </tr> 
+                <tr>
+                    <th colspan="6" style="text-align:center; height:20px">***This is a system generated printout and no signature required*** </th>
+                </tr>
+            </table>
+            
+        </div>         
+        
+        
+    </body>
+    
+</apex:page>

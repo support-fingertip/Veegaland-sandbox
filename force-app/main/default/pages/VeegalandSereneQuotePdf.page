@@ -1,0 +1,263 @@
+<apex:page standardController="Quote__c" extensions="getSereneQuoteData" showHeader="false" standardStylesheets="false"  applyBodyTag="false" applyHtmlTag="false" renderAs="pdf">
+    <html>
+        <head>
+            <style type="text/css" >
+                body{
+                font-family:font-family:Arial Unicode MS !important;
+                
+                }
+                
+                
+                @page {
+                size:A4 portrait;  
+                border:1px solid black;
+                counter-increment: pages;
+                @bottom-left {
+                content: element(footer);
+                padding-bottom: 20px;
+                
+                }  
+                }
+                div.footer {
+                display: block;
+                padding: 1px 0;
+                position: running(footer);
+                border-bottom:2px solid black;
+                border-left:2px solid black;
+                border-right:2px solid black;
+                
+                width: 100%;    
+                margin-top: -8px;
+                }
+                td{
+                padding:0 3px;
+                }
+                .pagenumber:before {
+                content: counter(page);
+                }
+                .pagecount:before {
+                content: counter(pages);
+                }
+            </style>
+            
+        </head>
+        <body>
+            <table width="100%" style="font-size: 14px;text-align:center"  cellpadding="0" cellspacing="0" >
+                <tr>
+                    <!--<td><b>Installment Payment Plan - Apartment No. {!Quote__c.Unit__r.Name}</b></td>-->
+                    <td><b>VEEGALAND SERENE</b></td>
+                    <td><img src="{!$Resource.VeegaLand}" width="100px" height="50" /></td>
+                    <!--<td><b>Cost Break Up for<br/> {!Quote__c.Project__c}&nbsp;{!Quote__c.Unit__r.Project__r.Project_Address__c} </b></td>-->
+                    <!--<td>VEEGALAND SERENE
+                        <apex:outputText rendered="{!Quote__c.Project__c == 'Veegaland Elanza'}"><img src="{!$Resource.Elanza}" width="100px" height="50" /></apex:outputText>
+                        <apex:outputText rendered="{!Quote__c.Project__c == 'Veegaland Green Capitol'}"><img src="{!$Resource.GreenCapital}" width="100px" height="50" /></apex:outputText>
+                        <apex:outputText rendered="{!Quote__c.Project__c == 'Veegaland Green Heights'}"><img src="{!$Resource.GreenHeights}" width="100px" height="50" /></apex:outputText>
+                        <apex:outputText rendered="{!Quote__c.Project__c == 'Veegaland Maybell'}"><img src="{!$Resource.Maybell1}" width="100px" height="50" /></apex:outputText>
+                        <apex:outputText rendered="{!Quote__c.Project__c == 'Veegaland Springbell'}"><img src="{!$Resource.Springbell}" width="100px" height="50" /></apex:outputText>
+                        <apex:outputText rendered="{!Quote__c.Project__c == 'Veegaland Symphony'}"><img src="{!$Resource.Symphony}" width="100px" height="50" /></apex:outputText>
+                        <apex:outputText rendered="{!Quote__c.Project__c == 'Veegaland Thejus'}"><img src="{!$Resource.Thejus1}" width="100px" height="50" /></apex:outputText>
+                        <apex:outputText rendered="{!Quote__c.Project__c == 'Veegaland Queens Park'}"><img src="{!$Resource.QueensParkQuote}" width="100px" height="50" /></apex:outputText>
+                    </td>-->
+                    
+                </tr>
+            </table>
+            <div style="page-break-after:auto;">
+                <table style="font-size: 14px;font-family: Arial Unicode MS;" cellpadding="0" cellspacing="0"  border="1" width="100%" height="100%" >
+                    <tr><td>
+                        <b>Name:-&nbsp;{!Quote__c.Lead_Name__c}</b>
+                        <!---- <br/><apex:outputText value="{0,date,dd/MM/yy}"> <apex:param value="{!Quote__c.Quote_date__c}" /> </apex:outputText>----></td>
+                        <td style="text-align:center">
+                            <apex:outputText > <b>Actual Rate</b> </apex:outputText>
+                        </td>
+                        <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}"> 
+                            <td style="text-align:center">
+                                <b>Special Rate</b> 
+                            </td>
+                        </apex:outputText>
+                    </tr>
+                    <tr>
+                        <td>Apartment No.</td>
+                        <td style="text-align:center">{!Quote__c.Unit__r.Name}</td>
+                        <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}"> 
+                            <td style="text-align:center" >
+                                {!Quote__c.Unit__r.Name}
+                            </td>
+                        </apex:outputText>
+                    </tr>
+                    <tr>
+                        <td>Floor</td>
+                        <td style="font-size: 14px;text-align:center">{!Quote__c.Floor__c}</td> 
+                        <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}"> 
+                            <td style="text-align:center" >
+                                {!Quote__c.Floor__c}  
+                            </td>
+                        </apex:outputText>
+                    </tr>
+                    <tr>
+                        <td>Type</td>
+                        <td style="text-align:center">{!Quote__c.BHK_Type__c}</td> 
+                        <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}">
+                            <td style="text-align:center" > 
+                                {!Quote__c.BHK_Type__c}
+                            </td>
+                        </apex:outputText>
+                    </tr>
+                    <tr>
+                        <td>Super Built Up Area (Sq.ft)</td>
+                        <td style="text-align:center">{!Quote__c.Super_built_up_area__c}</td> 
+                        <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}">
+                            <td style="text-align:center" > 
+                                {!Quote__c.Super_built_up_area__c}
+                            </td>
+                        </apex:outputText>
+                    </tr>
+                    <tr><td>Super Built Up Area (Sq.M)</td>
+                        <td style="text-align:center">{!Quote__c.Super_Built_Up_Area_SQM__c}</td>
+                        <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}">
+                            <td style="text-align:center" > 
+                                {!Quote__c.Super_Built_Up_Area_SQM__c}
+                            </td>
+                        </apex:outputText>
+                    </tr>
+                    <apex:outputText rendered="{!Quote__c.Projects__r.Project_Status__c != 'Complete'}">
+                        <tr>
+                            <td>Base Rate</td>
+                            <td style="color: red;text-align:center">{!Quote__c.Actual_Base_Rate__c}</td>
+                            <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}">
+                                <td style="color: red;text-align:center" > 
+                                    {!Quote__c.Special_Launch_Base_Rate__c}
+                                </td>
+                            </apex:outputText>
+                        </tr>
+                        <tr>
+                            <td>Floor Rise Charge</td>
+                            <td style="text-align:center">{!Quote__c.Floor_Rise_Charges__c}</td>
+                            <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}">
+                                <td style="text-align:center" > 
+                                    {!Quote__c.Floor_Rise_Charges__c}
+                                </td>
+                            </apex:outputText>
+                        </tr>
+                        <tr><td>
+                            Selling Rate Per Sqft including Floor rise Charges</td>
+                            <td style="text-align:center">{!Quote__c.Actual_Selling_Rate_Per_Sqft__c}</td>
+                            <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}">
+                                <td style="text-align:center" > 
+                                    {!Quote__c.Selling_Rate_Per_Sqft__c}
+                                </td>
+                            </apex:outputText>
+                        </tr>
+                        
+                    </apex:outputText>
+                    <tr> <apex:outputText rendered="{!Quote__c.Additional_Car_Parking__c !=null}">
+                        <td style="color: red">Additional Car Parking(Individual/Back to Back)</td>
+                        <td style="text-align:center">{!Quote__c.Additional_Car_Parking__c}</td>
+                        <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}">
+                            <td style="text-align:center" > 
+                                {!Quote__c.Additional_Car_Parking__c}
+                            </td>
+                        </apex:outputText>
+                        </apex:outputText>
+                        
+                    </tr>
+                    
+                   <tr>
+                        <td style="color: red">Apartment Cost Including Parking(Excluding GST) </td>
+                        <td style="color: red; text-align: center;">
+                            <apex:outputText value="{0,number,#,##0}">
+                                <apex:param value="{!Quote__c.Actual_Apartment_Cost_Including_Car_Park__c}" />
+                            </apex:outputText>
+                        </td>
+                        <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}">
+                            <td style="color: red;text-align:center" > 
+                                {!Quote__c.Apartment_Cost_Including_Car_Parking_T__c}
+                            </td>
+                        </apex:outputText>
+                    </tr>
+                    <tr><td>GST {!Quote__c.GST__c}%(Variable as Per Rules)</td>
+                        <td style="text-align:center">
+                            <apex:outputText value="{0,number,#,##0}">
+                                <apex:param value="{!Quote__c.Actual_GST_Amount__c}" />
+                            </apex:outputText>
+                        </td>
+                        <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}">
+                            <td style="text-align:center" > 
+                                {!Quote__c.GST_5__c}
+                            </td>
+                        </apex:outputText>
+                    </tr>
+                    <tr>
+                        <td style="color: red">Total Cost </td>
+                        <td style="color: red;text-align:center"><apex:outputText value="{0, number, #,##0.00}">
+                            <apex:param value="{!Quote__c.Actual_Grand_Total__c}" />
+                            </apex:outputText></td>
+                        <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}">
+                            <td style="color: red;text-align:center" > 
+                                <apex:outputText value="{0, number, #,##0.00}">
+                                    <apex:param value="{!Quote__c.GRAND_TOTAL__c}" />
+                                </apex:outputText>
+                            </td>
+                        </apex:outputText>
+                    </tr>
+                    
+                </table>
+                <table  width="100%" style="font-size: 12px;font-family: Arial Unicode MS;">
+                    <tr><td style="text-align:center"> <b>Terms &amp; Conditions</b></td></tr>
+                    <apex:outputText rendered="{!Quote__c.Special_Launch__c == true}">
+                        <tr><td><b>&nbsp;* The above special launch rate is Valid for a limited time period only. </b></td></tr>
+                    </apex:outputText>
+                    <tr><td>1) Stamp duty, Registration fees &amp; Legal charges for sale agreement are extra and shall be payable as and when demanded by the builder.</td></tr>
+                    <tr><td>2) Stamp duty &amp; Registration fees for sale deed will be extra and shall be payable as and when demanded by the builder.</td></tr>
+                    <tr><td>3) 1% TDS (applicable as per the rules) of the apartment cost shall be deducted by the customer from each installment.  </td></tr>
+                    <tr><td>4) Maintenance Deposit towards associations will be additional from the above mentioned apartment cost. And the  same to be paid to the association at the time of apartment registration along with the last installment. </td></tr>
+                </table>
+                <table style="font-size: 14px;font-family: Arial Unicode MS;" cellpadding="0" cellspacing="0"  border="1" width="100%">
+                    <tr><td style="text-align:center;background-color:#ddd9c3" colspan="6">Payment Plan of {!Quote__c.Project__c} </td></tr>
+                    <tr style="text-align:center;background-color:#ddd9c3" ><td><b>Particulars/Installment</b></td>
+                        <!--<td><b>Date</b></td>-->
+                        <td><b>%</b></td>
+                        <td><b>Amount towards Apartment Cost </b></td>
+                        <th>CGST</th>
+                        <th>SGST</th>
+                        <th>Total</th>
+                    </tr>
+                    
+                    <apex:repeat value="{!scheduleList}"  var="schedule">
+                        <tr >
+                            <td >{!schedule.name} </td>
+                            <!---   <apex:outputText rendered="{!p.S_No__c == 1}"> 
+<td align="center"  style="border-top: 0px"><b>ASAP</b>&nbsp;</td>
+<td align="center" style="border-top: 0px"> <apex:outputText value="{0, Number}"> <apex:param value="{!p.Payment_percent__c}" /></apex:outputText></td>
+<td  align="center"> <apex:outputText value="{0, Number}"> <apex:param value="{!p.Balance_Booking_Advance_Amount__c}" /></apex:outputText>  </td>
+</apex:outputText> -->
+                            <!---     <apex:outputText rendered="{!p.S_No__c != 1}">
+
+</apex:outputText> -->
+                            <!--<td >
+                                <apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!schedule.completedDate}" /> </apex:outputText>
+                            </td>-->
+                            <td  align="center"> <apex:outputText value="{0, Number}"> <apex:param value="{!schedule.percentage}" /></apex:outputText>  </td>
+                            <td  align="right"> <apex:outputText value="{0, Number}"> <apex:param value="{!schedule.calculatedAmount}" /></apex:outputText>  </td>
+                            <td align="right"><apex:outputText value="{0, Number}"> <apex:param value="{!schedule.CGSTAmount}" /></apex:outputText></td>
+                            <td align="right"><apex:outputText value="{0, Number}"> <apex:param value="{!schedule.SGSTAmount}" /></apex:outputText></td>
+                            <td align="right"><apex:outputText value="{0, Number}"> <apex:param value="{!schedule.calculatedAmount+schedule.CGSTAmount+schedule.SGSTAmount}" /></apex:outputText></td>
+                        </tr>
+                        
+                    </apex:repeat>
+                    
+                    <tr>
+                        <td style="text-align:left" colspan="1">Total</td>
+                        <td style="text-align:center" ><apex:outputText value="{0, Number}"> <apex:param value="{!totalPercent}" /></apex:outputText>%</td>
+                        <td style="text-align:right" colspan="1"><apex:outputText value="{0, Number}"> <apex:param value="{!totalDistributedAmount}" /></apex:outputText></td>
+                        <td><apex:outputText value="{0, Number}"> <apex:param value="{!totalCGSTAmount}" /></apex:outputText></td>
+                        <td><apex:outputText value="{0, Number}"> <apex:param value="{!totalSGSTAmount}" /></apex:outputText></td>
+                        <td><apex:outputText value="{0, Number}"> <apex:param value="{!totalDistributedAmount+totalCGSTAmount+totalSGSTAmount}" /></apex:outputText></td>
+                        
+                    </tr>                        
+                </table>
+            </div>
+            
+        </body>
+        
+    </html>
+</apex:page>

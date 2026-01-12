@@ -1,0 +1,10 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="viewForm" type="Boolean" default="false"/>
+    
+    <lightning:button label="Manage Co-Applicants" onclick="{!c.habdleShowCoapplicants}" />
+    
+    <aura:if isTrue="{!v.viewForm}">
+        <c:AddEditCoApplicants recordId="{!v.recordId}" showPopup="{!v.viewForm}"></c:AddEditCoApplicants>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,449 @@
+<apex:page renderAs="pdf" showHeader="false" applyBodyTag="false">
+<html>
+<head>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            color: #000;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<div style="border: 2px solid #000; padding: 8px;">
+
+   <div style="font-size:15px; font-weight:bold; text-align:right; margin-bottom:8px;">
+    ORIGINAL FOR RECIPIENT
+	</div>
+
+
+    <div style="font-size:20px; font-weight:bold; text-align:center; margin-top:12px;">Veegaland Developers Private Limited</div>
+
+    <div style="font-size:13px; font-weight:bold; text-align:center; margin-top:12px;">
+        Regd.Office Address: XXXV/564 (Old No. XIII/300 E-26), 4th Floor, K Chittilappilly Tower<br/>
+        (formerly KCF Tower), Bharatha Matha College Road, Kakkanadu, Thrikkakkara,<br/>
+        Ernakulam - 682021, PH: 0484 2584000, CIN: U45201KL2007PTC021107<br/>
+        http://www.veegaland.com, mail@veegaland.in
+    </div>
+
+    <div style="font-size:15px; font-weight:bold; margin-top:12px;">
+        <b>GSTIN :</b> 32AACCV5457F1ZF<br/>
+        <b>PAN :</b> AACCV5457F<br/>
+        <b>MSME UDYAM REG NO :</b> UDYAM-KL-02-0014172
+    </div>
+
+    <div style="font-size:23px; font-weight:bold; text-align:center; margin-top:15px;">TAX INVOICE</div>
+
+    <div style="font-size:13px; text-align:center; margin-top:10px;">
+        (See: Rule:46 of GST Rule; Sec 31(2) of GST Act)
+    </div>
+
+    <br/>
+
+    <div style="width:100%; overflow:hidden; margin-top:10px;">
+
+    <div style="width:60%; float:left; font-family:Arial, sans-serif; font-size:12px;">
+    <div style="font-weight:bold; display:inline-block; border-bottom:1px solid #000; padding-bottom:2px; margin-bottom:8px;">
+        RECIPIENT DETAILS :
+    </div>
+
+    <div style="margin-top:4px;">
+        <span style="display:inline-block; width:130px; font-weight:bold;">Name :</span>
+        Mr. Binoy Thomas &amp; Mrs. Asha M Jose
+    </div>
+
+    <div style="margin-top:4px; display:flex; font-family:Arial, sans-serif; font-size:12px;">
+    <div style="flex:0 0 130px; font-weight:bold;">Address :</div>
+    <div style="flex:1;">
+        # 2, 6th Cross, Spandana Layout, Horamavu Agara, Bangalore North, Karnataka, Pin - 560043
+    </div>
+</div>
+
+
+    <div style="margin-top:4px;">
+        <span style="display:inline-block; width:130px; font-weight:bold;">GSTIN :</span>
+        
+    </div>
+
+    <div style="margin-top:4px;">
+        <span style="display:inline-block; width:130px; font-weight:bold;">PAN :</span>
+        AFWPT9043B/ ANAPJ2640N
+    </div>
+
+    <div style="margin-top:4px;">
+        <span style="display:inline-block; width:130px; font-weight:bold;">Place of Supply :</span>
+        Kakkanad, Ernakulam
+    </div>
+
+    <div style="margin-top:4px;">
+        <span style="display:inline-block; width:130px; font-weight:bold;">State :</span>
+        Kerala
+    </div>
+
+    <div style="margin-top:4px;">
+        <span style="display:inline-block; width:130px; font-weight:bold;">State Code :</span>
+        32
+    </div>
+</div>
+
+        
+        
+
+    <!-- RIGHT SIDE -->
+<div style="width:40%; float:right; text-align:right; margin-top:10px; font-family:Arial, sans-serif; font-size:12px;">
+    <div style="margin-bottom:6px;">
+        <span style="display:inline-block; width:120px; font-weight:bold; text-align:right;">INVOICE NO :</span>
+        <span style="font-weight:normal;">MI/2025-26/4</span>
+    </div>
+
+    <div style="margin-bottom:6px;">
+        <span style="display:inline-block; width:120px; font-weight:bold; text-align:right;">DATE OF ISSUE :</span>
+        <span style="font-weight:normal;">30-Apr-2025</span>
+    </div>
+</div>
+
+<div style="margin-top:140px; font-family:Arial, sans-serif; font-size:12px; margin-right:5px white-space: nowrap;">
+    <span style="font-weight:bold;">Whether tax is payable on Reverse Charge basis ? </span>
+    <span>No</span>
+</div>
+
+
+
+
+</div>
+
+<table width="100%" border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse; font-size:11px; margin-top:10px;">
+
+    <!-- HEADER ROW 1 -->
+    <tr style="background:#d9d9d9; font-weight:bold; text-align:center;">
+        <td rowspan="2">Sr.<br/>No</td>
+        <td rowspan="2">HSN/<br/>SAC</td>
+        <td rowspan="2">Description of Goods or/and Services</td>
+        <td rowspan="2">Value of Supply</td>
+        <td rowspan="2">Amount towards Land Cost</td>
+        <td rowspan="2">Taxable Value</td>
+        <td colspan="2">SGST</td>
+        <td colspan="2">CGST</td>
+        <td rowspan="2">Total Amount</td>
+    </tr>
+
+    <!-- HEADER ROW 2 -->
+    <tr style="background:#d9d9d9; font-weight:bold; text-align:center;">
+        <td>Rate</td>
+        <td>Amount</td>
+        <td>Rate</td>
+        <td>Amount</td>
+    </tr>
+
+    <!-- DATA ROW -->
+    <tr>
+        <td align="center">1</td>
+        <td align="center">995419</td>
+        <td>
+            Additional Car Parking ( 1A<br/>
+            at Springbell, Kakkanad<br/>
+            Ernakulam)
+        </td>
+        <td align="right">311,440</td>
+        <td align="center">-</td>
+        <td align="right">311,440</td>
+        <td align="center">9.0%</td>
+        <td align="right">28,030</td>
+        <td align="center">9.0%</td>
+        <td align="right">28,030</td>
+        <td align="right">367,500</td>
+    </tr>
+
+    <!-- TOTAL ROW -->
+    <tr style="font-weight:bold;">
+        <td colspan="3" align="center">TOTAL</td>
+        <td align="right">311,440</td>
+        <td align="center">-</td>
+        <td align="right">311,440</td>
+        <td></td>
+        <td align="right">28,030</td>
+        <td></td>
+        <td align="right">28,030</td>
+        <td align="right">367,500</td>
+    </tr>
+
+    <!-- TOTAL INVOICE VALUE -->
+    <tr>
+        <td colspan="10" style="font-weight:bold;">
+            Total Invoice Value
+        </td>
+        <td align="right" style="font-size:18px; font-weight:bold;">
+            367,500
+        </td>
+    </tr>
+
+    <!-- AMOUNT IN WORDS -->
+    <tr>
+        <td colspan="11" align="center" style="font-weight:bold;">
+            Rupees Three Lakh Sixty Seven Thousand Five Hundred Only
+        </td>
+    </tr>
+
+    <!-- BANK DETAILS -->
+    <tr>
+        <td colspan="2" style="font-weight:bold;">Bank Details :-</td>
+        <td colspan="9">
+            Bank Name:- Axis Bank Ltd, Branch:- Thrikkakara (Kakkanad),
+            Account Number:- 922020010753681,<br/>
+            IFSC Code:- UTIB0001161, SWIFT Code:- AXISINBB081
+        </td>
+    </tr>
+
+    <!-- REVERSE CHARGE -->
+    <tr>
+        <td colspan="7" style="font-weight:bold;">
+            Amount of Tax subject to Reverse Charges
+        </td>
+        
+        <td colspan="4" align="center" style="font-weight:bold;">
+            NIL
+        </td>
+    </tr>
+    
+    <tr>
+        <td colspan="5" style="font-weight:bold;">
+            <bold>Declaration :</bold><br/>
+			1) I/We Certify that to the best of my/our knowledge the particulars furnished above are True and Correct <br/>
+            2) Any dispute shall be subject to the  Ernakulam jurisdiction
+        </td>
+        <td colspan="2" align="center" style="font-weight:bold;">
+            
+        </td>
+        <td colspan="4" align="center" style="font-weight:bold;">
+            For Veegaland Developers Pvt Ltd <br/><br/>
+            Authorised Signatory
+        </td>
+    </tr>
+
+</table>
+ 
+</div>
+    
+    
+    <div style="page-break-before: always; page-break-after: always;"></div>
+
+    
+    <!-- SECOND PAGE -->
+    
+    <div style="border: 2px solid #000; padding: 8px;">
+
+   <div style="font-size:15px; font-weight:bold; text-align:right; margin-bottom:8px;">
+    DUPLICATE FOR SUPPLIER
+	</div>
+
+
+    <div style="font-size:20px; font-weight:bold; text-align:center; margin-top:12px;">Veegaland Developers Private Limited</div>
+
+    <div style="font-size:13px; font-weight:bold; text-align:center; margin-top:12px;">
+        Regd.Office Address: XXXV/564 (Old No. XIII/300 E-26), 4th Floor, K Chittilappilly Tower<br/>
+        (formerly KCF Tower), Bharatha Matha College Road, Kakkanadu, Thrikkakkara,<br/>
+        Ernakulam - 682021, PH: 0484 2584000, CIN: U45201KL2007PTC021107<br/>
+        http://www.veegaland.com, mail@veegaland.in
+    </div>
+
+    <div style="font-size:15px; font-weight:bold; margin-top:12px;">
+        <b>GSTIN :</b> 32AACCV5457F1ZF<br/>
+        <b>PAN :</b> AACCV5457F<br/>
+        <b>MSME UDYAM REG NO :</b> UDYAM-KL-02-0014172
+    </div>
+
+    <div style="font-size:23px; font-weight:bold; text-align:center; margin-top:15px;">TAX INVOICE</div>
+
+    <div style="font-size:13px; text-align:center; margin-top:10px;">
+        (See: Rule:46 of GST Rule; Sec 31(2) of GST Act)
+    </div>
+
+    <br/>
+
+    <div style="width:100%; overflow:hidden; margin-top:10px;">
+
+    <!-- LEFT SIDE -->
+    <div style="width:60%; float:left;">
+        <div style="font-weight:bold; display:inline-block; border-bottom:1px solid #000; padding-bottom:2px;">
+    		RECIPIENT DETAILS
+		</div>
+
+        <div style="margin-top:8px;">
+            <span style="font-weight:bold;">Name :</span>
+            Mr. Binoy Thomas &amp; Mrs. Asha M Jose
+        </div>
+        
+        <div style="margin-top:8px;">
+            <span style="font-weight:bold;">Address :</span>
+            # 2, 6th Cross, Spandana Layout, Horamavu Agara, Bangalore North, Karnataka, Pin - 560043
+        </div>
+        
+        <div style="margin-top:8px;">
+            <span style="font-weight:bold;">GSTIN :</span>
+            
+        </div>
+        
+        <div style="margin-top:8px;">
+            <span style="font-weight:bold;">PAN :</span>
+            AFWPT9043B/ ANAPJ2640N
+        </div>
+        
+        <div style="margin-top:8px;">
+            <span style="font-weight:bold;">Place of Supply :</span>
+            Kakkanad, Ernakulam
+        </div>
+        
+        <div style="margin-top:8px;">
+            <span style="font-weight:bold;">State :</span>
+            Kerala
+        </div>
+        
+        <div style="margin-top:8px;">
+            <span style="font-weight:bold;">State Code :</span>
+            32
+        </div>
+        
+        <div style="margin-top:8px;">
+            <span style="font-weight:bold;">Whether  tax is payable on Reverse Charge basis ?</span>
+            No
+        </div>
+        
+        
+        
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div style="width:40%; float:right; text-align:right; margin-top:10px;">
+        <div style="font-size:15px; font-weight:bold;">
+            INVOICE NO : <span style="font-weight:normal;">MI/2025-26/4</span>
+        </div>
+
+        <div style="font-size:15px; font-weight:bold; margin-top:6px;">
+            DATE OF ISSUE : <span style="font-weight:normal;">30-Apr-2025</span>
+        </div>
+    </div>
+
+</div>
+
+<table width="100%" border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse; font-size:11px; margin-top:10px;">
+
+    <!-- HEADER ROW 1 -->
+    <tr style="background:#d9d9d9; font-weight:bold; text-align:center;">
+        <td rowspan="2">Sr.<br/>No</td>
+        <td rowspan="2">HSN/<br/>SAC</td>
+        <td rowspan="2">Description of Goods or/and Services</td>
+        <td rowspan="2">Value of Supply</td>
+        <td rowspan="2">Amount towards Land Cost</td>
+        <td rowspan="2">Taxable Value</td>
+        <td colspan="2">SGST</td>
+        <td colspan="2">CGST</td>
+        <td rowspan="2">Total Amount</td>
+    </tr>
+
+    <!-- HEADER ROW 2 -->
+    <tr style="background:#d9d9d9; font-weight:bold; text-align:center;">
+        <td>Rate</td>
+        <td>Amount</td>
+        <td>Rate</td>
+        <td>Amount</td>
+    </tr>
+
+    <!-- DATA ROW -->
+    <tr>
+        <td align="center">1</td>
+        <td align="center">995419</td>
+        <td>
+            Additional Car Parking ( 1A<br/>
+            at Springbell, Kakkanad<br/>
+            Ernakulam)
+        </td>
+        <td align="right">311,440</td>
+        <td align="center">-</td>
+        <td align="right">311,440</td>
+        <td align="center">9.0%</td>
+        <td align="right">28,030</td>
+        <td align="center">9.0%</td>
+        <td align="right">28,030</td>
+        <td align="right">367,500</td>
+    </tr>
+
+    <!-- TOTAL ROW -->
+    <tr style="font-weight:bold;">
+        <td colspan="3" align="center">TOTAL</td>
+        <td align="right">311,440</td>
+        <td align="center">-</td>
+        <td align="right">311,440</td>
+        <td></td>
+        <td align="right">28,030</td>
+        <td></td>
+        <td align="right">28,030</td>
+        <td align="right">367,500</td>
+    </tr>
+
+    <!-- TOTAL INVOICE VALUE -->
+    <tr>
+        <td colspan="10" style="font-weight:bold;">
+            Total Invoice Value
+        </td>
+        <td align="right" style="font-size:18px; font-weight:bold;">
+            367,500
+        </td>
+    </tr>
+
+    <!-- AMOUNT IN WORDS -->
+    <tr>
+        <td colspan="11" align="center" style="font-weight:bold;">
+            Rupees Three Lakh Sixty Seven Thousand Five Hundred Only
+        </td>
+    </tr>
+
+    <!-- BANK DETAILS -->
+    <tr>
+        <td colspan="2" style="font-weight:bold;">Bank Details :-</td>
+        <td colspan="9">
+            Bank Name:- Axis Bank Ltd, Branch:- Thrikkakara (Kakkanad),
+            Account Number:- 922020010753681,<br/>
+            IFSC Code:- UTIB0001161, SWIFT Code:- AXISINBB081
+        </td>
+    </tr>
+
+    <!-- REVERSE CHARGE -->
+    <tr>
+        <td colspan="7" style="font-weight:bold;">
+            Amount of Tax subject to Reverse Charges
+        </td>
+        
+        <td colspan="4" align="center" style="font-weight:bold;">
+            NIL
+        </td>
+    </tr>
+    
+    <tr>
+        <td colspan="5" style="font-weight:bold;">
+            <bold>Declaration :</bold><br/>
+			1) I/We Certify that to the best of my/our knowledge the particulars furnished above are True and Correct <br/>
+            2) Any dispute shall be subject to the  Ernakulam jurisdiction
+        </td>
+        <td colspan="2" align="center" style="font-weight:bold;">
+            
+        </td>
+        <td colspan="4" align="center" style="font-weight:bold;">
+            For Veegaland Developers Pvt Ltd <br/><br/>
+            Authorised Signatory
+        </td>
+    </tr>
+
+</table>
+ 
+</div>
+</body>
+</html>
+</apex:page>

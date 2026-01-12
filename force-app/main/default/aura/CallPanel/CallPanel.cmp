@@ -1,0 +1,51 @@
+<aura:component controller="getVoxbayCalldata" implements="flexipage:availableForAllPageTypes,lightning:utilityItem" access="global"  >
+    
+    <lightning:utilityBarAPI aura:id="utilitybar" />
+    <aura:attribute name="recordId" type="string" default="" />
+    <aura:attribute name="objectName" type="string" default="" />
+    
+     <aura:handler event="force:refreshView" action="{!c.doInit}" />
+    <lightning:empApi aura:id="empApi" />
+    
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+ 
+    <aura:attribute name="callstatus" type="object"  />
+    <div>
+              <!--<lightning:recordForm aura:id="editform"
+                    recordId="{!v.recordId}"
+                    objectApiName="{!v.objectName}"
+                    layoutType="Compact"
+                    columns="2"
+                    mode="edit" onsuccess="{!c.navigateToRecord}" />  -->
+      
+    <lightning:recordEditForm recordId="{!v.recordId}" objectApiName="Lead" onsuccess="{!c.navigateToRecord}">
+    <lightning:layout multipleRows="true">
+        <lightning:layoutItem size="6" >
+            <lightning:inputField fieldName="LastName" />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="6" >
+            <lightning:outputField fieldName="Phone" />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="6" >
+            <lightning:inputField fieldName="Email" />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="6" >
+            <lightning:inputField fieldName="Allocated_Project__c" />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" >
+            <lightning:inputField fieldName="Comments__c" />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" >
+            <lightning:button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Update" />
+        </lightning:layoutItem>
+    </lightning:layout>
+</lightning:recordEditForm>
+
+
+    
+    </div>
+   
+    
+      
+</aura:component>

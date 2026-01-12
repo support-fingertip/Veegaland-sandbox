@@ -1,0 +1,22 @@
+<apex:page controller="ComponentHolderController" showHeader="false" sidebar="false" >
+    <head>
+        <title>Veegaland Agreement Details</title>
+    </head>
+    <apex:includeLightning />
+
+    <div id="lwcContainer"></div>
+
+    <script>
+        $Lightning.use("c:ComponentHolder", function() {
+            $Lightning.createComponent(
+                "c:customer_agreement_details",
+                { recordId: "{!recordId}" },
+                "lwcContainer",            
+                function(cmp) {
+                    console.log("LWC loaded successfully!");
+                }
+            );
+        });
+    </script>
+  
+</apex:page>

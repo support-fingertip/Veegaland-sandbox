@@ -1,0 +1,238 @@
+<apex:page renderAs="pdf" applyBodyTag="false" showHeader="false">
+    
+    <head>
+        <style type="text/css" media="print">
+            * {
+            font-weight: normal; /* Reset bold styling */
+            }
+            
+            @page {
+            size: A4;
+            margin-top: 70px;
+            margin-bottom: 150px;
+            margin-right:5px;
+            @bottom-center {
+            content: element(footer);
+            }
+            @top-center {
+            content: "-"counter(page)"-";
+            position:bottom;
+            height:60px;
+            padding-top:65px;
+            }
+            }
+            
+            strong {
+            font-weight: 600;
+            }
+            
+            
+            .footer {
+            position: fixed;
+            position: running(footer);
+             height: 190px;
+            font-weight: bold;
+            }
+            .content {
+    padding-bottom: 200px; /* Must be a bit larger than footer height */
+}
+            
+        </style>
+    </head>
+    
+    <body>
+        <div class="footer">
+            <table width="90%">
+                <tr>
+                    <td style="width=30%; text-align:center">FIRST PARTY</td>
+                    <td style="width=30%; text-align:center">SECOND PARTY</td>
+                    <td style="width=30%; text-align:center">THIRD PARTY</td>
+                    
+                </tr>
+                <tr>
+                    <td style="text-align:center">BORROWER</td>
+                    <td style="text-align:center">BUILDER	</td>
+                    <td style="text-align:center">INDIAN BANK…………. BRANCH</td>
+                </tr>
+            </table>
+            
+        </div>
+        <div class="content" style="padding-right:60px; padding-left:10px">
+            <div style="padding-top:450px"></div>
+            <p style="text-align:center">
+                <strong>Tripartite Agreement </strong>
+                
+            </p>
+            <p style="text-align:justify">
+                This agreement is executed on this Tenth day of January, Two Thousand and Twenty Five  (10.01.2025)<strong> 1. Mrs. Lincy Joison</strong>, (Aadhaar No. 8169 4832 0677 issued by Government of India) and (PAN ACDPL 0180 H), aged 46 (Forty Six) years, Business, wife of                  Mr. Joison Joseph, and<strong> 2. Mr. Joison Joseph</strong>, (Aadhaar No. 9177 7306 8856 issued by Government of India) and (PAN ADMPJ 0994 K), aged 54 (Fifty Four) years, Business, son of Mr. Joseph T. V., both having address at Thachil,  Near North Kuthiathode New Church, Cherukadapuram Desom,  North Kuthiathode P.O., Puthenvelikkara Village, Paravur Taluk, Ernakulam District, Pin code –683594;  hereinafter referred to as the ‘Borrower (s), which term shall unless repugnant to the context shall mean and include his/her heirs, representatives, successors, executors, attorneys, administrators and assigns, of the party at the ‘First Part’. 
+            </p>
+            <div style="page-break-after:always"></div>
+            
+            <div style="padding-top:360px"> </div>
+            
+            
+            <p style="text-align:center">
+                AND
+            </p>
+            <p style="text-align:justify">
+                <strong>VEEGALAND DEVELOPERS PRIVATE LIMITED</strong>, (CIN U45201KL2007PTC021107), a Private Limited Company incorporated under the Companies Act 1956, having its Registered office at XIII/300 E-26, 4 th floor, K C F Tower, Bharath Matha College Road, Kakkanad Desom, Thrikkakara P. O., Vazhakkala Village, Kanayannur Taluk, Ernakulam District , Pin code – 682 021, (PAN AACCV 5457 F), represented by its Director - Marketing &amp; Administration, Mr. Kurian Thomas, aged 48 (Forty Eight) years, Company Director, son of Mr. V. M. Thomas, having address at Vengathanam House, Florican Road, Nedugatoor Desom, Karaparamba P.O., Vengeri Village, Kozhikode Taluk, Kozhikode District, Pin Code - 673 010 (Aadhaar No. 4036 1211 2022 issued by Government of India); duly authorised under resolution passed in the meeting of Board of Directors of the company held on 30-09-2023; hereinafter referred to as the ‘Builder’, which term shall unless repugnant to the context shall mean and include its representatives, successors, administrators and assigns, of the party at the ‘Second Part’. 
+            </p>
+            <p style="text-align:center">
+                AND
+            </p>
+            
+                
+           
+            <p style="text-align:justify">
+                
+                <strong>INDIAN BANK</strong>, a body corporate, constituted under the Banking Companies (Acquisition and Transfer of Undertakings) Act V of 1970, having amongst others one of its Branch Office, Branch at  ……….hereinafter referred as the “INDIAN BANK‟, which term shall unless repugnant to the context shall mean and include its representatives, successors, administrators and assigns, of the party at the ‘Third Party’.   
+                
+                
+            </p>
+            <div style="page-break-after:always">  </div>
+            <p style="text-align:justify">
+                Whereas, the Builder is the absolute owner in peaceful possession and enjoyment of the residential property having an extent of 33.34 ares of land,  situated at  Re.Sy.No 260/6, Re. Sy. No. 260/6/5, in Vazhakkala Village in the Project “VEEGALAND MAYBELL”and whereas the builder has sanctioned Building permit from Thrikkakara Municipality, vide Permit NoTP3-BA-12/2023 dated 07-09-2023 for construction on the said property. Whereas ‘Builder’ has taken up construction of residential apartment known as<strong> “VEEGALAND MAYBELL”</strong>  on the said property.
+            </p>
+            <p style="text-align:justify">
+                Whereas, the Party at the Second Part shall complete the construction of the flats latest by  
+                31-12-2027 and is booking the sale of the unit/apartment. The proposed buyer has to make the payment of the sale consideration by sale and construction agreement/transfer assignment agreement dated<strong> 19.10.2024</strong> and on the payment of the entire sale consideration, the Party at the Second Part shall hand over the possession of the flat to the said proposed buyer. 
+                
+                
+            </p>
+            <p style="text-align:justify">
+                Whereas, the Party at the First Part has booked a flat bearing No <strong>8B</strong>, measuring super built-up area of <strong>1643 sq. ft.</strong>, (hereinafter referred to as the said flat) in the building which the Party at the Second Part shall construct on the above said plot and the Party at the First Part has to pay the entire consideration amount by sale and construction agreement/transfer assignment dated<strong> 19.10.2024</strong> Whereas, the Party at the First Part has approached the Party at the Third Part for availing a loan of<strong> Rs.1,17,38,476/- (Rupees One Crore Seventeen Lakh Thirty Eight Thousand Four Hundred and Seventy Six Only)</strong> to finance the purchase of the said flat. Besides other securities, the Party at the First Part has agreed to create the charge over the said flat along with the proportionate undivided share in the land in favour of the Party at the Third Part. In the absence of proper Conveyance Deed/Sale Deed in its favour, the Party at the First Part is not in a position to create a valid mortgage over the said flat and proportionate share of land in favour of the Party at the Third Part. 
+                
+                
+            </p>
+            <p style="text-align:justify">
+                Whereas, the Party at the First Part and the Party at the Second Part have requested the INDIAN BANK to disburse the said loan to the Borrower, notwithstanding the fact that the Conveyance Deed/Sale Deed is not executed in favour of the Party at the First Part at this stage, and in consideration of the INDIAN BANK sanctioning the loan to the Borrower(s), the Borrower(s) and the Builder have executed this Agreement on the following terms and conditions. 
+            </p>
+            <p style="text-align:justify; margin-bottom:-5px">
+                <strong>Now therefore it is hereby agreed by and between the parties that:</strong>
+            </p>
+            <div style="padding-left:20px">
+                <table>
+                    <tr>
+                        <td style="width:5%; vertical-align:top">1.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">The INDIAN BANK has and shall have the first lien over the said flat for the due repayment of the loan which INDIAN BANK has granted to the Borrower. The Builder shall note in its records the charge and lien of INDIAN BANK over the said flat. The Builder shall not transfer the said flat to any other person without the prior written consent of the INDIAN BANK. </td>
+                    </tr>
+                    <tr>
+                        <td style="width:5%; vertical-align:top">2.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">The Builder/Developer agrees that it has no objection to the Borrower(s) mortgaging the said flat with proportionate share in land to the INDIAN BANK as security for the said loan agreed to be advanced by the INDIAN BANK for the purpose of purchase/construction of the said flat. In the event of default in the repayment of loan and/ or the Borrower(s) committing any other default which makes the Borrower(s) liable for the repayment of the entire amount outstanding in the said loan as per the terms of the Loan Agreement executed between the Borrower(s)and the INDIAN BANK, the Builder shall at the request of INDIAN BANK, be under obligation to not  deliver possession to the Borrower and/or to cancel the booking and pay all amounts received by the Builder on behalf of the Borrower(s) to INDIAN BANK. However, the builder/developer shall be entitled to recover cancellation and/or any other charges, if any payable by the Borrower under the terms of application form for purchase of the said flat and/or agreement to sale/construction out of the Borrower’s contribution. Upon payment of the amounts by the Builder/Developer to INDIAN BANK as aforesaid, the INDIAN BANK and the Borrower will not have any claim, charge, lien, mortgage, right, title and interest etc. whatsoever, over the said flat. INDIAN BANK shall issue a certificate to release any mortgage/charge/lien created on the said flat. The Borrower hereby expressly agrees that in the event of default in either repayment of the loan or any other default by the Borrower, INDIAN BANK shall be entitled to request the Builder to cancel the booking and return the amounts received by the Builder and the Borrower agrees and acknowledges that any such request by INDIAN BANK and payment made by the Builder under this clause to INDIAN BANK shall be binding upon the Borrower. </td>
+                    </tr>
+                    <tr>
+                        <td style="width:5%; vertical-align:top">3.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">That if for any reason there is any increase/escalation in the cost of the said flat, the increase shall be paid and borne by the Borrower(s) without any reference to the INDIAN BANK and until such payment is made, the INDIAN BANK shall have the right to suspend further disbursement of the said loan. </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">4.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">That in the event of the Builder cancelling the said booking for any default committed by the Borrower(s) or the project is shelved by the Builder or for any other reason whatsoever, the Builder shall pay the entire amount received on behalf of the Borrower(s) to the INDIAN BANK. However, the builder/developer shall be entitled to recover cancellation and/or any other charges, if any payable by the Borrower under the terms of application form for purchase of the said flat and/or agreement to sell/construction out of the Borrower’s contribution only in the instance where the Borrower has cancelled the booking of the flat or has committed any default. The amount payable by the builder to the bank shall not in any case exceed the total amount received by the builder from the borrower and the bank. </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">5.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">That on the receipt of the entire consideration amount including stamp duty 	and other registration expenses, the Builder shall execute a proper Conveyance Deed/Sale Deed/Lease Deed in favour of the Borrower. The Builder undertakes to deliver the same along with original registration fee receipt directly to the INDIAN BANK and not to the Borrower(s).  </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">6.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">	That the Borrower(s) shall also keep informed the INDIAN BANK about the developments in the project. The Borrower shall notify the INDIAN BANK the date of taking over the possession of the said flat. In case the Borrower(s) comes into possession of the Lease Deed/Conveyance Deed/Sale Deed, he/she shall immediately deliver the same to the INDIAN BANK. </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">7.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">That the Borrower(s) assures that he/she will not avail finance from any other Bank or Financial Institution in respect of the aforesaid flat and/or will not create further mortgage/charge over the said flat (allotted to the borrower) in any manner whatsoever.</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">8.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px"> That the Borrower(s) shall pay all charges, duties, taxes in respect of the said flat imposed or payable to the Builder/Developer and or to Corporation or any other Government Department/Authority in respect of the said flat and the INDIAN BANK shall not be liable or responsible in any manner whatsoever or howsoever forth same. </td>
+                    </tr>
+                    <tr>
+                        <td style="width:5%; vertical-align:top">9.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">That the Borrower(s) agrees and acknowledges to keep the INDIAN BANK indemnified against any loss or damage incurred by it in the event of failure of the Borrower(s) to honour or to meet any of its obligations under this Agreement in connection with the sanctioning of the loan in respect of the said flat. </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">10.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">That during the currency of the loan, the Borrower(s) shall not transfer the said flat to any other person, without the prior written consent of the INDIAN BANK. The Builder/Developer shall not issue the duplicate allotment letter/possession letter to the Borrower(s) without the prior written consent of the INDIAN BANK. </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">11.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">It is understood that the term ‘loan’ mentioned herein shall include interest, penal interest and all other sums payable by the borrower(s) to the INDIAN BANK. </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">12.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">That in the event of any default by the Borrower(s), the INDIAN BANK may at its discretion enforce the security by the sale and the Builder shall accept the Purchaser of the said flat in place of the Borrower(s), after the Purchaser complies with the necessary requirements of the Builder/Developer in this respect. </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">13.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">That the Builder assures the INDIAN BANK that the construction shall be completed as per schedule and as per the sanctioned plans and on completion of construction, the title of the flat with proportionate undivided share in the land shall be conveyed in the name of the Borrower(s). </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">14.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">That it is further made clear and understood by all the parties that the non-completion of the project or the happening of any event shall not affect the obligations of the Borrower(s) to repay the loan availed from INDIAN BANK. </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">15.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">That the said flat is free from all encumbrances, charges, lien, attachment, prior agreements, whatsoever or howsoever. The party at first part and second part will not do any act or deed which will affect the security of the flat/ or charge created in favour of INDIAN BANK in any manner whatsoever. </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">16.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">That there is no order of attachment by the Income Tax Authorities or any other authority under any law for the time being in force nor any notice of acquisition or requisition has been received in respect of the said property </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">17.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">That this Agreement shall not affect in any manner whatsoever the duties and obligations of the Borrower(s) and the terms and conditions agreed to by the Borrower(s) in the Loan Agreement and other documents executed in favour of INDIAN BANK shall remain binding upon the Borrower(s), </td>
+                    </tr>
+                    <tr>
+                        <td style="width:5%; vertical-align:top">18.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px"> That in case of acquisition, forfeiture/resumption of the said property, INDIAN BANK shall be entitled to get the compensation settled in respect of the said flat and to appear and act before the Collector/Revenue Officer/Estate Officer or any other concerned authorities, to sign any form, to give any statement, affidavit, application on Borrower's behalf, to receive the compensation in its own name and on the Borrower's behalf, to file appeal in any court for the enhancement of the compensation amount, to get the compensation amount enhanced and to receive the same.</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="width:5%; vertical-align:top">19.</td>
+                        <td style="width:95%; text-align:justify; padding-bottom:15px">The responsibilities of the builders under this tripartite agreement will be extinguished only after delivering the duly registered Conveyance Deed/SaleDeed/Lease Deed directly to the Bank and handing over the possession of the residential unit to the borrower(s) and thereafter the validity of the Tripartite Agreement will come to an end. 
+                            
+                        </td>
+                    </tr>
+                    
+                   
+                    
+                </table>
+            </div>
+            <p>
+                In witness where of the parties hereto have signed this Agreement on the day, month and year first herein above written. 
+                <br/>
+                <br/>
+                Authorized signatory of Builder  <br/>
+
+                …………………………………………………………., Represented by  <br/>
+
+                its ………………………………………………………………….…………… <br/>
+                <br/>
+                <strong>INDIAN BANK,  </strong><br/>
+                ……………………………………………………………….BRANCH,  <br/>
+                represented by its authorized official  <br/><br/>
+                Witness: 
+                
+            </p>                
+            
+            
+            
+        </div>
+        
+        
+    </body>
+    
+    
+    
+</apex:page>

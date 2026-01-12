@@ -1,0 +1,59 @@
+<aura:component controller="QuoteController" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" 
+                access="global">
+    <aura:attribute name="emailContent" type="String" />
+    <aura:attribute name="recepients" type="String" />
+    <aura:attribute name="ownerEmail" type="String" />
+    <aura:attribute name="ownerPhone" type="String" />
+    <aura:attribute name="ownerName" type="String" />
+    <aura:attribute name="customerEmail" type="String" />
+    <aura:attribute name="record" type="Object" /> 
+    <aura:attribute name="files" type="List" />
+    <aura:attribute name="filesIDS" type="List" />
+    <aura:handler name="fileUploadEvent" event="c:fileUploadEvent" action="{!c.handleFileUpload}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> 
+    
+      <aura:html tag="style">
+        .slds-modal__container{ 
+        } 
+        
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }
+        .slds-modal__content{
+        
+        height:unset !important;
+        max-height:unset !important;
+        }
+        
+        .closeIcon{
+        display:none;
+        }
+        .slds-col{
+        margin-left:5px;
+        }
+    </aura:html >
+    
+    <header class="slds-modal__header">
+        <lightning:buttonIcon iconName="utility:close"
+                              onclick="{! c.closeModel }"
+                              alternativeText="close"
+                              variant="bare-inverse"
+                              class="slds-modal__close"/>
+        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Veegaland Request Customer Documents</h2>
+    </header>
+   
+    <div class="slds-p-around_medium cust-ht">
+        <lightning:inputRichText class="custom-textarea" aura:id="emailContent"
+                                 placeholder="Review and edit email content"
+                                 value="{!v.emailContent}"   />
+        <!--<c:photoUploadComponent recordId="{!v.recordId}" filesIds="{!v.filesIDS}" />-->
+    </div>
+    <div class="slds-modal__footer">
+        <ui:button class="custom-round-button slds-button slds-button--neutral" label="Cancel" press="{!c.Cancel}" />
+        <ui:button class="custom-round-button slds-button slds-button--brand" label="Send Email" press="{!c.sendEmail}" />
+    </div>
+</aura:component>

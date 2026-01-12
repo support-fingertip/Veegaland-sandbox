@@ -1,0 +1,31 @@
+<apex:page >
+    <h1>Interactive Parking Map</h1>
+    <div style="border: 1px solid #ccc; width: 649px ; height:252px;">
+        <svg width="560" height="787" viewBox="0 0 560 787" xmlns="http://www.w3.org/2000/svg">
+            <!-- Example parking spot - Repeat for each spot with unique IDs -->
+            <g class="parking-spot" id="spot1" onclick="showTooltip(evt, 'Spot 1: Available')">
+                <line x1="30" y1="600" x2="30" y2="100" style="stroke:red;stroke-width:2" />
+            </g>
+            <g class="parking-spot" id="spot1" onclick="showTooltip(evt, 'Spot 1: Available')">
+                <rect x="50" y="100" width="50" height="100" fill="green" stroke="black" stroke-width="2"/>
+            </g>
+            
+            <g class="parking-spot" id="spot2" onclick="showTooltip(evt, 'Spot 2: Occupied')">
+                <rect x="120" y="100" width="50" height="100" fill="red" stroke="black" stroke-width="2"/>
+            </g>
+
+            <!-- Tooltip -->
+            <text id="tooltip" x="10" y="20" visibility="hidden" font-size="14" fill="black" background="white"></text>
+        </svg>
+    </div>
+
+    <script>
+        function showTooltip(evt, text) {
+            let tooltip = document.getElementById('tooltip');
+            tooltip.setAttribute('x', evt.clientX);
+            tooltip.setAttribute('y', evt.clientY - 10);
+            tooltip.textContent = text;
+            tooltip.setAttribute('visibility', 'visible');
+        }
+    </script>
+</apex:page>

@@ -1,0 +1,3 @@
+<apex:page standardController="Lead" recordSetVar="getIDs"  extensions="MassAssignLeadController" action="{!massassign}">
+   <apex:pagemessages />
+</apex:page>

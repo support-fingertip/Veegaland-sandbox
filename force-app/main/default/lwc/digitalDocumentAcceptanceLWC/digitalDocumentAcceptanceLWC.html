@@ -1,0 +1,64 @@
+<template>
+    <div class="form slds-box">
+        <div class="iframe-container">
+            <template if:true={vfPageUrl}>
+                <iframe src={googleViewerUrl} width="100%" height="560px" frameborder="0"></iframe>
+            </template>
+            <template if:false={vfPageUrl}>
+                <p>No URL available. Please check the input values.</p>
+            </template>
+        </div>
+        <template if:false={isFormsubmitted}>
+            <div>
+                <template if:false={showSubmitActions}>
+                    <div class="footer-buttons">
+                        <lightning-button variant="destructive" label="Reject" title="Destructive action"
+                            class="slds-m-left_x-small" onclick={handleRejectClick}></lightning-button>
+                        <lightning-button variant="success" label="Accept" title="Successful action"
+                            class="slds-m-left_large" onclick={handleApproveClick}>
+                        </lightning-button>
+                    </div>
+                </template>
+                <template if:true={showSubmitActions}>
+                    <div>
+                        <template if:true={showSignaturePad}>
+                            <div>
+                                <div class="slds-m-around_small">
+                                    <div style="height: 300px">
+                                        <c-digital-signature-pad enable-name-signing="true"
+                                            name-input-label="Type name here:" enable-signature-drawing="true"
+                                            pad-label="Draw signature here:" stroke-thickness="2" pen-color="black"
+                                            pad-color="white" font="30px 'Great Vibes'">
+                                        </c-digital-signature-pad>
+                                    </div>
+                                    <template if:true={imgSrc}>
+                                        <br />
+                                        <br />
+                                        <img src={imgSrc} />
+                                    </template>
+                                </div>
+                                <div class="slds-m-top_small">
+                                    <lightning-button variant="neutral" label="Clear" title="Clear"
+                                        onclick={clearSignature}></lightning-button>
+                                    <lightning-button variant="brand" class="slds-m-left_x-small" label="Capture Signature" title="Save"
+                                        onclick={previewignature}></lightning-button>
+                                </div>
+                            </div>
+                        </template>
+                        <div class="full center cf">
+                            <template if:false={disableComments}>
+                            <textarea class="input-full" name="message" id="input-message"
+                                placeholder="Remarks"></textarea>
+                                </template>
+                        </div>
+                        <button class="slds-button slds-button_brand button-full slds-m-top_small"
+                            onclick={handleSubmit}>Submit</button>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Submitting..." size="medium"></lightning-spinner>
+    </template>
+</template>

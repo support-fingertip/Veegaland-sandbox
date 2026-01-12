@@ -1,0 +1,317 @@
+<aura:component controller="DraftAgreementController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:isUrlAddressable" access="global">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="fileContent" type="Object" />
+    <aura:attribute name="finalFileContent" type="Object" />
+    <aura:attribute name="finalFileName" type="String" default=""/>
+    <aura:attribute name="fileName" type="String" default=""/>
+    <aura:attribute name="draftdocumentId" type="String" default=""/>
+    <aura:attribute name="draftuploaded" type="String" default=""/>
+    <aura:attribute name="finaluploaded" type="String" default=""/>
+    <aura:attribute name="finaldocumentId" type="String" default=""/>
+    <aura:attribute name="agreementData" type="Object"/>
+    <aura:attribute name="applicantDetails" type="Object"/>
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+    <aura:attribute name="disableFinalDraftMail" type="Boolean" default="false"/>
+    <aura:attribute name="disableDraftMail" type="Boolean" default="false"/>
+    <aura:attribute name="disableAgreementRequest" type="Boolean" default="false"/>
+    <aura:attribute name="rejectionComment" type="String" default=""/>
+    <aura:attribute name="isRejectPopupVisible" type="Boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+    
+    <div class="slds-card">
+        <div class="slds-setup-assistant">
+            <article class="slds-setup-assistant__step">
+                <div class="slds-summary-detail slds-is-open">
+                    <div class="slds-container_fluid">
+                        <div class="slds-summary-detail__title">
+                            <div class="slds-setup-assistant__step-summary">
+                                <div class="slds-media">
+                                    <div class="slds-media__body slds-m-top_x-small">
+                                        <div class="slds-media">
+                                            <div class="slds-setup-assistant__step-summary-content slds-media__body">
+                                                <h3 class="slds-setup-assistant__step-summary-title slds-text-heading_small">
+                                                    <button class="slds-button slds-button_reset" aria-controls="step-1-summary-action" aria-expanded="true">Draft Sale Agreement Process</button>
+                                                </h3>
+                                                <p>Please upload the draft sale agreement and then click 'Send' to deliver it to the customer.</p>
+                                            </div>
+                                            <div class="slds-media__figure slds-media__figure_reverse">
+                                                <lightning:button label="Refresh" iconName="utility:refresh" onclick="{!c.handleRefresh}" variant="neutral" class="slds-m-around_small"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-summary-detail__content" id="step-1-summary-action">
+                            <div class="slds-setup-assistant__step-detail">
+                                <div class="slds-progress slds-progress_vertical slds-progress_success">
+                                    <ol class="slds-progress__list slds-progress__list-bordered">
+                                        <li class="{!'slds-progress__item ' +
+                                                   IF(v.agreementData.Agreement_Details_Request_Send,
+                                                   'slds-is-completed','slds-is-active')}">
+                                            <aura:if isTrue="{!v.agreementData.Agreement_Details_Request_Send}">
+                                                <span class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon slds-progress__marker_icon-success" title="Complete">
+                                                    <lightning:icon iconName="utility:success" alternativeText="Success!" variant="Success"
+                                                                    title="success variant xx-small" size="xx-small" />
+                                                    <span class="slds-assistive-text">Complete</span>
+                                                </span>
+                                            </aura:if>
+                                            <aura:if isTrue="{!not(v.agreementData.Agreement_Details_Request_Send)}">
+                                                <div class="slds-progress__marker"></div>
+                                            </aura:if>
+                                            <div class="slds-progress__item_content slds-grid slds-grid_align-spread">
+                                                <div class="slds-size_3-of-5">Send Agreement Details Request to Customer</div>
+                                                <div class="slds-grid slds-grid_align-end slds-size_2-of-5">
+                                                    <aura:if isTrue="{!AND(NOT(v.agreementData.Agreement_Details_Request_Send),OR(v.agreementData.UserProfile == 'CRM Sales',v.agreementData.UserProfile == 'System Administrator'))}">                                                        
+                                                        <lightning:button label="Send Request" onclick="{!c.sendAgreementDetail}" variant="brand" class="slds-m-top_medium" disabled="{!v.disableAgreementRequest}"/>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!AND(NOT(v.agreementData.Agreement_Details_Request_Send),NOT(OR(v.agreementData.UserProfile == 'CRM Sales',v.agreementData.UserProfile == 'System Administrator')))}">                                                        
+                                                        Sale agreement detail request send pening from CRM
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!v.agreementData.Agreement_Details_Request_Send}">
+                                                        Mail Sent
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="{!'slds-progress__item ' +
+                                                   IF(NOT(v.agreementData.Agreement_Details_Request_Send),'',IF(AND(v.agreementData.Agreement_Details_Request_Send,NOT(v.agreementData.Received_Agreement_Details_from_Customer)),
+                                                   'slds-is-active',IF(v.agreementData.Received_Agreement_Details_from_Customer,'slds-is-completed','')))}">
+                                            <aura:if isTrue="{!v.agreementData.Received_Agreement_Details_from_Customer}">
+                                                <span class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon slds-progress__marker_icon-success" title="Complete">
+                                                    <lightning:icon iconName="utility:success" alternativeText="Success!" variant="Success"
+                                                                    title="success variant xx-small" size="xx-small" />
+                                                    <span class="slds-assistive-text">Complete</span>
+                                                </span>
+                                            </aura:if>
+                                            <aura:if isTrue="{!NOT(v.agreementData.Received_Agreement_Details_from_Customer)}">
+                                                <div class="slds-progress__marker"></div>
+                                            </aura:if>
+                                            <div class="slds-progress__item_content slds-grid slds-grid_align-spread">
+                                                <div class="slds-size_3-of-5">Agreement details Status</div>
+                                                <div class="slds-grid slds-grid_align-end slds-size_2-of-5">
+                                                    <aura:if isTrue="{!v.agreementData.Agreement_Details_Request_Send}">
+                                                        <aura:if isTrue="{!not(v.agreementData.Received_Agreement_Details_from_Customer)}">
+                                                            Pending
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!v.agreementData.Received_Agreement_Details_from_Customer}">
+                                                            Received
+                                                        </aura:if>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="{!'slds-progress__item ' +
+                                                   IF(NOT(v.agreementData.Received_Agreement_Details_from_Customer),'',IF(AND(v.agreementData.Agreement_Details_Verification != 'Verified',v.agreementData.Agreement_Details_Verification != 'Rejected'),
+                                                   'slds-is-active',IF(OR(v.agreementData.Agreement_Details_Verification == 'Verified',v.agreementData.Agreement_Details_Verification == 'Rejected'),'slds-is-completed','')))}">
+                                            <aura:if isTrue="{!v.agreementData.Agreement_Details_Verification != 'Verified'}">
+                                                <div class="slds-progress__marker">
+                                                    <span class="slds-assistive-text">Active</span>
+                                                </div>
+                                            </aura:if>
+                                            <aura:if isTrue="{!v.agreementData.Agreement_Details_Verification == 'Verified'}">
+                                                <span class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon slds-progress__marker_icon-success" title="Complete">
+                                                    <lightning:icon iconName="utility:success" alternativeText="Success!" variant="Success"
+                                                                    title="success variant xx-small" size="xx-small" />
+                                                    <span class="slds-assistive-text">Complete</span>
+                                                </span>
+                                            </aura:if>
+                                            <div class="slds-progress__item_content slds-grid slds-grid_align-spread">
+                                                <div class="slds-size_3-of-5">Agreement details verification.</div>
+                                                <div class="slds-grid slds-grid_align-end slds-size_2-of-5">
+                                                    <aura:if isTrue="{!AND(v.agreementData.Agreement_Details_Verification == 'Pending',OR(v.agreementData.UserProfile == 'Legal User',v.agreementData.UserProfile == 'System Administrator'))}">                                                        
+                                                        <div class="slds-m-left_small slds-grid_vertical-align-center">
+                                                            <lightning:button label="Approve" onclick="{!c.handleVerified}" variant="success" class="slds-m-top_medium" />
+                                                        </div>
+                                                        <div class="slds-m-left_small slds-grid_vertical-align-center">
+                                                            <lightning:button label="Reject" onclick="{!c.handleReject}" variant="destructive" class="slds-m-top_medium" />
+                                                        </div>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!AND(v.agreementData.Agreement_Details_Verification == 'Pending',NOT(OR(v.agreementData.UserProfile == 'Legal User',v.agreementData.UserProfile == 'System Administrator')))}">                                                        
+                                                        Pending
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!v.agreementData.Agreement_Details_Verification == 'Verified'}">
+                                                        Agreement details verified
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!AND(v.agreementData.Agreement_Details_Verification == 'Rejected',NOT(OR(v.agreementData.UserProfile == 'CRM Sales',v.agreementData.UserProfile == 'System Administrator')))}">
+                                                        Agreement details rejected
+                                                    </aura:if>
+                                                    
+                                                    <aura:if isTrue="{!AND(v.agreementData.Agreement_Details_Verification == 'Rejected',OR(v.agreementData.UserProfile == 'CRM Sales',v.agreementData.UserProfile == 'System Administrator'))}">
+                                                        <lightning:button label="Submit for Approval" onclick="{!c.handleSubmitApproval}" variant="brand" class="slds-m-top_medium" />
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="{!'slds-progress__item ' +
+                                                   IF(v.agreementData.Agreement_Details_Verification != 'Verified','',IF(NOT(v.agreementData.Draft_Agreement_Uploaded),
+                                                   'slds-is-active',IF(v.agreementData.Draft_Agreement_Uploaded,'slds-is-completed',
+                                                   '')))}">
+                                            <aura:if isTrue="{!NOT(v.agreementData.Draft_Agreement_Uploaded)}">
+                                                <div class="slds-progress__marker">
+                                                    <span class="slds-assistive-text">Active</span>
+                                                </div>
+                                            </aura:if>
+                                            <aura:if isTrue="{!v.agreementData.Draft_Agreement_Uploaded}">
+                                                <span class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon slds-progress__marker_icon-success" title="Complete">
+                                                    <lightning:icon iconName="utility:success" alternativeText="Success!" variant="Success"
+                                                                    title="success variant xx-small" size="xx-small" />
+                                                    <span class="slds-assistive-text">Complete</span>
+                                                </span>
+                                            </aura:if>
+                                            <div class="slds-progress__item_content slds-grid slds-grid_align-spread">
+                                                <div class="slds-size_3-of-5">
+                                                    Upload the draft sale agreement first, and then click 'Send' to deliver it to the customer.
+                                                </div>
+                                                <div class="slds-grid slds-grid_align-end slds-size_2-of-5">
+                                                    <aura:if isTrue="{!OR(v.agreementData.UserProfile == 'Legal User',v.agreementData.UserProfile == 'System Administrator')}">
+                                                        <aura:if isTrue="{!AND(v.agreementData.Agreement_Details_Verification == 'Verified',NOT(v.agreementData.Draft_Agreement_Uploaded))}">
+                                                            <aura:if isTrue="{!v.agreementData.Agreement_Approval_Status != 'Approved'}">
+                                                                <div>
+                                                                    
+                                                                    <!-- Show selected file name -->
+                                                                    <aura:if isTrue="{!not(empty(v.fileName))}">
+                                                                        <div class="slds-m-left_small slds-text-color_success slds-truncate">
+                                                                            {!v.fileName}
+                                                                        </div>
+                                                                    </aura:if>
+                                                                </div> 
+                                                                <div class="slds-m-left_small slds-grid_vertical-align-center">
+                                                                    <c:single_fileupload_lwc recordId="{!v.recordId}" label="Sale Agreement Draft" onuploadfinished="{!c.handleDraftUploaded}"></c:single_fileupload_lwc>
+                                                                    
+                                                                    <lightning:button label="Send" 
+                                                                                      onclick="{!c.handleSendClick}" 
+                                                                                      variant="success" 
+                                                                                      disabled="{!v.disableFinalDraftMail}"
+                                                                                      class="slds-m-top_medium" />
+                                                                </div>
+                                                            </aura:if>
+                                                        </aura:if>
+                                                        <aura:if isTrue="NOT(OR(v.agreementData.UserProfile == 'Legal User',v.agreementData.UserProfile == 'System Administrator'))">
+                                                            <aura:if isTrue="{!AND(v.agreementData.Agreement_Details_Verification == 'Verified',v.agreementData.Agreement_Approval_Status != 'Approved',NOT(v.agreementData.Draft_Agreement_Uploaded))}">
+                                                                Draft agreeemnt upload pending from legal
+                                                            </aura:if>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!AND(v.agreementData.Draft_Agreement_Uploaded,v.agreementData.Agreement_Approval_Status != 'Rejected')}">
+                                                            Draft sale agreement uploaded and sent
+                                                        </aura:if>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="{!'slds-progress__item ' + IF(OR(v.agreementData.Agreement_Approval_Status == 'Approved',v.agreementData.Agreement_Approval_Status == 'Rejected'),'slds-is-completed',IF(v.agreementData.Agreement_Approval_Status == 'Pending','slds-is-active', ''))}">
+                                            <aura:if isTrue="{!AND(v.agreementData.Agreement_Approval_Status != 'Approved',v.agreementData.Agreement_Approval_Status != 'Rejected')}">
+                                                <div class="slds-progress__marker slds-is-active">
+                                                    <span class="slds-assistive-text">Active</span>
+                                                </div>
+                                            </aura:if>
+                                            <aura:if isTrue="{!v.agreementData.Agreement_Approval_Status == 'Approved'}">
+                                                <span class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon slds-progress__marker_icon-success" title="Complete">
+                                                    <lightning:icon iconName="utility:success" alternativeText="Success!" variant="error"
+                                                                    title="success variant xx-small" size="xx-small" />
+                                                    <span class="slds-assistive-text">Complete</span>
+                                                </span>
+                                            </aura:if>
+                                            <aura:if isTrue="{!v.agreementData.Agreement_Approval_Status == 'Rejected'}">
+                                                <span class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon slds-progress__marker_icon-success" title="Error">
+                                                    <lightning:icon iconName="utility:close" alternativeText="Success!" variant="error"
+                                                                    title="success variant xx-small" size="xx-small" />
+                                                    <span class="slds-assistive-text">Rejected</span>
+                                                </span>
+                                            </aura:if>
+                                            <div class="slds-progress__item_content slds-grid slds-grid_align-spread">
+                                                <div class="slds-size_3-of-5">Customer Agreement Approval Status</div>
+                                                <aura:if isTrue="{!v.agreementData.Draft_Agreement_Uploaded}">
+                                                    
+                                                    <div class="slds-grid slds-grid_align-end slds-size_2-of-5">
+                                                        {!v.agreementData.Agreement_Approval_Status}
+                                                    </div>
+                                                </aura:if>
+                                            </div>
+                                        </li>
+                                        <li class="{!'slds-progress__item ' +
+                                                   IF(v.agreementData.Agreement_Approval_Status != 'Approved','',IF(NOT(v.agreementData.FInal_Agreement_Upload_and_Email_Send),
+                                                   'slds-is-active',IF(v.agreementData.FInal_Agreement_Upload_and_Email_Send,'slds-is-completed',
+                                                   '')))}">
+                                            <aura:if isTrue="{!NOT(v.agreementData.FInal_Agreement_Upload_and_Email_Send)}">
+                                                <div class="slds-progress__marker">
+                                                    <span class="slds-assistive-text">Active</span>
+                                                </div>
+                                            </aura:if>
+                                            <aura:if isTrue="{!v.agreementData.FInal_Agreement_Upload_and_Email_Send}">
+                                                <span class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon slds-progress__marker_icon-success" title="Complete">
+                                                    <lightning:icon iconName="utility:success" alternativeText="Success!" variant="Success"
+                                                                    title="success variant xx-small" size="xx-small" />
+                                                    <span class="slds-assistive-text">Complete</span>
+                                                </span>
+                                            </aura:if>
+                                            <div class="slds-progress__item_content slds-grid slds-grid_align-spread">
+                                                <div class="slds-size_3-of-5">Upload Final draft sale agreement and then click 'Send' to deliver it to the customer.</div>
+                                                <div class="slds-grid slds-grid_align-end slds-size_2-of-5">
+                                                    <aura:if isTrue="{!AND(v.agreementData.Agreement_Approval_Status == 'Approved',NOT(v.agreementData.FInal_Agreement_Upload_and_Email_Send),OR(v.agreementData.UserProfile == 'Legal User',v.agreementData.UserProfile == 'System Administrator'))}">
+                                                        <div>
+                                                            <c:single_fileupload_lwc recordId="{!v.recordId}" label="Final Sale Agreement Draft" onuploadfinished="{!c.handleDraftUploaded}"></c:single_fileupload_lwc>
+                                                            
+                                                            <aura:if isTrue="{!v.finalFileContent}">
+                                                                <div class="slds-m-left_small slds-text-color_success slds-truncate">
+                                                                    {!v.finalFileName}
+                                                                </div>
+                                                            </aura:if>
+                                                        </div>
+                                                        <div class="slds-m-left_small slds-grid_vertical-align-center">
+                                                            <lightning:button label="Send" disabled="{!v.disableFinalDraftMail}" onclick="{!c.handleFinalSendClick}" variant="success" class="slds-m-top_medium" />
+                                                        </div>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!NOT(OR(v.agreementData.UserProfile == 'Legal User',v.agreementData.UserProfile == 'System Administrator'))}">
+                                                        <aura:if isTrue="{!AND(v.agreementData.Agreement_Approval_Status == 'Approved',NOT(v.agreementData.FInal_Agreement_Upload_and_Email_Send))}">
+                                                            Final draft sale agreement upload pending from legal
+                                                        </aura:if>                                              
+                                                        <aura:if isTrue="{!v.agreementData.FInal_Agreement_Upload_and_Email_Send}">
+                                                            FInal draft sale agreement uploaded and sent
+                                                        </aura:if>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                    <div aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" role="progressbar">
+                                        <span class="slds-assistive-text">Progress: 100%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <lightning:spinner 
+                           aura:id="spinner"
+                           variant="brand"
+                           size="medium"
+                           alternativeText="Loading..."
+                           class="{! v.isLoading ? '' : 'slds-hide' }"/>
+    </div>
+    <aura:if isTrue="{!v.isRejectPopupVisible}">
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Content -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-button_icon-inverse slds-m-right_small" title="Close" onclick="{!c.closeRejectPopup}">
+                        <lightning:icon iconName="utility:close" size="small" alternativeText="close" />
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium">Enter Rejection Comments</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning:textarea label="Rejection Comment" value="{!v.rejectionComment}" placeholder="Enter reason for rejection"/>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" label="Cancel" onclick="{!c.closeRejectPopup}"/>
+                    <lightning:button variant="brand" label="Submit" onclick="{!c.handleSubmitRejection}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

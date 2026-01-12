@@ -1,0 +1,55 @@
+<aura:component controller="FileUploadControlller" 
+                implements="force:hasRecordId,flexipage:availableForAllPageTypes" 
+                access="global">
+    
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="uploadedFiles" type="List" default="[]"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:card title="Upload Files">
+        <div class="slds-m-around_medium">
+            <lightning:fileUpload
+                                  label="Upload Sale Agreement"
+                                  name="fileUploader"
+                                  recordId="{!v.recordId}"
+                                  multiple="true"
+                                  onuploadfinished="{!c.handleUploadFinished}"/>
+        </div>
+        
+        <aura:if isTrue="{!not(empty(v.uploadedFiles))}">
+            <div class="slds-m-around_medium">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-m-top_medium">
+                    <thead>
+                        <tr>
+                            <th>File Type</th>
+                            <th>File Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.uploadedFiles}" var="file">
+                            <tr>
+                                <td>
+                                    <lightning:icon iconName="{!file.iconName}" size="small" alternativeText="File Type" />
+                                </td>
+                                
+                                <td>
+                                    <a href="{! '/lightning/r/ContentDocument/' + file.Id + '/view'}" target="_blank">
+                                        {!file.Title}
+                                    </a>
+                                </td> <td>
+                                <lightning:button 
+                                                  label="Delete" 
+                                                  variant="destructive" 
+                                                  class="slds-m-left_small"
+                                                  onclick="{!c.handleDeleteFile}" 
+                                                  value="{!file.Id}"/>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </div>
+        </aura:if>
+    </lightning:card>
+</aura:component>

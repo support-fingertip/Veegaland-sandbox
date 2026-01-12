@@ -1,0 +1,12 @@
+.THIS .slds-form-element {
+    position: relative;
+    min-width: 0;
+    width: 100%;
+}
+.THIS .slds-accordion__summary{
+    background-color: #dbecf9;
+    border: solid 0.1px #c0cee0;
+}
+.THIS .cont-height{
+    min-height: 40vh;
+}

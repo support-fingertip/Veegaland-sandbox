@@ -1,0 +1,21 @@
+<aura:component controller="NotificationController" implements="force:appHostable" access="global">
+    <aura:attribute name="notificationMessage" type="String" default="This is a test notification!" />
+    <aura:attribute name="emailSubject" type="String" default="Test Email" />
+    <aura:attribute name="emailBody" type="String" default="This is a test email sent from an Aura component." />
+    
+    <div style="text-align: center; margin-top: 50px;">
+        <lightning:button label="Send Notification" onclick="{!c.handleSendNotification}" variant="brand"  />
+        <lightning:button label="Send Booking Form Email" onclick="{!c.handleSendEmail}" variant="success" />
+        <lightning:button label="Send KYC Documents Upload Email" onclick="{!c.handleKYCSendEmail}" variant="success" />
+        <lightning:button label="Send Advance followup task Notification" onclick="{!c.handleSendtaskNotification}" variant="brand"  />
+        <lightning:button label="Send Receipt Before approval Email" onclick="{!c.handleRecpSendEmail}" variant="success" />
+        <lightning:button label="Send Receipt After approval Email" onclick="{!c.handleRecsafSendEmail}" variant="success" />
+        <lightning:button label="Send Welcome Email Email" onclick="{!c.handleWelcomSendEmail}" variant="success" />
+        <lightning:button label="Send Parking layout Email" onclick="{!c.handleParkinglayoutSendEmail}" variant="success" />
+        <lightning:button label="Send Co Applicant details Email" onclick="{!c.handleCoapplicantSendEmail}" variant="success" />
+        <lightning:button label="Send Co Draft Agreement Email" onclick="{!c.handleDraftAggteementSendEmail}" variant="success" />
+        <lightning:button label="Send Balance amount before agreement Email" onclick="{!c.handleBalanceAmountSendEmail}" variant="success" />
+        
+        
+    </div>
+</aura:component>

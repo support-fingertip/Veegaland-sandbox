@@ -1,0 +1,24 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	      <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="quoteRecord" type="Object"/>
+    <aura:attribute name="recordLoadError" type="String"/>
+    
+    <force:recordData aura:id="recordLoader"
+                      recordId="{!v.recordId}"
+                      fields="Name,Approval_status__c"
+                      targetFields="{!v.quoteRecord}"
+                      recordUpdated="{!c.recUpdated}" 
+                      targetError="{!v.recordLoadError}"
+                      />
+    
+      <div style="background-color: #f7c600; color: white; padding: 10px; width: auto; display: inline-block; border-radius: 5px;">
+            <aura:if isTrue="{!v.quoteRecord.Approval_status__c == 'Pending'}">
+                Quote Pending
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.quoteRecord.Approval_status__c == 'Rejected'}">
+                    Quote Rejected
+                </aura:if>
+            </aura:set>
+          </aura:if>
+    </div>
+</aura:component>

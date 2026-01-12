@@ -1,0 +1,409 @@
+<aura:component controller="customerMasterController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:handler name="customerEvent" event="c:refreshCustomerList" action="{!c.refreshList}"/>
+    
+    <!--pagination attributes -->
+    <aura:attribute name="listOfAccounts" type="list"/> 
+    <aura:attribute name="paginationList" type="Object[]"/>
+    <aura:attribute name="currentPageNumber" type="Integer" default="1"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="offsetval" type="Integer" default="0"/>
+    <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <aura:attribute name="totalCount" type="Integer" default="0"/>
+    <aura:attribute name="pageList" type="List"/>
+    <aura:attribute name="totalRecords" type="Integer" />
+    <aura:attribute name="currentPageRecords" type="Integer" />
+     <aura:attribute name="isPrevious" type="Boolean" default="false"/>
+    <aura:attribute name="disableNext" type="Boolean" default="false"/>
+    <aura:attribute name="applyFilter" type="Boolean" default="false"/>
+    <!-- sorting data variables -->
+    
+    <aura:attribute name="sortedBy" type="String" default="Name"/>
+    <aura:attribute name="sortedDirection" type="string" default="asc" />
+    <!-- ============================================================== -->
+    <aura:attribute name="isShowListView" type="Boolean" default="true"/>
+    <aura:attribute name="isShowCustomerModal" type="Boolean"/>
+    <aura:attribute name="isShowCustomerMaster" type="Boolean" default="false"/>
+    <aura:attribute name="isModalOpen" type="Boolean" default="false"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false"/>
+    <aura:attribute name="isShowfilter" type="Boolean" default="false"/>
+    <aura:attribute name="cardview" type="Boolean" default="true"/>
+    <aura:attribute name="cardview1" type="Boolean" default="true"/>
+    <aura:attribute name="UserProfile" type="Boolean"/>
+    <aura:attribute name="fields" type="string" default="Name,Account__c,AccountId__c,LastModifiedDate,Last_Modified_Date__c,Owner.Name,OwnerId,Created_Date__c,Allocated_Project__c,toLabel(Lead_status__c),Lead_source__c,Leadsource__c,Last_Sub_Source__c,Phone"/>
+    <aura:attribute name="statusValues" type="object[]" />
+    <aura:attribute name="areaValues" type="object[]" />
+    <aura:attribute name="customerName" type="string" default=""/>
+    <aura:attribute name="selectedStatus" type="string" default=""/>
+    <aura:attribute name="selectedArea" type="string" default=""/>
+    <aura:attribute name="sortOrder" type="string" default=""/>
+    <aura:attribute name="selectedRecordId" type="string" default=""/>
+    <aura:attribute name="selectedCustomers" type="string" default=""/>
+    <aura:attribute name="searchText" type="string" default=""/>
+    <aura:attribute name="accounts" type="String[]" default="[]"/>
+    <aura:attribute name="matchaccounts" type="String[]" default="[]"/>
+    <aura:attribute name="allocatedProject" type="String"/>
+    <aura:attribute name="searchText1" type="string" default=""/>
+    <aura:attribute name="users" type="object[]" default="[]"/>
+    <aura:attribute name="matchusers" type="object[]" default="[]"/>
+    <aura:attribute name="ownerId" type="string" default=""/>
+    <aura:attribute name="areas" type="object[]" />
+    <aura:attribute name="items" type="object[]" default="[]"/>
+    <aura:attribute name="selectedDate" type="Date"/>
+    <aura:attribute name="modifiedDate" type="Date"/>
+    <aura:attribute name="toDate" type="Date"/>
+    <aura:attribute name="selectedDates" type="Date"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+    <aura:handler name="change" value="{!v.searchText}" action="{!c.searchText}"></aura:handler>
+    <aura:handler name="change" value="{!v.searchText1}" action="{!c.searchText1}"></aura:handler> 
+    <aura:attribute name="CurrentUser" type="Object"/>
+    <aura:attribute name="customer" type="Object" default="{}"/>
+    
+    <!-- Data Table Attributes -->
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="Opplist" type="object" />
+    <aura:attribute name="initRows" type="Integer" default="10"/>
+    <aura:attribute name="Count" type="Integer" default="10"/>
+    <aura:attribute name="Offset" type="Integer" default="0"/>
+    <aura:attribute name="totalResult" type="Integer" default="0"/>
+    <aura:attribute name="locallimit" type="Integer" default="0"/>
+    
+    <!-- =================================================================== -->
+    
+    <force:recordData recordId="{!$SObjectType.CurrentUser.Id}"   fields="Profile.Name"  targetFields="{!v.CurrentUser}"/>
+    <aura:if isTrue="{!v.isShowListView}">
+        <div class="slds-modal__content" id="modal-content-id-1">
+            <!--     <div class="filters slds-grid"> 
+                  <lightning:combobox data-field="Product_Familty_custom_icons_c" class="slds-size_1-of-4 slds-col " name="family"  label="Product Family"  value={selectedFamily}  placeholder="Select product family" options={productFamily}   ></lightning:combobox>
+                  <lightning:combobox  data-field="Product_Size__c" class="slds-size_1-of-4 slds-col "  name="size"  label="Product Size"  value={selectedSize}  placeholder="Select product size" options={sizes}    ></lightning:combobox>
+                  <lightning:combobox  data-field="Product_Colour__c"  class="slds-size_1-of-4 slds-col "  name="colour"  label="Product Colour"  value={selectedColour}  placeholder="Select product colour" options={colours}    ></lightning:combobox>
+                  <lightning:button     class="slds-size_1-of-4 slds-col  slds-align_absolute-center"  iconName="utility:search" variant="brand" label="Search" title="Search Products" onclick={searchProducts}></lightning:button>
+                  </div>--> 
+            <aura:if isTrue="{!v.isShowfilter}">
+                <div class="slds-panel side-bar-panel divwidth1  slds-panel_drawer">    
+                    <div class="float-panel-header"> 
+                        <h5 class="subheader">Filter</h5>
+                        <button  title="Close" onclick="{!c.closemodal}" style="background-color:black;">
+                            <lightning:icon iconName="utility:close" alternative-text="close" variant="inverse" size="small" ></lightning:icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </div>
+                    <div class="float-panel-content-body  scrollable-panel">
+                        <lightning:input type="text"  class="slds-col" data-id="Name" value="{!v.customerName}" label="Search Lead Name"  placeholder="Enter Name"></lightning:input>
+                            <lightning:combobox  label="Lead Status"  data-use="filter" data-type="picklist" data-id="Status"    data-field="Status"   value="{!v.selectedStatus}"  options="{!v.statusValues}"  placeholder="Select Lead Status" ></lightning:combobox>
+                        
+                        <div class="slds-size_1-of-1">
+                            <div class="slds-grid slds-wrap slds-text-align_left">
+                                <div class="slds-size_1-of-1 slds-max-small-size_1-of-1">
+                                    <div class="slds-form-element__control">
+                                        <ul class="slds-lookup__list" role="listbox"> 
+                                            <lightning:input value="{!v.searchText}" data-id="Allocated_Project__c" aura:id="enter-search" name="enter-search" label="Project Name" type="search" placeholder="Enter Project Name"/><br/>                                      
+                                            <aura:if isTrue="{!v.matchaccounts}">
+                                                <div class="{!if(not(empty(v.matchaccounts)), 'result-buttom','')}">
+                                                    <aura:iteration items="{!v.matchaccounts}" var="item">
+                                                        <li role="presentation">
+                                                            <span class="slds-lookup__item-action slds-media slds-media--center" role="option">
+                                                                <div class="slds-media__body">
+                                                                    <div class="slds-input-has-icon slds-input-has-icon--right">
+                                                                        <div class="slds-lookup__result-text" data-id="{!item}" onclick="{!c.update }">
+                                                                            <a role="option" >
+                                                                                <lightning:icon iconName="standard:account" size="xx-small"/>&nbsp;{!item}
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </span>
+                                                        </li>
+                                                    </aura:iteration>
+                                                </div>
+                                            </aura:if>     
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!--     <lightning:combobox  name="progress"  label="Project"   value="{!v.selectedArea}"  data-id="Allocated_Project__c" placeholder="Select Project Name"  options="{!v.areaValues}"/> -->
+                        </div>
+                        
+                        
+                        <div class="slds-size_1-of-1">
+                            <div class="slds-grid slds-wrap slds-text-align_left">
+                                <div class="slds-size_1-of-1 slds-max-small-size_1-of-1">
+                                    <div class="slds-form-element__control"> 
+                                        <ul class="slds-lookup__list" role="listbox">
+                                            <lightning:input value="{!v.searchText1}" aura:id="enter-search" name="enter-search" label="Search Owner Name" type="search" placeholder="Enter Owner Name"/><br/>                                      
+                                            <aura:if isTrue="{!v.matchusers}">
+                                                <div class="{!if(not(empty(v.matchusers)), 'result-buttom','')}">
+                                                    <aura:iteration items="{!v.matchusers}" var="item">
+                                                        <li role="presentation">
+                                                            <span class="slds-lookup__item-action slds-media slds-media--center" role="option">
+                                                                <div class="slds-media__body">
+                                                                    <div class="slds-input-has-icon slds-input-has-icon--right">
+                                                                        <div class="slds-lookup__result-text" data-id="{!item.Id}" onclick="{!c.update1 }">
+                                                                            <a role="option" >
+                                                                                <lightning:icon iconName="standard:user" size="xx-small"/>&nbsp;{!item.Name} 
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </span>
+                                                        </li>
+                                                    </aura:iteration>
+                                                </div>
+                                            </aura:if>     
+                                        </ul>
+                                    </div>
+                                </div>   
+                            </div>
+                            
+                        </div>
+                        
+                       
+                        <div class="slds-form-element slds-size_1-of-1   slds-col" >
+                            <div class="slds-form-element__control">
+                                <lightning:select name="select1" label="Sort By Lead Name" value="{!v.sortOrder}">
+                                    <option value="">Select…</option>
+                                    <option value="asc">Ascending</option>
+                                    <option value="DESC">Desending</option>
+                                </lightning:select>
+                            </div>
+                        </div> 
+                        <aura:if isTrue="{!v.UserProfile}">
+                            <div class="slds-form-element slds-size_1-of-1   slds-col" >
+                                <label class="slds-form-element__label" for="select-01">Leads</label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-select_container">
+                                        <select class="slds-select" id="select-03" data-id="CustomersList" value="{!v.selectedCustomers}">
+                                            <option value="">None</option>
+                                            <option value="Allcustomer">All Leads</option>
+                                            <option value="Mycustomer">My Leads</option>
+                                            <option value="Teamcustomer">Team Leads</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> 
+                        </aura:if>
+                        <label class="slds-form-element__label" for="select-01"><b>Filter by Created Date</b></label>
+                        <lightning:input type="date" name="input1" label="From" value="{!v.selectedDate}" placeholder ="Select Date" />
+                        <lightning:input type="date" name="input1" label="To" value="{!v.toDate}" placeholder ="Select Date"/>
+                        <lightning:input type="date" name="input1" label="Last Modified On" value="{!v.modifiedDate}" placeholder ="Select Date"/>
+                        <br/>
+                        
+                    </div>
+                    <div class="slds-text-align_center slds-m-top_medium">
+                            <lightning:button label="Clear" variant="neutral"  title="Clear" onclick="{!c.clearFilter}"></lightning:button>
+                            <lightning:button label="Apply" variant="brand"  title="Apply" onclick="{!c.searchRecordsCall1}"></lightning:button>
+                        </div>
+                </div>
+            </aura:if>
+            <div class="slds-page-header">  
+                <div class="filters slds-grid slds-wrap">  
+                    <!--<div class="slds-size_1-of-2  slds-col">  
+                              
+                           <lightning:combobox class="slds-size_1-of-2   slds-col" label="Status"  data-use="filter" data-type="picklist" data-id="Status__c"    data-field="Status__c" onchange={searchRecordsCall1}   value={filter.Status__c}  options={options.Status__c}  placeholder="Select Status" ></lightning:combobox>
+                        
+                        </div>-->
+                    <aura:if isTrue="{!v.showSpinner}"> 
+                        <lightning:spinner alternativeText="Loading" size="small" aura:id="spinner" />
+                    </aura:if>       
+                    
+                    <lightning:button label="New"    class="slds-align_absolute-center"   variant="brand"  title="New Lead" onclick="{!c.addCustomerEvent}"></lightning:button>
+                    <lightning:button iconName="utility:filterList"       class="slds-align_absolute-center"  variant="brand"   title="Filter" onclick="{!c.filterList}"></lightning:button>
+                    <!--<lightning:button variant="neutral" label="Customer" title="New Customer" iconName="utility:add" onclick={addCustomerEvent}></lightning:button>-->
+                    <!--<lightning:datepicker iconName="date_input" variant="label-hidden" position="bottom-center"   class="slds-align_absolute-center"  style="position : bottom-center !important; display:none;" type="date"   title="Account Visits" data-id="selectedDate"  value="{!v.selectedDate}"   onchange="{!c.handleDateChange}" ></lightning:datepicker>-->
+                </div>  
+            </div> 
+            <div class = "scrollable-details">
+            <aura:if isTrue="{!v.cardview}">
+                
+                <div class="slds-grid slds-wrap">
+                    &nbsp;&nbsp;&nbsp;&nbsp; <b>Record Count: {!v.totalCount} </b>
+                    
+                    <aura:iteration items="{!v.items}" var="item" indexVar="index">
+                        
+                        <div data-record="{!item.Id}" data-id="{!item.Id}" data-index="{!index}"  onclick="{!c.onselectItem}"  class="divwidth slds-box slds-col slds-m-around_small" >
+                            <div class="slds-grid slds-wrap slds-grid_pull-padded-xx-small">
+                                <div class="slds-size_1-of-2 slds-p-horizontal--xx-small">
+                                    <div class="slds-form-element product_title">
+                                        <label class="slds-form-element__label labelcolor" for="unique-id-of-input">Lead Name</label>
+                                        <div class="slds-form-element__control"    >{!item.Name}</div>
+                                    </div>
+                                    <div class="slds-form-element unit_price">
+                                        <label class="slds-form-element__label labelcolor" for="unique-id-of-input">Lead Status</label>
+                                        <div class="slds-form-element__control"></div>{!item.Lead_status__c} 
+                                    </div>
+                                    <div class="slds-form-element unit_price">
+                                        <label class="slds-form-element__label labelcolor" for="unique-id-of-input">Lead Source</label>
+                                        <div class="slds-form-element__control">{!item.Leadsource__c}</div> 
+                                    </div>
+                                    <div class="slds-form-element unit_price">
+                                        <label class="slds-form-element__label labelcolor" for="unique-id-of-input">Created Date</label>
+                                        <div class="slds-form-element__control">{!item.Created_Date__c}</div> 
+                                    </div>
+                                </div> 
+                                <div class="slds-size_1-of-2 slds-p-horizontal--xx-small"> 
+                                    <div class="slds-form-element product_title">
+                                        <label class="slds-form-element__label labelcolor" for="unique-id-of-input">Primary Phone</label>
+                                        <div class="slds-form-element__control">{!item.Phone}</div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element unit_price">
+                                        
+                                        <label class="slds-form-element__label labelcolor" for="unique-id-of-input">Project</label>
+                                        <div class="slds-form-element__control">{!item.Allocated_Project__c}</div> 
+                                    </div> 
+                                    <div class="slds-form-element product_title">
+                                        <label class="slds-form-element__label labelcolor" for="unique-id-of-input">Record Owner Name</label>
+                                        <div class="slds-form-element__control">{!item.Owner.Name}</div>
+                                    </div>
+                                    
+                                </div>  
+                                <!--<div class="slds-size_1-of-2 slds-p-horizontalxx-small"> 
+                                    <div class="slds-form-element product_title">
+                                       <label class="slds-form-element__label labelcolor" for="unique-id-of-input">Billing Address</label>
+                                       <div class="slds-form-element__control">{item.Billing_Address__c}</div>
+                                    </div>
+                                    <div class="slds-form-element unit_price">
+                                       <label class="slds-form-element__label labelcolor" for="unique-id-of-input">Area Name</label>
+                                       <div class="slds-form-element__control"></div>
+                                    </div>
+                                    <div class="slds-form-element unit_price">
+                                       <label class="slds-form-element__label labelcolor" for="unique-id-of-input">Followup Date</label>
+                                       <div class="slds-form-element__control">{item.Follow_up_Date__c} </div>
+                                    </div>  
+                                 </div>-->
+                            </div> 
+                        </div>  
+                        
+                    </aura:iteration>
+                </div> 
+            </aura:if>
+                </div>
+            <div class="slds-page-footer footerset">  
+                <div class="filters slds-grid slds-wrap">  
+                   <!-- =================== Data Table(Pagination) ======================= -->
+    
+        <p class="slds-var-p-around_small">
+          <!--  <lightning:layout multipleRows="true" horizontalAlign="center">
+                <lightning:layoutItem padding="around-small" size="12">
+                    <lightning:datatable keyField="id" 
+                                         data="{!v.paginationList}"
+                                         columns="{!v.columns}"
+                                         hideCheckboxColumn="false"
+                                         onsort="{!c.updateSorting}"
+                                         sortedBy="{!v.sortedBy}"
+                                         sortedDirection="{!v.sortedDirection}"  />
+                </lightning:layoutItem> -->
+                 
+                <!--  Pagination Buttons Start -->
+                <div class="slds-align_absolute-left"> 
+                    <lightning:button label="First"
+                                      iconName="utility:left"
+                                      iconPosition="left"
+                                      onclick="{!c.onFirst}"
+                                      disabled="{! v.currentPageNumber == 1}" />
+                    <lightning:button label="Previous"
+                                      disabled="{!v.currentPageNumber == 1}" 
+                                      onclick="{!c.handlePrevious}"
+                                      variant="brand"
+                                      iconName="utility:chevronleft"
+                                      name="previous"/>
+                     
+                    <span class="slds-badge slds-badge_lightest"
+                          style="margin-right: 10px;margin-left: 10px;">
+                        Page {!v.currentPageNumber} out of {!v.totalPages}
+                    </span> 
+                     
+                    <lightning:button label="Next"
+                                      disabled="{!v.currentPageNumber == v.totalPages}"
+                                      onclick="{!c.handleNext}"
+                                      variant="brand"
+                                      iconName="utility:chevronright"
+                                      iconPosition="right"
+                                      name="next"/>
+                    <lightning:button label="Last"
+                                      iconName="utility:right"
+                                      iconPosition="right"
+                                      onclick="{!c.onLast}"
+                                      disabled="{!v.currentPageNumber == v.totalPages}" />
+                </div>        
+         <!--   </lightning:layout> -->
+        </p>
+             <!--==================================================== --> 
+                </div>  
+            </div> 
+              <aura:if isTrue="{!!v.cardview}">
+                <table  class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer listview" role="grid">
+                    <thead>
+                        <tr  class="queryFields">
+                            <td scope="col" height="22" style="width: 3rem"> 
+                                <lightning:input type="checkbox" onchange="{!c.onselectAll}"  name="input1"></lightning:input>
+                            </td>
+                            <td scope="col" height="22" data-field="Name">Name</td>
+                            <td scope="col" height="22" data-field="Lead_status__c">Lead Status</td>
+                            <td scope="col" height="22" data-field="Phone__c">Primary Phone</td>
+                            <td scope="col" height="22" data-field="Allocated_Project__c">Project</td>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.items}" var="item">
+                            
+                            <tr data-id="{!item.Id}" onclick="{!c.onselectItem}" key="{!item.Id}" class="slds-hint-parent">
+                                <td style="font-weight: bold" >
+                                    <lightning:input checked="{!item.selected}" data-id="{!item.Id}" type="checkbox" value="{!item.selected}" class="checkbox" onchange="{!c.onselectItem}"  name="input1"></lightning:input>
+                                </td>
+                                <td >  
+                                    {item.Name}                               
+                                </td>
+                                <td>  
+                                    {item.Status__c}                             
+                                </td>
+                                <td>  
+                                    {item.Phone}  
+                                </td>
+                                <td >  
+                                    {item.Company}                              
+                                </td>
+                                <td>
+                                    {item.Billing_Address__c}  
+                                </td>  
+                            </tr>
+                            
+                        </aura:iteration>
+                    </tbody>
+                </table>    
+            </aura:if> 
+            <!-- =========================Data Table================================= 
+            <aura:if isTrue="{!v.cardview}">
+                <div class="slds-m-around_xx-small" style="height: 500px">
+                    <lightning:datatable columns="{!v.columns}"
+                                         data="{!v.Opplist}"
+                                         keyField="Id"
+                                         showRowNumberColumn="true"
+                                         rowNumberOffset="0"
+                                         onrowaction="{!c.RowAction}"
+                                         onrowselection="{!c.handleSelectedRow}"
+                                         enableInfiniteLoading="true"
+                                         onloadmore="{!c.LoadMore}"/>
+                </div>
+            </aura:if>
+         ==================================================================== -->
+        
+            
+            
+        </div>
+    </aura:if> 
+    <c:NewLeadComponent isModalOpen="{!v.isModalOpen}" />  
+    
+    <aura:if isTrue="{!v.isShowCustomerMaster}">
+        <div >
+            
+            <!-- <c:customerMasterDetailCmp recordId="{!v.selectedRecordId}" record="{!v.customer}"/> 
+             customer detail page 
+               <c-customer-master-detail iscustomer={incustomer} customer={record}  oncrud={oncrud}   ></c-customer-master-detail>
+            -->
+        </div>  
+        
+    </aura:if>
+</aura:component>

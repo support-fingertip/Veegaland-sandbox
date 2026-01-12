@@ -1,0 +1,205 @@
+.multi_step_form {
+  background: #f6f9fb;
+  display: block;
+  overflow: hidden;
+  padding: 10px 0;
+  border-width: var(--slds-c-card-sizing-border, var(--sds-c-card-sizing-border, var(--lwc-borderWidthThin, 1px)));
+  border-style: solid;
+  border-color: var(--slds-c-card-color-border, var(--sds-c-card-color-border, var(--slds-g-color-border-base-1)));
+  border-radius: var(--slds-c-card-radius-border, var(--sds-c-card-radius-border, var(--lwc-borderRadiusMedium, 0.25rem)));
+}
+.multi_step_form .action-area-bg{
+        background: #f4f7f0;
+}
+.multi_step_form  .msform {
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+  background: #ffffff;
+  z-index: 1;
+}
+
+.multi_step_form  .msform   .tittle {
+    text-align: left;
+    padding-bottom: 28px;
+}
+.multi_step_form  .msform   .tittle h2 {
+  font: 500 24px/35px "Roboto", sans-serif;
+  color: #3f4553;
+  padding-bottom: 5px;
+}
+.multi_step_form  .msform   .tittle p {
+     font: 400 13px / 15px "Roboto", sans-serif;
+    color: #5f6771;
+    margin-left: 37px;
+}
+
+.multi_step_form .msform .tittle h2 .h2-icon {
+    color: unset;
+    width: unset;
+    height: unset;
+    margin: unset;
+    font: icon;
+}
+
+.multi_step_form .msform .progressbar {
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.multi_step_form .msform .progressbar li {
+  list-style-type: none;
+  color: #99a2a8;
+  font-size: 9px;
+  width: calc(100%/4);
+  float: left;
+  position: relative;
+  font: 500 13px/1 "Roboto", sans-serif;
+}
+.multi_step_form .msform .progressbar li:nth-child(2):before {
+  content: "✉";
+}
+.multi_step_form .msform .progressbar li:nth-child(3):before {
+  content: "⚒";
+}
+.multi_step_form .msform .progressbar li:before {
+  content: "✉";
+  font: normal normal normal 30px/50px Ionicons;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  display: block;
+  background: #eaf0f4;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+}
+.multi_step_form .msform .progressbar li:after {
+  content: "";
+  width: 100%;
+  height: 10px;
+  background: #eaf0f4;
+  position: absolute;
+  left: -50%;
+  top: 21px;
+  z-index: -1;
+}
+.multi_step_form .msform .progressbar li:last-child:after {
+  width: 150%;
+}
+.multi_step_form .msform .progressbar li.active {
+  color: #5cb85c;
+}
+.multi_step_form .msform .progressbar li.active:before, .multi_step_form .msform .progressbar li.active:after {
+  background: #5cb85c;
+  color: white;
+}
+
+
+/* Task Section */
+.section-title {
+	font-size: 1.2rem;
+	margin-bottom: 0.8rem;
+	font-weight: 600;
+}
+
+ul.taskList {
+	list-style: none;
+}
+
+li.task {
+	background: rgb(255 255 255);
+	backdrop-filter: blur(6px);
+	border-radius: 22px;
+	padding: 0.8rem 1rem;
+	margin-bottom: 0.7rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	transition: all 0.3s ease;
+  min-height: 70px;
+}
+
+li.task.completed {
+	text-decoration: line-through;
+	opacity: 0.5;
+}
+
+.task input.check {
+	transform: scale(1.2);
+	cursor: pointer;
+}
+
+.task button.delete {
+	background: none;
+	border: none;
+	font-size: 1.1rem;
+	color: #ff5e5e;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.Message {
+  display: table;
+  position: relative;
+  width: 100%;
+  background-color: #0074D9;
+  color: #fff;
+  transition: all 0.2s ease;
+  margin-bottom: 10px;
+  border-radius: 14px;
+}
+.Message.is-hidden {
+  opacity: 0;
+  height: 0;
+  font-size: 0;
+  padding: 0;
+  margin: 0 auto;
+  display: block;
+}
+.Message--red {
+  background-color: #FF4136;
+}
+.Message--orange {
+  background-color: #F39C12;
+}
+.Message-body {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 5px 8px 8px 8px;
+}
+.Message-body > p {
+  line-height: 1.2;
+  margin-top: 6px;
+}
+
+.u-italic {
+  font-style: italic;
+}
+.Message-body > .slds-form-element__icon {
+  padding-top: 0 !important;
+}
+.Message-icon {
+display: table-cell;
+    vertical-align: middle;
+    width: 3%;
+    padding: 5px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 14px 0 0 14px;
+}
+.Message-icon > .slds-icon {
+  width: 10px;
+  font-size: 10px;
+}
+.task-section{
+    min-height: 238px;
+    padding: 10px;
+    background: #f3f3f3;
+    backdrop-filter: blur(6px);
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.big-textarea .slds-textarea {
+  min-height: 12rem !important;
+}

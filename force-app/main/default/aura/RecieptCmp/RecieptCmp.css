@@ -1,0 +1,17 @@
+.THIS .cmp-Width{
+    padding:1rem 3rem !important;
+}
+.THIS .slds-form-element_stacked{
+    margin-bottom:0;
+}
+
+ .THIS  .amount-value {
+  font-size: 1rem;
+color: #37ac07; /* Blue color for amount */
+ font-weight:bold;
+} 
+.THIS .redfont {
+    color: #ea001e; 
+    font-size: 1rem;   
+    font-weight:bold;
+}

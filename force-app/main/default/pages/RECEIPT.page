@@ -1,0 +1,149 @@
+<apex:page standardController="Receipt__c" extensions="ReceiptVFPController" renderAs="pdf" applyHtmlTag="false" showHeader="false" standardStylesheets="false" >
+    <head>
+        <style type="text/css" media="print">
+            * {
+            font-weight: normal; /* Reset bold styling */
+            }
+            
+            @page {
+            size: A4;
+            margin: 40px 30px;
+            }
+            
+            strong {
+            font-weight: 600;
+            }
+            
+            /* Only one border for the entire table */
+            table {
+            width: 100%;
+            border: 1.5px solid black;
+            border-collapse: collapse;
+            }
+            
+            th, td {
+            border: 1.5px solid black;
+            
+            }
+            
+            tr.break {
+            page-break-before: always;
+            }
+            .main-margin-top{
+            margin-top:3em;
+            width:100%;
+            text-align:center;
+            font-size:21px;
+            font-weight:bold;
+            padding-bottom:10px;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div class="main-margin-top">
+            Veegaland Developers Limited	
+        </div>
+        <center> <strong style="font-size:10px">Regd.Office Address: XXXV/564, 4TH FLOOR, K C F TOWER, BHARAT MATHA COLLEGE ROAD, KAKKANADU, Thrikkakara, Ernakulam- 682021, Kerala,
+            GSTIN: 32AACCV5457F1ZF, CIN: U45201KL2007PTC021107<br/>http://www.veegaland.com, mail@veegaland.in</strong></center><br/>
+        <div style="padding-right:20px; padding-left:20px; padding-top:5px; line-height:1.5;font-size:11.5px;">
+            <div style="text-align:center; font-size:15px; padding-bottom:10px; padding-top:10px"> <strong>RECEIPT </strong></div>
+            <table width="100%" style="font-size:12px; ">
+                <tr style="border: 1px solid black;">
+                    <th style="width:30%" >Receipt No</th>
+                    <th style="width:30%" colspan="">{!receipt.Name}	</th>
+                    <th style="width:10%" >Receipt Date</th>
+                    <th style="width:35%" colspan="2">{!formattedReceiptdate}	</th>
+                </tr>
+                <tr>
+                    <th style="width:" colspan="2"> Received From:</th>
+                    <th style="width:" colspan="3">{!receipt.Booking__r.salutation_Applicant1__c}. {!receipt.Booking__r.First_Applicant_Name__c} </th>
+                </tr>
+                <tr>
+                    <th style="width:" colspan="2"> <p>Address:
+                        
+                        </p></th>
+                    <th style="width:%" colspan="3"> 
+                        
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_House_No_Name__c))}">
+                            {!receipt.Booking__r.Permanent_House_No_Name__c},
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_Street_Location__c))}">
+                            &nbsp;{!receipt.Booking__r.Permanent_Street_Location__c},
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_Post_Office__c))}">
+                            &nbsp;{!receipt.Booking__r.Permanent_Post_Office__c},
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_City__c))}">
+                            &nbsp;{!receipt.Booking__r.Permanent_City__c},
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_State__c))}">
+                            {!receipt.Booking__r.Permanent_State__c}
+                        </apex:outputPanel>
+                    </th>
+                </tr>
+                <tr>
+                    <th style="width:" colspan="2">PAN:</th>
+                    <th style="width:" colspan="3">{!receipt.Booking__r.PAN_Number1__c} </th>
+                </tr>
+                <!--<tr>
+<th style="width:" colspan="3">Co-Applicant PAN</th>
+<th style="width:70%" colspan="4"> {!coApplicants.PAN_Number__c}</th>
+</tr>-->
+                <tr>
+                    <th style="width:" colspan="2">Amount</th>
+                    <th style="width:" colspan="">{!formattedAmount} </th>
+                    <th style="width:15%" colspan="">Whether Receipt is against </th>
+                    <th style="width:15%" colspan="">Advance Receipt </th>
+                </tr>
+                <tr>
+                    <th style="width:" colspan="2">Amount in words</th>
+                    <th style="width:" colspan="3">Rupees: {!amountInWords}. </th></tr>
+                
+                <tr>
+                    <th style="width:; text-align:center"  >Project Details</th>
+                    <th style="width:; text-align:center"  >Unit No </th>
+                    
+                    <th style="width:; text-align:center"  >Unit Type </th>
+                    <th style="width:; text-align:center"  >Floor No </th>
+                    <th style="width:; text-align:center"  >Apartment Area </th>
+                    
+                </tr>
+                <tr>
+                    <th style=" height:50px; text-align:center; text-transform:uppercase;" >{!receipt.Project_Name__c}</th>
+                    <th style=" height:50px; text-align:center" >{!receipt.Booking__r.Plot__r.Name} </th>
+                    
+                    <th style=" height:50px; text-align:center" > {!receipt.Booking__r.Plot__r.BHK_Type__c} </th>
+                    <th style=" height:50px; text-align:center" > {!receipt.Booking__r.Plot__r.Floor__c}</th>
+                    <th style=" height:50px; text-align:center" >{!receipt.Booking__r.Plot__r.Super_built_up_area__c} </th>
+                    
+                </tr>
+                
+                <tr>
+                    <th style="text-align:center">Instrument No:(Cash/Cheque/DD  No./RTGS)</th>
+                    <th colspan="" style="text-align:center">Instrument Type (Cash/Cheque/DD  No./RTGS)</th>
+                    <th style="text-align:center">Instrument Date</th>
+                    <th style="text-align:center" colspan="">Drawn On</th>
+                    <th style="text-align:center">Branch </th>
+                </tr>
+                <tr>
+                    <th style="text-align:center">{!Receipt__c.Check_Transaction_Nmber__c}</th>
+                    <th colspan="" style="text-align:center">{!Receipt__c.Mode_of_payment__c}</th>
+                    <th style="text-align:center">{!formattedReceiptdate}</th>
+                    <th style="text-align:center" colspan="">{!Receipt.Payment_Received_Bank__c}</th>
+                    <th style="text-align:center">{!Receipt.Branch__c} </th>
+                </tr>
+                
+                <tr>
+                    <th colspan="5" style="text-align:left; height:20px">(Cheque/DD subjected to Realisation) </th>
+                </tr>
+                <tr>
+                    <th colspan="5" style="text-align:right; height:150px; padding-right: 140px; padding-top:40px"><Strong>Authorised Signatory</Strong> </th>
+                </tr> 
+                <tr>
+                    <th colspan="5" style="text-align:center; height:20px">***This is a system generated printout and no signature required*** </th>
+                </tr>
+            </table>
+        </div>         
+    </body>
+</apex:page>

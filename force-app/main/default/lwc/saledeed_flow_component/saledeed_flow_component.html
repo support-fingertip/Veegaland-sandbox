@@ -1,0 +1,143 @@
+<template>
+    <lightning-tile>
+        <div class="multi_step_form">
+            <div class="msform">
+                <div class="progress-bg">
+                    <div class="tittle slds-card__header">
+                        <h2>
+                            <lightning-icon class="h2-icon" icon-name="standard:stage_collection" size="medium">
+                            </lightning-icon> Sale Deed Flow
+                        </h2>
+                        <p>Please upload the draft sale deed for customer review and approval, followed by submission of the finalized sale deed.</p>
+                    </div>
+                    <ul class="progressbar">
+                        <li class={drftSaleDeedClass}>Draft Sale Deed</li>
+                        <li class={approvalClass}>Customer Approval</li>
+                        <li class={finalSaleDeedClass}>Final Draft Deed</li>
+                    </ul>
+                </div>
+                <div class="slds-p-horizontal_medium action-area-bg"></div>
+                <template if:true={isDraftSaleDeedStage}>
+                    <section class="task-section">
+                        <h2 class="section-title">Upload &amp; send the draft sale deed</h2>
+                        <ul class="taskList">
+                            <li class="task">
+                                <span>Upload Draft Sale Deed</span>
+                                <div>
+                                    <template if:false={draftSaleDeedUploaded}>
+                                        <c-single_fileupload_lwc record-id={recordId} label="Draft Sale Deed"
+                                            onuploadfinished={handleUploadFinished}>
+                                        </c-single_fileupload_lwc>
+                                    </template>
+                                    <template if:true={draftSaleDeedUploaded}>
+                                        Draft Sale Deed has been uploaded
+                                    </template>
+                                </div>
+                            </li>
+                            <li class="task">
+                                <span>Send Draft Sale Deed</span>
+                                <template if:true={isDraftSaleDeedSend}>
+                                    <lightning-button class="slds-m-top_small" variant="brand"
+                                        label="Send Draft Sale Deed" onclick={handleSendDraftMail}>
+                                    </lightning-button>
+                                </template>
+                                <template if:true={draftSaledeedSend}> 
+                                    Draft Sale Deed has been sent to the customer
+                                </template>
+                            </li>
+                        </ul>
+                    </section>
+                </template>
+                <template if:true={isFinalSaleDeedStage}>
+                    <section class="task-section">
+                        <h2 class="section-title">Upload &amp; send the final draft deed</h2>
+                        <ul class="taskList">
+                            <li class="task">
+                                <span>Upload Final Draft Deed</span>
+                                <div>
+                                    <template if:false={finalSaleDeedUploaded}>
+                                        <c-single_fileupload_lwc record-id={recordId} label="Final Sale Deed"
+                                            onuploadfinished={handleFinalUploadFinished}>
+                                        </c-single_fileupload_lwc>
+                                    </template>
+                                    <template if:true={finalSaleDeedUploaded}>
+                                        Final Draft Deed has been uploaded
+                                    </template>
+                                </div>
+                            </li>
+                            <li class="task">
+                                <span>Send Final Sale Deed</span>
+                                <div>
+                                    <template if:true={isFinalSaleDeedSend}>
+                                        <lightning-button class="slds-m-top_small" variant="brand"
+                                            label="Send Draft Sale Deed" onclick={handleSendFinalMail}>
+                                        </lightning-button>
+                                    </template>
+                                    <template if:true={finalSaledeedSend}>
+                                        Final Sale Deed has been sent to the customer
+                                    </template>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                </template>
+                <template if:true={iscustomerApprovalStage}>
+                    <section class="task-section">
+                        <h2 class="section-title">Customer Approval Status</h2>
+                        <template if:true={isSaleDeedRejected}>
+                            <div class="Message Message--red">
+                                <div class="Message-icon">
+                                    <lightning-icon icon-name="utility:close" size="x-small" variant="inverse">
+                                    </lightning-icon>
+                                </div>
+                                <div class="Message-body">
+                                    <p>Draft sale deed has been rejected by the customer please refer the Sale Deed
+                                        Rejection Comments field for more information
+                                        <lightning-helptext icon-name="utility:help" class="slds-p-left_x-small"
+                                            content={customerRejectionComments}></lightning-helptext>
+                                    </p>
+                                </div>
+                            </div>
+                        </template>
+                        <template if:true={isSaleDeedPending}>
+                            <div class="Message Message--orange">
+                                <div class="Message-icon">
+                                    <lightning-icon icon-name="utility:clock" size="x-small" variant="inverse">
+                                    </lightning-icon>
+                                </div>
+                                <div class="Message-body">
+                                    <p>
+                                    Draft sale deed has been sent to the customer for approval, please wait for the
+                                    customer to approve the sale deed
+                                    </p>
+                                </div>
+                            </div>
+                        </template>
+                        <template if:true={isSaleDeedRejected}>
+                            <ul class="taskList">
+                                <li class="task">
+                                    <span>re-Upload Draft Sale Deed</span>
+                                    <template if:false={draftSaleDeedUploaded}>
+                                        <c-single_fileupload_lwc record-id={recordId} label="Draft Sale Deed"
+                                            onuploadfinished={handleUploadFinished}>
+                                        </c-single_fileupload_lwc>
+                                    </template>
+                                </li>
+                                <li class="task">
+                                    <span>Send Draft Sale Deed</span>
+                                    <div>
+                                        <template if:true={isDraftSaleDeedSend}>
+                                            <lightning-button class="slds-m-top_small" variant="brand"
+                                                label="Send Draft Sale Deed" onclick={handleSendDraftMail}>
+                                            </lightning-button>
+                                        </template>
+                                    </div>
+                                </li>
+                            </ul>
+                        </template>
+                    </section>
+                </template>
+            </div>
+        </div>
+    </lightning-tile>
+</template>

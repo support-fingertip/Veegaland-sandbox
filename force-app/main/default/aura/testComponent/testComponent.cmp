@@ -1,0 +1,60 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-task" title="task">
+                        <lightning:icon iconName="standard:billing" alternativeText="billing" title="billing" size="medium" />
+                        <span class="slds-assistive-text">task</span>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Receipt</span>
+                                    <span>* Enter all mandatory details</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="slds-p-horizontal_large slds-p-hvertical_xx-small">
+            <div class="slds-page-header__row slds-page-header__row_gutters">
+                <div class="slds-page-header__col-details">
+                    <ul class="slds-m-top_xx-small slds-p-vertical_x-small slds-page-header__detail-row">
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="Field 1">Project Name</div>
+                            <div class="slds-truncate" title="Description that demonstrates truncation with a long text field.">Description that demonstrates truncation with a long text field.</div>
+                        </li>
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="Field 3">Flat Number</div>
+                            <div class="slds-truncate" title="Hyperlink">
+                                <a href="#">Hyperlink</a>
+                            </div>
+                        </li>
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="Field 4">Pending Amount</div>
+                            <div class="slds-truncate" title="Description (2-line truncation—must use JS to truncate).">Description (2-line truncati...</div>
+                        </li>
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="Field 4">Total Flat Cost</div>
+                            <div class="slds-truncate" title="Description (2-line truncation—must use JS to truncate).">Description (2-line truncati...</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-illustration slds-illustration_small">
+                <div class="slds-text-longform">
+                    <h3 class="slds-text-heading_medium">No new tasks</h3>
+                    <p class="slds-text-body_regular">Nothing needs your attention right now. Check back later.</p>
+                </div>
+            </div>
+        </div>
+    </article>
+</aura:component>

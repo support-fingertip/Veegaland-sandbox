@@ -1,0 +1,50 @@
+<template>
+    <article class="slds-card">
+        <div class="site-main slds-order_1">
+            <div class="site-main-stage">
+                <div class="site site-main-stage__content is-full-width">
+                    <header class="slds-grid slds-grid--vertical">
+                        <div class="site-components-overview-counts">
+                            <div class="slds-grid slds-grid--align-spread slds-show">
+                                <div class="slds-grid slds-grid_vertical-align-end">
+                                    <div class="site-components-overview-expander"></div>
+                                    <div class="slds-form-element">
+                                        <lightning-combobox name="progress" label="Project" value={selectedProjectId}
+                                            placeholder="Select Progress" options={projectOptions}
+                                            onchange={handleProjectChange}>
+                                        </lightning-combobox>
+                                    </div>
+                                    <div class="site-components-overview-spacer"></div>
+                                    <div class="slds-form-element">
+                                        <lightning-combobox name="progress" label="Payment Plan" value={SelectedPlanId}
+                                            placeholder="Select Progress" options={paymentPlanOptions}
+                                            onchange={handlePaymentPlanChange}>
+                                        </lightning-combobox>
+                                    </div>
+                                    <div class="site-components-overview-spacer"></div>
+                                    <div class="slds-form-element">
+                                        <lightning-input type="checkbox" label="Include Combined Schedules"
+                                            class="slds-p-top_x-large" onchange={handleShowCombined}></lightning-input>
+                                    </div>
+                                    <div class="site-components-overview-spacer"></div>
+                                    <lightning-button label="Get Payment Schedules" variant="brand"
+                                        onclick={handleGetPaymentSchedules}></lightning-button>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                </div>
+            </div>
+        </div>
+        <div class="docs-codeblock">
+            <div class="docs-codeblock-example">
+                <div style="height: 300px;">
+                    <div style="height: 300px; margin-top: 10px;">
+                        <lightning-datatable key-field="id" data={data} columns={columns}>
+                        </lightning-datatable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</template>

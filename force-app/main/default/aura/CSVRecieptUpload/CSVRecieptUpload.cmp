@@ -1,0 +1,67 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" controller="ReceiptCSVUploadController"
+                access="global">
+
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+
+    <aura:attribute name="data"    type="Object[]"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="fileName" type="String"/>
+    <aura:attribute name="rowCount" type="Integer" default="0"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:card title="Receipt Uploader" iconName="custom:custom16">
+        <!-- Spinner overlay -->
+        <aura:if isTrue="{!v.isLoading}">
+            <lightning:spinner alternativeText="Processing…" variant="brand" size="medium"/>
+        </aura:if>
+
+        <aura:set attribute="actions">
+            <aura:if isTrue="{!not(empty(v.data))}">
+                <lightning:button label="Upload Receipts" variant="brand" onclick="{!c.saveData}" disabled="{!v.isLoading}"/>
+            </aura:if>
+        </aura:set>
+
+        <!-- (rest of your markup unchanged) -->
+        <div class="slds-p-horizontal_medium slds-p-top_medium slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+            <div class="slds-grid slds-gutters slds-grid_vertical-align-end slds-grid_align-end">
+                <div class="slds-col slds-grow">
+                    <lightning:input aura:id="fileInput"
+                                     type="file"
+                                     accept=".csv"
+                                     onchange="{!c.handleFileChange}"
+                                     label="Upload CSV"
+                                     class=""/>
+                </div>
+                <div class="slds-col slds-p-bottom_xx-small">
+                    <lightning:button variant="neutral" label="Download Excel Template" onclick="{!c.downloadTemplate}"/>
+                </div>
+            </div>
+            <aura:if isTrue="{!v.rowCount>0}">
+                <div class="slds-text-body_small slds-text-color_success">Parsed {!v.rowCount} rows</div>
+            </aura:if>
+        </div>
+
+        <div class="slds-p-horizontal_medium slds-p-bottom_small">
+            <aura:if isTrue="{!not(empty(v.fileName))}">
+                <div class="slds-m-top_xx-small slds-text-color_weak">{!v.fileName}</div>
+            </aura:if>
+        </div>
+
+        <div class="slds-p-horizontal_medium">
+            <aura:if isTrue="{!not(empty(v.data))}">
+                <lightning:datatable keyField="__rowId"
+                                     data="{!v.data}"
+                                     columns="{!v.columns}"
+                                     hideCheckboxColumn="true"
+                                     resizeColumnDisabled="true"/>
+                <aura:set attribute="else">
+                    <div class="slds-p-horizontal_medium slds-p-bottom_medium slds-text-color_weak">
+                        No data yet. Upload a CSV with headers:
+                        <code>Booking Id, Total Amount, Bank Name, Branch, Transaction Number, Mode Of Payment, Payment From</code>
+                    </div>
+                </aura:set>
+            </aura:if>
+        </div>
+    </lightning:card>
+</aura:component>

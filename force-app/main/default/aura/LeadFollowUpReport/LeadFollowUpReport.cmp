@@ -1,0 +1,94 @@
+<aura:component controller="LeadOwnerPerformanceReportApex" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global">
+    <aura:attribute name="records" type="List" />
+    <aura:attribute name="FromCreatedDateFilter" type="date" default=""/>
+    <aura:attribute name="ToCreatedDateFilter" type="date" default=""/>
+    <aura:attribute name="maxFollowUpCount" type="integer" default=""/>
+    <aura:attribute name="selectedDate" type="string" default="TODAY" />
+    <aura:attribute name="selectedDateValue" type="string" default="TODAY" />
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <lightning:card >
+        <div class="highlight-title">Lead with Follow-up Report</div>
+        <div class="slds-p-horizontal_medium">
+            <lightning:button label="Export to Excel" onclick="{!c.exportToExcel}" />
+        </div>
+        <div class="slds-grid  slds-wrap">
+            <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                <label class="slds-text-title_bold" for="createDate">Created Date</label>
+                <div class="slds-select_container">
+                    <select class="slds-select" aura:id="Dates" onchange="{!c.handleChange}" value="{!v.selectedDateValue}">
+                        <option value="TODAY">Today</option> 
+                        <option value="YESTERDAY">Yesterday</option>
+                        <option value="THIS_WEEK">This Week</option>
+                        <option value="LAST_WEEK">Last Week</option>
+                        <option value="THIS_MONTH">This Month</option>
+                        <option value="LAST_MONTH">Last Month</option>
+                        <option value="Date_Range">Date Range</option>
+                    </select>
+                </div>
+            </div>
+            <aura:if isTrue="{!v.selectedDateValue=='Date_Range'}">
+                <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                    <lightning:input label="From" type="date" value="{!v.FromCreatedDateFilter}" name="createdDateInput" onchange="{!c.handleOnChange}" placeholder="Created Date"/>
+                </div>
+                <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                    <lightning:input label="To" type="date" value="{!v.ToCreatedDateFilter}" name="createdDateInput" onchange="{!c.handleOnChange}" placeholder="Created Date"/>
+                </div>
+            </aura:if>
+        </div>
+<div class="table-container">
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer custom-border-table slds-p-around_x-small">
+            <thead>
+                <tr class="slds-text-title_bold">
+                    <th scope="col">Sl No.</th>
+                    <th scope="col">Lead Name</th>
+                    <th scope="col">Lead Stage</th>
+                    <th scope="col">Lost Reason</th>
+                    <th scope="col">Notes</th>
+                    <th scope="col">No. of Follow-up</th>
+                    <th scope="col">No. of SV Completed</th>
+                    <!--<aura:iteration items="{!v.maxFollowUpCount}" var="followUpDate" indexVar="index">
+                        <th scope="col">Description {!index + 1}</th>
+                    </aura:iteration>-->
+                    
+                        <aura:iteration items="{!v.records[0].descriptions}" var="description" indexVar="index">
+                            <th scope="col">Description {!index + 1}</th>
+                        </aura:iteration>
+                    
+
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.records}" var="record" indexVar="index">
+                    <tr>
+                        <td>{!index + 1}
+                        </td>
+                        <td>
+                            <a href="javascript:void(0);" onclick="{!c.navigateToRecord}" data-id="{!record.leadId}">
+                                {!record.leadName}
+                            </a>
+                        </td>
+                        <td>{!record.leadStage}</td>
+                        <td>{!record.lostReason}</td>
+                        <td>{!record.Notes}</td>
+                        <td>{!record.NoofFollowup}</td>
+                        <td>{!record.NoofSVCompleted}</td>
+                        <aura:iteration items="{!record.descriptions}" var="followUpDate" >
+                            <td>
+                                <lightning:formattedRichText value="{!followUpDate}" />
+                                <!--{!followUpDate != '' ? followUpDate : '—'}--> <!-- Display '—' for null/empty values -->
+                            </td>
+                        </aura:iteration>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+        </div>
+</lightning:card>
+    <div>
+        <aura:if isTrue="{!v.spinner}">
+            <lightning:spinner class="spins" size="large" variant="brand" alternativeText="Loading" />
+        </aura:if>
+    </div>
+</aura:component>

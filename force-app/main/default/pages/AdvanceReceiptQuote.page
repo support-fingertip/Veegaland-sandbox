@@ -1,0 +1,193 @@
+<apex:page standardController="Quote__c"  extensions="AdvanceReceiptQuoteController" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false"  standardStylesheets="false" renderAs="PDF" >
+    <head>
+        <style type="text/css" media="print">
+            * {
+            font-weight: normal; /* Reset bold styling */
+            }
+            
+            @page {
+            size: A4;
+            margin: 0;
+            }
+            
+            strong {
+            font-weight: 600;
+            }
+            
+            /* Only one border for the entire table */
+            table {
+            width: 100%;
+            border: 1.5px solid black;
+            border-collapse: collapse;
+            }
+            
+            th, td {
+            border: 1.5px solid black;
+            
+            }
+            
+            tr.break {
+            page-break-before: always;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div style="text-align:center; padding-top:20px">
+            <apex:image url="{!URLFOR($Resource.veegaland)}" width="175" height="75"/>
+        </div>
+        <div style="padding-right:40px; padding-left:20px; padding-top:5px; line-height:1.5;font-size:11.5px;" >
+            <div class="main-margin-top" style="text-align:center; font-size:13px">
+                <strong> Veegaland Developers Private Limited	</strong>
+            </div>
+            <div style="text-align:center; font-size:11.5px;padding:0 3px;line-height:1.2">
+                <strong>Regd.Office Address: XXXV/564 (Old No. XIII/300 E- 26), 4th Floor, K Chittilappilly Tower (formerly KCF Tower) , Bharatha Matha College Road,Kakkanadu, Thrikkakkara, Ernakulam - 682021, PH: 0484 2584000, CIN: U45201KL2007PTC021107 
+                    http://www.veegaland.com, mail@veegaland.in		</strong>																																																						
+            </div>
+            
+            
+            <div style="text-align:center; font-size:15px; padding-bottom:10px; padding-top:10px"> <strong>RECEIPT </strong></div>
+            
+            
+            
+            
+            <table width="100%" style="font-size:12px; ">
+                
+                
+                <tr style="border: 1px solid black;">
+                    <th style="width:30%" >Receipt No</th>
+                    <th style="width:30%" colspan="">	</th>
+                    <th style="width:10%" > Receipt Date</th>
+                    <th style="width:35%" colspan="2"><apex:outputText value="{0, date, MMM dd, yyyy}">
+                        <apex:param value="{!Today()}"/>
+                        </apex:outputText>	</th>
+                    
+                </tr>
+                <tr>
+                    <th style="width:" colspan="2"> Received From:</th>
+                    <th style="width:" colspan="3">
+                        <apex:outputText value="{!IF(ISBLANK(Quote__c.Primary_Applicant_Name__c),Quote__c.Leads__r.Name , Quote__c.Primary_Applicant_Name__c)}"/>
+                        
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2"><p>Address:</p></th>
+<th colspan="3">
+
+    <!-- If Primary Applicant is present -->
+    <apex:outputPanel rendered="{!NOT(ISBLANK(Quote__c.Primary_Applicant_Name__c))}">
+        <apex:outputPanel rendered="{!NOT(ISBLANK(Quote__c.Permanent_House_No_Name__c))}">
+            {!Quote__c.Permanent_House_No_Name__c},
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!NOT(ISBLANK(Quote__c.Permanent_Street_Location__c))}">
+            &nbsp;{!Quote__c.Permanent_Street_Location__c},
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!NOT(ISBLANK(Quote__c.Permanent_Post_Office__c))}">
+            &nbsp;{!Quote__c.Permanent_Post_Office__c},
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!NOT(ISBLANK(Quote__c.Permanent_City__c))}">
+            &nbsp;{!Quote__c.Permanent_City__c},
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!NOT(ISBLANK(Quote__c.Permanent_State__c))}">
+            &nbsp;{!Quote__c.Permanent_State__c}
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+    <!-- If Primary Applicant is NOT present -->
+    <apex:outputPanel rendered="{!ISBLANK(Quote__c.Primary_Applicant_Name__c)}">
+        <apex:outputPanel rendered="{!NOT(ISBLANK(Quote__c.Leads__r.Street__c))}">
+            {!Quote__c.Leads__r.Street__c},
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!NOT(ISBLANK(Quote__c.Leads__r.City__c))}">
+            &nbsp;{!Quote__c.Leads__r.City__c},
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!NOT(ISBLANK(Quote__c.Leads__r.State__c))}">
+            &nbsp;{!Quote__c.Leads__r.State__c},
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!NOT(ISBLANK(Quote__c.Leads__r.Country__c))}">
+            &nbsp;{!Quote__c.Leads__r.Country__c},
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!NOT(ISBLANK(Quote__c.Leads__r.Pin_Code__c))}">
+            &nbsp;{!Quote__c.Leads__r.Pin_Code__c}
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+</th>
+                </tr>
+                <tr>
+                    <th style="width:" colspan="2">PAN:</th>
+                    <th style="width:" colspan="3">{!Quote__c.Primary_Applicant_PAN__c} </th>
+                </tr>
+                <!--<tr>
+<th style="width:" colspan="3">Co-Applicant PAN</th>
+<th style="width:70%" colspan="4"> {!coApplicants.PAN_Number__c}</th>
+</tr>-->
+                <tr>
+                    <th style="width:" colspan="2">Amount</th>
+                    <th style="width:" colspan=""> 
+                        <apex:outputText value="{0, number,###,###}"><apex:param value="{!Quote__c.Advance_Amount_Received__c}"/></apex:outputText> </th>
+                    <th style="width:15%" colspan="">Whether Receipt is against </th>
+                    <th style="width:15%" colspan="">Advance Receipt </th>
+                </tr>
+                <tr>
+                    <th style="width:" colspan="2">Amount in words</th>
+                    <th style="width:" colspan="3">Rupees: {!amountInWords} </th></tr>
+                
+                <tr>
+                    <th style="width:; text-align:center"  >Project Details</th>
+                    <th style="width:; text-align:center"  >Unit No </th>
+                    
+                    <th style="width:; text-align:center"  >Unit Type </th>
+                    <th style="width:; text-align:center"  >Floor No </th>
+                    <th style="width:; text-align:center"  >Apartment Area </th>
+                    
+                </tr>
+                <tr>
+                    <th style=" height:50px; text-align:center; text-transform:uppercase;" >{!Quote__c.Projects__r.Name}</th>
+                    <th style=" height:50px; text-align:center" >{!Quote__c.Unit__r.Name} </th>
+                    
+                    <th style=" height:50px; text-align:center" > {!Quote__c.Unit__r.BHK_Type__c} </th>
+                    <th style=" height:50px; text-align:center" > {!Quote__c.Unit__r.Floor__c}</th>
+                    <th style=" height:50px; text-align:center" >{!Quote__c.Unit__r.Apartment_area__c} </th>
+                    
+                </tr>
+                
+                <tr>
+                    <th style="text-align:center">Instrument No:(Cash/Cheque/DD  No./RTGS)</th>
+                    <th colspan="" style="text-align:center">Instrument Type (Cash/Cheque/DD  No./RTGS)</th>
+                    <th style="text-align:center">Instrument Date</th>
+                    <th style="text-align:center" colspan="">Drawn On</th>
+                    <th style="text-align:center">Branch </th>
+                </tr>
+                
+                <tr>
+                    <th style="text-align:center">{!Quote__c.Draft_Cheque_RTGS_NEFT_No__c}</th>
+                    <th style="text-align:center">{!Quote__c.Mode_of_Payment__c}</th>
+                    <th style="text-align:center">
+                        <apex:outputText value="{0, date, MMM dd, yyyy}">
+                            <apex:param value="{!Quote__c.Date_Of_Transaction__c}"/>
+                        </apex:outputText>
+                    </th>
+                    <th style="text-align:center">{!Quote__c.Payment_Bank_Name__c}</th>
+                    <th style="text-align:center"></th>
+                </tr> 
+                
+                
+                
+                <tr>
+                    <th colspan="5" style="text-align:left; height:20px">(Cheque/DD subjected to Realisation) </th>
+                </tr>
+                <tr>
+                    <th colspan="5" style="text-align:right; height:150px; padding-right: 140px; padding-top:40px"><Strong>Authorised Signatory</Strong> </th>
+                </tr> 
+                <tr>
+                    <th colspan="5" style="text-align:center; height:20px">***This is a system generated printout and no signature required*** </th>
+                </tr>
+            </table>
+            
+        </div>         
+        
+        
+    </body>
+    
+</apex:page>

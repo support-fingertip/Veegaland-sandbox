@@ -1,0 +1,150 @@
+<apex:page controller="FileUploadREST" showHeader="false" sidebar="false">
+    <style>
+        body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to right, #ece9e6, #ffffff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 20px;
+        }
+        
+        .upload-card {
+        background: #ffffff;
+        padding: 40px 30px;
+        border-radius: 16px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .upload-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .logo {
+        max-width: 180px;
+        margin-bottom: 25px;
+        }
+        
+        h3 {
+        color: #2c3e50;
+        font-size: 26px;
+        margin-bottom: 30px;
+        }
+        
+        .icon-upload {
+        font-size: 50px;
+        color: #007bff;
+        margin-bottom: 10px;
+        }
+        
+        input[type="file"] {
+        margin: 10px 0 25px 0;
+        border: 2px dashed #007bff;
+        padding: 16px;
+        border-radius: 10px;
+        background-color: #f4f9ff;
+        cursor: pointer;
+        width: 100%;
+        box-sizing: border-box;
+        transition: background-color 0.2s ease;
+        }
+        
+        input[type="file"]:hover {
+        background-color: #e7f1ff;
+        }
+        
+        button {
+        background-color: #005bac; /* Custom brand color */
+        color: white;
+        padding: 14px 24px;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        box-sizing: border-box;
+        transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+        background-color: #004494; /* Slightly darker on hover */
+        }
+        
+        #result {
+        margin-top: 25px;
+        font-size: 16px;
+        font-weight: bold;
+        transition: color 0.3s ease;
+        }
+        
+        .fade-in {
+        animation: fadeIn 0.8s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    
+    <div class="upload-card fade-in">
+        <img class="logo" src="{!$Resource.veegaland}" alt="Veegaland Homes Logo" />
+        <div class="icon-upload">📤</div>
+        <h3>Upload Your Signed File</h3>
+        <input type="hidden" id="bookingId" value="{!bookingId}" />
+        <input type="file" id="fileInput" />
+        <button onclick="uploadFile()">Upload</button>
+        <p id="result"></p>
+    </div>
+    
+    <script>
+    function uploadFile() {
+                    var fileInput = document.getElementById("fileInput");
+        			console.log('fileInput '+fileInput);
+                    if (fileInput.files.length === 0) {
+                        alert("No file selected.");
+                        return;
+                    }
+                    
+                    var file = fileInput.files[0];
+        console.log('file '+file);
+        var reader = new FileReader();
+                    
+        reader.onload = function() {
+                        var fileData = reader.result.split(',')[1];
+                        var fileName = file.name;
+                        var recordId =document.getElementById("bookingId").value;
+                        var docType = 'AllotmentLetterSignedCopy_'+recordId;
+                        // Call Apex @RemoteAction method
+                        Visualforce.remoting.Manager.invokeAction(
+                            '{!$RemoteAction.FileUploadREST.uploadFile}',
+                            docType,
+                            fileName,
+                            fileData,
+                            recordId,
+                            function(result, event) {
+                                if (event.status) {
+                                    alert(docType + " uploaded successfully!");
+                                    location.reload();
+                                    //window.location.href = '/ThankYouForm';
+                                } else {
+                                    alert("Error uploading " + docType + ": " + event.message);
+                                }
+                            },
+                            { escape: false }
+                        );
+                    };
+                    reader.readAsDataURL(file);
+                    
+                }
+
+    </script>
+</apex:page>

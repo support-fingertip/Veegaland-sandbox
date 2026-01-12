@@ -1,0 +1,145 @@
+<apex:page Controller="SaleAgreementApprovalController" showHeader="false" sidebar="false">
+    <head>
+        <style>
+        .site-skip-content {
+        position: relative;
+        z-index: 10001;
+        }
+        @media (min-width: 48em) {
+        .site-logo {
+        margin-top: 12px;
+        font-size: 20px;
+        font-weight: bold;
+        }
+        }
+        
+        @media (min-width: 48em) {
+        .site-logo .site-logo__graphic {
+        height: 4.25rem;
+        }
+        @media (min-width: 48em) {
+        .site-banner {
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 8px;
+        border: var(--lwc-borderWidthThin, 1px) solid var(--slds-g-color-border-base-1, var(--lwc-pageHeaderColorBorder, rgb(201, 201, 201)));
+        -ms-flex-direction: column;
+        text-align: center;
+        }
+        }
+        .site {
+        margin-top: 10px;
+        font-size: .875rem;
+        line-height: 1.7142857143;
+        color: #5876a3;
+        }
+        .thanks {
+        width: 100%;
+        margin: 30px auto;
+        text-align: center;
+        }
+        
+        .title {
+        font: normal normal 30px 'Arial', 'Helvetica', sans-serif;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #c16022;
+        }
+        
+        .home a{
+        color: white;
+        background: #b40101;
+        text-transform: uppercase;
+        text-decoration: none;
+        text-align: center;
+        font-size: 14px;
+        border: 1px solid #b40101;
+        display: block;
+        margin: 0 auto 10px;
+        width: 100%;
+        padding: 1em;
+        line-height: 1px;
+        -moz-transform: scale(1.02);
+        -webkit-transform: scale(1.02);
+        -o-transform: scale(1.02);
+        -ms-transform: scale(1.02);
+        transform: scale(1.02);
+        }
+        
+        .home:hover {
+        outline: none;
+        background: #fd3434;
+        -moz-transform: scale(1.02);
+        -webkit-transform: scale(1.02);
+        -o-transform: scale(1.02);
+        -ms-transform: scale(1.02);
+        transform: scale(1.02);
+        }
+    </style>
+        <title>Veegland:Agreement Approval</title>
+        </head>
+    <body>
+        <div class="site-banner" role="banner">
+            <div class="">
+                <img src="{!$Resource.veegaland}" width="100px" height="50px" />
+            </div>
+            <div class="site-logo">
+                Digital Document Approval 
+            </div>
+        </div>
+    </body>
+    
+    <!-- Include Lightning Experience -->
+    <apex:includeLightning />
+    
+    <!-- Check condition in Visualforce -->
+    <apex:outputPanel rendered="{!NOT(alreadyDone)}">
+        <div id="lightningvf"></div>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            $Lightning.use("c:DigitalDocumentAcceptanceInterface", function() {
+                $Lightning.createComponent(
+                    "c:digitalDocumentAcceptanceLWC",
+                    {
+                        siteurl: "https://site-speed-6226--postsbox1.sandbox.my.salesforce.com/AgreementApproval",
+                        responsestatusfield: "Agreement_Approval_Status__c",
+                        responseremarksfield: "Draft_Agreement_Rejection_Comments__c",
+                        captureactiontimefield: "Sale_Agreement_Approval_time__c",
+                        objectname: "Booking__c",
+                        recordid: "{!recordId}",
+                        directURL: "{!draftSaleAgreementDownloadLink}",
+                        rejectionstatus: "Rejected",
+                        acceptancestatus: "Approved",
+                        enablesignaturepad: false,
+                        disableApprovalComments:true,
+                    },
+                    "lightningvf",
+                    function(cmp) {
+                        console.log("LWC Component was created successfully");
+                    }
+                );
+            });
+        });
+        </script>
+    </apex:outputPanel>
+    
+    <!-- Show 'Thank You' if alreadyDone is true -->
+    <apex:outputPanel rendered="{!alreadyDone}">	
+        <div class="thanks">
+            <img src="{!$Resource.veegaland}" width="122px" height="60px" />
+            <p class="title">Thank You!</p>
+            <p><strong>Your changes have been successfully submitted.</strong></p>
+            
+            <p>Thank you for choosing Veegaland Homes!</p>
+            
+            <!--<div class="home"><a href="/">Return to Home Page</a></div>-->
+            
+        </div>
+    </apex:outputPanel>
+    
+</apex:page>

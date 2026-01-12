@@ -1,0 +1,34 @@
+<apex:page showHeader="false">
+    
+     <body>
+        <div>
+            <br/><br/><br/>
+            <b>
+           
+                
+            </b>
+            <br/><br/><br/>
+        </div>
+    </body>
+    <apex:includeLightning />
+    
+    <div id="lightningvf" />
+   <script src="https://yourExperienceDomain/experienceURL/lightning/lightning.out.js"></script>
+    <script>
+    $Lightning.use("c:lwcvf", function() {
+        $Lightning.createComponent("c:LeadCreationChanelPartner",
+                                   { label : "Accept" },
+                                   "lightningvf",
+                                   function(cmp) {
+                                       console.log("button was created");
+                                       
+                                   }
+                                  );
+        
+    });
+    </script>
+    
+
+    
+    
+</apex:page>

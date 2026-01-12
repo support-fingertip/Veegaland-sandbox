@@ -1,0 +1,94 @@
+<apex:page standardController="Booking__c" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false"  standardStylesheets="false" renderAs="PDF" >
+    <html>
+        <head>
+            <style type="text/css" media="print">
+                @page {
+                @top-center {
+                content: element(header);
+                }
+                @bottom-left {
+                content: element(footer);
+                }
+                }
+                div.header {
+                padding: 10px;
+                position: running(header);
+                }
+                div.footer {
+                display: block;
+                padding: 5px;
+                position: running(footer);
+                }
+                .pagenumber:before {
+                content: counter(page);
+                }
+                .pagecount:before {
+                content: counter(pages);
+                }
+                div.header {
+                padding: 20px;
+                position: running(header);
+                margin-left: -200px;
+                }
+                div.footer {
+                padding: 10px;
+                position: running(footer);
+                font-size: 9px;
+                text-align:left;
+                
+                }
+                div.footer :first-child{
+                text-align:right;
+                }
+                
+                div.content, div.content p{
+                padding:0 20px;
+                line-height:1.5;
+                font-size:18px;
+                }
+                th, td {
+                padding: 5px;
+                }
+                p{
+                line-height:1;
+                padding:1px;
+                }
+                table, tr {
+                border: 1px solid black;
+                border-collapse: collapse;
+                }
+            </style> 
+        </head>
+        <body>
+            <div class="content" >
+                <apex:outputPanel >
+                    <div style="margin-top:25%; font-size:24px;">
+                        <span style="background:yellow"><strong>Dear {!Booking__c.salutation_Applicant1__c}. {!Booking__c.First_Applicant_Name__c}  </strong></span>
+                    </div>
+                    <div style="padding-top:50px;text-align:justify">
+                        Sub: Car Parking Allotment for apartment <span style="background:yellow">no {!Booking__c.Plot__r.Name} in Tower {!Booking__c.Block__r.NAme}, Mahendra {!Booking__c.Project__c}</span>.
+                    </div>
+                    <div style="padding-top:20px;text-align:justify">
+                        This is with reference to the car parking allotment pertaining to your apartment in Mahendra Aarya, we are pleased to allot you, <span style="background:yellow"><strong><apex:outputText value="{0,number}">
+                        <apex:param value="{! IF(ISNULL(Booking__c.Extra_covered_Parking_Slots__c), 1, 1 + Booking__c.Extra_covered_Parking_Slots__c) }" />
+                        </apex:outputText>
+                        </strong> COVERED CAR PARK SLOT(S) AT THE UPPER-LEVEL BASEMENT</span>. 
+                    </div>
+                    <div style="padding-top:20px;text-align:justify">
+                        We request you duly sign &amp; return the duplicate copy of the allotment letter as an acceptance.                     </div >
+                    <div style="padding-top:10px;text-align:justify">
+                        Please note that this parking slot is specific to you &amp; your unit. Using your designated parking space is essential to avoid any confusion or inconvenience to other residents.                     </div>
+                    <div style="padding-top:20px;">
+                        Thank you for choosing <strong>Mahendra Homes</strong>.
+                    </div>
+                    <div style="padding-top:50px;">
+                        <strong>Yours faithfully,</strong>
+                    </div>
+                    <div style="padding-top:80px;">
+                        <strong>Authorised Signatory</strong>
+                    </div>
+                </apex:outputPanel>
+            </div>
+        </body>
+    </html>
+</apex:page>

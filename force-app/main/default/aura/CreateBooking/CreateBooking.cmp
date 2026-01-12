@@ -1,0 +1,494 @@
+<aura:component controller="BookingController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global" >
+    
+    <aura:attribute name="plot" type="Booking__c" default="{}"/>
+    <!--<aura:attribute name="book" type="Booking__c" default="{}"/>-->
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="showNext" type="boolean" default="false"/>
+    <aura:attribute name="isSubmit" type="boolean" default="true"/>
+    <aura:attribute name="btnDisable" type="boolean" default="false"/>
+    <aura:attribute name="coApplicants" type="List"/>
+    <aura:attribute name="unitName" type="String" />
+    <aura:attribute name="paymentPlanName" type="String" />
+    <aura:attribute name="leadName" type="String" />
+    <aura:attribute name="floorName" type="String" />
+    <aura:attribute name="bookingAmount" type="Decimal" />
+    <aura:attribute name="bookingRecordId" type="String" />
+    <aura:attribute name="paymentTypePicklist" type="String[]" />
+    <aura:attribute name="fundingTypePicklist" type="String[]" />
+    <aura:attribute name="advanceBankPicklist" type="String[]" />
+    <aura:attribute name="paymentFromPicklist" type="String[]" />
+    <aura:attribute name="bookingTypePicklist" type="String[]" />
+    <aura:attribute name="bookedAtPicklist" type="String[]" />
+    <aura:attribute name="bookingThroughPicklist" type="String[]" />
+    <aura:attribute name="categoryPicklist" type="String[]" />
+    <aura:attribute name="selecteProjectdId" type="String" />
+    <aura:handler name="change" value="{!v.selectedProjectId}" action="{!c.handleSelectedProjectIdChange}" />
+    <aura:handler name="change" value="{!v.selectedUnitId}" action="{!c.handleSelectedUnitIdChange}" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+     <lightning:notificationsLibrary aura:id="notifLib"/>
+    <aura:html tag="style">
+        .slds-modal__container{ 
+        } 
+        
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }
+        .slds-modal__content{
+        
+        height:unset !important;
+        max-height:unset !important;
+        }
+        
+        .closeIcon{
+        display:none;
+        }
+        .slds-col{
+        margin-left:5px;
+        }
+    </aura:html >
+    
+    <header class="slds-modal__header">
+        <lightning:buttonIcon iconName="utility:close"
+                              onclick="{! c.closeModel }"
+                              alternativeText="close"
+                              variant="bare-inverse"
+                              class="slds-modal__close"/>
+        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Create Booking</h2>
+    </header>
+    
+    <div class="slds-p-around_medium cust-ht">
+        
+        <aura:if isTrue="{!AND(v.showNext == false)}"> 
+            
+            <!-- Booking Details Section -->
+            <h3 class="slds-section__title slds-theme_shade">
+                <span class="slds-truncate slds-p-horizontal_small">Booking Details</span>
+            </h3>
+            
+            <div class="slds-grid slds-wrap slds-grid_pull-padded-x-medium">
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Project__c" label="Project" value="{!v.plot.Project__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Block1__c" label="Block" value="{!v.plot.Block1__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Plot__c" label="Unit" value="{!v.unitName}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Payment_Plan__c" label="Payment Plan" value="{!v.paymentPlanName}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="SLead__c" type="text" label="Lead" value="{!v.leadName}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="BHK_Type__c" type="text" label="Unit Type" value="{!v.plot.BHK_Type__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Base_Rate__c" type="number" formatter="currency" label="Base Rate" value="{!v.plot.Base_Rate__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Discount__c" type="number" formatter="currency" label="Discount" value="{!v.plot.Discount__c}" disabled="true"/>
+                </div>
+
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field"  name="GST__c" type="text" label="GST%" value="{!v.plot.GST__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Special_Launch__c" type="checkbox" label="Special Launch" checked="{!v.plot.Special_Launch__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" type="date" name="Booking_Date__c" label="Booking Date" messageWhenValueMissing="Please select a booking date" required="true"  value="{!v.plot.Booking_Date__c}" />
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <c:CustomPicklistGlobal aura:id="pickVal" fieldAPIname="Funding_Type__c" label="Funding Type" objAPIName="booking__c" selectedValue="{!v.plot.Funding_Type__c}" required="true"/>
+                 <!--   <input type="text" id="stacked-location-latitude-01"  class="slds-input slds-assistive-text" value="{!v.Booking.Funding_Type__c}" disabled="true" />-->
+                </div>
+            </div>
+            
+            <br/>
+            <br/>
+            <h3 class="slds-section__title slds-theme_shade">
+                <span class="slds-truncate slds-p-horizontal_small">Car Parking</span>
+            </h3>
+            <div class="slds-grid slds-wrap slds-grid_pull-padded-x-medium">
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" messageWhenValueMissing="Select fill this field" name="No_of_Indivisual_Car_Parking__c" label="No. of Individual Car Parkings"  value="{!v.plot.No_of_Indivisual_Car_Parking__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" messageWhenValueMissing="Select fill this field" name="No_of_Back_to_Back_Car_Parking__c" label="No. of Back to Back Car Parkings" value="{!v.plot.No_of_Back_to_Back_Car_Parking__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" messageWhenValueMissing="Select fill this field" name="No_of_additional_Individual_car_parkings__c" label="No. of Extra Individual Car Parkings" value="{!v.plot.No_of_additional_Individual_car_parkings__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" messageWhenValueMissing="Select fill this field" name="No_of_additional_Back_to_back_car_parki__c" label="No. of Extra Back to Back Car Parkings" value="{!v.plot.No_of_additional_Back_to_back_car_parki__c}" disabled="true"/>
+                </div>            
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" messageWhenValueMissing="Select fill this field" name="Individual_Car_Parking_Area__c" label="Individual Car Parking Area" value="{!v.plot.Individual_Car_Parking_Area__c}" disabled="false"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" messageWhenValueMissing="Select fill this field" name="Back_To_Back_Car_Parking_Area__c" label="Back To Back Car Parking Area"  value="{!v.plot.Back_To_Back_Car_Parking_Area__c}" disabled="false"/>
+                </div>
+                      <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" messageWhenValueMissing="Select fill this field" name="Back_To_Back_Car_Parking_Dimension__c" label="Back To Back Car Parking Dimension" value="{!v.plot.Back_To_Back_Car_Parking_Dimension__c}" disabled="false"/>
+                </div> 
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" messageWhenValueMissing="Select fill this field" name="Individual_Car_Parking_Dimension__c" label="Individual Car Parking Dimension"  value="{!v.plot.Individual_Car_Parking_Dimension__c}" disabled="false"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" messageWhenValueMissing="Select fill this field" name="Covered_Park_Parking__c" label="Covered Car Parking Charges" value="{!v.plot.Covered_Park_Parking__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" messageWhenValueMissing="Select fill this field" name="Extra_Covered_Parking_Charges__c" label="Extra Car Parking Charges" value="{!v.plot.Extra_Covered_Parking_Charges__c}" disabled="true"/>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <h3 class="slds-section__title slds-theme_shade">
+                <span class="slds-truncate slds-p-horizontal_small">Booking Advance</span>
+            </h3>
+            <div class="slds-grid slds-wrap slds-grid_pull-padded-x-medium">
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" messageWhenValueMissing="Select fill this field" name="Booking_Amount1__c" label="Booking Advance Amount Paid" required="true" value="{!v.plot.Booking_Amount1__c}" disabled="false"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" messageWhenValueMissing="Select fill this field" name="Cheque_DD_NEFT_RTGS_No__c" label="Draft/Cheque/RTGS/NEFT No." required="true" value="{!v.plot.Cheque_DD_NEFT_RTGS_No__c}" disabled="false"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" type="date" name="Advance_Transaction_Date__c" label="Transaction Date" messageWhenValueMissing="Please select a transaction date" required="true" 
+                                     value="{!v.plot.Advance_Transaction_Date__c}" 
+                                     disabled="false"/>
+                </div>
+                
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:select name="modeOfPayment" 
+                                      aura:id="field"
+                                      label="Mode of Payment"
+                                      value="{!v.plot.Mode_Of_Payment__c}" 
+                                      required="true">
+                        <option value="">-- Select Mode of Payment --</option>
+                        <aura:iteration items="{!v.paymentTypePicklist}" var="paymentType">
+                            <option value="{!paymentType}" selected="{!v.plot.Mode_Of_Payment__c == paymentType ? true : false }">{!paymentType}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+                
+                <!-- Picklist 3: Advance Payment Bank -->
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:select name="advanceBank" 
+                                      label="Payment Bank Name"
+                                      aura:id="field"
+                                      value="{!v.plot.Advance_Payment_Bank__c}" 
+                                      required="true">
+                        <option value="">-- Select Payment Bank Name --</option>
+                        <aura:iteration items="{!v.advanceBankPicklist}" var="advanceBank">
+                            <option value="{!advanceBank}"  selected="{!v.plot.Advance_Payment_Bank__c == advanceBank ? true : false }">{!advanceBank}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input aura:id="field" messageWhenValueMissing="Select fill this field" name="Branch__c" label="Branch" required="false" value="{!v.plot.Advance_Branch__c}" disabled="false"/>
+                </div>
+                <!-- Picklist 2: Funding Type -->
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:select name="paymentFrom" 
+                                      label="Payment From"
+                                      aura:id="field"
+                                      value="{!v.plot.Advance_Payment_From__c}" 
+                                      required="true">
+                        <option value="">-- Select Payment From --</option>
+                        <aura:iteration items="{!v.paymentFromPicklist}" var="paymentFrom">
+                            <option value="{!paymentFrom}"  selected="{!v.plot.Advance_Payment_From__c == paymentFrom ? true : false }">{!paymentFrom}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+            </div>
+            
+            
+            <br/>
+            <!-- Primary Applicant Section -->
+            <h3 class="slds-section__title slds-theme_shade">
+                <span class="slds-truncate slds-p-horizontal_small">ERP Details</span>
+            </h3>
+            <div class="slds-grid slds-wrap slds-grid_pull-padded-x-medium">
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field"  aura:id="field" type="date" name="Lead_Created_Date__c" label="Lead Created Date" value="{!v.plot.Lead_Created_Date__c}" required="true"  disabled="false"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                   <!-- <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Enquiry_Source__c" label="Enquiry Source" value="{!v.plot.Enquiry_Source__c}" required="true"  disabled="false"/>-->
+                    <lightning:select name="EnquirySource" 
+                                      label="Enquiry Source"
+                                      aura:id="field"
+                                      value="{!v.plot.Enquiry_Source__c}" 
+                                      required="true">
+                        <option value="">-- Select Enquiry Source --</option>
+                        <aura:iteration items="{!v.bookingThroughPicklist}" var="bookingThrough">
+                            <option value="{!bookingThrough}"  selected="{!v.plot.Enquiry_Source__c == bookingThrough ? true : false }">{!bookingThrough}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" type="date" name="Clouser_Created_Date__c" label="Closure Created Date" value="{!v.plot.Clouser_Created_Date__c}" required="true"  disabled="false"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Country_Code__c	" label="Country Code" value="{!v.plot.Country_Code__c}" required="true"  disabled="false"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" type="date" name="Followup_Date__c" label="Followup Date" value="{!v.plot.Followup_Date__c}" required="true"  disabled="false"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Booking_Currency__c" label="Booking Currency" value="{!v.plot.Booking_Currency__c}" required="true"  disabled="false"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:select name="BookingType" 
+                                      label="Booking Type"
+                                      aura:id="field"
+                                      value="{!v.plot.Booking_Type__c}" 
+                                      required="true">
+                        <option value="">-- Select Booking Type --</option>
+                        <aura:iteration items="{!v.bookingTypePicklist}" var="bookingType">
+                            <option value="{!bookingType}"  selected="{!v.plot.Booking_Type__c == bookingType ? true : false }">{!bookingType}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:select name="Category" 
+                                      label="Category"
+                                      aura:id="field"
+                                      value="{!v.plot.Category__c}" 
+                                      required="true">
+                        <option value="">-- Select Category --</option>
+                        <aura:iteration items="{!v.categoryPicklist}" var="category">
+                            <option value="{!category}"  selected="{!v.plot.Category__c == category ? true : false }">{!category}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:select name="bookedAt" 
+                                      label="Booked At"
+                                      aura:id="field"
+                                      value="{!v.plot.Booked_At__c}" 
+                                      required="true">
+                        <option value="">-- Booking At --</option>
+                        <aura:iteration items="{!v.bookedAtPicklist}" var="bookedAt">
+                            <option value="{!bookedAt}"  selected="{!v.plot.Booked_At__c == bookedAt ? true : false }">{!bookedAt}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:select name="bookingThrough" 
+                                            label="Booked Through"
+                                      aura:id="field"
+                                      value="{!v.plot.Booking_Through__c}" 
+                                      required="true">
+                        <option value="">-- Booking Through --</option>
+                        <aura:iteration items="{!v.bookingThroughPicklist}" var="bookingThrough">
+                            <option value="{!bookingThrough}"  selected="{!v.plot.Booking_Through__c == bookingThrough ? true : false }">{!bookingThrough}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+            </div>
+            
+            <br/>
+            <!-- Primary Applicant Section -->
+            <h3 class="slds-section__title slds-theme_shade">
+                <span class="slds-truncate slds-p-horizontal_small">Primary Applicant Details</span>
+            </h3>
+            
+            <div class="slds-grid slds-wrap slds-grid_pull-padded-x-medium">
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:select name="salutation_Applicant1__c" label="Salutation" value="{!v.plot.salutation_Applicant1__c}" disabled="true">
+                        <option value="">Choose one...</option>
+                        <option value="Mr">Mr.</option>
+                        <option value="Mrs">Mrs.</option>
+                        <option value="Ms">Ms.</option>
+                        <option value="Dr">Dr.</option>
+                    </lightning:select>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="First_Applicant_Name__c" label="Full Name" value="{!v.plot.First_Applicant_Name__c}" required="true" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Date_of_Birth1__c" type="date" label="Date of Birth" value="{!v.plot.Date_of_Birth1__c}" required="true" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Primary_Applicant_NRI_RI__c" label="NRI/RI Status" value="{!v.plot.Primary_Applicant_NRI_RI__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Occupation__c" label="Profession" value="{!v.plot.Occupation__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Primary_Applicant_Secondary_Email__c" label="Primary Applicant Secondary Email" value="{!v.plot.Primary_Applicant_Secondary_Email__c}" disabled="true"/>
+                </div>
+                              <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Primary_Applicant_International_No__c" label="Primary Applicant International No." value="{!v.plot.Primary_Applicant_International_No__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Primary_Applicant_Father_Husband_s_Name__c" label="Father/Husband's Name" value="{!v.plot.Primary_Applicant_Father_Husband_s_Name__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="PAN_Number1__c" label="PAN Number" value="{!v.plot.PAN_Number1__c}" required="true" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Aadhaar_Number__c" label="Aadhar Number" value="{!v.plot.Aadhaar_Number__c}" required="true" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Passport_Aadhar__c" label="Passport Number" value="{!v.plot.Passport_Aadhar__c}" disabled="true"/>
+                </div>
+                
+                <!-- Permanent Address -->
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_House_No_Name__c" label="Permanent House No/Name" value="{!v.plot.Permanent_House_No_Name__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_Street_Location__c" label="Permanent Street" value="{!v.plot.Permanent_Street_Location__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_City__c" label="Permanent City" value="{!v.plot.Permanent_City__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_Post_Office__c" label="Permanent Post Office" value="{!v.plot.Permanent_Post_Office__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_Postal_Code__c" label="Permanent Postal Code" value="{!v.plot.Permanent_Postal_Code__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_State__c" label="Permanent State" value="{!v.plot.Permanent_State__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_Country__c" label="Permanent County" value="{!v.plot.Permanent_Country__c}" disabled="true"/>
+                </div>
+                
+                <!-- Correspondence Address -->
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_House_No_Name__c" label="Correspondence House No/Name" value="{!v.plot.Correspondence_House_No_Name__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_Street_Location__c" label="Correspondence Street" value="{!v.plot.Correspondence_Street_Location__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_City__c" label="Correspondence City" value="{!v.plot.Correspondence_City__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_Post_Office__c" label="Correspondence Post Office" value="{!v.plot.Correspondence_Post_Office__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_Postal_Code__c" label="Correspondence Postal Code" value="{!v.plot.Correspondence_Postal_Code__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_State__c" label="Correspondence State" value="{!v.plot.Correspondence_State__c}" disabled="true"/>
+                </div>
+                <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                    <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_Country__c" label="Correspondence Country" value="{!v.plot.Correspondence_Country__c}" disabled="true"/>
+                </div>
+            </div>
+            
+            <br/>
+            <br/>
+            
+            <h3 class="slds-section__title slds-theme_shade">
+                <span class="slds-truncate slds-p-horizontal_small" title="Section Title">Co-Applicants</span>
+            </h3>
+            
+            <div class="slds-grid slds-wrap slds-grid_pull-padded-x-medium">
+                <aura:iteration items="{!v.coApplicants}" var="coApp" indexVar="index">
+                    <div class="slds-grid slds-wrap slds-grid_pull-padded-x-medium slds-m-vertical_medium">
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:select name="Salutation__c" label="Salutation" value="{!coApp.Salutation__c}" disabled="true">
+                                <option value="">Choose one...</option>
+                                <option value="Mr">Mr.</option>
+                                <option value="Mrs">Mrs.</option>
+                                <option value="Ms">Ms.</option>
+                                <option value="Dr">Dr.</option>
+                            </lightning:select>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Name" label="Full Name" value="{!coApp.Name}" required="true" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Date_of_Birth__c" type="date" label="Date of Birth" value="{!coApp.Date_of_Birth__c}" required="true" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Co_Applicant_NRI_RI__c" label="NRI/RI Status" value="{!coApp.Co_Applicant_NRI_RI__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Co_Applicant_Profession__c" label="Profession" value="{!coApp.Co_Applicant_Profession__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Co_Applicant_Father_Husband_s_Name__c" label="Father/Husband's Name" value="{!coApp.Co_Applicant_Father_Husband_s_Name__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="PAN_Number__c" label="PAN Number" value="{!coApp.PAN_Number__c}" required="true" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Aadhar_Number__c" label="Aadhar Number" value="{!coApp.Aadhar_Number__c}" required="true" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Passport_No__c" label="Passport Number" value="{!coApp.Passport_No__c}" disabled="true"/>
+                        </div>
+                        
+                        <!-- Permanent Address -->
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_House_No_Name__c" label="Permanent House No/Name" value="{!coApp.Permanent_House_No_Name__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_Street_Location__c" label="Permanent Street" value="{!coApp.Permanent_Street_Location__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_City__c" label="Permanent City" value="{!coApp.Permanent_City__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_Post_Office__c" label="Permanent Post Office" value="{!coApp.Permanent_Post_Office__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_Postal_Code__c" label="Permanent Postal Code" value="{!coApp.Permanent_Postal_Code__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_State__c" label="Permanent State" value="{!coApp.Permanent_State__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Permanent_Country__c" label="Permanent County" value="{!coApp.Permanent_Country__c}" disabled="true"/>
+                        </div>
+                        
+                        <!-- Correspondence Address -->
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_House_No_Name__c" label="Correspondence House No/Name" value="{!coApp.Correspondence_House_No_Name__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_Street_Location__c" label="Correspondence Street" value="{!coApp.Correspondence_Street_Location__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_City__c" label="Correspondence City" value="{!coApp.Correspondence_City__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_Post_Office__c" label="Correspondence Post Office" value="{!coApp.Correspondence_Post_Office__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_Postal_Code__c" label="Correspondence Postal Code" value="{!coApp.Correspondence_Postal_Code__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_State__c" label="Correspondence State" value="{!coApp.Correspondence_State__c}" disabled="true"/>
+                        </div>
+                        <div class="slds-size_4-of-8 slds-p-horizontal_small">
+                            <lightning:input messageWhenValueMissing="Select fill this field" aura:id="field" name="Correspondence_Country__c" label="Correspondence Country" value="{!coApp.Correspondence_Country__c}" disabled="true"/>
+                        </div>
+                        
+                    </div>
+                </aura:iteration>
+            </div>
+        </aura:if>
+    </div>
+    
+    <div class="slds-modal__footer">
+        <aura:if isTrue="{!v.showNext == false}">  
+            <button class="slds-button slds-button_brand" onclick="{!c.closeModel}">Cancel</button>
+            <lightning:button class="slds-m-top_small" variant="brand" disabled="{!v.isSubmit}" label="Save"  onclick="{!c.saveBooking}"/>  
+        </aura:if>
+    </div>
+</aura:component>

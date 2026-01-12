@@ -1,0 +1,74 @@
+<aura:component controller="GenerateDocumnetController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:attribute name="bookingRecord" type="Object" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="vfPageUrl" type="String" default=""/>
+    <aura:attribute name="emailContent" type="String" />
+    <aura:attribute name="toAddresses" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }
+        .slds-modal__content{
+        overflow-y:hidden !important;
+        height:unset !important;
+        max-height:unset !important;
+        }
+        .panel.slds-modal > .modal-container{
+        width: 75%;
+        max-width: 70rem;
+        }
+    </aura:html>
+    <section class="slds-modal slds-fade-in-open">
+        <header class="slds-modal__header">
+            <h2 class="slds-text-heading_medium slds-hyphenate">Generate Deviation</h2>
+        </header>
+             
+             
+       <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+        <!-- To Address Input -->
+        
+        
+ <div class="slds-form">
+
+    <!-- Label on the far left -->
+         <label class="slds-form-element__label" >To: </label><lightning:helptext  content="Enter additional email addresses seprated by comma" />
+
+    <!-- Read-only default email addresses -->
+
+    <!-- Editable input for additional emails -->
+     <div class="slds-form-element slds-form-element_stacked">
+   <div class="slds-form-element__control">
+        <lightning:input   aura:id="toAddress"  value="{!v.toAddresses}"   placeholder="Enter additional email addresses seprated by comma"  variant="label-hidden" />
+       
+    </div> <lightning:badge label="Kurian@veegaland.in" iconName="utility:success" iconPosition="end"/> <lightning:badge label="giri@veegaland.in" iconName="utility:success" iconPosition="end"/>
+     </div>
+       
+
+
+     <!-- Email Content Input -->
+     <div class="slds-form-element slds-form-element_stacked">
+         <div class="slds-form-element__control">
+             <lightning:inputRichText 
+                                      aura:id="emailContent"
+                                      label="Email Content"
+                                      
+                                      placeholder="Review and edit email content"
+                                      value="{!v.emailContent}"
+                                      class="custom-textarea" />
+         </div>
+         
+     </div>
+           </div>
+        </div>
+        <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick="{!c.close}">Cancel</button>
+            <button class="slds-button slds-button_brand" onclick="{!c.sendEmail}">Send Email</button>
+            
+        </footer>
+    </section>
+</aura:component>

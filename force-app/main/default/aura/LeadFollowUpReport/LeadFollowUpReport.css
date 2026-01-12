@@ -1,0 +1,96 @@
+.THIS .custom-border-table td, 
+.THIS .custom-border-table th {
+    border: 1px solid #d8dde6; /* Color for table border */
+    padding: 0.5rem;
+}
+
+.THIS .custom-border-table td {
+    text-align: left;
+    vertical-align: top;
+}
+
+/* Adjust table container for scrolling */
+.THIS .highlight-title {
+    background-color: #f0f8ff; /* Light blue background */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem; /* Increased font size */
+}
+
+.THIS .slds-p-around_x-small {
+    overflow-x: auto; /* Enable horizontal scroll if content overflows */
+    white-space: nowrap; /* Prevent wrapping of table content */
+    max-width: 100%; /* Ensure the table stays within the parent container */
+    padding: 10px; /* Padding for content inside the div */
+}
+
+.THIS table.custom-border-table {
+    width: 100%; /* Make the table take full width of its parent container */
+    table-layout: auto; /* Allow dynamic column width */
+}
+
+/* Ensure table doesn't overflow and can scroll */
+.THIS .slds-table {
+    display: block; /* Treat the table as a block to enable scrolling */
+    overflow-x: auto; /* Allow horizontal scrolling when necessary */
+    white-space: nowrap; /* Prevent content from wrapping */
+    max-width: 100%; /* Ensure the table is responsive */
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+/* Add responsiveness for smaller screens */
+@media only screen and (max-width: 768px) {
+    .THIS .slds-table {
+        width: 100%; /* Ensure the table stays responsive on smaller screens */
+    }
+}
+
+.THIS .slds-grid {
+    overflow: visible !important; /* Ensure parent container does not clip children */
+}
+
+.THIS .date-filter-container {
+    position: relative; /* So we can use absolute positioning inside */
+    z-index: 1; /* Ensure date picker container is above other content */
+}
+
+.THIS .slds-dropdown {
+    z-index: 1000 !important; /* Make sure dropdown is above other elements */
+    position: absolute !important; /* Remove it from document flow, so it doesn't affect scroll */
+    top: 0; /* Ensure dropdown appears above the table */
+}
+
+/* Optionally, increase height or padding around datepicker */
+.THIS .slds-input__container {
+    padding-bottom: 2rem; /* Provide extra space below input for calendar dropdown */
+}
+.THIS .table-container {
+    max-height: 400px; /* Set a max height to enable vertical scrolling */
+    overflow-x: auto;  /* Enable horizontal scrolling */
+    overflow-y: auto;  /* Enable vertical scrolling */
+    position: relative; /* For positioning child elements */
+}
+.THIS .slds-table {
+    width: 100%; /* Full width of the container */
+    white-space: nowrap; /* Prevent table content from wrapping */
+}
+.THIS .table-container::-webkit-scrollbar {
+    height: 8px; /* Horizontal scrollbar height */
+    width: 8px;  /* Vertical scrollbar width */
+}
+.THIS .table-container::-webkit-scrollbar-thumb {
+    background-color: #d8dde6; /* Custom color for the scrollbar */
+    border-radius: 4px;
+}
+.THIS .slds-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2; /* Make sure the header stays on top */
+    background-color: white; /* Keep header visible */
+}
+.THIS .table-container {
+    max-height: 500px; /* Adjust based on your design */
+    overflow: auto; /* Scroll both horizontally and vertically */
+}

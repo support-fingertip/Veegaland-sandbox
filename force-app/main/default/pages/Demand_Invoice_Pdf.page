@@ -1,0 +1,603 @@
+<apex:page applyHtmlTag="false" showHeader="false"    renderAs="pdf">
+    <head>    
+        <style type="text/css">
+            @page {
+            size: A4;    
+            padding-left: 5px;    
+            padding-right: 5px;      
+            }
+            
+            .invoice_table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 10pt;
+            }
+            
+            .invoice_td{
+            border: 1px solid #00040a;
+            text-align: left;
+            
+            }
+            
+            .invoice_th{
+            border: 1px solid #00040a;
+            text-align: center;
+            
+            }
+            .page-break {
+                    page-break-before: always;
+                }
+            
+        </style>    
+    </head> 
+     
+    <center> <apex:image url="{!$Resource.invoiceLogo}" width="160" height="60"/></center>
+    <center> <b style="font-size:10pt">Regd.Office Address: XIII/300 E- 26, 4th Floor, K Chittilappilly Tower, Bharatha Matha College Road,Kakkanadu, Thrikkakkara, GSTIN:32AACCV5457F1ZF,
+        Ernakulam - 682021, PH: 0484 2584000, CIN: U45201KL2007PTC021107<br/>
+        http://www.veegaland.com, mail@veegaland.in
+        </b></center><br/><br/>
+    
+    <table style="font-size:10pt;font-weight:bold;" width="100%">
+        <tr>
+            <td style="text-align:left;">GSTIN : 32AACCV5457F1ZF</td>
+            <td style="text-align:right;">ORIGINAL FOR RECEIPIENT</td>
+        </tr>
+        <tr>
+            <td>PAN : AACCV5457F</td>
+        </tr>
+        <tr>
+            <td>State Code: 32</td>
+        </tr>
+    </table>
+    <center style="font-size:14pt;font-weight:bold;">TAX INVOICE</center>
+    <center style="font-size:10pt;">(See: Rule:46 of GST Rule; Sec 31(2) of GST Act)</center><br/>
+    
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <tr>
+            <td style="width: 32%; vertical-align: top;">
+                <u><b style="font-size: 10pt;">RECIPIENT DETAILS</b></u><br/>
+                <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+                    <tr>
+                        <td style="vertical-align: top;">Name</td>
+                        <td style="font-weight: bold;">:Mr. Rajeev A P<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">Address</td>
+                        <td style="font-weight: bold;">
+                            :Ambalathinkal House,<br/>
+                            no 13/134-D, Eroor South PO,<br/>
+                            Ernakulam, Kerala- 682306<br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">PAN</td>
+                        <td style="font-weight: bold;">:ALNPR9429C<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">Place of Supply</td>
+                        <td style="font-weight: bold;">:Eroor, Ernakulam<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">State</td>
+                        <td style="font-weight: bold;">:Kerala</td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 36%;">
+                
+                <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+                    <tr>
+                        <td></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;">
+                            <br/><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr >
+                        <td style="font-weight: bold;"><br/>Whether tax is payable on Reverse Charge basis?</td>
+                        <td style="font-weight: bold;"></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 32%; vertical-align: top;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+                    <tr>
+                        <td style="font-weight: bold;vertical-align: top;">INVOICE NO:</td>
+                        <td >CS/2018-19/4</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;vertical-align: top;">DATE OF ISSUE:</td>
+                        <td >Sep 13, 2018</td>
+                    </tr>
+                   <tr >
+                        <td> <br/></td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td> <br/></td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td> <br/></td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td> <br/></td>
+                        <td> </td>
+                    </tr>
+                    <tr style="vertical-align: bottom;">
+                        <td style="font-weight: bold;text-align:left;font-size: 10pt;"><div style="border: 1px solid #000; padding-top: 5px;padding-right: 15px;padding-left: 15px;padding-bottom: 5px; display: inline-block;">No</div></td>
+                        <td ></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+     <table class="invoice_table" >
+          <tr style="background-color: #dddddd; text-align:center; font-size: 10pt;">
+            <th class="invoice_th" width="4%" rowspan="2">Sr.No
+              </th>
+              
+              <th  class="invoice_th"  width="8%" rowspan="2">HSN/SAC
+              </th>
+              
+              <th  class="invoice_th" width="16%" rowspan="2">Description of Goods or/and Services
+              </th>
+              
+              <th  class="invoice_th" width="12%" rowspan="2">Value of Supply
+              </th>
+              
+              <th  class="invoice_th" width="12%" rowspan="2">Amount towards Land Cost
+              </th>
+              
+              <th  class="invoice_th" width="12%" rowspan="2">Taxable Value
+              </th>
+              
+              <th  class="invoice_th" width="4%" colspan="2">SGST
+              </th>
+              
+             
+              
+              <th  class="invoice_th" width="4%" colspan="2">CGST
+              </th>
+              
+             
+              
+              <th  class="invoice_th" width="12%" rowspan="2">Total Amount
+              </th>
+         </tr>
+         <tr style="background-color: #dddddd;text-align:center;font-size: 10pt;">
+            
+              
+              <th  class="invoice_th" width="4%" >Rate
+              </th>
+              
+              <th  class="invoice_th" width="8%">Amount
+              </th>
+              
+              <th  class="invoice_th" width="4%">Rate
+              </th>
+              
+              <th  class="invoice_th" width="8%">Amount
+              </th>
+              
+             
+         </tr>
+         <tr>
+             <td class="invoice_td">1
+             </td>
+             <td class="invoice_td" style="text-align:center;">995411
+             </td>
+         
+              <td class="invoice_td">Apartment Cost(8A,VEEGALAND KINGS FORT, Eroor, Ernakulam)
+             </td>
+              <td class="invoice_td" style="text-align:right;">150,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">50,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">100,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">9%
+             </td>
+              <td class="invoice_td" style="text-align:right;">9,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">9%
+             </td>
+              <td class="invoice_td" style="text-align:right;">9,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">168,000.00
+             </td>
+              
+         </tr>
+         
+         <tr>
+             <td class="invoice_td">2
+             </td>
+             <td class="invoice_td" style="text-align:center;">995411
+             </td>
+              <td class="invoice_td">Apartment Cost(8A,VEEGALAND KINGS FORT, Eroor, Ernakulam)
+             </td>
+              <td class="invoice_td" style="text-align:right;">864,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">288,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">576,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">9%
+             </td>
+              <td class="invoice_td" style="text-align:right;">51,840.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">9%
+             </td>
+              <td class="invoice_td" style="text-align:right;">51,840.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">967,680.00
+             </td>
+         </tr>
+         
+         <tr style="font-weight:bold;font-size: 10pt;">
+             <td class="invoice_td" style="text-align:center;" colspan="3">Total
+             </td>
+              
+              <td class="invoice_td" style="text-align:right;">1,014,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">338,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">676,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">
+             </td>
+              <td class="invoice_td" style="text-align:right;">60,840.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">
+             </td>
+              <td class="invoice_td" style="text-align:right;">60,840.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">1,135,680.00
+             </td>
+         </tr>
+         
+         <tr style="font-weight:bold;font-size: 11pt;">
+             <td class="invoice_td" style="text-align:center;" colspan="9">Total Invoice Value
+             </td>
+             
+              
+              
+              <td class="invoice_td" style="text-align:right;" colspan="2">1,135,680.00
+             </td>
+              
+         </tr>
+         
+         <tr style="font-weight:bold;font-size: 12pt;">
+             <td class="invoice_td" style="text-align:right;" colspan="11">Rupees Eleven Lakh Thirty Five Thousand Six Hundred Eighty Only
+             </td>
+         </tr>
+         
+         <tr>
+             <td class="invoice_td" colspan="11"><br/>
+             </td>
+         </tr>
+         
+         <tr style="font-size: 10pt;">
+             <td class="invoice_td" colspan="4">
+                 <b>Declaration :</b> <br/>
+                 1) I/We Certify that to the best of my/our knowledge the particulars furnished above are True and Correct.<br/><br/>
+                     2) Any dispute shall be subject to Ernakulam jurisdiction.<br/><br/>
+                     3) For Delayed Payments Interest will be applicable as per the agreement.<br/><br/>                 
+             </td>
+              <td class="invoice_td">
+             </td>
+              <td class="invoice_td" style="text-align:center;font-weight:bold;vertical-align:top;" colspan="6">
+                  For Veegaland Developers Private Limited <br/><br/><br/><br/><br/><br/> 
+                  
+                  Authorised Signatory
+             </td>
+              
+         </tr>
+         
+          <tr style="font-weight:bold;font-size: 10pt;">
+             <td class="invoice_td" style="text-align:center;" colspan="11">
+                 ***This is system generated printout and no signature required***
+             </td>
+         </tr>
+    </table>
+    
+    
+    <div class="page-break"></div>
+    
+   <center> <apex:image url="{!$Resource.invoiceLogo}" width="160" height="60"/></center>
+    <center> <b style="font-size:10pt">Regd.Office Address: XIII/300 E- 26, 4th Floor, K Chittilappilly Tower, Bharatha Matha College Road,Kakkanadu, Thrikkakkara, GSTIN:32AACCV5457F1ZF,
+        Ernakulam - 682021, PH: 0484 2584000, CIN: U45201KL2007PTC021107<br/>
+        http://www.veegaland.com, mail@veegaland.in
+        </b></center><br/><br/>
+    
+    <table style="font-size:10pt;font-weight:bold;" width="100%">
+        <tr>
+            <td style="text-align:left;">GSTIN : 32AACCV5457F1ZF</td>
+            <td style="text-align:right;">DUPLICATE FOR SUPPLIER</td>
+        </tr>
+        <tr>
+            <td>PAN : AACCV5457F</td>
+        </tr>
+        <tr>
+            <td>State Code: 32</td>
+        </tr>
+    </table>
+    <center style="font-size:14pt;font-weight:bold;">TAX INVOICE</center>
+    <center style="font-size:10pt;">(See: Rule:46 of GST Rule; Sec 31(2) of GST Act)</center><br/>
+    
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <tr>
+            <td style="width: 32%; vertical-align: top;">
+                <u><b style="font-size: 10pt;">RECIPIENT DETAILS</b></u><br/>
+                <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+                    <tr>
+                        <td style="vertical-align: top;">Name</td>
+                        <td style="font-weight: bold;">:Mr. Rajeev A P<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">Address</td>
+                        <td style="font-weight: bold;">
+                            :Ambalathinkal House,<br/>
+                            no 13/134-D, Eroor South PO,<br/>
+                            Ernakulam, Kerala- 682306<br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">PAN</td>
+                        <td style="font-weight: bold;">:ALNPR9429C<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">Place of Supply</td>
+                        <td style="font-weight: bold;">:Eroor, Ernakulam<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">State</td>
+                        <td style="font-weight: bold;">:Kerala</td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 36%;">
+                
+                <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+                    <tr>
+                        <td></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;">
+                            <br/><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr >
+                        <td style="font-weight: bold;"><br/>Whether tax is payable on Reverse Charge basis?</td>
+                        <td style="font-weight: bold;"></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 32%; vertical-align: top;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+                    <tr>
+                        <td style="font-weight: bold;vertical-align: top;">INVOICE NO:</td>
+                        <td >CS/2018-19/4</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;vertical-align: top;">DATE OF ISSUE:</td>
+                        <td >Sep 13, 2018</td>
+                    </tr>
+                   <tr >
+                        <td> <br/></td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td> <br/></td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td> <br/></td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td> <br/></td>
+                        <td> </td>
+                    </tr>
+                    <tr style="vertical-align: bottom;">
+                        <td style="font-weight: bold;text-align:left;font-size: 10pt;"><div style="border: 1px solid #000; padding-top: 5px;padding-right: 15px;padding-left: 15px;padding-bottom: 5px; display: inline-block;">No</div></td>
+                        <td ></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+     <table class="invoice_table" >
+          <tr style="background-color: #dddddd; text-align:center; font-size: 10pt;">
+            <th class="invoice_th" width="4%" rowspan="2">Sr.No
+              </th>
+              
+              <th  class="invoice_th"  width="8%" rowspan="2">HSN/SAC
+              </th>
+              
+              <th  class="invoice_th" width="16%" rowspan="2">Description of Goods or/and Services
+              </th>
+              
+              <th  class="invoice_th" width="12%" rowspan="2">Value of Supply
+              </th>
+              
+              <th  class="invoice_th" width="12%" rowspan="2">Amount towards Land Cost
+              </th>
+              
+              <th  class="invoice_th" width="12%" rowspan="2">Taxable Value
+              </th>
+              
+              <th  class="invoice_th" width="4%" colspan="2">SGST
+              </th>
+              
+             
+              
+              <th  class="invoice_th" width="4%" colspan="2">CGST
+              </th>
+              
+             
+              
+              <th  class="invoice_th" width="12%" rowspan="2">Total Amount
+              </th>
+         </tr>
+         <tr style="background-color: #dddddd;text-align:center;font-size: 10pt;">
+            
+              
+              <th  class="invoice_th" width="4%" >Rate
+              </th>
+              
+              <th  class="invoice_th" width="8%">Amount
+              </th>
+              
+              <th  class="invoice_th" width="4%">Rate
+              </th>
+              
+              <th  class="invoice_th" width="8%">Amount
+              </th>
+              
+             
+         </tr>
+         <tr>
+             <td class="invoice_td">1
+             </td>
+             <td class="invoice_td" style="text-align:center;">995411
+             </td>
+         
+              <td class="invoice_td">Apartment Cost(8A,VEEGALAND KINGS FORT, Eroor, Ernakulam)
+             </td>
+              <td class="invoice_td" style="text-align:right;">150,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">50,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">100,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">9%
+             </td>
+              <td class="invoice_td" style="text-align:right;">9,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">9%
+             </td>
+              <td class="invoice_td" style="text-align:right;">9,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">168,000.00
+             </td>
+              
+         </tr>
+         
+         <tr>
+             <td class="invoice_td">2
+             </td>
+             <td class="invoice_td" style="text-align:center;">995411
+             </td>
+              <td class="invoice_td">Apartment Cost(8A,VEEGALAND KINGS FORT, Eroor, Ernakulam)
+             </td>
+              <td class="invoice_td" style="text-align:right;">864,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">288,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">576,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">9%
+             </td>
+              <td class="invoice_td" style="text-align:right;">51,840.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">9%
+             </td>
+              <td class="invoice_td" style="text-align:right;">51,840.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">967,680.00
+             </td>
+         </tr>
+         
+         <tr style="font-weight:bold;font-size: 10pt;">
+             <td class="invoice_td" style="text-align:center;" colspan="3">Total
+             </td>
+              
+              <td class="invoice_td" style="text-align:right;">1,014,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">338,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">676,000.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">
+             </td>
+              <td class="invoice_td" style="text-align:right;">60,840.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">
+             </td>
+              <td class="invoice_td" style="text-align:right;">60,840.00
+             </td>
+              <td class="invoice_td" style="text-align:right;">1,135,680.00
+             </td>
+         </tr>
+         
+         <tr style="font-weight:bold;font-size: 11pt;">
+             <td class="invoice_td" style="text-align:center;" colspan="9">Total Invoice Value
+             </td>
+             
+              
+              
+              <td class="invoice_td" style="text-align:right;" colspan="2">1,135,680.00
+             </td>
+              
+         </tr>
+         
+         <tr style="font-weight:bold;font-size: 12pt;">
+             <td class="invoice_td" style="text-align:right;" colspan="11">Rupees Eleven Lakh Thirty Five Thousand Six Hundred Eighty Only
+             </td>
+         </tr>
+         
+         <tr>
+             <td class="invoice_td" colspan="11"><br/>
+             </td>
+         </tr>
+         
+         <tr style="font-size: 10pt;">
+             <td class="invoice_td" colspan="4">
+                 <b>Declaration :</b> <br/>
+                 1) I/We Certify that to the best of my/our knowledge the particulars furnished above are True and Correct.<br/><br/>
+                     2) Any dispute shall be subject to Ernakulam jurisdiction.<br/><br/>
+                     3) For Delayed Payments Interest will be applicable as per the agreement.<br/><br/>                 
+             </td>
+              <td class="invoice_td">
+             </td>
+              <td class="invoice_td" style="text-align:center;font-weight:bold;vertical-align:top;" colspan="6">
+                  For Veegaland Developers Private Limited <br/><br/><br/><br/><br/><br/> 
+                  
+                  Authorised Signatory
+             </td>
+              
+         </tr>
+         
+          <tr style="font-weight:bold;font-size: 10pt;">
+             <td class="invoice_td" style="text-align:center;" colspan="11">
+                 ***This is system generated printout and no signature required***
+             </td>
+         </tr>
+    </table>
+</apex:page>

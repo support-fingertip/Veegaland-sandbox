@@ -1,0 +1,2650 @@
+<apex:page renderAs="pdf" controller="SalesAgreement1ApplicantController" applyBodyTag="false" showHeader="false">
+    <head>
+        
+        
+        <style type="text/css" media="print">
+            *{
+            
+            font-family: "Times New Roman", Times, serif;
+            
+            font-weight: normal; /* Reset bold styling */
+            }
+            
+            @page {
+            size: A4;
+            margin-left:10px;
+            margin-right:10px;
+            
+            margin-top:50px;
+            margin-bottom: 190px;
+            @bottom-center {
+            content: element(footer);
+            }
+            }
+            @page:first {
+            @bottom-center {
+            content: none;
+            }
+            }
+            
+            p{font-size:12px;font-family: "Times New Roman", Times, serif;line-height:1.5;}
+            .margi{
+            margin-left:75px;
+            margin-right:75px;
+            font-size:12px;
+            }
+            ol{
+            font-size:11.5px;
+            font-family: "Times New Roman", Times, serif;
+            text-align:left; 
+            line-height:1.5;
+            
+            
+            }
+            .footer {
+            position: fixed;
+            position: running(footer);
+            /* height: 190px;
+            padding-top: 10px;
+            margin-bottom:20px;*/
+            margin-left:60px;
+            margin-right:50px;
+            
+            color: #CCC;
+            }
+            .page-break { page-break-before: always; } 
+            .no-break { page-break-inside: avoid; } 
+            
+            
+            .highlight{background-color:none;}
+            @page {
+            @top-center {
+            content: counter(page) ;
+            }
+            }
+            .header {
+            position: fixed;
+            top: 10px;
+            width: 100%;
+            text-align: right;
+            font-size: 12px;
+            color: #333;
+            }
+            div.parastyle{
+            text-align:justify;
+            line-height:1.5; 
+            font-size:12px;
+            width:100%;
+            }
+            .speci{
+            text-align:justify;
+            line-height:1.5; 
+            font-size:12px;
+            width:100%;
+            
+            }
+            div.sub{
+            text-align:justify;
+            line-height:1.5; 
+            font-size:12px;
+            width:100%;
+            margin-left:20px;
+            
+            }
+            .rows1{
+            width:4%; 
+            vertical-align: top;
+            text-align:justify; 
+            line-height:1.5; 
+            font-size:12px;
+            }
+            .rows2{
+            width:96%;
+            text-align:justify; 
+            line-height:1.5; 
+            font-size:12px;
+            margin-left:20px;
+            
+            }
+            .row1{
+            width:8%; 
+            vertical-align: top; 
+            text-align:justify; 
+            line-height:1.5;
+            font-size:12px; 
+            padding-left:40px;
+            }
+            .row2{
+            width:72%; 
+            text-align:justify; 
+            line-height:1.5; 
+            font-size:12px; 
+            margin-left:50px;
+            }
+            
+            strong{
+            font-weight:600
+            }
+            
+            
+        </style>
+    </head>
+    
+   <div class="footer">
+        
+              
+        <table width="100%" >
+            <tr style="font-size:11.5px;">
+                <td style="text-align:left;width=80%" >
+                    <strong> VEEGALAND DEVELOPERS PRIVATE LIMITED<br/></strong>
+                    Represented by its Director – Marketing <br/>
+                    &amp; Administration <strong>Mr. Kurian Thomas</strong>
+                </td>
+                <td style="width=20%; font-size:11.5px;">
+                    <span style="text-align:right; padding-top:100px" > <strong>1. {!booking.First_Applicant_Name__c}</strong></span>
+                </td>
+            </tr>
+            <tr style="font-size:11.5px;">
+                <td style="text-align:left;width=80%" ></td>
+                <td style="width=20%; font-size:11.5px;"> <strong>
+                    <apex:variable var="index" value="{!0}"/>
+                    <apex:repeat value="{!coApplicants}" var="applicant">
+                        
+                        <apex:variable var="index" value="{!index + 1}" />
+                        <p><strong><!-- {!TEXT(index).--> </strong> {!applicant.Name}</p>
+                    </apex:repeat>
+                    </strong><br/></td>    
+                
+            </tr>
+            
+            
+            
+        </table>
+        
+        <!--<table style="width:100%; line-height:1.2" >
+            <tr style=""><th width="85%" style=""><i>Promoter: </i></th>
+                <th style=" text-align:left"><i>Allottee:</i></th>
+            </tr>
+            <tr><td style=" padding-top:30px"></td></tr>
+            
+            <tr > 
+                <td style="text-align:left;" rowspan="{!coApplicantCount}" >
+                    <strong> VEEGALAND DEVELOPERS PRIVATE LIMITED<br/></strong>
+                    Represented by its Director – Marketing <br/>
+                    &amp; Administration <strong>Mr. Kurian Thomas</strong>
+                </td>
+                
+                <td  style="text-align:left;">
+                    <strong>1.{!booking.First_Applicant_Name__c}</strong>
+                </td>
+            </tr>
+            
+            
+            <apex:variable var="index" value="2"/>
+            <apex:repeat value="{!coApplicants}" var="applicant">
+                <tr>
+                    <td>
+                        <span style="text-align:left"><strong> {!index}.  {!applicant.Name}</strong></span></td></tr>
+                <apex:variable var="index" value="{!index + 1}"/>
+            </apex:repeat>
+            
+        </table>    
+        ---->
+
+    </div>
+    
+    <div class="margi">
+        
+        
+        <div style="padding-top:400px">
+            
+        </div>
+        <h3 style="text-align:Center; font-size:15px; width:100%"><strong>SALE AGREEMENT</strong></h3> 
+        <div class="header">
+            <span class="pageNumber"></span> <span class="totalPages"></span>
+        </div>
+        
+        <table width="100%" line-height=".09" >
+            <tr style="font-size:11.5px; text-align:center">
+                <td  width="40%" style="line-height:0.9"><strong>Kurian Thomas</strong></td>
+                <td width="20%" style="line-height:0.9"></td>
+                <td width="40%" style="line-height:0.9"> <strong>Abhinand S. Vijay</strong></td>
+            </tr>
+            <tr style="font-size:11.5px; text-align:center">
+                <td style=" display:flex; justify-content:flex-start; align:center; line-height:0.9" >
+                    <i>(Director - Marketing &amp; Administration</i>
+                </td>
+                <td></td>
+                <td style="text-align:center; line-height:0.9">
+                    <i>(Presenter)</i>
+                </td>
+            </tr>
+            <tr style="font-size:11.5px; text-align:center">
+                <td style=" display:flex; justify-content:flex-start; align:center; line-height:0.9" >
+                    <i>of Promoter company)</i>
+                </td>
+                <td></td>
+                <td style="text-align:right; line-height:0.9">
+                    <i></i>
+                </td>
+            </tr>
+            
+        </table>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <p style="font-size:12px; width:100%">
+            <strong>THIS  AGREEMENT  FOR  SALE </strong>  is executed on this the <span class="highlight">{!Date_of_SaleAgreement} </span>  by: 
+        </p>
+        <!-----
+<table width="100%" >
+<tr style="font-size:11.5px;">
+<td style="text-align:left;width=80% padding-left:10px"><i>Promoter:</i></td>
+<td style="width=20%; font-size:11.5px;">
+<span style="text-align:left; padding-left: 290px;" > <i>Allottees:</i>
+</span>
+
+</td>   
+</tr>
+</table>
+<br/><br/><br/>
+
+<table width="100%" >
+<tr style="font-size:11.5px;">
+<td style="text-align:left;width=80%" >
+<strong> VEEGALAND DEVELOPERS PRIVATE LIMITED<br/></strong>
+Represented by its Director – Marketing <br/>
+&amp; Administration <strong>Mr. Kurian Thomas</strong>
+</td>
+<td style="width=20%; font-size:11.5px;">
+<span style="text-align:right; padding-top:100px" > <strong>1. <span class="highlight"><strong>{!booking.First_Applicant_Name__c}</strong></span></strong><br/><br/><br/></span>
+</td>
+</tr>
+
+<tr style="font-size:11.5px;">
+<td style="text-align:left;width=80%" ></td>
+<td style="width=20%; font-size:11.5px;"> <strong> <span class="highlight">
+<apex:variable var="index" value="1"/>
+<apex:repeat value="{!coApplicants}" var="applicant">
+Increment index and display applicant name 
+<apex:variable var="index" value=""/> <!--{!index + 1}
+<p><strong> {!TEXT(index). </strong> {!applicant.Name}</p>
+</apex:repeat>
+
+</span></strong><br/></td>    
+</tr>
+
+
+</table>----->
+        
+        <table style="width:100%; line-height:1.2" >
+            <tr style=""><th width="85%" style=""><i>Promoter: </i></th>
+                <th style=" text-align:left"><i>Allottee:</i></th>
+            </tr>
+            <tr><td style=" padding-top:30px"></td></tr>
+            
+            <tr > 
+                <td style="text-align:left;" rowspan="{!coApplicantCount}" >
+                    <strong> VEEGALAND DEVELOPERS PRIVATE LIMITED<br/></strong>
+                    Represented by its Director – Marketing <br/>
+                    &amp; Administration <strong>Mr. Kurian Thomas</strong>
+                </td>
+                
+                <td  style="text-align:left;">
+                    <strong>1.{!booking.First_Applicant_Name__c}</strong>
+                </td>
+            </tr>
+            
+            
+            <apex:variable var="index" value="2"/>
+            <apex:repeat value="{!coApplicants}" var="applicant">
+                <tr>
+                    <td>
+                        <span style="text-align:left"><strong> {!index}.  {!applicant.Name}</strong></span></td></tr>
+                <apex:variable var="index" value="{!index + 1}"/>
+            </apex:repeat>
+            
+        </table>    
+        
+        
+        
+        
+        
+         <div class="page-break"></div> 
+        <div style="display: flex; justify-content: center;">
+            <table width="100%">
+                
+                <tr>
+                    <apex:variable var="index" value="1"/>
+                    <apex:repeat value="{!bookingcoapplilist}" var="applicant">
+                        
+                        <td style="text-align:center">
+                            <p style="text-align:center"><strong>  {!applicant.coapplName}</strong><br/>(Allottee No.{!index})</p></td>
+                        
+                        <apex:variable var="index" value="{!index + 1}"/>
+                    </apex:repeat>
+                </tr>
+                
+                
+            </table>
+        </div>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        
+        <div class="parastyle">
+            <span ><strong>  VEEGALAND DEVELOPERS PRIVATE LIMITED,</strong> (CIN U45201KL2007PTC021107),  a  Private Limited  Company incorporated under the Companies Act 1956, having its Registered  office  at  XIII/300  E-26,  4th floor,  K C F  Tower, Bharath               Matha College  Road,  Kakkanad  Desom, Thrikkakara  P.O., Vazhakkala Village, Kanayannur Taluk,  Ernakulam  District , Pin code – 682 021,<strong> (PAN AACCV 5457 F)</strong>, represented by its Director – Marketing &amp; Administration,<strong>  Mr. Kurian Thomas</strong>, aged 48 (Forty Eight) years, Private company employee, son of Mr. V.M. Thomas, having address at Vengathanam House, Florican Road, Nedugatoor Desom, Karaparamba P.O., Vengeri Village, Kozhikode Taluk, Kozhikode District, Pin Code  - 673 010 (Aadhaar No. 4036 1211 2022 issued by Government of India); duly authorised under resolution passed  in the meeting of  Board of Directors of the company held on 30-09-2023; hereinafter referred to as the<strong> “Promoter”</strong>, (which expression unless repugnant to the context or meaning thereof be deemed to mean and include all its legal heirs, successors, executors and permitted assignees)</span><br/>   
+        </div><br/>
+        
+        
+        <div style="text-align:center"><strong>AND</strong></div>
+        <br/>
+        <div class="parastyle">  
+            
+            
+          <apex:outputPanel rendered="{!NOT(ISBLANK(booking.First_Applicant_Name__c))}">
+              <strong>1.</strong><span class="highlight"><strong> {!booking.First_Applicant_Name__c}</strong>,</span>
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(booking.Aadhaar_Number__c))}">
+    (Aadhaar No. <span class="highlight">{!booking.Aadhaar_Number__c},</span> issued by Government of India)
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(booking.PAN_Number1__c))}">
+    (PAN <span class="highlight">{!booking.PAN_Number1__c}</span>),
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(booking.Age__c)) && booking.Age__c != 0}">
+    aged {!ageprimary} ({!ageInWords}) years,
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(booking.Occupation__c))}">
+    {!booking.Occupation__c},
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(booking.Primary_Applicant_Relationship_Type__c))}">
+    <span class="highlight"> {!booking.Primary_Applicant_Relationship_Type__c}</span>
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(booking.Primary_Applicant_Father_Husband_s_Name__c))}">
+    <span class="highlight"> {!booking.Primary_Applicant_Father_Husband_s_Name__c},</span>
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(booking.Permanent_House_No_Name__c))}">
+    having address at {!booking.Permanent_House_No_Name__c},
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(booking.Desom__c))}">
+    Desom {!booking.Desom__c},
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(booking.Permanent_Post_Office__c))}">
+    {!booking.Permanent_Post_Office__c} P. O.,
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(booking.Village_Panchayath__c))}">
+    {!booking.Village_Panchayath__c} village,
+</apex:outputPanel>
+            
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(booking.Taluk__c))}">
+    {!booking.Taluk__c} Taluk,
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(booking.District__c))}">
+    {!booking.District__c} District,
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!NOT(ISBLANK(booking.Permanent_Postal_Code__c))}">
+    Pin Code - {!TEXT(booking.Permanent_Postal_Code__c)};
+</apex:outputPanel>
+
+            
+            
+            
+            
+            
+            
+            <apex:variable var="index" value="2"/>
+            <apex:repeat value="{!coapplicants}" var="applicant">
+                <strong> {!index}. </strong> <apex:outputPanel rendered="{!NOT(ISBLANK(applicant.Name))}">
+                <strong > <span class="highlight">{!applicant.Name},</span></strong>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(applicant.Aadhar_Number__c))}">
+                        (Aadhaar No. <span class="highlight">{!applicant.Aadhar_Number__c},</span> issued by Government of India) 
+                        </apex:outputPanel>
+                 <apex:outputPanel rendered="{!NOT(ISBLANK(applicant.PAN_Number__c))}">
+                             (PAN  {!applicant.PAN_Number__c}),
+                        </apex:outputPanel>
+               <apex:outputPanel rendered="{!NOT(ISBLANK(applicant.age__c)) && applicant.age__c != 0}">
+                   aged <span class="highlight">{!applicant.age__c}</span><span class="highlight"> ({!applicant.Age_in_words__c})</span> years,
+                        </apex:outputPanel>
+                <apex:outputPanel rendered="{!NOT(ISBLANK(applicant.Occupation__c))}">
+                              {!applicant.Occupation__c}, 
+                        </apex:outputPanel>
+                <apex:outputPanel rendered="{!NOT(ISBLANK(applicant.Relation__c))}">
+                              {!applicant.Relation__c} {!applicant.Name},
+                        </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{!NOT(ISBLANK(applicant.Permanent_House_No_Name__c))}">
+                    <span class="highlight"> having address at {!applicant.Permanent_House_No_Name__c},</span>
+                        </apex:outputPanel>
+                <apex:outputPanel rendered="{!NOT(ISBLANK(applicant.Desom__c))}">
+                    <span class="highlight">  Desom {!applicant.Desom__c} ,</span>
+                        </apex:outputPanel>
+                <apex:outputPanel rendered="{!NOT(ISBLANK(applicant.Permanent_Post_Office__c))}">
+                    <span class="highlight">  {!applicant.Permanent_Post_Office__c} P. O.,</span>
+                        </apex:outputPanel>
+               <apex:outputPanel rendered="{!NOT(ISBLANK(applicant.Village_Panchayath__c))}">
+                    <span class="highlight">   {!applicant.Village_Panchayath__c} village,</span>
+                        </apex:outputPanel>
+                <apex:outputPanel rendered="{!NOT(ISBLANK(applicant.Taluk__c))}">
+                    <span class="highlight"> {!applicant.Taluk__c} Taluk,</span>
+                        </apex:outputPanel>
+                
+                <apex:outputPanel rendered="{!NOT(ISBLANK(applicant.District__c))}">
+                    <span class="highlight"> {!applicant.District__c} District,</span>
+                        </apex:outputPanel>
+                 <apex:outputPanel rendered="{!NOT(ISBLANK(applicant.Permanent_Postal_Code__c))}">
+                     <span class="highlight">Pin Code  - {!applicant.Permanent_Postal_Code__c};</span>
+                        </apex:outputPanel>
+                    
+                <apex:variable var="index" value="{!index + 1}"/>
+            </apex:repeat>
+            
+             <span class="highlight"> </span>; hereinafter called the<span class="highlight">  <strong> “Allottees”</strong></span> (which expression shall, wherever the context so admits or requires, mean and include  <span class="highlight"> their</span> successors-in-interest, legal representatives, executors administrators and assigns))</div>
+        
+        <br/><div class="para-style">The Promoter and <span class="highlight">Allottees</span> shall hereinafter collectively be referred to as the "Parties" and individually as a "Party".</div>
+        <br/>
+        <div class="parastyle">
+            <strong>WHEREAS</strong>  Promoter obtained <span class="highlight"><strong>78.93</strong></span> <strong>Ares</strong> of land made up of<span class="highlight"> 4.95</span> Ares in Re. Sy. No.<span class="highlight">  51/2,</span> with<span class="highlight"> 4 Meter wide passage from the PWD Road as the southern boundary and PWD Road as the western boundary, 1.34 Ares in Re. Sy. No.  68, 23.07 Ares in Re. Sy. No.  51/4, 25.29 Ares in Re. Sy. No.  51/3, and 24.28 Ares in Re. Sy. No.  51, Block No. 369, (Old Sy. Nos. 193/2 and 193/3) in Thekkumbhagom</span> Village, together with all easements and other similar rights appurtenant thereto, together with right of way<span class="highlight"> over 4 meter wide passage from the PWD Road on the West, for all kinds of traffic and for taking all kinds of service connections thereto, Kanayannur Taluk of Ernakulam District under Sale deed No. 1729/2022, entered on pages 103 to 126,  Volume  No. 515, Book No. 1 of Sub Registry Office, Tripunithura</span>.<br/>
+        </div><br/>
+        
+        <div class="parastyle">
+            <strong> AND WHEREAS </strong> the above said properties are lying contiguous as one plot having a total area of<span class="highlight"> 78.93 </span>Ares of land in<span class="highlight"> Thekkumbhagom</span> Village. As per village records the<span class="highlight"> 4.95</span> Ares of land subdivided and now included in Re. Sy. No.<span class="highlight"> 51/2-2,</span> Block  No.<span class="highlight"> 369,</span> in<span class="highlight"> Thekkumbhagom</span> Village.
+        </div>
+        <br/>
+        <div class="parastyle">
+            <strong>AND WHEREAS</strong> Promoter is the absolute and lawful owner of<span class="highlight"><strong> 78.93</strong></span><strong> Ares</strong> of land made up of<span class="highlight"> 4.95</span> Ares in Re. Sy. No.<span class="highlight">  51/2-2, 1.34</span> Ares in Re. Sy. No. <span class="highlight"> 68, 23.07</span> Ares in Re. Sy. No.  <span class="highlight">51/4, 25.29</span> Ares in Re. Sy. No. <span class="highlight"> 51/3,</span> and<span class="highlight"> 24.28</span> Ares in Re. Sy. No. <span class="highlight"> 51,</span> Block No.<span class="highlight"> 369,</span> in<span class="highlight"> Thekkumbhagom Village,<span class="highlight"> Kanayannur</span> Taluk of<span class="highlight"> Ernakulam</span> District. Promoter has carried out mutation of rights in<span class="highlight"> Thekkumbhagom</span> Village records and is paying land tax as<span class="highlight"> Pattadhar</span> under<span class="highlight"> Thandaper</span> account number<span class="highlight"> 10015</span> inn<span class="highlight"> Thekkumbhagom</span> Village office.</span> 
+        </div>
+        <br/>
+        <div class="parastyle">
+            <strong>AND WHEREAS</strong> Promoter envisaged a project to put up a multi – storied residential apartment building consisting of<span class="highlight"> 141 (One Hundred and Forty one)</span> Apartments with common amenities and facilities by developing the property having an extent of<span class="highlight"><srtong> 78.93</srtong></span><strong>Ares</strong>  of land made up of<span class="highlight"> 4.95 Ares in Re. Sy. No.<span class="highlight">  51/2-2, 1.34</span> Ares in Re. Sy. No. <span class="highlight"> 68, 23.07</span> Ares in Re. Sy. No.<span class="highlight">  51/4, 25.29</span> Ares in Re. Sy. No. <span class="highlight"> 51/3,</span> and<span class="highlight"> 24.28</span> Ares in Re. Sy. No. <span class="highlight"> 51</span>, Block No.<span class="highlight"> 369</span>, in<span class="highlight"> Thekkumbhagom</span></span> Village (hereinafter referred to as<strong> “Schedule A”</strong> property) and the said project shall be known as<span class="highlight"> “{!booking.Project__c}”.</span>
+        </div>
+        <br/>
+        <div class="parastyle">
+            <strong>AND WHEREAS</strong> the Promoter is fully competent to enter into this Agreement and all the legal formalities with respect to the right, title and interest of the Promoter regarding the said land on which Project is to be constructed, have been completed. 
+        </div>
+        <br/>
+        <div class="parastyle">
+            <strong>AND WHEREAS</strong> Promoter obtained building Permit No.,<span class="highlight"> PW4/BA-255/2022-23</span> dated <span class="highlight"> 08/09/2023</span> from <span class="highlight"> Thripunithura</span> Municipality, to put up multi – storied building and obtained plan approved from statutory Authorities to put up the same. 
+        </div>
+        <br/>
+        <div class="parastyle">
+            <strong>AND WHEREAS</strong> the Promoter has obtained the final layout plan approvals for the Project from <span class="highlight"> Thripunithura</span> Municipality and the Promoter agrees and undertakes that it shall not make any changes to these layout plans except in strict compliance with section<span class="highlight"> 14</span> of the<span class="highlight"> Real Estate (Regulation and Development) Act 2016 (hereinafter called the<strong>“Act”</strong> )</span> The Kerala Real Estate (Regulation and Development) Rules<span class="highlight"> 2018</span> (hereinafter called the<strong> “Rules”</strong>) and other laws as applicable;  
+        </div>
+        <br/>
+        <div class="parastyle">
+            <strong>AND WHEREAS</strong> the Promoter has opened a separate account No. <span class="highlight">923020054133084 </span> in<span class="highlight"> Thrikkakara (Kakkanad)</span> Branch of<span class="highlight"> Axis Bank</span> for the purpose as provided in the Act. A collection account bearing no.<span class="highlight"> 923020053714107</span> at <span class="highlight">Thrikkakara (Kakkanad)</span>  Branch of<span class="highlight"> Axis Bank</span> is also opened.  
+        </div>
+        <br/>
+        <div class="parastyle">
+            <strong> AND WHEREAS</strong> the Promoter has obtained registration from K-RERA vide Registration No. <span class="highlight"> K-RERA/PRJ/ERN/182/2023. </span>
+        </div>
+        <br/>
+        <div class="parastyle">
+            <strong> AND WHEREAS</strong> The Allottees had applied for an apartment in the Project vide application<span class="highlight"> GH/132/1224  </span> dated <span class="highlight"> 17-12-2024 
+            
+            <!---  <apex:outputText value="{0,date,dd/MM/yyyy}">
+<apex:param value="{!booking.CreatedDate}"/>
+</apex:outputText>--->
+            </span> and has been allotted Apartment no.<span class="highlight"> <strong>{!Booking.Plot__r.Name}</strong></span> having carpet area of <span class="highlight">{!carpetAreaSqft}</span> Square feet (Super Built up area of <span class="highlight">{!superBuiltUpAreaSqft} Sq.ft</span>), on <span class="highlight"><strong>{!getFloorWithSuffix}</strong> floor </span> along with right to use one covered parking slot no.<span class="highlight"> 104 </span> having dimension <span class="highlight">270 cm (Width) X 550 cm (Length)  (Length)</span> on the Basement Floor of the building and of pro rata share in the common areas as defined under clause (n) of Section 2 of the Act (hereinafter referred to as the<strong> "Apartment"</strong> more particularly described in<strong> Schedule C</strong> and the floor plan of the apartment is annexed hereto and marked as<strong> Schedule F</strong>, Electrical drawing of the apartment is annexed and marked as<strong> Schedule G</strong>, Plumbing drawing of the apartment is annexed and marked as<strong> Schedule H</strong> and Covered parking of the apartment is annexed and marked as<strong> Schedule I</strong>); 
+        </div>
+        <br/>
+        <div class="parastyle">
+            <strong>AND WHEREAS</strong> Allottees has examined all the documents pertaining to this project and is convinced of the good, valid and marketable title of the Promoter on Schedule – A, B and C properties and has expressed desire to purchase Schedule – B and C properties after reading the rights and responsibilities set out in this Agreement.
+        </div>
+        <br/>
+        <div class="parastyle">
+            <strong> AND WHEREAS</strong> the Parties, relying on the confirmations, representations and assurances of each other to faithfully abide by all the terms, conditions and stipulations contained in this Agreement and all applicable laws, are now willing to enter into this Agreement on the terms and conditions appearing hereinafter;
+        </div>
+        <br/>
+        <div class="parastyle">
+            <strong>NOW THEREFORE, in consideration of the mutual representations, covenants, assurances, promises and agreements contained herein and other good and valuable consideration, the Parties agree as follows:</strong> 
+        </div>
+        
+        
+        <h3> </h3>
+        
+        <table style="width:100%; border-collapse: collapse;">
+            <tr>
+                <td class="rows1"><strong> 1.</strong></td>
+                <td class="rows2">
+                    <strong>TERMS</strong>	
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">1.1</td>
+                <td class="rows2">
+                    Subject to the terms and conditions as detailed in this Agreement, the Promoter agrees to sell to the Allottees and the Allottee hereby agree to purchase, the <strong>Apartment no.</strong><span class="highlight"><strong>{!Booking.Plot__r.Name}</strong> </span> on the <span class="highlight"><strong>{!getFloorWithSuffix}</strong></span> floor of the building.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">1.2</td>
+                <td class="rows2">
+                    The Price for the Apartment based on the carpet area is Rs.<span class="highlight">{!TEXT(booking.Sub_Total__c)}/- ({!subTotalInWords}) </span> and includes costs of apartment, common area share, undivided share of land and parking. In addition to the above price, the Allottees shall pay Rs.<span class="highlight">{!TEXT(booking.GST_Amount__c)}/-  ({!gstAmountInWords})</span>)as GST calculated as per the existing rate. Thus the total price of apartment is<span class="highlight"><strong> Rs.{!TEXT(booking.Total__c)}</strong></span>/- <span class="highlight"><strong>({!totalAmountInWords})</strong></span>.
+                </td>
+            </tr>
+            
+        </table>
+        <br/>
+        
+        <table width="55%" border="1" cellpadding="5" cellspacing="0" style="margin:0 auto;"  >
+            <tr >
+                <th colspan="3" style="text-align:center">APARTMENT DETAILS</th>
+            </tr>
+            <tr >  
+                <th width="5%" style="text-align:center">1</th>
+                <th width="30%">Apartment Number</th>
+                <th width="20%" style="text-align:center"><span class="highlight"><strong>{!Booking.Plot__r.Name}</strong></span></th>
+            </tr>
+            <tr>
+                <th style="text-align:center">2 </th>
+                <th>Floor</th>
+                <th style="text-align:center"><span class="highlight"><strong>{!getFloorWithSuffix}</strong></span></th>    
+            </tr>
+            <tr>
+                <th style="text-align:center">3 </th>
+                <th>Type</th>
+                <th style="text-align:center"><span class="highlight"><strong>{!Booking.Plot__r.BHK_Type__c}</strong></span></th>    
+            </tr>
+            <tr>
+                <th style="text-align:center">4 </th>
+                <th>Carpet Area</th>
+                <th style="text-align:center"><span class="highlight"><strong>{!booking.Carpet_Area__c} Sq. Mtrs({!carpetAreaSqft} Sqft)</strong></span></th>    
+            </tr>
+            <tr>
+                <th style="text-align:center">5</th>
+                <th>Super Built-up Area</th>
+                <th style="text-align:center"><span class="highlight"><strong>{!Booking.Plot__r.Super_built_up_area__c} Sq. Mtrs ({!superBuiltUpAreaSqft} Sqft)</strong></span></th>
+            </tr>
+            <tr>
+                <th style="text-align:center">6</th>
+                <th>Undivided Share of land</th>
+                <th style="text-align:center"><span class="highlight"><strong>{!booking.Plot__r.UDS_Percentage__c}%</strong></span></th>
+            </tr>
+            
+        </table><h3 style="font-size:12px; line-height:1.5">
+        <strong>Explanation:  </strong>
+        </h3>   
+        <table style="width:100%; border-collapse: collapse;">
+            <tr>
+                <td class="rows1">i.</td>
+                <td class="rows2">
+                    The Total Price above includes the booking amount paid by the 	Allottee to the Promoter towards the Apartment.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            
+            <tr>
+                <td class="rows1">ii.</td>
+                <td class="rows2">
+                    The Total Price <strong>Rs.<span class="highlight"><strong>{!TEXT(booking.Total__c)}</strong>/- <stron>({!totalAmountInWords})</stron></span></strong> includes Taxes consisting of tax paid or payable by the Promoter by way of GST, local tax, rates, duties, levies, one time building tax, contribution towards construction workers welfare fund, all service connection charges for water  supply, electricity supply, telephone, including related deposits and duties leviable on the land and apartment and Cess or any other similar taxes which may be levied, in connection with the construction of the Project up to the date of handing over the possession of the Apartment. 
+                    
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"></td>
+                <td class="rows2">
+                    Provided that in case there is any change / modification in the taxes, the 	subsequent amount payable by the Allottees to the promoter shall be 	increased/reduced based on such change / modification;	
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"></td>
+                <td class="rows2">
+                    Provided further that if the Allottees wishes to transfer the Apartment 	after execution of this Agreement for Sale and scheduled payments, the 	proportionate taxes paid in the name of the Allottees cannot be 	refunded and the same should be additionally paid on behalf of new 	Allottees.   	
+                </td>
+            </tr>
+           <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">iii.</td>
+                <td class="rows2">
+                    The Promoter shall periodically intimate to the Allottees, the amount 	payable as stated in (i) above and the Allottees shall make payment 	within 30 (thirty) days from the date of such written intimation. In 	addition, the 	Promoter  shall provide to the Allottees  the details of the 	taxes paid or demanded along with the acts/rules/notifications together 	with dates from which such taxes/levies etc. have been imposed or 	become effective;
+                </td>
+            </tr>
+            <br/>
+            <tr>
+                <td class="rows1">iv</td>
+                <td class="rows2">
+                    The Total Price of Apartment includes: 1) pro rata share in the Common 	Areas; 2) Undivided share of land and parking as provided in the 	agreement.
+                </td>
+            </tr>
+            <br/>
+            
+            
+            <tr>
+                <td class="rows1">1.3</td>
+                <td class="rows2">
+                    The Total Price is escalation-free, save and except increases which the 	Allottee hereby agrees to pay, due to increase on account of 	development charges payable to the competent authority and/or any 	other increase in 	charges which may be levied or imposed by the 	competent authority from time to time. The Promoter undertakes and 	agrees that while raising a demand on the Allottee for increase in 	development charges, cost/charges imposed by the competent 	authorities, the Promoter shall enclose the said notification/order/ 	rule/regulation to that effect along with the demand letter being issued to the Allottee, which shall only be applicable on subsequent 	payments.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">1.4</td>
+                <td class="rows2">
+                    The Allottees shall make the payment as per the payment plan set out 	in <strong>Schedule E ("Payment Plan").</strong> 
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">1.5</td>
+                <td class="rows2">
+                    It is agreed that the Promoter shall not make any additions and 	alterations in the sanctioned plans, layout plans and specifications and 	the nature of fixtures, fittings and amenities described therein in 	respect of the apartment, plot or building, as the case may be, without 	the previous written consent of the Allottees. Provided that the 	Promoter may make such minor additions or alterations as may be 	required by the Allottees, or such minor changes or alterations as per 	the provisions of the Act.
+                </td>
+            </tr>
+            <br/>
+            <tr>
+                <td class="rows1">1.6</td>
+                <td class="rows2">
+                    The Promoter shall confirm the final carpet area that has been allotted 	to the Allottees after the construction of the Building is complete and 	the occupancy certificate is granted by the competent authority, by 	furnishing details of the changes, if any, in the carpet area. The total 	price payable for 	the carpet area shall be recalculated upon 	confirmation by the Promoter. If there is any reduction in the carpet 	area within the defined limit then Promoter shall refund the excess 	money paid by Allottese within forty-five days with annual interest at 	the rate specified in the Rules, from the date when such an excess 	amount was paid by the Allottees. If there is any 	increase in the carpet 	area allotted to Allottees, the Promoter shall demand that from the 	Allottees as per the next milestone of the Payment Plan. All these 	monetary adjustments shall be made at the same rate per square feet as 	agreed in Clause 1.2 of this Agreement.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">1.7</td>
+                <td class="rows2">
+                    Subject to Clause 9.3 the Promoter agrees and acknowledges, the 	Allottees  shall have the right to the Apartment as mentioned below:
+                </td>
+            </tr>
+        </table>
+        <table style="width:100%; border-collapse: collapse; ">
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td style="width:7%;vertical-align: top; text-align:justify;  line-height:1.5; font-size:11.5px;">1.7.1</td>
+                <td style="width:93%;vertical-align: top; text-align:justify;  line-height:1.5; font-size:11.5px;" >
+                    The Allottees shall have exclusive ownership of the Apartment.					
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td style="width:7%;vertical-align: top; text-align:justify;  line-height:1.5; font-size:11.5px;">1.7.2</td>
+                <td style="width:93%;vertical-align: top; text-align:justify;  line-height:1.5; font-size:11.5px;">
+                    The Allottees shall also have undivided proportionate share in the 	Common Areas. Since the share/interest of Allottees in the 	Common Areas is undivided and  cannot  be  divided  or  separated, 	the Allottees shall  use the Common Areas along with other 	occupants, maintenance staff etc., without causing any 	inconvenience or hindrance to them. Further, the right of the 	Allottees to use the Common Areas shall always be subject to the 	timely payment of maintenance charges and other charges as 	applicable. It is clarified that the promoter shall convey undivided 	proportionate title in the common areas to the association of 	Allottees as provided in the Act.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td style="width:7%;vertical-align: top; text-align:justify;  line-height:1.5; font-size:11.5px;">1.7.3</td>
+                <td style="width:93%;vertical-align: top; text-align:justify;  line-height:1.5; font-size:11.5px;" >
+                    That the computation of the price of the Apartment includes recovery of price of land, construction of the Common
+                    Areas, internal development charges, external development charges, taxes, cost of providing electric wiring, fire
+                    detection and firefighting equipment in the common areas etc. and includes cost for providing all other facilities as
+                    provided within the Project.					
+                </td>
+            </tr>
+        </table>
+        
+        
+        <table style="width:100%; border-collapse: collapse;">
+            <tr>
+                <td class="rows1">1.8</td>
+                <td class="rows2">
+                    It is made clear by the Promoter and the Allottees agrees that the 	Apartment along with parking shall be treated as a single indivisible 	unit for all purposes. It is agreed that the Project is an independent, 	self-contained Project covering the said Land and is not a part of any 	other 	project or zone and shall not form a part of and/or 	linked/combined with any other project in its vicinity or otherwise 	except for the purpose of integration of infrastructure for the benefit of 	the Allottees. It is clarified that Project's facilities and amenities 	shall be available only for use and enjoyment of the Allottees  of the 	Project.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">1.9</td>
+                <td class="rows2">
+                    The Promoter agrees to pay all outgoings before transferring the 	physical possession of the apartment to the Allottees, which it has 	collected from the Allottees, for the payment of outgoings (including 	land cost, ground rent, municipal or other  local taxes, charges for 	water or electricity, maintenance charges, including mortgage loan and 	interest on mortgages or other encumbrances and such other liabilities 	payable to competent authorities, banks and financial institutions, 	which are related to the project). If the Promoter fails to pay all or any  	of the outgoings collected by it from the Allottees or any liability, 	mortgage loan and interest thereon before transferring the apartment 	to the Allottees, the Promoter agrees to be liable, even after the transfer 	of the property, to pay such outgoings and penal charges, if any, to the 	authority or person to whom they are payable and be liable for the cost 	of any legal proceedings which may be taken therefore by such 	authority or person.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> 1.10</td>
+                <td class="rows2">
+                    The Allottee has paid<span class="highlight"><strong> {!TEXT(totalAmnttInReceipt)}/- ({!totalAmnttInReceiptInWords})</strong></span> vide 
+                    {!formattedReceipts}; as booking amount being part payment towards the Total Price of the Apartment at the time of application the receipt of which the Promoter hereby acknowledges and the Allottees hereby agree to pay the remaining price of the Apartment as prescribed in the Payment Plan as may be demanded by the Promoter within the time and in the manner specified therein:</td>	 
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong> </strong></td>
+                <td class="rows2">
+                    Provided that if the Allottee delays in payment towards any amount for 	which is payable, he shall be liable to pay interest at the rate specified in 	the Rules.</td>
+                
+            </tr>
+        </table>
+        
+        
+        <table style="width:100%; border-collapse: collapse;">
+           <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>2.</strong></td>
+                <td class="rows2" style="">
+                    <strong>MODE OF PAYMENT</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong></strong></td>
+                <td class="rows2">
+                    Subject to the terms of the Agreement and the Promoter abiding by the 	construction milestones, the Allottees shall make all payments, on 	demand by the Promoter, within the stipulated time as mentioned in the 	Payment Plan through A/ c Payee cheque/demand draft or online payment 	(as applicable) in favour of “VEEGALAND DEVELOPERS PRIVATE LIMITED”  	payable at Ernakulam.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>3.</strong></td>
+                <td class="rows2" style="">
+                    <strong>COMPLIANCE OF LAWS RELATING TO  REMITTANCES</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> 3.1</td>
+                <td class="rows2">
+                    The Allottees,  if resident  outside India, shall be solely responsible  for 	complying  with the necessary formalities as laid down in Foreign Exchange 	Management Act, 1999, Reserve Bank of India Act and Rules and 	Regulations 	made there under or any statutory amendment(s) 	modification(s) made thereof, Income Tax Act and Rules and any statutory 	amendment(s) modification(s) made from time to time and all other 	applicable laws including that of remittance of payment acquisition/sale/ 	transfer of immovable properties in India etc. and provide the Promoter 	with such permission, approvals which would enable the Promoter to fulfill 	its obligations under this Agreement. Any refund, transfer of security, if 	provided in terms of the Agreement shall be made in accordance with the 	provisions of Foreign Exchange Management Act, 1999 or statutory 	enactments or amendments thereof and the Rules and Regulations of the 	Reserve Bank of India or any other applicable law. The Allottees 	understands and agrees that in the event of any failure on his/her part to 	comply with the applicable guidelines issued by the Reserve Bank of India, 	he/she shall be liable for any action under the Foreign Exchange 	Management Act, 1999 or other laws as applicable, as amended from time 	to time.</td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">3.2 </td>
+                <td class="rows2">
+                    The Promoter accepts no responsibility in this regard. The Allottees shall 	keep 	the Promoter fully indemnified and harmless in this regard. 	Whenever there is 	any change in the residential status of the Allottees 	subsequent to the signing 	of this Agreement, it shall be the sole 	responsibility of the Allottees to 	intimate the same in writing to the 	Promoter immediately and comply with necessary formalities if any 	under the applicable laws. The Promoter shall not 	be responsible towards 	any third party making payment/remittances on behalf of any Allottees 	and 	such third party shall not have any right in the application/allotment of 	the said apartment applied for herein in any way and the Promoter shall 	be issuing the payment receipts in favour of the Allottees only.</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>4. </strong></td>
+                <td class="rows2" style=""><strong>ADJUSTMENT/APPROPRIATION OF PAYMENTS</strong></td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong> </strong></td>
+                <td class="rows2">The Allottees authorizes the Promoter to adjust/appropriate all payments 	made by him/her under any head(s) of dues against lawful outstanding, if 	any, in his/her name as the Promoter may in its sole discretion deem fit 	and the Allottees undertakes not to object/demand/direct the Promoter to 	adjust his payments in any manner.</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>5. </strong></td>
+                <td class="rows2" style=""><strong>TIME IS ESSENCE</strong></td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong></strong></td>
+                <td class="rows2">Time is of essence for the Promoter as well as the Allottees. The Promoter 	shall abide by the time schedule for completing the project and handing 	over 	the Apartment to the Allottees and the common areas to the 	association of the Allotteess  after receiving the occupancy certificate or the 	completion certificate or both, as the case may be. Similarly, the Allottees  	shall make timely payments of the installment and other dues payable 	by 	him/her and meeting the other obligations under the Agreement subject to 	the simultaneous completion of construction by the Promoter as provided 	in <strong>Schedule E ("Payment Plan")</strong>. </td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>6. </strong></td>
+                <td class="rows2" style=""><strong>CONSTRUCTION OF THE PROJECT/ APARTMENT</strong></td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            
+            <tr>
+                <td class="rows1"><strong> </strong></td>
+                <td class="rows2">The Allottees have seen the specifications of the Apartment and accepted the Payment Plan, floor plans, layout plans annexed along with this Agreement which has been approved by the competent authority, as represented by the Promoter. The Promoter shall develop the Project in accordance with the said layout plans, floor plans and specifications. Subject to the terms in this Agreement, the Promoter undertakes to strictly abide by such plans approved by the competent Authorities and shall also strictly abide by the bye-laws, FAR and density norms and provisions prescribed by The Kerala Municipality Building Rules 2019 and shall not have an option to make any variation /alteration/ modification in such plans, other than in the manner provided under the Act, and breach of this term by the Promoter shall constitute a material breach of the Agreement. </td>
+                
+            </tr>
+           <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>7. </strong></td>
+                <td class="rows2" style=""><strong>POSSESSION OF THE APARTMENT</strong></td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">7.1</td>
+                <td class="rows2"><strong>Schedule for possession of the said Apartment:</strong> The Promoter agrees and understands that timely delivery of possession of the Apartment is the essence of the Agreement. The Promoter, based on the approved plans and specifications, assures to hand over possession of the Apartment on   30-08-2028 unless there is delay or failure due to war, flood, drought, fire, cyclone, earthquake, Pandemic or any other calamity caused by nature affecting the regular development of the real estate project ("Force Majeure"). If, however, the completion of the Project is delayed due to the Force Majeure conditions then the Allottees  agree that the Promoter shall be entitled to the extension of time for delivery of possession of the Apartment, provided that 	such Force Majeure conditions are not of a nature which make it impossible for the contract to be implemented. The Allottees  agrees and confirms that, in the event it becomes impossible for the Promoter to implement the project 	due to Force Majeure conditions, then this allotment  shall  stand terminated 	and the Promoter shall refund to the Allottees  the entire amount received by the Promoter from the allotment within 45 days from that date. After refund 	of the money paid by the Allotteese, Allottee  agrees that he/ she shall not have any rights, claims etc. against the Promoter and that the Promoter shall be released and discharged from all its obligations and liabilities under this Agreement.</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">7.2 </td>
+                <td class="rows2"><strong>Procedure for taking possession: </strong>The Promoter, upon obtaining the 	occupancy certificate  from  the  competent  authority  shall  offer  in  	writing  the  possession  of the Apartment, to the Allottees  in terms of this 	Agreement to be taken  within  3 (three months from the date of issue of 	such notice and the Promoter shall give possession of the Apartment to 	the Allottees. The Promoter agrees and undertakes to indemnify the 	Allottees in 	case of failure of fulfillment of any of the provisions, 	formalities, 	documentation on part of the Promoter. The Allottees agrees 	to pay the maintenance charges as determined by the Promoter/ 	association of Allotteess, 	as the case may be. The Promoter on its behalf 	offer the possession to the Allottees  in writing within 60 days of receiving 	occupancy certificate of the Project. The Allottees shall be liable to pay 	maintenance from the expiry of 3 months from Occupancy date or date of 	actual possession whichever is 	earlier..</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong> </strong></td>
+                <td class="rows2"></td>
+                
+            </tr>
+            <tr>
+                <td class="rows1">7.3 </td>
+                <td class="rows2"><strong>Failure of Allottees to take Possession of Apartment:</strong> Upon  receiving  a 	written intimation from the Promoter as per clause 7.2, the Allottees  shall 	take possession of the Apartment from the Promoter by executing 	necessary 	indemnities, undertakings and such other documentation as 	prescribed in this 	Agreement, and the Promoter shall give possession of 	the Apartment to the Allottees. In case the Allottees fails to take 	possession within the time provided in clause 7.2,  such  Allottees 	shall continue to be liable to pay maintenance charges as applicable.</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">7.4 </td>
+                <td class="rows2"><strong>Possession by the Allottees:</strong> After obtaining the occupancy certificate and 	handing over physical possession of the Apartment to the Allottees, it shall 	be the responsibility of the Promoter to hand over the necessary 	documents and plans, including common areas, to the association of the 	Allotteess.</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">7.5 </td>
+                <td class="rows2"><strong>	Cancellation by Allottees:</strong> The Allottees  shall have the right to 	cancel/withdraw his allotment in the Project as provided in the Act:
+                    Provided that where the Allottees proposes to cancel/withdraw from the 	project without any fault of the promoter, the promoter herein is entitled 	to forfeit the booking amount (10% of the total price paid for the 	allotment) and taxes paid/due. The balance amount of money paid by 	the 	Allottees shall be returned by the promoter to the Allottees  	within 45 days  of such cancellation.
+                </td>
+                
+            </tr>
+            
+            <tr>
+                <td class="rows1"><strong> </strong></td>
+                <td class="rows2">Provided that where the Allottees  proposes to cancel/withdraw from the 	project without any fault of the promoter, the promoter herein is entitled 	to forfeit the booking amount (10% of the total price paid for the 	allotment) and taxes paid/due. The balance amount of money paid by the 	Allottees  shall be returned by the promoter to the Allottees within 45 	days of such cancellation.</td>
+                
+            </tr>
+            <tr>
+                <td class="rows1">7.6 </td>
+                <td class="rows2">The Promoter shall compensate the Allottees in case of any loss caused to 	him due to defective title of the land, on which the project is being 	developed, in the manner as provided under the Act and the claim for 	compensation under this section shall not be barred by limitation 	provided under  any law 	for the time being in force.</td>
+                
+            </tr>
+            <tr>
+                <td class="rows1"><strong> </strong></td>
+                <td class="rows2">Except for occurrence of Force Majeure event, if the promoter fails to complete or is unable to give possession of the Apartment (i) in accordance with the terms of this Agreement, duly completed by the date specified herein; or (ii) due to discontinuance of his business as a developer on account of suspension or revocation of the registration under the Act; or for any other reason; the Promoter shall be liable, on demand to the Allottees, in case the Allottees wishes to withdraw from the Project, without prejudice to any other remedy available, to return  the total amount  received by him in respect of the Apartment, with interest at the rate specified in the Rules within 45 days including compensation in the manner as provided under the Act. Provided that where if the Allottees  does not intend to withdraw from the Project, the Promoter shall pay the Allottees interest at the rate specified in the Rules for every month of delay, till the handing over of the possession of the Apartment.</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>8. </strong></td>
+                <td class="rows2"><strong>REPRESENTATIONS AND WARRANTIES OF THE PROMOTER</strong></td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong></strong></td>
+                <td class="rows2">The Promoter hereby represents and warrants to the Allottees  as follows:</td>
+                
+            </tr>
+            <tr>
+                <td class="rows1"> (i)</td>
+                <td class="rows2">	The Promoter has absolute, clear and marketable title with respect to the 	said land, the requisite rights to carry out development upon the said Land 	and absolute, actual, physical and legal possession of the said Land for 	the Project;</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> (ii)</td>
+                <td class="rows2">	The Promoter has lawful rights and requisite approvals from the 	competent 	Authorities to carry out development of the Project;</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> (iii)</td>
+                <td class="rows2">	There are no litigations pending before any Court of law with respect to 	the said land, project or the apartment</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">(iv) </td>
+                <td class="rows2">	All approvals, licenses and permits issued by the competent authorities 	with 	respect to the project, said land and apartment are valid and 	subsisting and have been obtained by following due process of law. 	Further, the  Promoter 	has been and shall, at all times, remain to be in 	compliance with all applicable 	laws in relation to the project, said land, 	building and apartment and common 	areas;	</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">(v)</td>
+                <td class="rows2">The Promoter has the right to enter into this Agreement and has not 	committed or omitted to perform any act or thing, whereby the right, title 	and interest of the Allottees  created herein, may prejudicially be 	affected;	</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">(vi)</td>
+                <td class="rows2">		The Promoter has not entered into any agreement for sale and/or 	development agreement or any other agreement / arrangement with any 	person or party with respect to the said land, including the project and the 	said apartment which will, in any manner, affect the rights of Allottees  	under 	this Agreement;</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> (vii)</td>
+                <td class="rows2">The Promoter confirms that the Promoter is not restricted in any manner 	whatsoever from selling the said Apartment to the Allottees  in the manner 	contemplated in this Agreement;</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> (viii)</td>
+                <td class="rows2">	At the time of execution of the conveyance deed the Promoter shall 	handover lawful, vacant, peaceful, physical possession of the Apartment to 	the Allottees  and the common areas to the Association of the Allottees;	</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">(ix)</td>
+                <td class="rows2">	The Schedule Property is not the subject matter of any HUF and that no 	part thereof is owned by any minor and/or no minor has any right, title 	and claim over the Schedule Property;	</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">(x) </td>
+                <td class="rows2">	The Promoter has duly paid and shall continue to pay and discharge all 	governmental dues, rates, charges and taxes and other monies, levies, 	impositions, premiums, damages and/or penalties and other outgoings, 	whatsoever, payable with respect to the said project to the competent 	Authorities;	</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">(xi) </td>
+                <td class="rows2">	No notice from the Government or any other local body or authority or any 	legislative enactment, government ordinance, order, notification 	(including any notice for acquisition or requisition of the said property) 	has been received by or served upon the Promoter in respect of the said 	land and/or the Project.	</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong> 9.	</strong></td>
+                <td class="rows2"><strong>EVENTS OF DEFAULTS AND CONSEQUENCES</strong>	</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">9.1 </td>
+                <td class="rows2">		Subject to the Force Majeure clause, the Promoter shall be considered	under a  condition of default, in the following events:</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+        </table>
+        
+        <table width="100%" >
+            
+            <tr>
+                <td class="rows1"><strong>a)</strong></td>
+                <td class="rows2">
+                    Promoter fails to provide ready to move in possession of the 	Apartment to the Allottees  within the time period specified. For the 	purpose of this clause, 'ready to move in possession' shall mean that 	the apartment shall be in a habitable condition which is complete in all 	respects;
+                </td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>b)</strong></td>
+                <td class="rows2">
+                    Discontinuance of the Promoter's business as a developer on account of 	suspension or revocation of his registration under the provisions of the 	Act or the rules or regulations made there under.
+                </td>
+            </tr>
+            
+            
+        </table> 
+        
+        <table width="100%">
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">9.2</td>
+                <td class="rows2">
+                    In case of Default by Promoter under the conditions listed above, 	Allottees  are entitled to the following;   
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>a)</strong></td>
+                <td class="rows2">
+                    Stop making further payments to Promoter as demanded by the 	Promoter. If the Allottees  stops making payments, the Promoter shall 	correct the situation by completing the construction milestones and 	only thereafter the Allottees  be required to make the next payment 	without any penal 	interest; or
+                </td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>b)</strong></td>
+                <td class="rows2" style="">
+                    The Allottees  shall have the option of terminating the Agreement in 	which case the Promoter shall be liable to refund the entire money paid 	by the Allottees  under any head whatsoever towards the purchase of 	the apartment, along with interest at the rate specified in the Rules 	within forty-five days of receiving the termination notice:
+                </td>
+            </tr>
+            <td class="rows1"></td>
+            <td class="rows2">
+                Provided that where an Allottees  does not intend to withdraw from the 	project or terminate the Agreement, he shall be paid, by the promoter, 	interest at the rate specified in the Rules, for every month of delay till 	the handing  over of the possession of the Apartment.
+            </td>
+            
+            
+        </table>
+        
+        
+        <table width="100%">
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">9.3</td>
+                <td class="rows2">
+                    The Allottees  shall be considered under a condition of default, on the 	occurrence of the   following events:
+                </td>
+            </tr>
+        </table>
+        
+        <table width="100%" >
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            
+            <tr>
+                <td class="rows1"><strong>a)</strong></td>
+                <td class="rows2">
+                    In case the Allottees  fails to make payments for 3 (Three) consecutive 	demands made by the Promoter as per the Payment Plan annexed 	hereto, despite having been issued notice in that regard the Allottees  	shall be liable to pay interest to  the promoter on the unpaid amount at 	the rate specified in the Rules.
+                </td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>b)</strong></td>
+                <td class="rows2">
+                    Allottee	In case of default by Allottees  under the condition listed above 	continues for a period beyond 3 (Three) consecutive months after 	notice from the Promoter in this regard, the Promoter shall cancel the 	allotment of the Apartment in favour of the   and refund the 	amount money paid to him by the Allottees  by deducting the booking 	amount and the interest liabilities and this Agreement shall thereupon 	stand terminated.
+                </td>
+            </tr>
+            
+        </table>
+        
+        <table >
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong> 10.	</strong></td>
+                <td class="rows2" style="padding-left:10px"><strong>CONVEYANCE OF THE SAID APARTMENT</strong>	</td>
+                
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+        </table>
+        <table>
+            
+            
+            <tr>
+                <td class="rows1"></td>
+                <td class="rows2">
+                    The Promoter, on receipt of complete amount of the Price of the 	Apartment under the Agreement from the Allottees, shall execute a 	conveyance deed and convey the title of the Apartment together with 	proportionate indivisible share in the Common Areas within 3 (three) 	months from the issuance of the occupancy certificate. However, in 	case 	the Allottees  fails to deposit the stamp duty, registration 	charges and all other incidental and legal expenses etc. so demanded 	within the period 	mentioned in the demand letter, the Allottees  	authorizes the Promoter to withhold registration of the conveyance 	deed in their favour till full and final settlement of all dues and 	stamp duty and registration charges to the Promoter is made by 	the 	Allotteess. The Allottees  shall be solely responsible and liable for 	compliance of the provisions of Indian Stamp Act, 1899 including any 	actions taken or deficiencies/penalties imposed by the competent 	authorities.
+                </td>
+            </tr>
+        </table>
+        
+        <table>
+            
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            
+            <tr>
+                <td class="rows1"><strong>11. </strong></td>
+                <td class="rows2" style="">
+                    <strong>MAINTENANCE OF THE SAID BUILDING/ APARTMENT/ PROJECT </strong>  
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"></td>
+                <td class="rows2">
+                    The Promoter shall be responsible to provide and maintain essential 	services in the Project till the taking over of the maintenance of the 	project by the association of the Allotteess. The cost of such 	maintenance has been included in the total price of the Apartment.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"></td>
+                <td class="rows2">
+                    Allottees shall, in consonance with this Agreement, entrust with Promoters a cheque drawn in favor of Association of Allotteess  amounting   Rs. {!booking.Total_Corpus_fund__c}/- ({!corpusAmntInWords}) as Corpus fund payable to the Association of Allotteess  at the time of handing over of the completed apartment which will be handed over to the association after its formation.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>12. </strong></td>
+                <td class="rows2" style="">
+                    <strong>DEFECT LIABILITY </strong>  
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"></td>
+                <td class="rows2">
+                    It is agreed that in case any structural defect or any other defect in 	workmanship, quality or provision of services or any other obligations 	of the Promoter as per the agreement for sale relating to such 	development is brought to the notice of the Promoter within a period 	of 5 (five) years by the Allottees  from the date of handing over 	possession, it shall be the duty of the Promoter to rectify such 	defects without further charge, within 30 (thirty) days, and in the event 	of Promoter's failure to rectify such defects within such time, the 	aggrieved Allottees shall be entitled to receive appropriate 	compensation in the manner as provided under the Act.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"></td>
+                <td class="rows2">
+                    Provided, The Allottees  shall be responsible for the defects arising in 	areas where Alottee take alteration/construction works in their 	apartment by their own. All defects including but not limited to 	defects in their own apartment, but all such other areas where the 	alteration/construction work has affected has to be rectified by the 	Allottees  at their cost.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>13. </strong></td>
+                <td class="rows2">
+                    <strong>RIGHT OF ALLOTTEES TO USE COMMON AREAS AND FACILITIES 	SUBJECT TO  PAYMENT OF TOTAL MAINTENANCE CHARGES  </strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"></td>
+                <td class="rows2">
+                    The Allottees hereby agrees to purchase the Apartment on the specific 	understanding that his/her right to the use of Common Areas shall be 	subject to timely payment of total maintenance charges, as determined 	and thereafter billed by the maintenance agency appointed or the 	association of Allotteess  (or the maintenance agency appointed by it) 	and 	performance by the Allottees of all his/her obligations in 	respect of the terms and conditions specified by the maintenance 	agency or the association of Allotteess  from time to time, subject to 	the fulfillment of below conditions;
+                    
+                    
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">13.1</td>
+                <td class="rows2">
+                    Not to carry on or permit to carry on any commercial, service, or office activities within the building or any part thereof. The apartment complex /building shall be exclusively used for bona fide residential purposes only.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">13.2</td>
+                <td class="rows2">
+                    Not to carry on any trade or business offensive in nature or which may 	become nuisance or danger to the owners of the other premises or to the 	owners or occupiers of  the neighboring property or which may depreciate 	the value of properties or building or any part thereof. 
+                </td>
+            </tr>
+            <tr>
+                <td class="rows1">13.3</td>
+                <td class="rows2">
+                    Not to raise any construction in addition to that mentioned herein. Not to 	change the boundary and peripheral area, either by addition or by 	deletion, without the prior written consent from the Promoter. The 	Verandah and garden area around the apartment should be kept as it is 	and the Purchaser should not do any construction/ change in that area.
+                </td>
+            </tr>
+            <tr>
+                <td class="rows1">13.4</td>
+                <td class="rows2">
+                    Not to use or permit the use of the apartment  in a manner which would diminish the value or utility of the pipes, cisterns, lift, generator set, firefighting equipment and other common amenities provided in the property described in<strong> Schedule - A</strong> herein or in any constructions made thereon.	
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="rows1">13.5</td>
+                <td class="rows2">
+                    Not to keep pet animals, birds etc in flats which shall cause nuisance to other flat owners.	
+                </td>
+            </tr>
+            <tr>
+                <td class="rows1">13.6</td>
+                <td class="rows2">
+                    The Allottee agrees and affirms that the name of the proposed residential building shall always remain <span class="highlight"><strong>"{!booking.Project__c}”,</strong></span> The Promoter is vested with right to display the logo/name in any  part of the building and the expenses for lighting and maintenance of the same shall be met by the Promoter.		
+                </td>
+            </tr>
+            <tr>
+                <td class="rows1"> 13.7</td>
+                <td class="rows2">
+                    Allottee  shall  abide  the  rules  and  regulations  stipulated by  the Owners Association so formed and shall not let the Apartment to persons restricted by the Association Bye Law. 		
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            
+            <tr>
+                <td class="rows1"><strong>14.</strong> </td>
+                <td class="rows2" style="">
+                    <strong>RIGHT TO ENTER THE APARTMENT FOR REPAIRS</strong>
+                </td>
+            </tr>
+           <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> </td>
+                <td class="rows2">
+                    The Promoter/ maintenance agency /association of Allotteess shall 	have 	rights of unrestricted access of all Common Areas, garages/ 	closed parking's and parking spaces for providing necessary 	maintenance services and the Allottees  agrees to permit the association 	of Allottees  and/or maintenance agency to enter into the Apartment or 	any part thereof, after due notice and during the normal working 	hours, unless the circumstances warrant otherwise, with a view to set 	right any defect.
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="rows1"><strong>15.</strong>	 </td>
+                <td class="rows2">
+                    <strong>USAGE</strong> 	
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> </td>
+                <td class="rows2">
+                    <strong>	Use of Basement and Service Areas:</strong> The basement(s) and service areas, if 	any, as located within the project <span class="highlight"><strong>{!booking.Project__c},</strong> </span>shall be 	earmarked for purposes such as parking spaces and services including but 	not limited to electric sub-station, transformer, DO set rooms, 	underground water tanks, pump rooms, maintenance and service rooms, 	fire fighting pumps and equipment's etc. and other permitted uses as per 	sanctioned plans. The Allottees  shall not be permitted to  use the services 	areas and the basements in any manner whatsoever, other than those  	earmarked  as parking spaces, and the same shall be reserved for use by 	the  association  of Allottees  formed by the Allottees  for rendering 	maintenance services.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>16.</strong>	 </td>
+                <td class="rows2" style="">
+                    <strong>GENERAL COMPLIANCE WITH RESPECT TO THE APARTMENT</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> </td>
+                <td class="rows2">
+                    Subject to Clause 12 above, the Allottees  shall, after taking possession, be 	solely responsible to maintain the Apartment at his/her own cost, in good 	repair and condition and shall not do or suffer to be done anything in or 	to the Building, or the Apartment, or the  staircases , lifts , common  	passages, corridors , circulation  areas , atrium or the compound which 	may be in violation of any laws or rules of any authority or change or alter 	or make additions to the Apartment and keep the Apartment, its walls and 	partitions, sewers, drains, pipe and appurtenances thereto or belonging 	thereto, in good and tenantable repair and maintain the same in a fit and 	proper condition 	and ensure that the support, shelter etc. of the 	Building is not in any way damaged or jeopardized. The Allottees  further 	undertakes, assures and 	guarantees that he/she would not put any sign-	board/name-plate, neon 	light, publicity material or advertisement 	material etc. on the face / facade of the Building  or anywhere on the 	exterior of the Project, buildings therein or Common Areas. The Allottees 	shall also not change the colour scheme of the outer walls or painting of 	the exterior side of the windows or carry out any change in the exterior 	elevation or design. Further the Allottees  shall not store any hazardous or 	combustible goods in the Apartment or place any heavy material in the 	common passages or staircase of the Building. The 	Allottees shall also 	not 	remove any wall, including the outer and load bearing wall of the 	Apartment. The Allottees shall plan and distribute its electrical load in 	conformity with the electrical systems installed by the Promoter and 	thereafter the association of Allotteess and/or maintenance agency 	appointed by association of Allotteess. The Allottees  shall be responsible 	for any loss or damages arising out of breach of any of the aforesaid 	conditions.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>17.</strong>	 </td>
+                <td class="rows2" style="">
+                    <strong>COMPLIANCE OF LAWS, NOTIFICATIONS ETC. BY ALLOTTEE</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> </td>
+                <td class="rows2">
+                    The Allottees  is entering into this Agreement for the allotment of an 	Apartment with the full knowledge of all laws, rules, regulations, 	notifications applicable to the Project in general and this project in 	particular. That the Allottees  hereby undertakes that he/she shall comply 	with and carry out, from time to time after he/she has taken over for 	occupation and use the said Apartment, all the requirements, requisitions, 	demands and repairs which are required by any competent Authority in 	respect of the Apartment at his/ her own cost.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">	<strong>18.</strong> </td>
+                <td class="rows2" style="">
+                    <strong>	ADDITIONAL CONSTRUCTIONS</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> </td>
+                <td class="rows2">
+                    The  Promoter undertakes  that  it  has  no  right  to  make  additions  	or to put  up additional structure anywhere in the Project after the 	building plan has been approved by the competent authority(ies) 	except for as provided in the Act.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">	<strong>19.</strong> </td>
+                <td class="rows2" style="">
+                    <strong>	PROMOTER SHALL NOT MORTGAGE OR CREATE A CHARGE</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> </td>
+                <td class="rows2">
+                    After the  Promoter  executes  this  Agreement he  shall  not  mortgage 	or create a charge on the Apartment and if any such mortgage or 	charge is made or created then notwithstanding anything contained in 	any other law for the time being in force, such mortgage or charge 	shall not affect the right and interest of the Allottees  who has taken 	or agreed to take 	such Apartment.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">	<strong>20.</strong> </td>
+                <td class="rows2" style="">
+                    <strong>	APARTMENT OWNERSHIP ACT</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> </td>
+                <td class="rows2">
+                    The Promoter has assured the Allottees that the project in its entirety is in accordance with the provisions of the The Kerala Apartment Ownership 	Act, 1983.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>21.</strong>	 </td>
+                <td class="rows2" style="">
+                    <strong>	BINDING EFFECT</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> </td>
+                <td class="rows2">
+                    Forwarding this Agreement to the Allottees by the Promoter does not create a binding obligation on the part of the Promoter or the Allottees until, firstly, the Allottees signs and delivers this Agreement with all the schedules along with the payments due as stipulated in the Payment Plan within 30 (thirty) days from the date of receipt by the Allottees and secondly, appears for registration of the same before the concerned Sub­ Registrar as and when intimated by the Promoter.  If the Allottees  fails to execute and deliver to the Promoter this Agreement within 30 (thirty) days from the date of its receipt by the Allottees and/or appear before the Sub-Registrar for its registration as and when intimated by the Promoter, then the Promoter shall serve a notice to the Allottees  for rectifying the default, which if not rectified within 30(thirty) days from the date of its receipt by the Allottees, application of the Allottees  shall be treated as cancelled and all sums deposited by the Allottees  in connection therewith including the booking amount shall be returned to the Allottees  without any interest or compensation whatsoever.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">	<strong>22.</strong> </td>
+                <td class="rows2" style="">
+                    <strong>	ENTIRE AGREEMENT</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> </td>
+                <td class="rows2">
+                    This  Agreement , along  with  its  schedules , constitutes the  entire  	Agreement between the Parties with respect to the subject matter 	hereof and supersedes any and all understandings, any other 	agreements, allotment letter, correspondences, arrangements whether 	written or oral, if any, between the Parties in regard to the said 	apartment/building, as 	the case may be.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">	<strong>23.</strong> </td>
+                <td class="rows2" style="">
+                    <strong>	RIGHT TO AMEND </strong>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="rows1"> </td>
+                <td class="rows2" style="">
+                    This Agreement may only be amended through written consent of the 	Parties.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">	<strong>24.</strong> </td>
+                <td class="rows2" >
+                    <strong>	PROVISIONS OF THIS AGREEMENT APPLICABLE ON ALLOTTEE/ 	SUBSEQUENT ALLOTTEE</strong>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="rows1"> </td>
+                <td class="rows2">
+                    It is clearly understood and so agreed by and between the Parties 	hereto that all the provisions contained herein and the obligations 	arising hereunder in respect of the Project shall equally be applicable 	to and enforceable against any subsequent Allottees of the 	Apartment, in case of a transfer, as the said obligations go along 	with the Apartment for all intents and purposes.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">	<strong>25.	</strong> </td>
+                <td class="rows2" style="">
+                    <strong>WAIVER NOT A LIMITATION TO ENFORCE</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">25.1  </td>
+                <td class="rows2">
+                    The Promoter may, at its sole option and discretion, without prejudice 	to its rights as set out in this Agreement, waive the breach by the 	Allottees in not making payments as per the Payment Plan including 	waiving the 	payment of interest for delayed payment. It is made clear 	and so agreed by the Allottees that exercise of discretion by the 	Promoter in the case of 	one Allottees shall not be construed to be a 	precedent and/or binding on 	the Promoter to exercise such discretion 	in the case of other Allottees.
+                </td>
+            </tr>
+           <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">25.2	 </td>
+                <td class="rows2">
+                    Failure on the part of the Promoter to enforce at any time or for any 	period of time the provisions hereof shall not be construed to be a 	waiver of any provisions or of the right thereafter to enforce each and 	every 	provision.
+                </td>
+            </tr>
+           <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> <strong>26.</strong></td>
+                <td class="rows2" style="">
+                    <strong>	SEVERABILITY </strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">	 </td>
+                <td class="rows2">
+                    If any provision of this Agreement shall be determined to be void or 	unenforceable under the Act or the Rules and Regulations made there 	under or under other applicable laws, such provisions of the 	Agreement 	shall be deemed amended or deleted in so far as 	reasonably inconsistent with the purpose of this Agreement and to the 	extent necessary to conform to Act or the Rules and Regulations made 	there under or the applicable law, as the case may be, and the 	remaining provisions of this Agreement shall remain valid and 	enforceable as applicable at the time of execution of this Agreement. 
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>27.	</strong> </td>
+                <td class="rows2">
+                    <strong>	METHOD OF CALCULATION OF PROPORTIONATE SHARE WHEREVER 	REFERRED TO IN THE AGREEMENT</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">	 </td>
+                <td class="rows2">
+                    Wherever in this Agreement it is stipulated that the Allottees  has to 	make any payment, in common with other Allottees  in Project, the 	same 	shall be the proportion which the carpet area of the Apartment 	bears to the total carpet area of all the Apartments in the Project.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"> <strong>28.	</strong></td>
+                <td class="rows2" style="">
+                    <strong>FURTHER ASSURANCES</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">	 </td>
+                <td class="rows2">
+                    Both Parties agree that they shall execute, acknowledge and deliver to the 	other such instruments and take such other actions, in additions to the instruments and f specifically provided for herein, as may be reasonably required in order to effectuate the provisions of this Agreement or of any transaction contemplated herein or to confirm or perfect any right to be created or transferred hereunder or pursuant to any such transaction.
+                </td>
+            </tr>
+           <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>29.	</strong> </td>
+                <td class="rows2" style="">
+                    <strong>PLACE OF EXECUTION</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">	 </td>
+                <td class="rows2">
+                    The  execution  of  this  Agreement  shall  be  complete only upon its 	execution by the Promoter through its authorized signatory at the 	Promoter's 	Office, or at some other place,  which  may  be  mutually  	agreed  between  the  Promoter  and  the  Allottees.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>30.</strong> </td>
+                <td class="rows2" style="">
+                    <strong>	NOTICES</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong></strong> </td>
+                <td class="rows2">
+                    That all notices to be served on the Allottees and the Promoter as 	contemplated by this Agreement shall be deemed to have been duly 	served if sent to the Allottees  or the Promoter by Registered Post 	at their respective addresses specified below:
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+        </table>
+        <div style="display: inline-block; position: relative; left:15px;">
+            
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <table>
+                
+                <tr>
+                    <td class="rows1"><strong></strong> </td>
+                    <td class="rows2">
+                        <strong>	<strong><u>PROMOTER:</u></strong></strong>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td class=""><strong></strong> </td>
+                    <td class="" style="font-size:12px; line-height:1.5; ">
+                        <strong> VEEGALAND DEVELOPERS PRIVATE LIMITED</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="rows1"><strong></strong> </td>
+                    <td class="rows2">
+                        <strong> XIII/300  E-26,  4TH FLOOR  KCF  TOWER,</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="rows1"><strong></strong> </td>
+                    <td class="rows2">
+                        <strong> BMC ROAD, KAKKANAD, THRIKKAKARA P.O,</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="rows1"><strong></strong> </td>
+                    <td class="rows2">
+                        <strong> ERNAKULAM – 682021</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="rows1"><strong></strong> </td>
+                    <td class="rows2">
+                        <u>customercare@veegaland.in</u>
+                    </td>
+                </tr>
+            </table>
+            
+            
+        </div>
+        <div style="display: inline-block; position: relative; left:2px;">
+            <table>
+                <tr>
+                    <td class="rows1"><strong></strong> </td>
+                    <td class="rows2" >
+                        <strong><u>ALLOTTEES:</u></strong>
+                    </td>
+                    
+                </tr>
+                
+                
+                <tr><td class="rows1" rowspan="{!coApplicantCount}" style="padding-top:-60"></td>
+                    
+                    <td class="rows2" style="text-align:left; padding-top:-60; line-height:1.2 " ><strong>{!booking.First_Applicant_Name__c}</strong></td></tr>
+                
+                
+                <apex:variable var="index" value="2"/>
+                <apex:repeat value="{!coApplicants}" var="applicant">
+                    <tr style="margin: 0; padding: 0; ">
+                        <td style="margin: 0; padding: 0; ;">
+                            <span style="text-align:left; "><strong><span style="text-align:center; padding-left:10px">&amp;</span><br/> {!applicant.Name}</strong></span></td></tr>
+                    <apex:variable var="index" value="{!index + 1}"/>
+                </apex:repeat>
+                
+                
+                
+                
+                
+                <!----  <strong> <span class="highlight">
+<apex:variable var="index" value="1"/></span></strong>
+<apex:repeat value="{!bookingcoapplilist}" var="applicant">
+<tr>
+<td class="rows1"></td>
+<td class="rows2" style="padding-bottom:-20px; line-height:1">
+<span style="text-align:left"><strong> {!index}. {!applicant.coapplName}</strong></span></td></tr>
+<apex:variable var="index" value="{!index + 1}"/>
+</apex:repeat>
+
+
+
+
+
+
+
+<tr style="display: inline-block; position: relative; left: 70px;">
+<td class="rows1"><strong></strong> </td>
+<td class="rows2">
+<strong> <span class="highlight" text-align="center"></span></strong>
+</td>
+</tr>--->
+                
+                
+                <tr>
+                    <td class="rows1"><strong></strong> </td>
+                    <td class="rows2">
+                        <strong> <span style="text-transform: uppercase;" class="highlight">{!booking.Permanent_House_No_Name__c}, {!booking.Desom__c} DESOM </span></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="rows1"><strong></strong> </td>
+                    <td class="rows2">
+                        <strong> <span style="text-transform: uppercase;" class="highlight">{!booking.Permanent_Post_Office__c} P.O., {!booking.Village_Panchayath__c} VILLAGE,   </span></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="rows1"><strong></strong> </td>
+                    <td class="rows2">
+                        <strong> <span style="text-transform: uppercase;" class="highlight">{!booking.Taluk__c} TALUK, {!booking.District__c} DISTRICT,  </span></strong>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td class="rows1"><strong></strong> </td>
+                    <td class="rows2">
+                        <strong> <span style="text-transform: uppercase;" class="highlight">PIN CODE  - {!primaryPostalcode}</span></strong>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        
+        
+        
+        <table>
+            <tr>
+                <td class="rows1"><strong></strong> </td>
+                <td class="rows2">
+                    It shall be the duty of the Allottees  and the promoter to inform each 	other of any change in address subsequent to the execution of this 	Agreement in the 	above address by Registered Post failing which all 	communications and letters posted at the above address shall be 	deemed to have been received by the promoter or the Allottees, as the 	case maybe.
+                </td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong>31.</strong> </td>
+                <td class="rows2">
+                    <strong>	JOINT ALLOTTEE</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong></strong> </td>
+                <td class="rows2">
+                    That  in  case  there  are  Joint  Allottees  all  communications  shall  be  	sent  	by the Promoter to the Allottees whose name appears first and at 	the address given by him/her which shall for all intents and purposes to 	consider as 	properly served on all the Allottees.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">32.<strong></strong> </td>
+                <td class="rows2">
+                    <strong>		GOVERNING LAW</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong></strong> </td>
+                <td class="rows2">
+                    That the rights and obligations of the parties under or arising out of this 	Agreement shall be construed and enforced in accordance with the laws of 	India for the time being in force.
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1">	<strong>33.</strong> </td>
+                <td class="rows2">
+                    <strong>		DISPUTE RESOLUTION</strong>
+                </td>
+            </tr>
+            <tr><td class="rows1" style="line-height:2"></td>
+            <td class="rows2"></td>
+            </tr>
+            <tr>
+                <td class="rows1"><strong></strong> </td>
+                <td class="rows2">
+                    All or any disputes arising out or touching upon or in relation to the terms 	and conditions of this Agreement, including the interpretation and validity of 	the terms thereof and the respective rights and obligations of the Parties, 	shall be  settled amicably by mutual discussion, failing which the same shall be settled through the adjudicating officer appointed under the Act.
+                </td>
+            </tr>
+            
+        </table>
+        <div class="page-break"> </div>
+            
+             
+        <div class="no-break">
+            
+            <p style="text-align:center">
+                <u><strong>SCHEDULE OF PROPERTY</strong></u> <br/>
+                <u><strong>SCHEDULE – A</strong></u> 
+            </p>
+            <table width="100%" border="1" cellpadding="5" cellspacing="0" style="margin:0 auto;"  >
+                
+                <tr style="page-break-inside: avoid; page-break-after: auto;" >  
+                    <th width="5%" style="text-align:center">1</th>
+                    <th width="40%">Serial number</th>
+                    <th colspan="5" width="55%"><span class="highlight">1</span></th>
+                    
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">2 </th>
+                    <th>District</th>
+                    <th colspan="5"><span class="highlight">Ernakulam </span></th>    
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">3 </th>
+                    <th>Sub District</th>
+                    <th colspan="5"><span class="highlight">Thripunithura</span></th>    
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">4 </th>
+                    <th>Taluk</th>
+                    <th colspan="5"><span class="highlight">Kanayannur</span></th>    
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">5</th>
+                    <th>Village</th>
+                    <th colspan="5"><span class="highlight">Thekkumbhagom </span></th>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">6</th>
+                    <th>Desom</th>
+                    <th colspan="5"><span class="highlight">Thekkumbhagom</span></th>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">7</th>
+                    <th>Municipality</th>
+                    <th colspan="5"><span class="highlight">Thripunithura Municipality</span></th>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">8</th>
+                    <th>Resurvey block number</th>
+                    <th colspan="5"><span class="highlight">369</span></th>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">9</th>
+                    <th>Resurvey numbers</th>
+                    <th width="11"><span class="highlight">51</span></th>
+                    <th width="11"><span class="highlight">51</span></th>
+                    <th width="11"><span class="highlight">51</span></th>
+                    <th width="11"><span class="highlight">51</span></th>
+                    <th width="11"><span class="highlight">68</span></th>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">10</th>
+                    <th>Resurvey sub division numbers </th>
+                    <th><span class="highlight">2-2</span></th>
+                    <th><span class="highlight">3</span></th>
+                    <th><span class="highlight">4</span></th>
+                    <th><span class="highlight">Nil</span></th>
+                    <th><span class="highlight">Nil</span></th>
+                    
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">11</th>
+                    <th>Old Survey numbers</th>
+                    <th colspan="5"><span class="highlight">193 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;193</span></th>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">12</th>
+                    <th>Survey sub division numbers </th>
+                    <th colspan="5"><span class="highlight">2   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;   </span> <span class="highlight">3</span> </th>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">13</th>
+                    <th>Extent in Ares </th>
+                    <th><span class="highlight"><strong>4.95</strong></span></th>
+                    <th><span class="highlight"><strong>25.29</strong></span></th>
+                    <th><span class="highlight"><strong>23.07</strong></span></th>
+                    <th><span class="highlight"><strong>24.28</strong></span></th>
+                    <th><span class="highlight"><strong>1.34</strong></span></th>
+                </tr>
+                <tr height="30px" style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center"></th>
+                    <th>Total Extent in Ares </th>
+                    <th colspan="5"><span class="highlight"><strong>78.93 (Seventy eight decimal nine three) Ares.</strong></span></th>
+                    
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">14</th>
+                    <th>Tenure, Nature of Land  </th>
+                    <th colspan="5"><span class="highlight">Jenmom, Purayidom </span></th>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">15</th>
+                    <th>Thandapper Number of Promoter</th>
+                    <th colspan="5"><span class="highlight">10015</span></th>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center">16</th>
+                    <th >Thandapper Number of Allottee</th>
+                    <th colspan="5"><span class="highlight">Nil</span></th>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th style="text-align:center; vertical-align: top;">17</th>
+                    <th colspan="6"><strong>DESCRIPTION: </strong><br/>
+                       <span style="text-align:justify; line-height:1.5;font-size:12px; "> All that piece and parcel of land having an area of <strong>78.93 Ares</strong> of land made up of 4.95 Ares in Re. Sy. No.  51/2-2, 1.34 Ares in Re. Sy. No.  68, 23.07 Ares in Re. Sy. No.  51/4, 25.29 Ares in Re. Sy. No.  51/3, and 24.28 Ares in                 Re. Sy. No.  51 in Block No. 369, together with right of way over 4 meter wide passage from the PWD Road on the West, in Thekkumbhagom Village, Kanayannur Taluk of Ernakulam District under Sale deed No. 1729/2022, of Sub Registry Office, Thripunithura with all easements and all other rights appurtenant thereto. </span>
+                    </th>
+                    
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th colspan="7">18. BOUNDARIES</th>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th ><strong>East</strong> </th>
+                    <th colspan="6"><span class="highlight">Thodu</span></th>
+                </tr>
+                <tr>
+                    <th><strong>South</strong> </th>
+                    <th colspan="6"><span class="highlight">4 Meter wide private road and Property of Unnikrishnan,              
+                        Jayachandran, Leela and Madhusoodanan
+                        </span></th>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th ><strong>West</strong> </th>
+                    <th colspan="6"><span class="highlight">Property of Leela, Krishnadas, R. Gopalakrishnan alias Gopalakrishna Karthavu, PWD Road, Property of Sushama Harikumar and Suresh Bhaskaran</span></th>
+                </tr>
+                <tr style="page-break-inside: avoid; page-break-after: auto;">
+                    <th ><strong>North</strong></th>
+                    <th colspan="6"><span class="highlight">Property of Rajesh, Radha, Nandanan, Ajayan and Bhaskaran</span></th>
+                </tr>
+                
+            </table>
+        </div>
+        <div class="page-break"></div>
+        
+        
+        <p style="text-align:center">
+            <u><strong>SCHEDULE – B</strong></u> <br/>
+        </p>
+        
+        <div class="parastyle">
+            {!booking.UDS_Percentage__c}% Undivided  interest in respect  of  the property described in SCHEDULE A in order to hold SCHEDULE C Apartment.
+        </div>
+        
+        <p style="text-align:center">
+            <u><strong>SCHEDULE- C</strong></u> <br/>
+            (Description of the Apartment to be constructed)
+        </p>
+        <div class="parastyle">
+            <strong>Apartment No.</strong>  <strong>{!Booking.Plot__r.Name}</strong> having a Carpet area <span class="highlight">of {!booking.Carpet_Area__c} Sq. Mtrs ({!carpetAreaSqft} Sqft)</span>, situated on the <span class="highlight">{!getFloorWithSuffix}</span> floor, together with the proportionate share of common areas and facilities (Super built up area of <span class="highlight"><strong>{!Booking.Plot__r.Super_built_up_area__c} Sq. Mtrs ({!superBuiltUpAreaSqft} Sqft)</strong> </span> along with right to use one covered parking Slot No.<span class="highlight"> {!booking.Covered_parking_slot_number__c} </span> having dimension<span class="highlight"> 270 cm (Width) X 550 cm (Length)</span> on the basement floor of the building as a special privilege attached to the apartment in the project named<span class="highlight"><strong> “{!booking.Project__c}”</strong></span>, together with individual electricity connection, all easements,                rights and improvements thereon constructed vide Building Permit                    No.<span class="highlight"> PW4/BA-255/2022-23</span> dated<span class="highlight"> 08/09/2023</span> from<span class="highlight"> Thripunithura</span> Municipality.
+        </div>
+        <br/>
+        <div class="parastyle">
+            Original of this Agreement for Sale shall be kept with Allottees and a photocopy thereof shall be kept with Promoter.
+        </div>
+        <br/>
+        <div class="parastyle">
+            <strong> IN WITNESS WHEREOF</strong> parties hereinabove named have set their respective hands and signed this Agreement for sale in the presence of attesting witness on the day, month and year first above written. 
+        </div>
+        <br/>
+        
+        <table width="100%" >
+            <tr style="font-size:11.5px;">
+                <td style="text-align:left;">Signed and executed by:</td>
+                <td style="text-align:right;"> Signed and executed by:</td>
+            </tr>
+        </table>
+        <br/>  
+        
+        <table style="width:100%;" >
+            <tr style="font-size:11.5px"><th width="85%" style=""><i>Promoter: </i></th>
+                <th style=" text-align:left"><i>Allottee:</i></th>
+            </tr>
+            <tr><td style=" padding-top:20px"></td></tr>
+            
+            <tr style="font-size:11.5px"> 
+                <td style="text-align:left;" rowspan="{!coApplicantCount}" >
+                    <strong> VEEGALAND DEVELOPERS PRIVATE LIMITED<br/></strong>
+                    Represented by its Director – Marketing <br/>
+                    &amp; Administration <strong>Mr. Kurian Thomas</strong>
+                </td>
+                <td  style="text-align:left;">
+                    <strong>1.{!booking.First_Applicant_Name__c}</strong>
+                </td>
+            </tr>
+            
+            
+            
+            <apex:variable var="index" value="2"/>
+            <apex:repeat value="{!coApplicants}" var="applicant">
+                <tr style="font-size:11.5px">
+                    <td>
+                        <span style="text-align:left"><strong> {!index}.  {!applicant.Name}</strong></span></td></tr>
+                <apex:variable var="index" value="{!index + 1}"/>
+            </apex:repeat>
+            
+            
+        </table>    
+        <br/><br/>
+        
+        <p > <strong> <u>WITNESSES:</u></strong></p>
+        <ol>
+            <li ><span class="highlight">Mrs. Midhu Siju, Private Company Employee,</span><br/>
+                <span class="highlight">W/o Sijumon, Pottakuzhikkal, Chirakkakam,</span><br/>
+                <span class="highlight">Varapuzha P.O., Ernakulam – 683517</span>
+            </li>
+            <li ><span class="highlight">Mr. Sandeep Lal K.R., Private Company Employee,</span><br/>
+                <span class="highlight">S/o Rajendra Lal K.K., 1441, Karyaparambil House,</span><br/>
+                <span class="highlight">SRM Road, Ernakulam North P.O., Ernakulam – 682018</span>
+            </li>
+            
+        </ol>
+        <br/>
+        
+        This document is prepared by: <br/>
+        
+        <p style="text-align:left" >
+            
+            <span class="highlight">      
+                Adv. John T. Sebastian, Roll No. K 361-A/1986,<br/>  
+                JOHN &amp; JOHN, 5th Floor, Metro Plaza,<br/> 
+                Market Road North, Kochi – 682 018. <br/> 
+            </span>
+            <br/>
+            
+            This Document is printed through Computer.<br/>
+            Corrections &amp; Interlineations: Nil 
+        </p>
+        <br/>
+        <div class="page-break"></div>
+            
+       
+        <p style="text-align:center">
+            <u><strong>SCHEDULE – D</strong></u> <br/>
+            <span class="highlight">  <u><strong>SPECIFICATIONS &amp; AMENITIES</strong></u> </span> 
+        </p>
+        <table>
+            <tr>
+                <td><span class="highlight speci "> The detailed technical specification to be adopted in the project is given under:</span>
+                </td>
+            </tr>
+        </table>
+        
+        
+        <table>
+            
+            
+            <tr>
+                <td>
+                    <span class="highlight speci"> <strong>FOUNDATION</strong> </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight speci"> The foundation system for the project will be D.M.C pile , which are anchored into hard rock with minimum 300mm insertion. At ground level pile caps are provided with interconnected grade beams . M30 grade concrete and Fe 550 D grade steel are used for pile and pile cap.   </span>
+                </td>
+            </tr>   
+            
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"><strong> STRUCTURE </strong></span>
+                </td>
+            </tr> 
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> RCC framed structure with masonry wall partition. </span> 
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">The external walls are Porotherm block masonry acts as insulator &amp; prevents heat from getting transferred inside is provided, other than kitchen, work area and toilets. Solid block masonry for kitchen, work area and toilets and AAC block used for internal walls.  </span>
+                </td>
+            </tr>  
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> The structure surface including masonry wall shall be cement plastered.</span>  
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> The structure shall be designed and built in as Earth quake resistant structure coming in zone 3 as per IS1893. </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> <strong>FLOOR</strong>  </span>
+                </td>
+            </tr>   
+            
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Vitrified tiles for living, dining and bedrooms, Vitrified / Ceramic tiles for kitchen, work area, toilets and balconies.  </span>
+                </td>
+            </tr>   
+            
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"><strong>KITCHEN AND WORK AREA</strong> </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Provision for hot and cold water in kitchen. Washing machine/Dish washer and Sink provision in work area. </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"><strong>DOOR &amp; WINDOWS. </strong>   </span>
+                </td>
+            </tr>   
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Main door is veneer finish flush door with veneer/pvc wrapped engineered jambs. Bed rooms door are both side laminated flush door with PVC wrapped engineered jambs. Toilet doors are ABS / WPC door, UPVC glazed balcony doors &amp; windows.MS grill will be provided for windows. Ventilators are made of powder coated aluminium sections. </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> <strong>PAINTING</strong>  </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Putty, primer and emulsion for internal walls and ceiling. Weather coat exterior emulsion and texture finish for external walls.   </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"><strong>TOILET</strong>  </span> 
+                </td>
+            </tr>
+            
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Sanitary ware shall be off-white/white color. </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">   Water efficient wall hung WC with concealed cistern for all toilets. </span>
+                </td>
+            </tr>
+            
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Wash basin shall be wall hung half pedestal type in all toilets.  </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Chrome plated water efficient plumbing fixtures in all toilets.   </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">  Diverter with shower and piping for geyser in all bathrooms. </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Energized point for fixing exhaust fan in all toilets.</span> 
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">Energized geyser point in all toilets.   </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">  Warranty	- the warranty period shall be as follows from the date of purchase from the seller.</span>
+                </td>
+            </tr>
+        </table> 
+        <table style="border-collapse: collapse; width: 100%; border: none;">
+            
+            
+            <tr class="speci" style="border-bottom: 2px solid white;">
+                <td width="40%" class="highlight" style="border-bottom: 5px solid white;">CP fittings  </td>
+                <td width="10%" class="highlight" style="border-bottom: 5px solid white;"> - </td>
+                <td width="60%" class="highlight" style="border-bottom: 5px solid white;">7 year(as per manufacture Terms &amp; Conditions.)</td>
+                
+            </tr>
+            <tr class="speci" style="border-bottom: 2px solid white;">
+                <td width="40%" class="highlight" style="border-bottom: 5px solid white;">Sanitary ware  </td>
+                <td width="10%" class="highlight" style="border-bottom: 5px solid white;"> - </td>
+                <td width="60%" class="highlight" style="border-bottom: 5px solid white;">7 year(as per manufacture Terms &amp; Conditions.)</td>
+                
+            </tr>
+            
+            <tr class="speci" style="border-bottom: 2px solid white;">
+                <td width="40%" class="highlight" style="border-bottom: 5px solid white;">Concealed cistern&amp; Flush plate    </td>
+                <td width="10%" class="highlight" style="border-bottom: 5px solid white;"> - </td>
+                <td width="60%" class="highlight" style="border-bottom: 5px solid white;">7year(as per manufacture Terms &amp; Conditions.)</td>
+                
+            </tr>
+            
+            <tr class="speci" style="border-bottom: 2px solid white;">
+                <td width="40%" class="highlight" style="border-bottom: 5px solid white;">Seat cover </td>
+                <td width="10%" class="highlight" style="border-bottom: 5px solid white;"> - </td>
+                <td width="60%" class="highlight" style="border-bottom: 5px solid white;">2 year(as per manufacture Terms &amp; Conditions.) </td>
+                
+            </tr>
+            
+            <tr class="speci" style="border-bottom: 2px solid white;">
+                <td width="40%" class="highlight" style="border-bottom: 5px solid white;"> Health faucet  </td>
+                <td width="10%" class="highlight" style="border-bottom: 5px solid white;"> - </td>
+                <td width="60%" class="highlight" style="border-bottom: 5px solid white;">1 year(as per manufacture Terms &amp; Conditions.) </td>
+                
+            </tr>
+            
+        </table>
+        
+        <table>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">  <strong>ELECTRICAL</strong> </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Concealed wiring with superior quality PVC insulated copper cable, adequate light, fan, 6/16A power plug points controlled by RCCB and MCB, independent energy meter for each apartment. Modular switches will be provided for all points. </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Warranty period for RCCB and MCB’s are one Year from the date of purchase. (as per manufacture Terms &amp; Conditions.)  </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">Modular Switches shall be ten year from the date of purchase </span> 
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Fan regulator shall be one year from the date of purchase  </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">  <strong>TV POINT</strong></span> 
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> TV point in living room &amp; Master Bedroom </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> <strong>FIRE FIGHTING</strong>  </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">  Fire fighting arrangements as per Kerala fire fighting norms with one year warranty by the supplier After that owners Association should take the AMC (annual maintenance contract) The fire NOC shall be renewed every year by the owners association. </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"><strong>LIFTS </strong> </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">Four fully automatic lifts (Two passenger and Two service lift). </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Warranty-one year(as per manufacture Terms &amp; Conditions.), After that owners Association should take the AMC</span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"><strong>AIR-CONDITIONING</strong> </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">Energized split AC points in all bed rooms &amp; Living room.</span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> <strong>GENERATOR</strong></span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">Generator backup for common facilities such as lifts, common lighting, pumps etc. Generator backup is limited to 1500 W for 4 BHK  &amp; 1000 W for 3 BHK apartments and ACCL will be installed in each apartment for the power backup.</span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"><strong>SOLAR INVERTER AND UPS</strong></span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">105KW grid connected solar system for reducing the common area electricity charges and UPS back up for emergency lights.(Which covers lobbies and parking area).</span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"><strong>TELEPHONE FACILITY</strong> </span>
+                </td>
+            </tr>    
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight">Provision for intercom facility in living room </span>
+                </td>
+            </tr> 
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> <strong>RETICULATED LPG CONNECTION</strong></span>
+                </td>
+            </tr> 
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Reticulated gas supply line with individual consumption meter for each apartment, subject to the government rules prevailing at that time.</span>
+                </td>
+            </tr> 
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> One year warranty provided by supplier after commissioning (as per manufacture Terms &amp; Conditions.). After that Owners Association can take the AMC (Annual maintenance contract)</span>
+                </td>
+            </tr> 
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> <strong>WATERSUPPLY</strong></span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Sufficient capacity of underground and over head water tanks.Treated water for domestic use and RO water for drinking in kitchen.</span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"><strong>STP</strong>  </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Sewage treatment plant as per KSPCB norms with Ultra filtration for reuse. One year warranty provide by supplier(as per manufacture Terms &amp; Conditions.), after that owners Association can take the AMC(annual maintenance contract) for machinery and services. Owners Association  should ensure that , all the system are in proper working condition  round the clock .Consent  to operate shall be renewed on its expiry by the Owners Association  </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> CAR PARKING</span>
+                </td>
+            </tr>   
+            
+            <tr>
+                <td class="speci">
+                    <span class="highlight"> Ample car parking shall be provided &amp; exclusive visitors car parking as per KMBR rules.</span> 
+                </td>
+            </tr> 
+            <tr>
+                <td class="speci">
+                    <span class="highlight">The following are the facilities/amenities to be made available to the Allottee of this project: </span>
+                </td>
+            </tr> 
+        </table>
+        
+        <ol >
+            <li> <span class="highlight"> Air Conditioned Fitness Centre</span> </li>
+            <li> <span class="highlight">Air Conditioned Multi Recreation Hall </span> </li>
+            <li> <span class="highlight"> Air Conditioned Indoor Games Hall</span> </li>
+            <li> <span class="highlight">Air Conditioned AV Room </span> </li>
+            <li> <span class="highlight">Air Conditioned Zumba Fitness Room </span> </li>
+            <li> <span class="highlight">Open Air Yoga Space</span> </li>
+            <li> <span class="highlight">Air Conditioned Saloon </span> </li>
+            <li> <span class="highlight">Medicinal/Herbal Garden</span> </li>
+            <li> <span class="highlight">Golf Mat On Roof Top</span> </li>
+            <li> <span class="highlight">Air Conditioned Co Working Spaces</span> </li>
+            <li> <span class="highlight"> Charging Point (16A) in Visitors Parking (5Nos.)</span> </li>
+            <li> <span class="highlight">Open Air Meditation Space </span> </li>
+            <li> <span class="highlight">Recreation Area With Walkway On 17th Floor </span> </li>
+            <li> <span class="highlight"> Children's Play Area</span> </li>
+            <li> <span class="highlight">Swimming pool &amp; Kids pool</span> </li>
+            <li> <span class="highlight">Jacuzzi </span> </li>
+            <li> <span class="highlight"> Aquatic Gym</span> </li>
+            <li> <span class="highlight">Air Conditioned Spa/Massage Room </span> </li>
+            <li> <span class="highlight">Outdoor Badminton Court </span> </li>
+            <li> <span class="highlight">Outdoor Half Basketball Court </span> </li>
+            <li> <span class="highlight">Cricket Pitch </span> </li>
+            <li> <span class="highlight">Outdoor Tennis Court </span> </li>
+            <li> <span class="highlight">Amphitheatre </span> </li>
+            <li> <span class="highlight">Garden on Each Floor Lobby </span> </li>
+            <li> <span class="highlight">Double Height Furnished Designed Entry Lobby in Ground Floor </span> </li>
+            <li> <span class="highlight">4 Nos Automatic High Speed Lifts </span> </li>
+            <li> <span class="highlight">105 kw Solar Power For Common Area </span> </li>
+            <li> <span class="highlight">Access Control For Lobby Entrance At Basement Floor And Ground Floor </span> </li>
+            <li> <span class="highlight">Round The Clock Security With Surveillance Camera</span> </li>
+            <li> <span class="highlight"> Air Conditioned Guest Bed Rooms</span> </li>
+            <li> <span class="highlight">Driver's Room With Toilet </span> </li>
+            <li> <span class="highlight">Maid's Room With Toilet</span> </li>
+            <li> <span class="highlight">Exclusive Car Parking For Visitors</span> </li>
+            <li> <span class="highlight">D.G Backup With ACCL </span> </li>
+            <li> <span class="highlight">STP With Ultrafiltration System </span> </li>
+            <li> <span class="highlight">Reticulated Gas System </span> </li>
+            <li> <span class="highlight">Rainwater Harvesting Tank And Bore Well Recharging </span> </li>
+            <li> <span class="highlight">R.O. Water For Drinking And Cooking</span> </li>
+            <li> <span class="highlight">Organic Waste Composterfor Waste Disposal</span> </li>
+            <li> <span class="highlight">Lightning Protection</span> </li>
+            <li> <span class="highlight">Pets unleashing area</span> </li>
+            
+        </ol>
+    </div>
+    <div class="page-break"></div>
+    <div class="no-break">
+        
+        <table  width="100%" border="1" cellpadding="5" cellspacing="0" style="margin:0 auto;line-height:1; ">
+            <tr style="page-break-inside: avoid; page-break-after: auto;">
+                <td colspan="10" style="text-align:center; font-size:15px;"><span class="highlight"><strong>SCHEDULE- E</strong></span></td>
+            </tr>
+            <tr style="page-break-inside: avoid; page-break-after: auto;">
+                <td colspan="10" style="text-align:center; font-size:11.5px;">
+                    <span class="highlight" style="text-align:center; font-size:11.5px;"><u><strong>Installment Payment Plan - Apartment No. {!Booking.Plot__r.Name}</strong></u></span><br/>
+                    <span class="highlight " style="text-align:center; font-size:11.5px;"><u><strong>{!UPPER(booking.Project__c)}</strong></u> </span>
+                    
+                </td>
+                
+            </tr>
+            <tr style="page-break-inside: avoid; page-break-after: auto; line-height:1.2 " >
+                <td style="text-align:center; font-size:11.5px" colspan="5" width="45%" rowspan="{!coApplicantCount}" >
+                    <span class="highlight">Name</span>
+                </td>
+                <td style="text-align:center; font-size:11.5px; border-bottom:none;" width="55%" colspan="5" rowspan="{!coApplicantCount}"  >
+                    <span class="highlight"><strong>{!booking.First_Applicant_Name__c}</strong></span>
+                     <apex:repeat value="{!coApplicants}" var="applicant">
+                
+                   
+                         <div ><strong> <span class="highlight"> &amp;</span><br/></strong></div>
+                             <div >
+                                 <span class="highlight" ><strong>{!applicant.Name}</strong> </span>
+                             </div>
+                
+            </apex:repeat>
+               
+                    
+                </td></tr>
+            <apex:repeat value="{!coApplicants}" var="applicant">
+                 
+            <tr></tr> </apex:repeat>
+            
+           
+            
+            
+            
+            
+            
+            <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;">
+                <td colspan="5" width="45%" style="text-align:center"><span class="highlight">Carpet Area</span></td>
+                <td  colspan="5" width="55%" style="text-align:center"><span class="highlight"><strong>{!booking.Carpet_Area__c} Sq. Mtrs ({!carpetAreaSqft} Sqft)</strong></span></td>
+            </tr >
+            <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;">
+                <td colspan="5" width="45%" style="text-align:center"><span class="highlight">Super built up Area</span></td>
+                <td  colspan="5" width="55%" style="text-align:center"><span class="highlight"><strong>{!Booking.Plot__r.Super_built_up_area__c} Sq. Mtrs ({!superBuiltUpAreaSqft} Sqft)</strong></span></td>
+            </tr>
+            <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;" >
+                <td colspan="5" width="45%" style="text-align:center"><span class="highlight">Type</span></td>
+                <td  colspan="5" width="55%" style="text-align:center"><span class="highlight"><strong>{!Booking.Plot__r.BHK_Type__c}</strong></span></td>
+            </tr>
+            <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;" >
+                <td colspan="5" width="45%" style="text-align:center"><span class="highlight">Floor</span></td>
+                <td  colspan="5" width="55%" style="text-align:center"><span class="highlight"><strong>{!Booking.Plot__r.Floor__c}</strong></span></td>
+            </tr>
+            <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;" >
+                <td colspan="5" width="45%" style="text-align:center"><span class="highlight">Apartment No.</span></td>
+                <td  colspan="5" width="55%" style="text-align:center"><span class="highlight"><strong>{!Booking.Plot__r.Name}</strong></span></td>
+            </tr>
+            <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;" >
+                <td colspan="5" width="45%" style="text-align:center"><span class="highlight"><strong>Apartment Cost (Excluding Tax)</strong></span> </td>
+                <td  colspan="5" width="55%" style="text-align:center"><span class="highlight"><strong>{!TEXT(Booking.Sub_Total__c)}</strong></span></td>
+            </tr>
+            <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;" >
+                <td colspan="5" width="45%" style="text-align:center"><span class="highlight">GST (CGST &amp; SGST) Variable as per rules</span> </td>
+                <td  colspan="5" width="65%" style="text-align:center"><span class="highlight"><strong>{!TEXT(booking.GST_Amount__c)}</strong></span></td>
+            </tr>
+            <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px;" >
+                <td colspan="5" width="45%" style="text-align:center"><span class="highlight"><strong>Total Cost (Including Tax)</strong></span>  </td>
+                <td  colspan="5" width="65%" style="text-align:center"><span class="highlight"><strong>{!TEXT(booking.Total__c)}</strong></span></td>
+            </tr>
+            <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px" >
+                <td height="10px" colspan="10" style="text-align:center"></td>
+            </tr>
+            <apex:variable var="rowNum" value="{!1}" />
+            <tr style="page-break-inside: avoid; page-break-after: auto;text-align:center; font-size:11.5px" >
+                <th width="2%" colspan="2" style="font-size:11.5px"><span class="highlight" ><strong>SL NO:</strong></span></th>
+                <!---<th width="5"></th>--->
+                <th width="32%" style="font-size:11.5px"><span class="highlight"><strong>Installment</strong></span></th>
+                <th width="10%"  style="font-size:11.5px"><span class="highlight"><strong>&emsp;&emsp;%&emsp;&emsp;</strong></span></th>
+                <!---<th width="10"></th>--->
+                <th width="9" colspan="2" style="font-size:11.5px"><span class="highlight"><strong>Due Date</strong></span></th>
+                <th width="13%" style="font-size:11.5px"><span class="highlight"><strong>Amount towards Apartment Cost</strong></span> </th>
+                <th width="10%" style="font-size:11.5px"><span class="highlight"><strong>CGST</strong></span></th>
+                <th width="10%" style="font-size:11.5px"><span class="highlight"><strong>SGST</strong></span></th>
+                <th width="14%" style="font-size:11.5px"><span class="highlight"><strong>Total</strong></span></th>
+                
+            </tr>
+            <apex:repeat value="{!paymentSchedule}" var="p">
+                <tr style="page-break-inside: avoid; page-break-after: auto;font-size:11.5px">
+                    <td width="5" style="text-align:center" colspan="2"><span class="highlight" ><apex:outputText value="{!p.S_No__c}" /></span></td>
+                    
+                    <td width="25"><span class="highlight"><strong>{!p.Name}</strong></span></td>
+                    <td width="10" style="text-align:center"><span class="highlight">
+                        <apex:outputText value="{!p.Payment_percent__c}" /> %
+                        </span></td>
+                    
+                    <td width="15" style="text-align:center" colspan="2"><span class="highlight">
+                        <apex:outputText value="{0,date,dd . MM . yyyy}">
+                            <strong><apex:param value="{!p.Payment_Due_Date__c}"/></strong>
+                        </apex:outputText>
+                        </span></td>
+                    <td width="10%" style="text-align:center"><span class="highlight">{!p.Amount_Excluding_Taxes__c}</span> </td>
+                    <td width="10%" style="text-align:center"><span class="highlight">{!p.CGST_Amount__c}</span></td>
+                    <td width="10%" style="text-align:center"><span class="highlight">{!p.SGST_Amount__c}</span></td>
+                    <td width="10%" style="text-align:center"><span class="highlight">{!p.AmountB__c}</span>	</td>
+                </tr>
+            </apex:repeat>
+            
+            
+            <tr style="page-break-inside: avoid; page-break-after: auto;text-align:center; font-size:11.5px">
+                <td colspan="6" width="10%"><span class="highlight">TOTAL</span></td>
+                <td><span class="highlight">{!TEXT(exclusiveTax)}</span></td>
+                <td><span class="highlight"><apex:outputText >{!TEXT(cgstTotal)}</apex:outputText></span></td>
+                <td><span class="highlight">{!TEXT(sgstTotal)}</span></td>
+                <td><span class="highlight">{!TEXT(inclusiveTax)}</span></td> 
+            </tr>
+            <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px">
+                <td style="text-align:center"><span class="highlight">1</span></td>
+                <td colspan="9"><span class="highlight">Stamp &amp; Registration charges for agreement &amp; Sale deed are extra and shall be payable as and when requires</span></td>
+            </tr>
+            <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px">
+                <td style="text-align:center"><span class="highlight">2</span></td>
+                <td colspan="9"><span class="highlight">GST has been calculated at prevailing rate and can vary as per statutory rules.</span></td>
+            </tr>
+            <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px">
+                <td style="text-align:center"><span class="highlight">3</span></td>
+                <td colspan="9"><span class="highlight">TDS on immovable property shall be deducted as applicable and as per the rules.</span></td>
+            </tr>
+            <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px">
+                <td style="text-align:center"><span class="highlight">4</span></td>
+                <td colspan="9"><span class="highlight">Corpus fund of Rs.{!booking.Total_Corpus_fund__c}/- would be additional and should be paid to the association along with the last installment</span></td>
+            </tr>
+            
+            
+            
+        </table>
+    </div>
+    <div class="page-break"></div>
+    <div class="no-break">
+        <p style="text-align:center">
+            <u><strong> SCHEDULE – F</strong></u> <br/>
+            <u><strong>FLOOR PLAN</strong></u> 
+        </p>
+        
+        
+        <img src="{!URLFOR($Resource.preetFloorPlan)}" style="width:100%; height:750px;" />
+    </div>
+    <div class="page-break"></div>
+    <div class="no-break">
+        <p style="text-align:center">
+            <u><strong> SCHEDULE – G</strong></u> <br/>
+            <u><strong>ELECTRICAL PLAN</strong></u> 
+        </p>
+        
+        <img src="{!URLFOR($Resource.preetElectricalPlan)}" style="width:100%; height:750px;" />
+    </div>
+    <div class="page-break"></div>
+    <div class="no-break">
+        <p style="text-align:center">
+            <u><strong> SCHEDULE – H</strong></u> <br/>
+            <u><strong>PLUMBING PLAN</strong></u> 
+        </p>
+        
+        <img src="{!URLFOR($Resource.preetPlumbingPlan)}" style="width:100%; height:750px;" />
+    </div>
+    <div class="page-break"></div>
+    
+    <div class="no-break">
+        <p style="text-align:center">
+            
+            <u><strong> SCHEDULE – I</strong></u> <br/>
+            <u><strong>PARKING PLAN</strong></u> 
+        </p>
+        
+        <img src="{!URLFOR($Resource.PreetParkingPlan)}" style="width:100%; height:750px;"/>
+    </div>
+    
+    
+    
+    
+    
+</apex:page>

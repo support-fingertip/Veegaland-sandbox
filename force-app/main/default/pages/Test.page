@@ -1,0 +1,107 @@
+<apex:page >
+    <style>
+        /* Main container to hold the image and buttons */
+        .zoom-container {
+            width: 40vw; /* 40% of the screen width */
+            height: 40vw; /* 40% of the screen width to maintain square ratio */
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ccc;
+            margin-left: 20px; /* Add margin on the left if you need space from the left edge */
+            cursor: grab;
+        }
+
+        /* The image inside the container */
+        .zoom-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensures the image is contained within the container */
+            transition: transform 0.3s ease; /* Smooth transition for zooming */
+        }
+
+        /* Zoom buttons placed below the image */
+        .zoom-buttons {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .zoom-buttons button {
+            padding: 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .zoom-buttons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <h1 style="text-align:left;">Image Zoom and Drag with Buttons</h1>
+
+    <!--<div class="zoom-container" id="zoomContainer">
+        <img id="zoomImage" src="https://cdn.pixabay.com/photo/2022/09/27/19/46/ai-generated-7483596_960_720.jpg" alt="Zoom Image" />
+    </div>-->
+    
+
+    <div class="zoom-buttons">
+        <button onclick="zoomIn()">Zoom In</button>
+        <button onclick="zoomOut()">Zoom Out</button>
+    </div>
+
+    <script>
+        let scale = 1;
+        let startX, startY, isDragging = false;
+
+        const image = document.getElementById('zoomImage');
+        const zoomContainer = document.getElementById('zoomContainer');
+
+        // Zoom in function
+        function zoomIn() {
+            scale += 0.2; // Increase scale by 0.2 on each zoom in
+            image.style.transform = `scale(${scale})`;
+        }
+
+        // Zoom out function
+        function zoomOut() {
+            if (scale > 0.2) { // Prevent zooming out beyond the original size
+                scale -= 0.2; // Decrease scale by 0.2 on each zoom out
+                image.style.transform = `scale(${scale})`;
+            }
+        }
+
+        // Add mouse event listeners for dragging functionality
+        zoomContainer.addEventListener('mousedown', startDrag);
+        zoomContainer.addEventListener('mousemove', dragImage);
+        zoomContainer.addEventListener('mouseup', stopDrag);
+        zoomContainer.addEventListener('mouseleave', stopDrag);
+
+        function startDrag(e) {
+            isDragging = true;
+            startX = e.clientX - image.offsetLeft;
+            startY = e.clientY - image.offsetTop;
+            zoomContainer.style.cursor = 'grabbing'; // Change cursor to grabbing
+        }
+
+        function dragImage(e) {
+            if (isDragging) {
+                let offsetX = e.clientX - startX;
+                let offsetY = e.clientY - startY;
+                image.style.left = offsetX + 'px';
+                image.style.top = offsetY + 'px';
+            }
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            zoomContainer.style.cursor = 'grab'; // Reset cursor back to grab
+        }
+    </script>
+
+</apex:page>

@@ -1,0 +1,188 @@
+<apex:page controller="BookingFormController" showHeader="false" sidebar="false">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            font-size: 14px;
+         border:2px solid black;
+               
+        }
+        h1 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        h2 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #0070d2;
+            padding-bottom: 10px;
+            font-size: 20px;
+        }
+        table {
+            width: 100%;
+            border-spacing: 10px;
+            margin: 0 auto;
+        }
+        td {
+            padding: 8px;
+        }
+        td:first-child {
+            text-align: left;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="file"] {
+            border: none;
+        }
+        .section {
+         border:2px solid black;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fefefe;
+        }
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .buttons apex|commandButton {
+            background: #0070d2;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .buttons apex|commandButton:hover {
+            background: #005bb5;
+        }
+    </style>
+    <body>
+               
+        <div class="form-container">
+            <table width="100%" style="font-size: 20px;text-align:center"  cellpadding="0" cellspacing="0" >
+             <tr>
+                 
+                         <td  style="font-size: 14px;text-align:center"><img src="{!$Resource.VeegaLand}" width="100px" height="50" /></td>
+                 <td><h1 >Booking Form</h1>
+        </td>
+             </tr>
+        </table>
+         
+        <apex:form enctype="multipart/form-data">
+            
+            <!-- Booking Details Section -->
+            <div class="section">
+                <h2>Booking Details</h2>
+                <table>
+                    <tr>
+                        <td>Project Name:</td>
+                        <td><apex:inputText value="{!projectName}" /></td>
+                        <td>Block:</td>
+                        <td><apex:inputText value="{!block}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Floor:</td>
+                        <td><apex:inputText value="{!floor}" /></td>
+                        <td>Unit Number:</td>
+                        <td><apex:inputText value="{!unitNumber}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Facing:</td>
+                        <td><apex:inputText value="{!facing}" /></td>
+                        <td>Unit Type:</td>
+                        <td><apex:inputText value="{!unitType}" /></td>
+                    </tr>
+                    <tr>
+                        <td>SBA in sqft:</td>
+                        <td><apex:inputText value="{!sba}" /></td>
+                        <td>Carpet area:</td>
+                        <td><apex:inputText value="{!carpetArea}" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Customer Details Section -->
+            <div class="section">
+                <h2 >Customer Details</h2>
+                <table>
+                    <tr>
+                        <td>Name:</td>
+                        <td><apex:inputText value="{!name}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Contact Number:</td>
+                        <td><apex:inputText value="{!contactNumber}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td><apex:inputText value="{!email}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Occupation:</td>
+                        <td><apex:inputText value="{!occupation}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Aadhar Number:</td>
+                        <td><apex:inputText value="{!aadharNumber}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Pan Number:</td>
+                        <td><apex:inputText value="{!panNumber}" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Upload Documents Section -->
+            <div class="section">
+                <h2>Upload Documents</h2>
+                <table>
+                    <tr>
+                        <td>Aadhar card:</td>
+                        <td><apex:inputFile value="{!aadharCardFile}" filename="{!aadharCardFileName}" /></td>
+                    </tr>
+                    <tr>
+                        <td>PAN card:</td>
+                        <td><apex:inputFile value="{!panCardFile}" filename="{!panCardFileName}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Passport size photo:</td>
+                        <td><apex:inputFile value="{!photoFile}" filename="{!photoFileName}" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="buttons">
+                <apex:commandButton value="Save" action="{!save}" />
+                <apex:commandButton value="Submit" action="{!submit}" />
+            </div>
+        </apex:form>
+    </div>
+ 
+    </body>
+   </apex:page>

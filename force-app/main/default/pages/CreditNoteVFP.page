@@ -1,0 +1,477 @@
+<apex:page standardController="Refund__c" extensions="RefundVFPController" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false"  standardStylesheets="false" renderAs="PDF" >
+ <head>    
+        <style type="text/css" media="print">
+            @page {
+            size: A4;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            
+            @top-center { 
+            content: element(header);
+            }
+            @bottom-left {
+            content: element(footer);
+            }
+            }
+            div.header {
+            padding: 10px;
+            position: running(header);
+            }
+            div.footer {
+            display: block;
+            padding: 5px;
+            position: running(footer);
+            }
+            .pagenumber:before {
+            content: counter(page);
+            }
+            .pagecount:before {
+            content: counter(pages);
+            }
+            *{
+            font-family: "Arial Narrow", sans-serif;
+            font-size:12px
+            }
+            div.header {
+            padding: 20px;
+            position: running(header);
+            margin-left: -200px;
+            }
+            div.footer {
+            padding: 10px;
+            position: running(footer);
+            font-size: 9px;
+            text-align:left;
+            
+            }
+            div.footer :first-child{
+            text-align:right;
+            }
+            
+            div.content{
+            line-height:1.5;
+            border:1px solid black;
+            }
+            th, td {
+            padding: 3px 5px;
+            font-size:13px;
+            
+            }
+            p{
+            line-height:1;
+            padding:1px;
+            }
+            table, tr {
+            width:100%;	
+            border-collapse: collapse;
+            }
+            .main-margin-top{
+            margin-top:3em;
+            width:100%;
+            text-align:center;
+            font-size:21px;
+            font-weight:bold;
+            padding-bottom:10px;
+            }
+            .sub-margin-top{
+            margin-top:0.2em;
+            width:100%;
+            text-align:center;
+            font-size:21px;
+            font-weight:bold;
+            padding-bottom:5px;
+            }
+            .div-text-align-center{
+            text-align:center;
+            }
+            .number-box {
+            display: inline-block;
+            padding-bottom:3px;
+            width: 40px;
+            height: 15px;
+            text-align: center;
+            vertical-align:center;
+            border: 1px solid black;
+            align-items:center;
+            }
+        </style> 
+    </head> 
+    <body>
+        <div class="content" >
+            <apex:outputPanel >
+                <div class="main-margin-top">
+                    Veegaland Developers Private Limited	
+                </div>
+                <div class="div-text-align-center" style="font-size:13px;padding:0 3px;line-height:1.2">
+                    <strong>Regd.Office Address: XXXV/564 (Old No. XIII/300 E- 26), 4th Floor, K Chittilappilly Tower (formerly KCF Tower) , Bharatha Matha College Road,Kakkanadu, Thrikkakkara, Ernakulam - 682021, PH: 0484 2584000, CIN: U45201KL2007PTC021107 
+                    http://www.veegaland.com, mail@veegaland.in		</strong>																																																						
+                </div>
+                <table style="line-height:1.2" >
+                    <tr>
+                        <th style="padding-bottom:15px;" width="70%">
+                            GSTIN : 32AACCV5457F1ZF
+                        </th>
+                        <th>
+                            ORIGINAL FOR RECEIPIENT																						
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            PAN : AACCV5457F																			
+                        </th>
+                        <th>
+                            
+                        </th>
+                    </tr>
+                    <tr>
+                        <th >
+                            MSME UDYAM REG NO:UDYAM-KL-02-0014172																										
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </table>
+                <div class="sub-margin-top" >
+                   Receipt Voucher																																																											
+                </div>
+                <div class="div-text-align-center" style="padding-bottom:10px;">
+                    (See: Rule:53 of GST Rule; Sec 34 of GST Act)																																																										
+                </div>
+                <table  width="100%" >
+                    <tr>
+                        <th style="padding-top:5px;" width="70%" colspan="3"><u>RECEIPIENT DETAILS</u></th>
+                        <th width="15%">VOUCHER NO:</th>
+                        <td width="15%">{!receipt.Name}</td>
+                    </tr>
+                    <tr>
+                        <th>Name :</th>
+                        <th colspan="2">{!receipt.Booking__r.salutation_Applicant1__c}.{!receipt.Booking__r.First_Applicant_Name__c}</th>
+                        <th>DATE OF ISSUE:</th>
+                        <td style="">
+                         {!formattedReceiptdate}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th >Address:</th>
+                        <th colspan="2" width="45%">
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_House_No_Name__c))}">
+                                {!receipt.Booking__r.Permanent_House_No_Name__c},
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_Street_Location__c))}">
+                                &nbsp;{!receipt.Booking__r.Permanent_Street_Location__c},
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_Post_Office__c))}">
+                                &nbsp;{!receipt.Booking__r.Permanent_Post_Office__c},
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_City__c))}">
+                                &nbsp;{!receipt.Booking__r.Permanent_City__c},
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_State__c))}">
+                               {!receipt.Booking__r.Permanent_State__c}
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_Postal_Code__c))}">
+                               &nbsp;- {!formattedPostalCode}
+                            </apex:outputPanel>
+                        </th>
+                        <th></th>
+                        <td><!--Advance_Receipt__c.Name--></td>
+                    </tr>
+                    <tr>
+                        <th>GSTIN: {!receipt.Booking__r.GSTIN__c}</th>
+                        <th colspan="2"></th>
+                        <th></th>
+                        <td><!--Advance_Receipt__c.Name--></td>
+                    </tr>
+                    <tr>
+                        <th>PAN:</th>
+                        <th colspan="2">{!receipt.Booking__r.PAN_Number1__c}</th>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th >Corresponding Tax Invoice Ref. No. :</th>
+                        <th colspan="2">{!receipt.Transaction_Number__c}</th>
+                        <th></th>
+                        <td><!--Advance_Receipt__c.Name--></td>
+                    </tr>
+                    <tr>
+                        <th >State:</th>
+                        <th colspan="2">Kerala</th>
+                        <th></th>
+                        <td><!--Advance_Receipt__c.Name--></td>
+                    </tr><tr>
+                        <th width="20%">State Code:</th>
+                        <th  width="15%">32</th>
+                        
+                    </tr>
+                </table>
+               <table style="margin-top:15px; border: 0.2px solid black; border-collapse: collapse;">
+                    <tr style="background:#bfbfbf;" >
+                        <th rowspan="2" style="border: 0.2px solid black;text-align:center" width="5%">Sr. No</th>
+                        <th rowspan="2" style="border: 0.2px solid black;text-align:center" width="30%">Nature of Transaction</th>
+                        <th rowspan="2" style="border: 0.2px solid black;text-align:center" width="9%">Value of Transaction</th>
+                        <th rowspan="2" style="border: 0.2px solid black;text-align:center" width="9%">Amount towards Land Cost</th>
+                        <th rowspan="2" style="border: 0.2px solid black;text-align:center" width="9%">Taxable Value</th>
+                        <th colspan="2" style="border: 0.2px solid black;text-align:center">SGST</th>
+                        <th colspan="2" style="border: 0.2px solid black;text-align:center">CGST</th>
+                        <th rowspan="2" style="border: 0.2px solid black;text-align:center" width="15%">Total Amount</th>
+                    </tr>
+                    <tr style="background:#bfbfbf">
+                        <th style="border: 0.2px solid black;" width="5%">Rate</th>
+                        <th style="border: 0.2px solid black;" width="9%">Amount</th>
+                        <th style="border: 0.2px solid black;" width="5%">Rate</th>
+                        <th style="border: 0.2px solid black;" width="9%">Amount</th>
+                    </tr>
+ <tr>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">1</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0;">Apartment Cost ({!receipt.Booking__r.Plot__r.Name} ,{!receipt.Booking__r.Project__c} Kakkanad, Ernakulam)</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0;text-align:center">{!getFormattedAmountOfAdvanceReceived}</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">{!formattedLandCost}</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">{!formattedTaxableValue}</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">3.75%</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">{!formattedSgst}</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">3.75%</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">{!formattedCgst}</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">{!formattedTotal}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style="text-align:center" >TOTAL</td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center">{!getFormattedAmountOfAdvanceReceived}</td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center">{!formattedLandCost}</td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center">{!formattedTaxableValue}</td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center"></td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center">{!formattedSgst}</td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center"></td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center">{!formattedCgst}</td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center">{!formattedTotal}</td>
+                    </tr>
+                </table>
+                <table border="1">
+                    <tr>
+                        <th colspan="4">Total Amount Received</th>
+                        <th colspan="3" style="font-size:21px;text-align:right"> {!formattedAmountofAdvanceReceived}</th>
+                    </tr>
+                    <tr>
+                    <th colspan="7" style="text-align:center">{!totalAmountInWords}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="1" width="19%">Bank Details :-</th>
+                        <td colspan="6">Bank Name:- HDFC Bank Ltd, Branch:- Palarivattam, Account Number:- 50200086888056,IFSC Code:- HDFC0000520, SWIFT Code :- HDFCINBB</td>
+                    </tr>
+                    <tr>
+                        <th colspan="3">Amount of Tax subject to Reverse Charges</th>
+                        <th colspan="2" width="12%">Nil</th>
+                        <th width="12%"></th>
+                        <th width="12%"></th>
+                    </tr>
+                    <tr>
+                        <td colspan="2" rowspan="2" width="45%" style="line-height:2.5;font-size:11px">
+                           <strong>Declaration :</strong> <br/>
+                            1) I/We Certify that to the best of my/our knowledge the particulars furnished above are True and Correct 
+                            2) Any dispute shall be subject to the  Ernakulam jurisdiction
+                        </td>
+                        <td rowspan="2" width="19%"></td>
+                        <th colspan="4" valign="top	" style="border-bottom:none">
+                            For Veegaland Developers Pvt Ltd<br/>
+                        </th>
+                    </tr>
+                    <tr>
+                    <th  style="border-top:none" colspan="4" valign="bottom">Authorised Signatory</th>
+                    </tr>
+                </table>
+            </apex:outputPanel>
+        </div>
+        <div style="Page-break-before:always;">
+        </div>
+        
+         <div class="content" >
+            <apex:outputPanel >
+                <div class="main-margin-top">
+                    Veegaland Developers Private Limited	
+                </div>
+                <div class="div-text-align-center" style="font-size:13px;padding:0 3px;line-height:1.2">
+                    <strong>Regd.Office Address: XXXV/564 (Old No. XIII/300 E- 26), 4th Floor, K Chittilappilly Tower (formerly KCF Tower) , Bharatha Matha College Road,Kakkanadu, Thrikkakkara, Ernakulam - 682021, PH: 0484 2584000, CIN: U45201KL2007PTC021107 
+                    http://www.veegaland.com, mail@veegaland.in		</strong>																																																						
+                </div>
+                <table style="line-height:1.2" >
+                    <tr>
+                        <th style="padding-bottom:15px;" width="70%">
+                            GSTIN : 32AACCV5457F1ZF 
+                        </th>
+                        <th>
+                            DUPLICATE FOR SUPPLIER																					
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            PAN : AACCV5457F																			
+                        </th>
+                        <th>
+                            
+                        </th>
+                    </tr>
+                    <tr>
+                        <th >
+                            MSME UDYAM REG NO:UDYAM-KL-02-0014172																										
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </table>
+                <div class="sub-margin-top" >
+                   Credit Note																																																										
+                </div>
+                <div class="div-text-align-center" style="padding-bottom:10px;">
+                    (See: Rule:53 of GST Rule; Sec 34 of GST Act)																																																										
+                </div>
+                <table  width="100%" >
+                    <tr>
+                        <th style="padding-top:5px;" width="7	0%" colspan="3"><u>RECEIPIENT DETAILS</u></th>
+                        <th width="15%">VOUCHER NO:</th>
+                        <td width="15%">{!receipt.Name}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Name :</th>
+                        <th colspan="2">{!receipt.Booking__r.salutation_Applicant1__c}.{!receipt.Booking__r.First_Applicant_Name__c}</th>
+                        <th>DATE OF ISSUE:</th>
+                        <td style="">
+                            {!formattedReceiptdate}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th >Address:</th>
+                        <th colspan="2" width="45%">
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_House_No_Name__c))}">
+                                {!receipt.Booking__r.Permanent_House_No_Name__c},
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_Street_Location__c))}">
+                                &nbsp;{!receipt.Booking__r.Permanent_Street_Location__c},
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_Post_Office__c))}">
+                                &nbsp;{!receipt.Booking__r.Permanent_Post_Office__c},
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_City__c))}">
+                                &nbsp;{!receipt.Booking__r.Permanent_City__c},
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_State__c))}">
+                               {!receipt.Booking__r.Permanent_State__c}
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(receipt.Booking__r.Permanent_Postal_Code__c))}">
+                               &nbsp;- {!formattedPostalCode}
+                            </apex:outputPanel>
+                        </th>
+                        <th></th>
+                        <td><!--Advance_Receipt__c.Name--></td>
+                    </tr>
+                    <tr>
+                        <th>GSTIN: {!receipt.Booking__r.GSTIN__c}</th>
+                        <th colspan="2"></th>
+                        <th></th>
+                        <td><!--Advance_Receipt__c.Name--></td>
+                    </tr>
+                    <tr>
+                        <th>PAN:</th>
+                        <th colspan="2">{!receipt.Booking__r.PAN_Number1__c}</th>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th >Corresponding Tax Invoice Ref. No. :</th>
+                        <th colspan="2">{!receipt.Transaction_Number__c}</th>
+                        <th></th>
+                        <td><!--Advance_Receipt__c.Name--></td>
+                    </tr>
+                    <tr>
+                        <th >State:</th>
+                        <th colspan="2">Kerala</th>
+                        <th></th>
+                        <td><!--Advance_Receipt__c.Name--></td>
+                    </tr><tr>
+                        <th width="20%">State Code:</th>
+                        <th  width="15%">32</th>
+                    </tr>
+                </table>
+               <table style="margin-top:15px; border: 0.2px solid black; border-collapse: collapse;">
+                    <tr style="background:#bfbfbf;" >
+                        <th rowspan="2" style="border: 0.2px solid black;text-align:center" width="5%">Sr. No</th>
+                        <th rowspan="2" style="border: 0.2px solid black;text-align:center" width="30%">Nature of Transaction</th>
+                        <th rowspan="2" style="border: 0.2px solid black;text-align:center" width="9%">Value of Transaction</th>
+                        <th rowspan="2" style="border: 0.2px solid black;text-align:center" width="9%">Amount towards Land Cost</th>
+                        <th rowspan="2" style="border: 0.2px solid black;text-align:center" width="9%">Taxable Value</th>
+                        <th colspan="2" style="border: 0.2px solid black;text-align:center">SGST</th>
+                        <th colspan="2" style="border: 0.2px solid black;text-align:center">CGST</th>
+                        <th rowspan="2" style="border: 0.2px solid black;text-align:center" width="15%">Total Amount</th>
+                    </tr>
+                    <tr style="background:#bfbfbf">
+                        <th style="border: 0.2px solid black;" width="5%">Rate</th>
+                        <th style="border: 0.2px solid black;" width="9%">Amount</th>
+                        <th style="border: 0.2px solid black;" width="5%">Rate</th>
+                        <th style="border: 0.2px solid black;" width="9%">Amount</th>
+                    </tr>
+ <tr>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">1</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0;">Apartment Cost ({!receipt.Booking__r.Plot__r.Name} ,{!receipt.Booking__r.Project__c} Kakkanad, Ernakulam)</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0;text-align:center">{!getFormattedAmountOfAdvanceReceived}</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">{!formattedLandCost}</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">{!formattedTaxableValue}</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">3.75%</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">{!formattedSgst}</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">3.75%</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">{!formattedCgst}</td>
+                        <td style="border: 0.2px solid black; padding: 25px 0; text-align:center">{!formattedTotal}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style="text-align:center" >TOTAL</td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center">{!getFormattedAmountOfAdvanceReceived}</td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center">{!formattedLandCost}</td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center">{!formattedTaxableValue}</td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center"></td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center">{!formattedSgst}</td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center"></td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center">{!formattedCgst}</td>
+                        <td style="border: 0.2px solid black; padding: 10px 0; text-align:center">{!formattedTotal}</td>
+                    </tr>
+                </table>
+                <table border="1">
+                    <tr>
+                        <th colspan="4">Total Amount Received</th>
+                        <th colspan="3" style="font-size:21px;text-align:right"> {!formattedAmountofAdvanceReceived}</th>
+                    </tr>
+                    <tr>
+                    <th colspan="7" style="text-align:center">{!totalAmountInWords}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="1" width="19%">Bank Details :-</th>
+                        <td colspan="6">Bank Name:- HDFC Bank Ltd, Branch:- Palarivattam, Account Number:- 50200086888056,IFSC Code:- HDFC0000520, SWIFT Code :- HDFCINBB</td>
+                    </tr>
+                    <tr>
+                        <th colspan="3">Amount of Tax subject to Reverse Charges</th>
+                        <th colspan="2" width="12%">Nil</th>
+                        <th width="12%"></th>
+                        <th width="12%"></th>
+                    </tr>
+                    <tr>
+                        <td colspan="2" rowspan="2" width="45%" style="line-height:2.5;font-size:11px">
+                           <strong>Declaration :</strong> <br/>
+                            1) I/We Certify that to the best of my/our knowledge the particulars furnished above are True and Correct 
+                            2) Any dispute shall be subject to the  Ernakulam jurisdiction
+                        </td>
+                        <td rowspan="2" width="19%"></td>
+                        <th colspan="4" valign="top	" style="border-bottom:none">
+                            For Veegaland Developers Pvt Ltd<br/>
+                        </th>
+                    </tr>
+                    <tr>
+                    <th  style="border-top:none" colspan="4" valign="bottom">Authorised Signatory</th>
+                    </tr>
+                </table>
+            </apex:outputPanel>
+        </div>
+       
+    </body>
+</apex:page>

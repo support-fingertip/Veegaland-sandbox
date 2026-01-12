@@ -1,0 +1,160 @@
+<template>
+    <template if:true={isSubmitted}>
+        <div class="thanks">
+            <img src="https://www.veegaland.com/wp-content/themes/veegaland/assets/images/veegaland-logo.png"
+                alt="Veegaland Image" width="122px" height="60px" />
+            <p class="title">Thank You!</p>
+            <p><strong>Your changes have been successfully submitted.</strong></p>
+
+            <p>Thank you for choosing Veegaland Homes!</p>
+
+            <!--<div class="home"><a href="/">Return to Home Page</a></div>-->
+
+        </div>
+    </template>
+    <template if:false={isSubmitted}>
+        <div class="slds-grid slds-wrap container">
+            <div
+                class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 overlay hide-on-mobile">
+
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_7-of-12">
+                <header class="header">
+                    <div class="logo">
+                        <img src="https://www.veegaland.com/wp-content/themes/veegaland/assets/images/veegaland-logo.png"
+                            alt="Veegaland Homes" class="header-img" />
+                    </div>
+                    <div class="slds-p-left_small header-title">
+                        <h1>Veegaland Homes</h1>
+                    </div>
+                </header>
+                <h1 class="main__title">Agreement Details</h1>
+                <template if:true={hasErrors}>
+                    <div class="inner-message">
+                        <div class="Message Message--orange">
+                            <div class="Message-icon">
+                                <lightning-icon icon-name="utility:warning" size="x-small" variant="inverse">
+                                </lightning-icon>
+                            </div>
+                            <div class="Message-body">
+                                <template for:each={errorMessages} for:item="msg">
+                                    <p key={msg}>{msg}</p>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <div class="inner-container">
+                    <template for:each={applicantList} for:item="applicant">
+
+                        <fieldset key={applicant.Id}
+                            class="slds-form-element slds-form-element_compound slds-form-element_address slds-p-around_medium inner-applicant">
+                            <legend class="slds-form-element__legend slds-form-element__label">{applicant.type}:
+                                {applicant.name}</legend>
+
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__row">
+                                    <div class="slds-size_6-of-6">
+                                        <lightning-input type="text" class="input" data-id={applicant.recordId}
+                                            disabled={isSubmitted} label="Applicant Name" value={applicant.name}
+                                            onchange={onChangeName}>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+                                <div class="slds-form__row">
+                                    <div class="slds-form__item" role="listitem">
+                                        <div class="slds-form-element slds-form-element_stacked">
+                                            <div class="slds-form-element__control">
+                                                <lightning-combobox data-id={applicant.recordId} disabled={isSubmitted}
+                                                    label="Designation" value={applicant.occupation}
+                                                    options={occupationList} onchange={onChangeOccupation}
+                                                    id={applicant.recordId}>
+                                                </lightning-combobox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <template if:true={applicant.isOccupationOthers}>
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_stacked">
+                                                <div class="slds-form-element__control">
+                                                    <lightning-input type="text" class="input" placeholder="Fill other designation"
+                                                        data-id={applicant.recordId} disabled={isSubmitted}
+                                                        label="Other Designation" value={applicant.occupationOthers}
+                                                        onchange={onChangeOtherOccupation}>
+                                                    </lightning-input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <div class="slds-form__item" role="listitem">
+                                        <div class="slds-form-element slds-form-element_stacked">
+                                            <div class="slds-form-element__control">
+                                                <lightning-combobox label="District" value={applicant.district}
+                                                    disabled={isSubmitted} data-id={applicant.recordId}
+                                                    id={applicant.recordId} options={districtOptions}
+                                                    onchange={onChangeDistrict}>
+                                                </lightning-combobox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__item" role="listitem">
+                                        <div class="slds-form-element slds-form-element_stacked">
+                                            <div class="slds-form-element__control">
+                                                <lightning-combobox label="Taluk" value={applicant.taluk}
+                                                    disabled={isSubmitted} data-id={applicant.recordId}
+                                                    options={applicant.talukOptions} onchange={onChangeTaluk}>
+                                                </lightning-combobox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__item" role="listitem">
+                                        <div class="slds-form-element slds-form-element_stacked">
+                                            <div class="slds-form-element__control">
+                                                <lightning-combobox label="Village" value={applicant.village}
+                                                    data-id={applicant.recordId} id={applicant.recordId}
+                                                    disabled={isSubmitted} options={applicant.villageOptions}
+                                                    onchange={onChangeVillage}>
+                                                </lightning-combobox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__item" role="listitem">
+                                        <div class="slds-form-element slds-form-element_stacked">
+                                            <div class="slds-form-element__control">
+                                                <lightning-input type="text" label="Desam/Kara"
+                                                    data-id={applicant.recordId} disabled={isSubmitted}
+                                                    value={applicant.desom} onchange={onChangeDesom}
+                                                    placeholder="Desam/Kara">
+                                                </lightning-input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__item" role="listitem">
+                                        <div class="slds-form-element slds-form-element_stacked">
+                                            <div class="slds-form-element__control">
+                                                <lightning-combobox label="Post Office" data-id={applicant.recordId}
+                                                    value={applicant.postOffice} id={applicant.recordId}
+                                                    disabled={isSubmitted} options={applicant.postOfficeOptions}
+                                                    onchange={onChangePostOffice}>
+                                                </lightning-combobox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__item" role="listitem">
+                                        <!--<lightning-input type="text" label="Pincode" value="ACME Inc."></lightning-input>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </template>
+                    <template if:false={isSubmitted}>
+                        <div class="inner-button">
+                            <button class="custom-btn btn-1 slds-m-top_medium" onclick={handleSave}>Save
+                                Details</button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>

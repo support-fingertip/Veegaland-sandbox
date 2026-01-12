@@ -1,0 +1,344 @@
+<apex:page standardController="Booking__c" extensions="AllotmentLetterController" renderAs="pdf" applyHtmlTag="false" showHeader="false" standardStylesheets="false" >
+    <head>
+        <style>
+            *{
+            
+            font-family: "Times New Roman", Times, serif;
+            
+            font-weight: normal; /* Reset bold styling */
+            }
+            @page {
+            size: A4;
+            margin-top:60px;
+            margin-bottom:100px;
+            margin-left:70px;
+            margin-right:70px;
+            }
+            .row1{
+            width:4%; 
+            vertical-align: top; 
+            text-align:justify; 
+            line-height:1.5;
+            font-size:11.5px; 
+            
+            }
+            .row2{
+            width:96%; 
+            text-align:justify; 
+            line-height:1.5; 
+            font-size:11.5px; 
+            margin-left:;
+            }
+            p{
+            font-size:11.5px;font-family: "Times New Roman", Times, serif;line-height:1.5;
+            }
+            h3{
+            font-size:12px;
+            }
+            ul{
+            list-style-type: circle;!important;
+            font-size:11.5px;
+            line-height:1.7;
+            text-align: justify;
+            
+            }
+            ul ul {
+            list-style-type: square;
+            text-align: justify;
+            }
+            strong{
+            font-weight:600
+            }
+            .page-break { page-break-before: always; } 
+            .no-break { page-break-inside: avoid; } 
+            
+            
+            
+        </style>
+    </head>
+    <body>
+        <div class="no-break">
+            <div style="text-align:center; padding-top:2px">
+                <apex:image url="{!URLFOR($Resource.veegaland)}" width="175" height="75"/>
+            </div>
+            <div style="padding-right:40px; padding-left:20px;padding-bottom:90px padding-top:5px; line-height:1.5;font-size:11.5px;" >
+                <div class="main-margin-top" style="text-align:center; font-size:13px">
+                    <strong> Veegaland Developers Private Limited   </strong>
+                </div>
+                <div style="text-align:center; font-size:9.5px;padding:0 3px;line-height:1.2">
+                    <strong>Regd.Office Address: XXXV/564 (Old No. XIII/300 E- 26), 4th Floor, K Chittilappilly Tower (formerly KCF Tower) , Bharatha Matha College Road,Kakkanadu, Thrikkakkara, Ernakulam - 682021, PH: 0484 2584000, CIN: U45201KL2007PTC021107 
+                        http://www.veegaland.com, mail@veegaland.in     </strong>                                                                                                                                                                                                                       
+                </div>
+            </div>
+            
+            
+            <br/>
+            
+            <h1 style="font-size:12px; text-align:center"><u><strong>ALLOTMENT LETTER</strong></u></h1>
+            <p style=" text-align:center">[For compliance of the provisions of sub-section (3) of section 11 of the Real<br/> Estate (Regulation and Development) Act, 2016.]</p>
+            <p>
+                Date: <apex:outputText value="{0,date,dd-MM-yyyy}">
+                <apex:param value="{!Booking__c.Allotment_Date__c}" />
+                </apex:outputText>   
+            </p> 
+            <div Style="padding-top:20px">
+                
+            </div>
+            <div Style="width:45%">
+                <p>
+                    <strong>{!Booking__c.salutation_Applicant1__c} {!Booking__c.First_Applicant_Name__c} </strong><br/>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_House_No_Name__c))}">
+                        {!Booking__c.Permanent_House_No_Name__c},
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_Street_Location__c))}">
+                        {!Booking__c.Permanent_Street_Location__c},
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_Post_Office__c))}">
+                        {!Booking__c.Permanent_Post_Office__c}
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_Postal_Code__c))}">
+                        - {!primaryPostalcode}
+                    </apex:outputPanel><br/>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_City__c))}">
+                        {!Booking__c.Permanent_City__c},
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_State__c))}">
+                        {!Booking__c.Permanent_State__c}
+                    </apex:outputPanel>
+                    .</p>
+            </div>
+            <div Style="width:45%">
+                <p>
+                    <apex:outputPanel rendered="{!booking.Co_Applicant__r !=null}">
+                        <apex:repeat value="{!booking.Co_Applicant__r}" var="co"> 
+                            <strong>{!co.Salutation__c} {!co.Name} </strong><br/>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(co.Permanent_House_No_Name__c))}">
+                                {!co.Permanent_House_No_Name__c},
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(co.Permanent_Street_Location__c))}">
+                                {!co.Permanent_Street_Location__c},
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(co.Permanent_Post_Office__c ))}">
+                                {!co.Permanent_Post_Office__c }
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(co.Permanent_Postal_Code__c))}">
+                                -  {!co.Permanent_Postal_Code__c }
+                            </apex:outputPanel><br/>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(co.Permanent_City__c))}">
+                                {!co.Permanent_City__c},
+                            </apex:outputPanel>
+                            
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(co.Permanent_State__c))}">
+                                {!co.Permanent_State__c}
+                            </apex:outputPanel>
+                            <br/> <br/>
+                        </apex:repeat>
+                    </apex:outputPanel>
+                </p>
+            </div>
+            <div Style="padding-top:5px">
+                
+            </div>
+            
+            <div style="font-family: Times New Roman; font-size: 11.5px; line-height: 1.5;">
+                <div style="text-align: justify; text-indent: -30px; padding-left: 30px;">
+                    Sub: Your request for allotment of Apartment in the project {!Booking__c.Project__c}, having K-RERA Registration No. {!Booking.Project1__r.RERA_NO__c}
+                </div>
+            </div>
+            
+            
+            <div Style="padding-top:20px">
+                
+            </div>
+            <p>Dear Madam/Sir,</p>
+            <div Style="padding-top:20px">
+                
+            </div>
+            
+            <p>We Veegaland Developers Pvt. Ltd. are pleased to allot you the Apartment in the aforementioned project with the following details:</p>
+            
+            <h3 style="margin-left:20px">1.  Details of the Apartment:</h3>
+            <ul style="margin-left:50px">
+                <li>Unit Number: {!Booking.Plot__r.Name}</li>
+                <li>Floor: {!getFloorWithSuffix}</li>
+                <li>Carpet Area:<strong> {!Booking__c.Carpet_Area__c} Sq.Mtrs ({!carpetAreaSqft} Sqft)</strong></li>
+                <li>Parking area allocation:
+                    <ul>
+                        <li>No. of parking: {!formattedNoofParking}   </li>
+                        <li>Dimension: {!formattedNoofParkingDimension}</li>
+                        <li>Area:{!formattedNoofParkingArea} </li>
+                        <li>Type: Covered parking</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3 style="margin-left:20px">2. Total Consideration Price:</h3>
+            <p style="margin-left:33px; text-align:justify;">The total consideration for the said unit is Rs. {!formattedTotalAmount}/- ({!totalAmountInWords}) which includes the booking amount of Rs. {!formattedBookingAmount}/- ({!bookingAdvanceAmountInWords}) (10% of the total consideration value).</p>
+        </div>
+        <div class="page-break"/>
+        <div class="no-break">
+            <p style="margin-left:33px; text-align:justify;">Details of common amenities are as listed on the project webpage of K-RERA portal (https://rera.kerala.gov.in)</p>
+            
+            <p style="margin-left:33px; text-align:justify;">All payments shall be made to the Promoter and credited to the project’s collection account as mentioned below:</p>
+            <p style="margin-left:60px">
+                Bank Name:{!Booking.Project1__r.Bank_Name__c}.<br/>
+                A/c No:{!Booking.Project1__r.Beneficiary_Account_No__c}<br/>
+                Branch Name: {!Booking.Project1__r.Branch_Name__c}<br/>
+                IFSC Code: {!Booking.Project1__r.IFSC_CODE__c}<br/>
+            </p>
+            
+            <h3 style="margin-left:20px">3. Construction linked Payment Plan:</h3>
+            <p style="margin-left:33px; text-align:justify;">Following are the stages of construction progress and payment(s) linked to each stage: </p>
+            <table width="100%" style="border-collapse: collapse; width: 100%; margin-bottom: 20px; text-align: center;">
+                
+                <tr style="background-color:#EBF1DE; font-size:11.5px">
+                    <apex:outputPanel rendered="{!Booking__c.Project1__r.Enable_Allotment_Letter_Due_Date__c}" layout="none"> 
+                        <th colspan="4" style="border: 1px solid #000; padding: 4px; text-align:center">
+                            <strong>Construction Linked Payment Schedule of {!Booking__c.Project__c}</strong> 
+                        </th>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!!Booking__c.Project1__r.Enable_Allotment_Letter_Due_Date__c}" layout="none"> 
+                        <th colspan="4" style="border: 1px solid #000; padding: 4px; text-align:center">
+                            <strong>Construction Linked Payment Schedule of {!Booking__c.Project__c}</strong> 
+                        </th>
+                    </apex:outputPanel>
+                </tr>
+                
+                <tr height="33px" style="background-color:#D8E4BC; font-size:12px">
+                    <th style="border: 1px solid #000; padding: 8px; text-align:center"><strong>Installment Events</strong></th>
+                    <apex:outputPanel rendered="{!Booking__c.Project1__r.Enable_Allotment_Letter_Due_Date__c}" layout="none"> 
+                        <th style="border: 1px solid #000; padding: 8px; text-align:center"><strong> Date</strong></th>
+                    </apex:outputPanel>
+                    <th style="border: 1px solid #000; padding: 8px; text-align:center"><strong>Instalment %</strong></th>
+                    <th style="border: 1px solid #000; padding: 8px; text-align:center"><strong>Installment Amount</strong></th>
+                </tr> 
+                
+                <apex:repeat value="{!paymentSchedule}" var="p">
+                    <tr style="page-break-inside: avoid; page-break-after: auto; font-size:11.5px">
+                        <td style="border: 1px solid #000; padding: 8px; text-align:left">{!p.Name}</td>
+                        <apex:outputPanel rendered="{!Booking__c.Project1__r.Enable_Allotment_Letter_Due_Date__c}" layout="none"> 
+                            <td style="border: 1px solid #000; padding: 8px; text-align:center">
+                                <apex:outputText value="{0,date,dd . MM . yyyy}">
+                                    <apex:param value="{!p.Completed_Date__c}" />
+                                </apex:outputText>
+                            </td>
+                        </apex:outputPanel>
+                        <td style="border: 1px solid #000; padding: 8px; text-align:center">
+                            <apex:outputText value="{0,number,##0.00}">
+                                <apex:param value="{!p.Payment_percent__c}" />
+                            </apex:outputText>%
+                            
+                        </td>
+                        <td style="border: 1px solid #000; padding: 8px; text-align:center">
+                            {!p.AmountB__c}
+                        </td>
+                    </tr>
+                </apex:repeat>
+                
+                <tr style="font-size:12px; background-color:#DDD9C4;">
+                    <td style="border: 1px solid #000; padding: 8px; text-align:left"><strong>Total</strong></td>
+                    <apex:outputPanel rendered="{!Booking__c.Project1__r.Enable_Allotment_Letter_Due_Date__c}" layout="none"> 
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                    </apex:outputPanel>
+                    <td style="border: 1px solid #000; padding: 8px;">
+                        <strong>   <apex:outputText value="{0,number,##0.00}">
+                            <apex:param value="{!totalPercent}" />
+                            </apex:outputText>%</strong>
+                        
+                        
+                    </td>
+                    <td style="border: 1px solid #000; padding: 8px;"><strong>{!(formattedTotalAmount)}</strong></td>
+                </tr>
+                
+            </table>
+        </div>
+        <div class="page-break"/>
+        
+        <h3 style="margin-left:20px">4. Execution and registration of the Agreement for Sale: </h3>
+        <p style="margin-left:33px; text-align:justify;">Before payment of above 10% of the total consideration, you shall execute an Agreement for Sale in accordance with the model form as per Annexure 1 prescribed under the Kerala Real Estate (Regulation and Development) Rules,2018. You are required to execute and register the said agreement before the concerned Sub-registrar within such period as may be communicated to you. Further, if you fail to execute the Agreement for Sale within such period, I/We shall cancel this allotment and forfeit the booking amount. Rest of the amount received other than booking amount will be refunded to you within 45 days. </p>
+        <h3 style="margin-left:20px">5. Conditions of Cancellation of allotment by the allotee:   </h3>
+        <p style="margin-left:33px; text-align:justify;">In case you wish to cancel or withdraw from this allotment before signing the Agreement for Sale, the booking amount will be deducted.   </p>
+        <p style="margin-left:33px">The amount due, if any on such deduction shall be refunded to you within 45 days from the date of receipt of your letter requesting to cancel the said booking.</p>
+        <h3 style="margin-left:20px">6. Disclosures of information:  </h3>    
+        <p style="margin-left:33px; text-align:justify;">We have made available to you the following information namely: </p>
+        <ul style="margin-left:60px;list-style-type: disc;">
+            <li>Copy of sanctioned plans, layout plans, permits, NOCs approved by the competent authority along with technical specifications to be adopted in the project and plan of development works, are uploaded to the K-RERA website 
+                (<a href="https://rera.kerala.gov.in" style="text-decoration: underline; color: blue;" target="_blank">
+                https://rera.kerala.gov.in
+                </a>)</li>
+            <li>The Quarterly progress of the project and all other progress of the project will be available on the K-RERA website </li>
+            
+            <li>K-RERA QR code for the project is given here under: </li>
+        </ul>
+        <div>
+            <apex:image value="{!URLFOR($Resource[resourceName])}" width="150" height="auto" style="margin-left:45px"/>
+        </div>
+        <h3 style="margin-left:20px">7. Compliance with RERA Act: </h3>
+        <p style="margin-left:33px; text-align:justify;">This allotment is subject to the provisions of the Real Estate (Regulations and Development) Act,2016 along with the applicable rules and regulations. Any disputes arising from this allotment to be raised by the aggrieved party before Kerala Real Estate Regulatory Authority, in accordance with Section 31 of the RERA Act,2016.   </p>
+        <div class="page-break"/>
+        <p style="margin-left:33px">Kindly sign and return the confirmation and acknowledgment of this allotment letter as a token of your acceptance.   </p>
+        <p style="margin-left:33px">We thank you for your trust in us and look forward to a successful association.  </p><br/> 
+        <p style=" text-align:left; margin-left:33px">
+            GIRI S NAIR<br/>
+            GM - CUSTOMER RELATIONS &amp; PROJECT SUPPORT<br/>
+            Email Id.: customercare@veegaland.in<br/>
+            <apex:image url="{!URLFOR($Resource.GiriSignature)}" width="97px" height="52px"/>
+        </p>
+
+        <p style="text-align:center"><strong>CONFIRMATION &amp; ACKNOWLEDGEMENT</strong> </p>
+        <p style="text-align:justify; margin-left:33px">I/We have read and understood the contents of this allotment letter. I/We hereby agree and accept the terms &amp; conditions as stipulated in this allotment letter.   </p>
+        <p style="text-align:left; margin-left:33px;width:45%"> Signature of the allottee<br/> 
+            Name of the Allottee: {!Booking__c.salutation_Applicant1__c}. {!Booking__c.First_Applicant_Name__c}<br/>  
+            Address of the Allottee: <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_House_No_Name__c))}">
+            {!Booking__c.Permanent_House_No_Name__c},
+            </apex:outputPanel><br/>
+            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_Street_Location__c))}">
+                {!Booking__c.Permanent_Street_Location__c},
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_Post_Office__c))}">
+                {!Booking__c.Permanent_Post_Office__c}
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_Postal_Code__c))}">
+                - {!primaryPostalcode}
+            </apex:outputPanel><br/>
+            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_City__c))}">
+                {!Booking__c.Permanent_City__c},
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!NOT(ISBLANK(Booking__c.Permanent_State__c))}">
+                {!Booking__c.Permanent_State__c}
+            </apex:outputPanel>
+            <br/><br/>
+            <apex:outputPanel rendered="{!booking.Co_Applicant__r !=null}">
+                <apex:repeat value="{!booking.Co_Applicant__r}" var="co"> 
+                    <strong>{!co.Salutation__c} {!co.Name} </strong><br/>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(co.Permanent_House_No_Name__c))}">
+                        {!co.Permanent_House_No_Name__c},
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(co.Permanent_Street_Location__c))}">
+                        {!co.Permanent_Street_Location__c},
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(co.Permanent_Post_Office__c ))}">
+                        {!co.Permanent_Post_Office__c }
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(co.Permanent_Postal_Code__c))}">
+                        -  {!co.Permanent_Postal_Code__c }
+                    </apex:outputPanel><br/>
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(co.Permanent_City__c))}">
+                        {!co.Permanent_City__c},
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!NOT(ISBLANK(co.Permanent_State__c))}">
+                        {!co.Permanent_State__c}
+                    </apex:outputPanel>   
+                </apex:repeat>
+                
+                <br/><br/> 
+                Date:&nbsp;<apex:outputText value="{0,date,dd-MM-yyyy}">
+                <apex:param value="{!Booking__c.Allotment_Date__c}" />
+                </apex:outputText>
+            </apex:outputPanel>
+        </p>
+    </body>
+</apex:page>

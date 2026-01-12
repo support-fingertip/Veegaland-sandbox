@@ -1,0 +1,598 @@
+<apex:page standardController="Additional_Charges__c" extensions="Demand_Note_Additionalcharges" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false"  standardStylesheets="false" renderAs="PDF" >
+    <head>    
+        <style type="text/css">
+            @page {
+            size: A4;    
+            <!----padding-left: 5px;    
+padding-right: 5px;   --->   
+            }
+            
+            .invoice_table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 10px;
+            }
+            
+            .invoice_td{
+            border: 1px solid #00040a;
+            text-align: left;
+            padding: 2px 5px;
+            
+            }
+            
+            .invoice_th{
+            border: 1px solid #00040a;
+            text-align: center;
+            
+            }
+            .page-break {
+            page-break-before: always;
+            }
+            
+        </style>    
+    </head> 
+    
+    <center> <apex:image url="{!$Resource.invoiceLogo}" width="160" height="60"/></center>
+    <center> <b style="font-size:9.5px">Regd.Office Address: XIII/300 E- 26, 4th Floor, K Chittilappilly Tower, Bharatha Matha College Road,Kakkanadu, Thrikkakkara, GSTIN:32AACCV5457F1ZF,
+        Ernakulam - 682021, PH: 0484 2584000, CIN: U45201KL2007PTC021107<br/>
+        http://www.veegaland.com, mail@veegaland.in
+        </b></center><br/><br/>
+    
+    <table style="font-size:11px;font-weight:bold;" width="100%">
+        <tr>
+            <td style="text-align:left;">GSTIN : 32AACCV5457F1ZF</td>
+            <td style="text-align:right;">ORIGINAL FOR RECEIPIENT</td>
+        </tr>
+        <tr>
+            <td>PAN : AACCV5457F</td>
+        </tr>
+        <tr>
+            <td>State Code: 32</td>
+        </tr>
+    </table>
+    <center style="font-size:14px;font-weight:bold;">TAX INVOICE</center>
+    <center style="font-size:9.5px;">(See: Rule:46 of GST Rule; Sec 31(2) of GST Act)</center><br/>
+    
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <tr>
+            <td style="width: 34%; vertical-align: top;">
+                <u><b style="font-size: 11.5px;">RECIPIENT DETAILS</b></u><br/>
+                <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                    <tr style="">
+                        <td style="vertical-align: top;">Name</td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">:&nbsp;{!Additional_Charges__c.Booking__r.salutation_Applicant1__c} {!Additional_Charges__c.Booking__r.First_Applicant_Name__c}<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">Address</td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">
+                            :&nbsp;
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Additional_Charges__c.Booking__r.Permanent_House_No_Name__c))}">
+                                <span class="highlight"> {!Additional_Charges__c.Booking__r.Permanent_House_No_Name__c},<br/></span>
+                            </apex:outputPanel>
+                            
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Additional_Charges__c.Booking__r.Permanent_Street_Location__c))}">
+                                <span class="highlight"> {!Additional_Charges__c.Booking__r.Permanent_Street_Location__c},</span>
+                            </apex:outputPanel>
+                            
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Additional_Charges__c.Booking__r.Permanent_Post_Office__c))}">
+                                <span class="highlight"> {!Additional_Charges__c.Booking__r.Permanent_Post_Office__c},<br/></span>
+                            </apex:outputPanel>
+                            
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Additional_Charges__c.Booking__r.Permanent_City__c))}">
+                                <span class="highlight"> {!Additional_Charges__c.Booking__r.Permanent_City__c},</span>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Additional_Charges__c.Booking__r.Permanent_State__c))}">
+                                <span class="highlight"> {!Additional_Charges__c.Booking__r.Permanent_State__c},</span>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!NOT(ISBLANK(Additional_Charges__c.Booking__r.Permanent_Postal_Code__c))}">
+                                <span class="highlight"> - {!formattedPin}<br/></span>
+                            </apex:outputPanel>
+                            
+                            
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">PAN</td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">:&nbsp;{!Additional_Charges__c.Booking__r.PAN_Number1__c}<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; white-space: nowrap;">Place of Supply</td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px; white-space: nowrap;">:&nbsp;Eroor, Ernakulam<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">State</td>
+                        <td style="font-weight: bold; padding-left:40px">:&nbsp;Kerala</td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 32%;">
+                <br/><br/>
+                
+                <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                    <tr>
+                        <td></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;">
+                            <br/><br/><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr >
+                        <td style="font-weight: bold; font-size:11px; padding-top:25px; white-space: nowrap;">Whether tax is payable on Reverse Charge basis?</td>
+                        <td style="font-weight: bold;"></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 34%; vertical-align: top;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                    <tr style="">
+                        <tr style="">
+                            <td style="vertical-align: top; "><strong>INVOICE NO:</strong> </td>
+                            <td>
+                                {!Additional_Charges__c.Name}
+                            </td>
+                            
+                    </tr>
+                    <td style="vertical-align: top; "><strong>DATE OF ISSUE:</strong> </td>
+                    <td>
+                        <apex:outputText value="{0,date,MMM dd, yyyy}">
+                            <apex:param value="{!IF(ISBLANK(Additional_Charges__c.Demanded_Date__c), TODAY(), Additional_Charges__c.Demanded_Date__c)}" />
+                        </apex:outputText><br/>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;"></td>
+                    <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">
+                        <br/>
+                        <br/>
+                        <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;"></td>
+                    <td style="font-weight: bold; padding-bottom:7px; padding-left:40px"><br/></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; white-space: nowrap;"></td>
+                    <td style="font-weight: bold; padding-bottom:7px; padding-left:40px; white-space: nowrap;"><br/></td>
+                </tr>
+                <tr style="vertical-align: bottom;">
+                    <td style="font-weight: bold;text-align:left;font-size: 10px; padding-left:35px; padding-top:25px"><div style="border: 1px solid #000; padding-top: 3px;padding-right: 12px;padding-left: 12px;padding-bottom: 3px; display: inline-block;">No</div></td>
+                    <td ></td>
+                </tr>
+                
+            </table>
+    </td>
+</tr>
+</table>
+
+<table class="invoice_table" >
+    <tr style="background-color: #dddddd; text-align:center; font-size: 10px;">
+        <th class="invoice_th" width="4%" rowspan="2" style="vertical-align: top;">Sr.No
+        </th>
+        
+        <th  class="invoice_th"  width="8%" rowspan="2" style="vertical-align: top;">HSN/SAC
+        </th>
+        
+        <th  class="invoice_th" width="16%" rowspan="2" style="vertical-align: top;">Description of Goods or/and Services
+        </th>
+        
+        <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Value of Supply
+        </th>
+        
+        <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Amount towards Land Cost
+        </th>
+        
+        <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Taxable Value
+        </th>
+        
+        <th  class="invoice_th" width="4%" colspan="2" style="vertical-align: top;">SGST
+        </th>
+        
+        
+        
+        <th  class="invoice_th" width="4%" colspan="2" style="vertical-align: top;">CGST
+        </th>
+        
+        
+        
+        <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Total Amount
+        </th>
+    </tr>
+    <tr style="background-color: #dddddd;text-align:center;font-size: 10px;">
+        
+        
+        <th  class="invoice_th" width="4%" style="vertical-align: top;" >Rate
+        </th>
+        
+        <th  class="invoice_th" width="8%" style="vertical-align: top;">Amount
+        </th>
+        
+        <th  class="invoice_th" width="4%" style="vertical-align: top;">Rate
+        </th>
+        
+        <th  class="invoice_th" width="8%" style="vertical-align: top;">Amount
+        </th>
+        
+        
+    </tr>
+    <tr>
+        <td class="invoice_td" style="text-align:center">1
+        </td>
+        <td class="invoice_td" style="text-align:center;">995411
+        </td>
+        <td class="invoice_td" style="padding">{!Additional_Charges__c.Additional_Charge_Type__c} ({!Additional_Charges__c.Booking__r.Plot__r.Name},{!Additional_Charges__c.Booking__r.Project1__r.Name}, Eroor, Ernakulam)
+        </td>
+        <td class="invoice_td" style="text-align:right;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!valueOfSupply}" /></apex:outputText>
+        </td>
+        <td class="invoice_td" style="text-align:right;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!landCost}" /></apex:outputText>
+        </td>
+        <td class="invoice_td" style="text-align:right;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!taxableValue}" /></apex:outputText>
+        </td>
+        <td class="invoice_td" style="text-align:right;">9%
+        </td>
+        <td class="invoice_td" style="text-align:right;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!sgst}" /></apex:outputText>
+        </td>
+        <td class="invoice_td" style="text-align:right;">9%
+        </td>
+        <td class="invoice_td" style="text-align:right;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!cgst}" /></apex:outputText>
+        </td>
+        <td class="invoice_td" style="text-align:right;"> <apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!Additional_Charges__c.Total_Additional_Charge__c}" /></apex:outputText>
+        </td>
+        
+    </tr>
+    
+    
+    
+    <tr style="font-weight:bold;font-size: 12px;">
+        
+        <td class="invoice_td" style="text-align:left;" colspan="10">Total
+        </td>
+        
+        <td class="invoice_td" style="text-align:right;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!Additional_Charges__c.Total_Additional_Charge__c}" /></apex:outputText>
+        </td>
+    </tr>
+    
+    <tr style="font-weight:bold;font-size: 13px;">
+        <td class="invoice_td" style="text-align:center;" colspan="9">Total Invoice Value
+        </td>
+        
+        
+        
+        <td class="invoice_td" style="text-align:right;" colspan="2">
+            <apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!Additional_Charges__c.Total_Additional_Charge__c}" /></apex:outputText>
+        </td>
+        
+    </tr>
+    
+    <tr style="font-weight:bold;font-size: 13px;">
+        <td class="invoice_td" style="text-align:right;" colspan="11">{!Current_Demand_Amount_In_Words}
+        </td>
+    </tr>
+    
+    <tr>
+        <td class="invoice_td" colspan="11"><br/>
+        </td>
+    </tr>
+    
+    <tr style="font-size: 10px;">
+        <td class="invoice_td" colspan="4">
+            <b>Declaration :</b> <br/>
+            1) I/We Certify that to the best of my/our knowledge the particulars furnished above are True and Correct.<br/><br/>
+            2) Any dispute shall be subject to Ernakulam jurisdiction.<br/><br/>
+            3) For Delayed Payments Interest will be applicable as per the agreement.<br/><br/>                 
+        </td>
+        <td class="invoice_td">
+        </td>
+        <td class="invoice_td" style="text-align:center;font-weight:bold;vertical-align:top;" colspan="6">
+            For Veegaland Developers Private Limited <br/><br/><br/><br/><br/><br/> 
+            
+            Authorised Signatory
+        </td>
+        
+    </tr>
+    
+    <tr style="font-weight:bold;font-size: 10px;">
+        <td class="invoice_td" style="text-align:center;" colspan="11">
+            ***This is system generated printout and no signature required***
+        </td>
+    </tr>
+</table>
+
+
+<div class="page-break"></div>
+
+
+<center> <apex:image url="{!$Resource.invoiceLogo}" width="160" height="60"/></center>
+<center> <b style="font-size:9.5px">Regd.Office Address: XIII/300 E- 26, 4th Floor, K Chittilappilly Tower, Bharatha Matha College Road,Kakkanadu, Thrikkakkara, GSTIN:32AACCV5457F1ZF,
+    Ernakulam - 682021, PH: 0484 2584000, CIN: U45201KL2007PTC021107<br/>
+    http://www.veegaland.com, mail@veegaland.in
+    </b></center><br/><br/>
+
+<table style="font-size:11px;font-weight:bold;" width="100%">
+    <tr>
+        <td style="text-align:left;">GSTIN : 32AACCV5457F1ZF</td>
+        <td style="text-align:right;">ORIGINAL FOR RECEIPIENT</td>
+    </tr>
+    <tr>
+        <td>PAN : AACCV5457F</td>
+    </tr>
+    <tr>
+        <td>State Code: 32</td>
+    </tr>
+</table>
+<center style="font-size:14px;font-weight:bold;">TAX INVOICE</center>
+<center style="font-size:9.5px;">(See: Rule:46 of GST Rule; Sec 31(2) of GST Act)</center><br/>
+
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+    <tr>
+        <td style="width: 34%; vertical-align: top;">
+            <u><b style="font-size: 11.5px;">RECIPIENT DETAILS</b></u><br/>
+            <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                <tr style="">
+                    <td style="vertical-align: top;">Name</td>
+                    <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">:&nbsp;{!Additional_Charges__c.Booking__r.salutation_Applicant1__c} {!Additional_Charges__c.Booking__r.First_Applicant_Name__c}<br/></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">Address</td>
+                    <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">
+                        :&nbsp;
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(Additional_Charges__c.Booking__r.Permanent_House_No_Name__c))}">
+                            <span class="highlight"> {!Additional_Charges__c.Booking__r.Permanent_House_No_Name__c},<br/></span>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(Additional_Charges__c.Booking__r.Permanent_Street_Location__c))}">
+                            <span class="highlight"> {!Additional_Charges__c.Booking__r.Permanent_Street_Location__c},</span>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(Additional_Charges__c.Booking__r.Permanent_Post_Office__c))}">
+                            <span class="highlight"> {!Additional_Charges__c.Booking__r.Permanent_Post_Office__c},<br/></span>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(Additional_Charges__c.Booking__r.Permanent_City__c))}">
+                            <span class="highlight"> {!Additional_Charges__c.Booking__r.Permanent_City__c},</span>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(Additional_Charges__c.Booking__r.Permanent_State__c))}">
+                            <span class="highlight"> {!Additional_Charges__c.Booking__r.Permanent_State__c},</span>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(Additional_Charges__c.Booking__r.Permanent_Postal_Code__c))}">
+                            <span class="highlight"> - {!formattedPin}<br/></span>
+                        </apex:outputPanel>
+                        
+                        
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">PAN</td>
+                    <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">:&nbsp;{!Additional_Charges__c.Booking__r.PAN_Number1__c}<br/></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; white-space: nowrap;">Place of Supply</td>
+                    <td style="font-weight: bold; padding-bottom:7px; padding-left:40px; white-space: nowrap;">:&nbsp;Eroor, Ernakulam<br/></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;">State</td>
+                    <td style="font-weight: bold; padding-left:40px">:&nbsp;Kerala</td>
+                </tr>
+            </table>
+        </td>
+        <td style="width: 32%;">
+            <br/><br/>
+            
+            <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                <tr>
+                    <td></td>
+                    <td style="font-weight: bold;"> <br/></td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td style="font-weight: bold;">
+                        <br/><br/><br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td style="font-weight: bold;"> <br/></td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td style="font-weight: bold;"> <br/></td>
+                </tr>
+                <tr >
+                    <td style="font-weight: bold; font-size:11px; padding-top:25px; white-space: nowrap;">Whether tax is payable on Reverse Charge basis?</td>
+                    <td style="font-weight: bold;"></td>
+                </tr>
+            </table>
+        </td>
+        <td style="width: 34%; vertical-align: top;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                <tr style="">
+                    <td style="vertical-align: top; "><strong>INVOICE NO:</strong> </td>
+                    <td>
+                        {!Additional_Charges__c.Name}
+                    </td>
+                    
+                </tr>
+                <tr style="">
+                    <td style="vertical-align: top; "><strong>DATE OF ISSUE:</strong> </td>
+                    <td>
+                        <apex:outputText value="{0,date,MMM dd, yyyy}">
+                            <apex:param value="{!IF(ISBLANK(Additional_Charges__c.Demanded_Date__c), TODAY(), Additional_Charges__c.Demanded_Date__c)}" />
+                        </apex:outputText><br/>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;"></td>
+                    <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">
+                        <br/>
+                        <br/>
+                        <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;"></td>
+                    <td style="font-weight: bold; padding-bottom:7px; padding-left:40px"><br/></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; white-space: nowrap;"></td>
+                    <td style="font-weight: bold; padding-bottom:7px; padding-left:40px; white-space: nowrap;"><br/></td>
+                </tr>
+                <tr style="vertical-align: bottom;">
+                    <td style="font-weight: bold;text-align:left;font-size: 10px; padding-left:35px; padding-top:25px"><div style="border: 1px solid #000; padding-top: 3px;padding-right: 12px;padding-left: 12px;padding-bottom: 3px; display: inline-block;">No</div></td>
+                    <td ></td>
+                </tr>
+                
+            </table>
+        </td>
+    </tr>
+</table>
+
+<table class="invoice_table" >
+    <tr style="background-color: #dddddd; text-align:center; font-size: 10px;">
+        <th class="invoice_th" width="4%" rowspan="2" style="vertical-align: top;">Sr.No
+        </th>
+        
+        <th  class="invoice_th"  width="8%" rowspan="2" style="vertical-align: top;">HSN/SAC
+        </th>
+        
+        <th  class="invoice_th" width="16%" rowspan="2" style="vertical-align: top;">Description of Goods or/and Services
+        </th>
+        
+        <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Value of Supply
+        </th>
+        
+        <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Amount towards Land Cost
+        </th>
+        
+        <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Taxable Value
+        </th>
+        
+        <th  class="invoice_th" width="4%" colspan="2" style="vertical-align: top;">SGST
+        </th>
+        
+        
+        
+        <th  class="invoice_th" width="4%" colspan="2" style="vertical-align: top;">CGST
+        </th>
+        
+        
+        
+        <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Total Amount
+        </th>
+    </tr>
+    <tr style="background-color: #dddddd;text-align:center;font-size: 10px;">
+        
+        
+        <th  class="invoice_th" width="4%" style="vertical-align: top;" >Rate
+        </th>
+        
+        <th  class="invoice_th" width="8%" style="vertical-align: top;">Amount
+        </th>
+        
+        <th  class="invoice_th" width="4%" style="vertical-align: top;">Rate
+        </th>
+        
+        <th  class="invoice_th" width="8%" style="vertical-align: top;">Amount
+        </th>
+        
+        
+    </tr>
+    <tr>
+        <td class="invoice_td" style="text-align:center">1
+        </td>
+        <td class="invoice_td" style="text-align:center;">995411
+        </td>
+        <td class="invoice_td" style="padding">{!Additional_Charges__c.Additional_Charge_Type__c} ({!Additional_Charges__c.Booking__r.Plot__r.Name},{!Additional_Charges__c.Booking__r.Project1__r.Name}, Eroor, Ernakulam)
+        </td>
+        <td class="invoice_td" style="text-align:right;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!valueOfSupply}" /></apex:outputText>
+        </td>
+        <td class="invoice_td" style="text-align:right;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!landCost}" /></apex:outputText>
+        </td>
+        <td class="invoice_td" style="text-align:right;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!taxableValue}" /></apex:outputText>
+        </td>
+        <td class="invoice_td" style="text-align:right;">9%
+        </td>
+        <td class="invoice_td" style="text-align:right;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!sgst}" /></apex:outputText>
+        </td>
+        <td class="invoice_td" style="text-align:right;">9%
+        </td>
+        <td class="invoice_td" style="text-align:right;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!cgst}" /></apex:outputText>
+        </td>
+        <td class="invoice_td" style="text-align:right;"> <apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!Additional_Charges__c.Total_Additional_Charge__c}" /></apex:outputText>
+        </td>
+        
+    </tr>
+    
+    
+    
+    <tr style="font-weight:bold;font-size: 12px;">
+        
+        <td class="invoice_td" style="text-align:left;" colspan="10">Total
+        </td>
+        
+        <td class="invoice_td" style="text-align:right;"><apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!Additional_Charges__c.Total_Additional_Charge__c}" /></apex:outputText>
+        </td>
+    </tr>
+    
+    <tr style="font-weight:bold;font-size: 13px;">
+        <td class="invoice_td" style="text-align:center;" colspan="9">Total Invoice Value
+        </td>
+        
+        
+        
+        <td class="invoice_td" style="text-align:right;" colspan="2">
+            <apex:outputText value="{0, number, ###,###,###}"><apex:param value="{!Additional_Charges__c.Total_Additional_Charge__c}" /></apex:outputText>
+        </td>
+        
+    </tr>
+    
+    <tr style="font-weight:bold;font-size: 13px;">
+        <td class="invoice_td" style="text-align:right;" colspan="11">{!Current_Demand_Amount_In_Words}
+        </td>
+    </tr>
+    
+    <tr>
+        <td class="invoice_td" colspan="11"><br/>
+        </td>
+    </tr>
+    
+    <tr style="font-size: 10px;">
+        <td class="invoice_td" colspan="4">
+            <b>Declaration :</b> <br/>
+            1) I/We Certify that to the best of my/our knowledge the particulars furnished above are True and Correct.<br/><br/>
+            2) Any dispute shall be subject to Ernakulam jurisdiction.<br/><br/>
+            3) For Delayed Payments Interest will be applicable as per the agreement.<br/><br/>                 
+        </td>
+        <td class="invoice_td">
+        </td>
+        <td class="invoice_td" style="text-align:center;font-weight:bold;vertical-align:top;" colspan="6">
+            For Veegaland Developers Private Limited <br/><br/><br/><br/><br/><br/> 
+            
+            Authorised Signatory
+        </td>
+        
+    </tr>
+    
+    <tr style="font-weight:bold;font-size: 10px;">
+        <td class="invoice_td" style="text-align:center;" colspan="11">
+            ***This is system generated printout and no signature required***
+        </td>
+    </tr>
+</table>
+
+</apex:page>

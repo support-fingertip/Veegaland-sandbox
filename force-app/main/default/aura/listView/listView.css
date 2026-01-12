@@ -1,0 +1,124 @@
+@media only screen and (max-width: 600px){
+    
+.THIS .listview td:nth-child(5){
+      display:none;
+    }
+.THIS .listview td:nth-child(6){
+      display:none;
+    }
+.THIS .listview td:nth-child(7){
+      display:none;
+    }
+.THIS .listview td:nth-child(1) {
+      width:5%;
+      max-width:10px;
+    }
+.THIS .listview td:nth-child(2) {
+      width:40%;
+      max-width:50px;
+
+    }
+.THIS .listview  td:nth-child(3){
+      width:20%;
+      max-width:30px;
+
+    }
+.THIS .listview  td:nth-child(4){
+      width:20%;
+
+    }
+}
+
+.THIS .divwidth{
+  width:100% !important;
+  background-color: rgb(243 243 243);
+}
+.THIS .labelcolor{
+  color:#2484ff;
+}
+.THIS .backdrop{
+  z-index: 9;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  
+  transform-origin: top center;
+  animation: scaleZ 100ms ease-in-out forwards;
+
+}
+@keyframes scaleZ {
+0% {
+  opacity: 0;
+  transform: scale(0);
+}
+
+80% {
+  transform: scale(1.07);
+}
+
+100% {
+  opacity: 1;
+  transform: scale(1);
+}
+
+}
+.THIS .side-bar-panel {
+  float: left;
+  background: #fff;
+  height: 100vh;
+  position: fixed;
+  right: 11px;
+  transition: .4s ease-out;
+  box-shadow: -2px 2px 5px 0px rgb(0 0 0 / 5%);
+  z-index: 10;
+  overflow: hidden;
+}
+.THIS .float-panel-header {
+  float: left;
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid #dfe0e4;
+   padding: 0 20px;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  -webkit-align-items: center;
+  -ms-align-items: center;
+  -webkit-justify-content: space-between;
+  -ms-justify-content: space-between;
+}
+
+.THIS .float-panel-header .subheader {
+  float: left;
+  font-weight: 600;
+  color: #444;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 19px;
+  text-transform: uppercase;
+}
+.THIS .fly-close {
+  float: left;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.THIS .float-panel-content-body {
+  float: left;
+  width: 100%;
+  height: calc(100% - 80px);
+  background: #fff;
+  overflow-y: auto;
+  padding: 20px;
+}
+.THIS .scrollable-panel {
+    height: 400px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+.THIS .scrollable-details {
+    height: 500px; /* Adjust the height as needed */
+    overflow-y: auto;
+}

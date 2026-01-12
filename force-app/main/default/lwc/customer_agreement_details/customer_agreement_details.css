@@ -1,0 +1,427 @@
+* {
+    /* COLORS */
+    --white: #e9e9e9;
+    --gray: #333;
+    --blue: #0367a6;
+    --lightblue: #008997;
+
+    /* RADII */
+    --button-radius: 0.7rem;
+
+    /* SIZES */
+    --max-width: 758px;
+    --max-height: 100vh;
+
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.main__title {
+    font-weight: 400;
+    color: #636363;
+    margin: 0;
+    margin-bottom: 1.25rem;
+    display: block;
+    font-size: 1.4em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    text-align: center;
+}
+
+.link {
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin: 1.5rem 0;
+    text-decoration: none;
+}
+
+.container {
+    background-color: var(--white);
+    border-radius: var(--button-radius);
+    height: var(--max-height);
+    overflow: auto;
+    position: relative;
+    width: 100%;
+}
+
+.container__form {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: all 0.6s ease-in-out;
+}
+
+.container--signin {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.container.right-panel-active .container--signin {
+    transform: translateX(100%);
+}
+
+.container--signup {
+    left: 0;
+    opacity: 0;
+    width: 50%;
+    z-index: 1;
+}
+
+.container.right-panel-active .container--signup {
+    animation: show 0.6s;
+    opacity: 1;
+    transform: translateX(100%);
+    z-index: 5;
+}
+
+.container__overlay {
+    height: 100%;
+    left: 50%;
+    overflow: hidden;
+    top: 0;
+    transition: transform 0.6s ease-in-out;
+    width: 50%;
+    z-index: 100;
+}
+
+.container.right-panel-active .container__overlay {
+    transform: translateX(-100%);
+}
+
+.overlay {
+    background-color: var(--lightblue);
+    background: url("https://rera.kerala.gov.in/uploaded-images/53836");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    position: relative;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.overlay__panel {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+    top: 0;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+    width: 50%;
+}
+
+.overlay--left {
+    transform: translateX(-20%);
+}
+
+.container.right-panel-active .overlay--left {
+    transform: translateX(0);
+}
+
+.overlay--right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.right-panel-active .overlay--right {
+    transform: translateX(20%);
+}
+
+.btn {
+    background-color: var(--blue);
+    background-image: linear-gradient(90deg, var(--blue) 0%, var(--lightblue) 74%);
+    border-radius: 20px;
+    border: 1px solid var(--blue);
+    color: var(--white);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    padding: 0.9rem 4rem;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+.form>.btn {
+    margin-top: 1.5rem;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.form {
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 1em 3rem;
+    height: 100%;
+}
+
+input {
+    background-color: #fff;
+    border: none;
+    padding: 0.9rem 0.9rem;
+    margin: 0.5rem 0;
+    width: 100%;
+}
+
+
+@keyframes show {
+
+    0%,
+    49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+.inner-container {
+    padding: .2em 2em 2em 2em;
+    /* Default for large screens */
+}
+
+.inner-message {
+    padding: 0 1.5em;
+}
+
+/* Medium screens (tablets) */
+@media (max-width: 1024px) {
+    .inner-message {
+        padding: 0 1.5em;
+    }
+}
+
+/* Small screens (mobiles) */
+@media (max-width: 600px) {
+    .inner-message {
+        padding: 0 0.3em;
+    }
+}
+
+/* Medium screens (tablets) */
+@media (max-width: 1024px) {
+    .inner-message {
+        padding: 0 0.5em;
+    }
+}
+
+/* Small screens (mobiles) */
+@media (max-width: 600px) {
+    .inner-message {
+        padding: 0 0.3em;
+    }
+}
+
+
+.inner-applicant {
+    border: #b9b9b9 1px solid;
+    border-radius: 6px;
+    background-color: #d9f2e5;
+    margin-bottom: 10px;
+    ;
+}
+
+.custom-btn {
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+        7px 7px 20px 0px rgba(0, 0, 0, .1),
+        4px 4px 5px 0px rgba(0, 0, 0, .1);
+    outline: none;
+}
+
+/* 1 */
+.btn-1 {
+    background: rgb(13 126 67);
+    background: linear-gradient(0deg, rgb(7 122 68) 0%, rgb(15 128 67) 100%);
+    border: none;
+}
+
+.btn-1:hover {
+    background: rgb(0, 3, 255);
+    background: linear-gradient(0deg, rgba(0, 3, 255, 1) 0%, rgba(2, 126, 251, 1) 100%);
+}
+
+button {
+    margin: 20px;
+}
+
+.inner-button {
+    display: flex;
+    justify-content: center;
+}
+
+
+.Message {
+    display: table;
+    position: relative;
+    width: 100%;
+    background-color: #0074D9;
+    color: #fff;
+    transition: all 0.2s ease;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.Message.is-hidden {
+    opacity: 0;
+    height: 0;
+    font-size: 0;
+    padding: 0;
+    margin: 0 auto;
+    display: block;
+}
+
+.Message--red {
+    background-color: #e99ea1;
+    ;
+}
+
+.Message--orange {
+    background-color: #F39C12;
+}
+
+.Message-body {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 5px 8px 8px 8px;
+}
+
+.Message-body>p {
+    line-height: 1.2;
+    margin-top: 6px;
+}
+
+.u-italic {
+    font-style: italic;
+}
+
+.Message-body>.slds-form-element__icon {
+    padding-top: 0 !important;
+}
+
+.Message-icon {
+    display: table-cell;
+    vertical-align: middle;
+    width: 3%;
+    padding: 5px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 14px 0 0 14px;
+}
+
+.Message-icon>.slds-icon {
+    width: 10px;
+    font-size: 10px;
+}
+
+/*thank you*/
+.thanks {
+    width: 100%;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.title {
+    font: normal normal 30px 'Arial', 'Helvetica', sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #c16022;
+    margin-top: 3px;
+}
+
+.home a {
+    color: white;
+    background: #b40101;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #b40101;
+    display: block;
+    margin: 0 auto 10px;
+    width: 100%;
+    padding: 1em;
+    line-height: 1px;
+    -moz-transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    transform: scale(1.02);
+}
+
+.home:hover {
+    outline: none;
+    background: #fd3434;
+    -moz-transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+    .hide-on-mobile {
+        display: none;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* position: fixed; */
+    z-index: 1000;
+    height: fit-content;
+    padding: 13px 36px;
+    width: 100%;
+    border-bottom: 1px solid #cc3290;
+    background: #f1de5d;
+    
+}
+
+.header-img {
+    height: 30px;
+    width: auto;
+}
+.header-title{
+    font-size: 21px;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    color: #0c6f37;
+}

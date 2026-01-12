@@ -1,0 +1,4 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="recordId" type="String"/>
+    <c:GenericLocationMap objectName="Project__c" recordId="{!v.recordId}" locationNameField="Register_Office__c" locationField="Register_Office_Location__c" cityField="City__c"  />
+</aura:component>

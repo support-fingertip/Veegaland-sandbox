@@ -1,0 +1,589 @@
+<apex:page standardController="Booking__c" extensions="RaiseDemandController" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false"  standardStylesheets="false" renderAs="PDF">
+    <head>    
+        <style type="text/css">
+            @page {
+            size: A4;    
+            padding: 0;
+            margin: 40px 30px;;
+            }
+            
+            .invoice_table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 10px;
+            }
+            
+            .invoice_td{
+            border: 1px solid #00040a;
+            text-align: left;
+            padding: 2px 5px;
+            
+            }
+            
+            .invoice_th{
+            border: 1px solid #00040a;
+            text-align: center;
+            
+            }
+            .page-break {
+            page-break-before: always;
+            }
+            
+            .main-margin-top{
+            width:100%;
+            text-align:center;
+            font-size:21px;
+            font-weight:bold;
+            padding-bottom:3px;
+            }
+            
+        </style>    
+    </head>         
+    <div class="main-margin-top">
+        Veegaland Developers Limited	
+    </div>
+    <div style="font-size:11px;padding-bottom:15px;">
+        <center> (Formerly Known as Veegaland Developers Private Limited)</center>
+    </div>
+    <center> <b style="font-size:10px">Regd.Office Address: XXXV/564, 4TH FLOOR, K C F TOWER, BHARAT MATHA COLLEGE ROAD, KAKKANADU, THRIKKAKARA<br/>
+        Ernakulam- 682021, Kerala, PH: 0484 2584000, MSME NO:UDYAM-KL-02-0014172, CIN:U45201KL2007PLC021107<br/>
+        http://www.veegaland.com, mail@veegaland.in
+        </b></center><br/><br/>
+    
+    <table style="font-size:11px;font-weight:bold;" width="100%">
+        <tr>
+            <td style="text-align:left;">GSTIN : 32AACCV5457F1ZF</td>
+            <td style="text-align:right;">ORIGINAL FOR RECEIPIENT</td>
+        </tr>
+        <tr>
+            <td>PAN : AACCV5457F</td>
+        </tr>
+        <tr>
+            <td>State Code: 32</td>
+        </tr>
+    </table>
+    <center style="font-size:14px;font-weight:bold;">TAX INVOICE</center>
+    <center style="font-size:9.5px;">(See: Rule:46 of GST Rule; Sec 31(2) of GST Act)</center><br/>
+    
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <tr>
+            <td style="width: 34%; vertical-align: top;">
+                <u><b style="font-size: 11.5px;">RECIPIENT DETAILS</b></u><br/>
+                <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                    <tr style="">
+                        <td style="vertical-align: top;">Name</td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">:&nbsp;{!Booking__c.salutation_Applicant1__c} {!Booking__c.First_Applicant_Name__c}<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">Address</td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">
+                            :&nbsp;{!Booking__c.Permanent_House_No_Name__c},<br/>
+                            {!Booking__c.Permanent_Street_Location__c}, {!Booking__c.Permanent_Post_Office__c},<br/>
+                            {!Booking__c.Permanent_City__c}, {!Booking__c.Permanent_State__c}- {!formattedPin}<br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">PAN</td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">:&nbsp;{!Booking__c.PAN_Number1__c}<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; white-space: nowrap;">Place of Supply</td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px; white-space: nowrap;">:&nbsp;Eroor, Ernakulam<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">State</td>
+                        <td style="font-weight: bold; padding-left:40px">:&nbsp;Kerala</td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 32%;">
+                <br/><br/>
+                
+                <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                    <tr>
+                        <td></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;">
+                            <br/><br/><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr >
+                        <td style="font-weight: bold; font-size:11px; padding-top:25px; white-space: nowrap;">Whether tax is payable on Reverse Charge basis?</td>
+                        <td style="font-weight: bold;"></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 34%; vertical-align: top;">
+                <b style="font-size: 10px; ">INVOICE NO:</b><br/>
+                <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                    <tr style="">
+                        <td style="vertical-align: top; "><strong>DATE OF ISSUE:</strong> </td>
+                        <td style=" ">{!formattedCurrentDate}<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;"></td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">
+                            <br/>
+                            <br/>
+                            <br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;"></td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px"><br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; white-space: nowrap;"></td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px; white-space: nowrap;"><br/></td>
+                    </tr>
+                    <tr style="vertical-align: bottom;">
+                        <td style="font-weight: bold;text-align:left;font-size: 10px; padding-left:35px; padding-top:25px"><div style="border: 1px solid #000; padding-top: 3px;padding-right: 12px;padding-left: 12px;padding-bottom: 3px; display: inline-block;">No</div></td>
+                        <td ></td>
+                    </tr>
+                    
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+    <table class="invoice_table" >
+        <tr style="background-color: #dddddd; text-align:center; font-size: 10px;">
+            <th class="invoice_th" width="4%" rowspan="2" style="vertical-align: top;">Sr.No
+            </th>
+            
+            <th  class="invoice_th"  width="8%" rowspan="2" style="vertical-align: top;">HSN/SAC
+            </th>
+            
+            <th  class="invoice_th" width="16%" rowspan="2" style="vertical-align: top;">Description of Goods or/and Services
+            </th>
+            
+            <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Value of Supply
+            </th>
+            
+            <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Amount towards Land Cost
+            </th>
+            
+            <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Taxable Value
+            </th>
+            
+            <th  class="invoice_th" width="4%" colspan="2" style="vertical-align: top;">SGST
+            </th>
+            
+            
+            
+            <th  class="invoice_th" width="4%" colspan="2" style="vertical-align: top;">CGST
+            </th>
+            
+            
+            
+            <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Total Amount
+            </th>
+        </tr>
+        <tr style="background-color: #dddddd;text-align:center;font-size: 10px;">
+            
+            
+            <th  class="invoice_th" width="4%" style="vertical-align: top;" >Rate
+            </th>
+            
+            <th  class="invoice_th" width="8%" style="vertical-align: top;">Amount
+            </th>
+            
+            <th  class="invoice_th" width="4%" style="vertical-align: top;">Rate
+            </th>
+            
+            <th  class="invoice_th" width="8%" style="vertical-align: top;">Amount
+            </th>
+            
+            
+        </tr>
+        <tr>
+            <td class="invoice_td" style="text-align:center">1
+            </td>
+            <td class="invoice_td" style="text-align:center;">995411
+            </td>
+            
+            <td class="invoice_td" style="padding">Apartment Cost({!Booking__c.Plot__r.Name},{!Booking__c.Project1__r.Name}, Eroor, Ernakulam)
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!valueOfSupply}
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!landCost}
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!taxableValue}
+            </td>
+            <td class="invoice_td" style="text-align:right;">3.75%
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!sgst}
+            </td>
+            <td class="invoice_td" style="text-align:right;">3.75%
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!cgst}
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!presentDue}
+            </td>
+            
+        </tr>
+        
+        
+        <tr style="font-weight:bold;font-size: 12px;">
+            <td class="invoice_td" style="text-align:center;" colspan="3">Total
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!valueOfSupply}
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!landCost}
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!taxableValue}
+            </td>
+            <td class="invoice_td" style="text-align:right;">3.75%
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!sgst}
+            </td>
+            <td class="invoice_td" style="text-align:right;">3.75%
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!cgst}
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!presentDue}
+            </td>
+        </tr>
+        
+        <tr style="font-weight:bold;font-size: 13px;">
+            <td class="invoice_td" style="text-align:center;" colspan="9">Total Invoice Value
+            </td>
+            
+            
+            
+            <td class="invoice_td" style="text-align:right;" colspan="2">{!presentDue}
+            </td>
+            
+        </tr>
+        
+        <tr style="font-weight:bold;font-size: 13px;">
+            <td class="invoice_td" style="text-align:right;" colspan="11">{!'Rupees '+milestoneAmountInWords}
+            </td>
+        </tr>
+        <tr >
+            <td style="padding:5px;" class="invoice_td" colspan="11"></td>
+        </tr>
+        
+        <tr>
+            <td class="invoice_td" colspan="3">
+               <strong> Bank Details</strong>
+            </td>
+            <td class="invoice_td" colspan="9">
+                Bank Name:-{!Booking__c.Project1__r.Bank_Name__c}, Account No:-{!Booking__c.Project1__r.Beneficiary_Account_No__c}, IFSC Code:-{!Booking__c.Project1__r.IFSC_CODE__c}, Branch:-{!Booking__c.Project1__r.Branch_Name__c}
+            </td>
+        </tr>
+        
+        <tr style="font-size: 10px;">
+            <td class="invoice_td" colspan="4">
+                <b>Declaration :</b> <br/>
+                1) I/We Certify that to the best of my/our knowledge the particulars furnished above are True and Correct.<br/><br/>
+                2) Any dispute shall be subject to Ernakulam jurisdiction.<br/><br/>
+                3) For Delayed Payments Interest will be applicable as per the agreement.<br/><br/>                 
+            </td>
+            <td class="invoice_td">
+            </td>
+            <td class="invoice_td" style="text-align:center;font-weight:bold;vertical-align:top;" colspan="6">
+                For Veegaland Developers Limited <br/><br/><br/><br/><br/><br/> 
+                
+                Authorised Signatory
+            </td>
+            
+        </tr>
+        
+        <tr style="font-weight:bold;font-size: 10px;">
+            <td class="invoice_td" style="text-align:center;" colspan="11">
+                ***This is system generated printout and no signature required***
+            </td>
+        </tr>
+    </table>
+    <div style="margin-top:80px;font-size: 10px;">
+        * Notification No.03/2019 – Central Tax(Rate) Dt. 29/03/2019
+    </div>
+    
+    <div class="page-break"></div>
+    
+    
+    <div class="main-margin-top">
+        Veegaland Developers Limited	
+    </div>
+    <div style="font-size:11px;padding-bottom:15px;">
+        <center> (Formerly Known as Veegaland Developers Private Limited)</center>
+    </div>
+    <center> <b style="font-size:10px">Regd.Office Address: XXXV/564, 4TH FLOOR, K C F TOWER, BHARAT MATHA COLLEGE ROAD, KAKKANADU, THRIKKAKARA<br/>
+        Ernakulam- 682021, Kerala, PH: 0484 2584000, MSME NO:UDYAM-KL-02-0014172, CIN:U45201KL2007PLC021107<br/>
+        http://www.veegaland.com, mail@veegaland.in
+        </b></center><br/><br/>
+    
+    <table style="font-size:11px;font-weight:bold;" width="100%">
+        <tr>
+            <td style="text-align:left;">GSTIN : 32AACCV5457F1ZF</td>
+            <td style="text-align:right;">DUPLICATE FOR SUPPLIER</td>
+        </tr>
+        <tr>
+            <td>PAN : AACCV5457F</td>
+        </tr>
+        <tr>
+            <td>State Code: 32</td>
+        </tr>
+    </table>
+    <center style="font-size:14px;font-weight:bold;">TAX INVOICE</center>
+    <center style="font-size:9.5px;">(See: Rule:46 of GST Rule; Sec 31(2) of GST Act)</center><br/>
+    
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <tr>
+            <td style="width: 34%; vertical-align: top;">
+                <u><b style="font-size: 11.5px;">RECIPIENT DETAILS</b></u><br/>
+                <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                    <tr style="">
+                        <td style="vertical-align: top;">Name</td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">:&nbsp;{!Booking__c.salutation_Applicant1__c} {!Booking__c.First_Applicant_Name__c}<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">Address</td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">
+                            :&nbsp;{!Booking__c.Permanent_House_No_Name__c},<br/>
+                            {!Booking__c.Permanent_Street_Location__c}, {!Booking__c.Permanent_Post_Office__c},<br/>
+                            {!Booking__c.Permanent_City__c}, {!Booking__c.Permanent_State__c}- {!formattedPin}<br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">PAN</td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">:&nbsp;{!Booking__c.PAN_Number1__c}<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; white-space: nowrap;">Place of Supply</td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px; white-space: nowrap;">:&nbsp;Eroor, Ernakulam<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">State</td>
+                        <td style="font-weight: bold; padding-left:40px">:&nbsp;Kerala</td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 32%;">
+                <br/><br/>
+                
+                <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                    <tr>
+                        <td></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;">
+                            <br/><br/><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="font-weight: bold;"> <br/></td>
+                    </tr>
+                    <tr >
+                        <td style="font-weight: bold; font-size:11px; padding-top:25px; white-space: nowrap;">Whether tax is payable on Reverse Charge basis?</td>
+                        <td style="font-weight: bold;"></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 34%; vertical-align: top;">
+                <b style="font-size: 10px; ">INVOICE NO:</b><br/>
+                <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                    <tr style="">
+                        <td style="vertical-align: top; "><strong>DATE OF ISSUE:</strong> </td>
+                        <td style=" ">{!formattedCurrentDate}<br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;"></td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px">
+                            <br/>
+                            <br/>
+                            <br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;"></td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px"><br/></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; white-space: nowrap;"></td>
+                        <td style="font-weight: bold; padding-bottom:7px; padding-left:40px; white-space: nowrap;"><br/></td>
+                    </tr>
+                    <tr style="vertical-align: bottom;">
+                        <td style="font-weight: bold;text-align:left;font-size: 10px; padding-left:35px; padding-top:25px"><div style="border: 1px solid #000; padding-top: 3px;padding-right: 12px;padding-left: 12px;padding-bottom: 3px; display: inline-block;">No</div></td>
+                        <td ></td>
+                    </tr>
+                    
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+    <table class="invoice_table" >
+        <tr style="background-color: #dddddd; text-align:center; font-size: 10px;">
+            <th class="invoice_th" width="4%" rowspan="2" style="vertical-align: top;">Sr.No
+            </th>
+            
+            <th  class="invoice_th"  width="8%" rowspan="2" style="vertical-align: top;">HSN/SAC
+            </th>
+            
+            <th  class="invoice_th" width="16%" rowspan="2" style="vertical-align: top;">Description of Goods or/and Services
+            </th>
+            
+            <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Value of Supply
+            </th>
+            
+            <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Amount towards Land Cost
+            </th>
+            
+            <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Taxable Value
+            </th>
+            
+            <th  class="invoice_th" width="4%" colspan="2" style="vertical-align: top;">SGST
+            </th>
+            
+            
+            
+            <th  class="invoice_th" width="4%" colspan="2" style="vertical-align: top;">CGST
+            </th>
+            
+            
+            
+            <th  class="invoice_th" width="12%" rowspan="2" style="vertical-align: top;">Total Amount
+            </th>
+        </tr>
+        <tr style="background-color: #dddddd;text-align:center;font-size: 10px;">
+            
+            
+            <th  class="invoice_th" width="4%" style="vertical-align: top;" >Rate
+            </th>
+            
+            <th  class="invoice_th" width="8%" style="vertical-align: top;">Amount
+            </th>
+            
+            <th  class="invoice_th" width="4%" style="vertical-align: top;">Rate
+            </th>
+            
+            <th  class="invoice_th" width="8%" style="vertical-align: top;">Amount
+            </th>
+            
+            
+        </tr>
+        <tr>
+            <td class="invoice_td" style="text-align:center">1
+            </td>
+            <td class="invoice_td" style="text-align:center;">995411
+            </td>
+            
+            <td class="invoice_td" style="padding">Apartment Cost({!Booking__c.Plot__r.Name},{!Booking__c.Project1__r.Name}, Eroor, Ernakulam)
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!valueOfSupply}
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!landCost}
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!taxableValue}
+            </td>
+            <td class="invoice_td" style="text-align:right;">9%
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!sgst}
+            </td>
+            <td class="invoice_td" style="text-align:right;">9%
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!cgst}
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!presentDue}
+            </td>
+            
+        </tr>
+        
+        
+        <tr style="font-weight:bold;font-size: 12px;">
+            <td class="invoice_td" style="text-align:center;" colspan="3">Total</td>
+            <td class="invoice_td" style="text-align:right;">{!valueOfSupply}
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!landCost}
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!taxableValue}
+            </td>
+            <td class="invoice_td" style="text-align:right;">3.75%
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!sgst}
+            </td>
+            <td class="invoice_td" style="text-align:right;">3.75%
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!cgst}
+            </td>
+            <td class="invoice_td" style="text-align:right;">{!presentDue}
+            </td>
+        </tr>
+        
+        <tr style="font-weight:bold;font-size: 13px;">
+            <td class="invoice_td" style="text-align:center;" colspan="9">Total Invoice Value
+            </td>
+            
+            
+            
+            <td class="invoice_td" style="text-align:right;" colspan="2">{!presentDue} /-
+            </td>
+            
+        </tr>
+        
+        <tr style="font-weight:bold;font-size: 13px;">
+            <td class="invoice_td" style="text-align:right;" colspan="11">{!'Rupees '+milestoneAmountInWords}
+            </td>
+        </tr>
+        
+        <tr >
+            <td style="padding:5px;" class="invoice_td" colspan="11"></td>
+        </tr>
+        
+        <tr>
+            <td class="invoice_td" colspan="3">
+               <strong> Bank Details</strong>
+            </td>
+            <td class="invoice_td" colspan="9">
+                Bank Name:-{!Booking__c.Project1__r.Bank_Name__c}, Account No:-{!Booking__c.Project1__r.Beneficiary_Account_No__c}, IFSC Code:-{!Booking__c.Project1__r.IFSC_CODE__c}, Branch:-{!Booking__c.Project1__r.Branch_Name__c}
+            </td>
+        </tr>
+        
+        <tr style="font-size: 10px;">
+            <td class="invoice_td" colspan="4">
+                <b>Declaration :</b> <br/>
+                1) I/We Certify that to the best of my/our knowledge the particulars furnished above are True and Correct.<br/><br/>
+                2) Any dispute shall be subject to Ernakulam jurisdiction.<br/><br/>
+                3) For Delayed Payments Interest will be applicable as per the agreement.<br/><br/>                 
+            </td>
+            <td class="invoice_td">
+            </td>
+            <td class="invoice_td" style="text-align:center;font-weight:bold;vertical-align:top;" colspan="6">
+                For Veegaland Developers Limited <br/><br/><br/><br/><br/><br/> 
+                
+                Authorised Signatory
+            </td>
+            
+        </tr>
+        
+        <tr style="font-weight:bold;font-size: 10px;">
+            <td class="invoice_td" style="text-align:center;" colspan="11">
+                ***This is system generated printout and no signature required***
+            </td>
+        </tr>
+    </table>
+     <div style="margin-top:80px;font-size: 10px;">
+        * Notification No.03/2019 – Central Tax(Rate) Dt. 29/03/2019
+    </div>
+</apex:page>

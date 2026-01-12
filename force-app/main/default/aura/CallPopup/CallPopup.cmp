@@ -1,0 +1,22 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="CallPopupApexClass">
+    <aura:attribute name="usr" type="User"/>
+    <aura:attribute name="isFalse" type="boolean" default="false"/>
+    <aura:attribute name="reasone" type="string" default=""/>
+    <aura:attribute name="label" type="string" default="Status-"/>
+    <aura:attribute name="isCti" type="boolean" default="false"/>
+    <div class="slds-box slds-theme_shade">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <div class="slds-align_absolute-center">
+                            
+                             <lightning:button variant="brand" type="submit" label="Call Popup" onclick="{!c.openCallPopup}" />   
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,148 @@
+<apex:page renderAs="pdf" showHeader="false" applyHtmlTag="true" standardStylesheets="false" sidebar="false" contentType="application/pdf#TripartiteAgreement.pdf">
+<html>
+<head>
+<meta charset="UTF-8"/>
+<style>
+    @page { 
+        size: A4; 
+        margin: 50pt 55pt 50pt 55pt;
+    }
+    body {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 12pt;
+        line-height: 1.5; 
+        color: #000;
+        margin-top: 260px; 
+    }
+    p {
+        margin: 0 0 8pt 0;
+        white-space: pre-wrap;
+        text-indent: 1.5cm; 
+        text-align: justify; 
+        orphans: 3;
+        widows: 3;
+    }
+    .center { text-align: center; text-indent: 0; }
+    .noindent { text-indent: 0; }
+    .signature-section { margin-top: 50pt; line-height: 1.6; }
+    .signature-row { display: flex; justify-content: space-between; margin-top: 30pt; }
+    .sign-col { width: 30%; text-indent: 0; }
+    .witnesses { margin-top: 18pt; text-indent: 0; }
+</style>
+</head>
+<body>
+<div style="margin-top:360px;">
+<div style="text-align: center; font-weight: bold; font-size: 20px;">
+<span style="border-bottom: 1px solid black;">TRIPARTITE AGREEMENT</span>
+</div>
+
+<p class="noindent" style="text-align: justify;">This Agreement made at _______________ on this _____ day of _______, 20_ amongst</p>
+
+<p class="noindent" style="text-align: justify;"><b>VEEGALAND DEVELOPERS PRIVATE LIMITED, (CIN U45201KL2007PTC021107),</b> a Private Limited Company incorporated under the Companies Act 1956, having its Registered office at XIII/300 E-26, 4 th floor, K C F Tower, Bharath Matha College Road, Kakkanad Desom, Thrikkakara P. O., Vazhakkala Village, Kanayannur Taluk, Ernakulam District , Pin code – 682 021, (PAN AACCV 5457 F), represented by its</p>
+
+<p class="noindent" style="text-align: justify;">Director - Marketing &amp; Administration, Mr. Kurian Thomas, aged 47 (Forty Seven) years,Company Director, son of Mr. V. M. Thomas, having address at Vengathanam House,</p>
+
+<p class="noindent" style="text-align: justify;">Florican Road, Nedugatoor Desom, Karaparamba P.O., Vengeri Village, Kozhikode Taluk, Kozhikode District, Pin Code - 673 010 (Aadhaar No. 4036 1211 2022 issued by Government of India); duly authorised under resolution passed in the meeting of Board of Directors of the company held on 30-09-2023; authorized vide Board resolution dated10-05-2016;hereinafter referred to as  the ‘Builder/Developer’acting through its Authorized Signatory, the party of the First Part hereinafter referred as “Builder”</p>
+
+<p style="text-align: center;"><strong>AND</strong></p>
+    
+<p class="noindent" style="text-align: justify;"><b>Vinesh Balan,</b> (Aadhaar No. 3798 8697 2846  issued by Government of India) and (PAN AEAPV 2310 L), aged 45 (Forty Five) years, IT Professional, son of      Mr. M. G. Balan, having address at S-2, Sai Gowri Vishranthi, Yellamma Temple Road, 14th C Cross, Nagavarapalya, C V Raman Nagar P. O., Bangalore, Karnataka,  Pin code – 560093; represented by his brother and Power of Attorney holder Vinod B., (Aadhaar No. 4502 2663 7907  issued by Government of India) and (PAN ARBPV 4573 D), aged 47 (Forty Seven) years, Self Employee, son of           Mr. M. G. Balan, having address at Padmanabha Villa, Keezhcherimel, Chengannur Desom, Chengannur P. O., Chengannur Village, Chengannur</p>
+
+<p class="noindent" style="text-align: justify;">Taluk, Alappuzha District, Pin code – 689121; duly authorized under Power of Attorney authenticated before Manendra Kumar, Vice Consul, Consulate General of India, Chicago, Illinois, USA, on 13-09-2024; hereinafter called the Borrower/s and/or the party/ies of the Second Part;</p>
+
+<p style="text-align: center;"><strong>AND</strong></p>
+
+<p class="noindent" style="text-align: justify;"><b>AXIS Bank Ltd,</b> a Company incorporated under the Companies Act, 1956, carrying on its banking business under the Banking Regulation Act, 1949 and having its registered office at <b>‘Trishul’, 3rd Floor, Opposite Samartheshwar Temple, Law Garden, Ellis Bridge, Ahmedabad 380 006, Gujarat</b> and one of its branch office amongst others at  Kochi, hereinafter called ‘The Bank’, acting through its Authorised Signatory, Party of the Third Part.</p>
+
+<p class="noindent" style="text-align: justify;">The expressions party of the First Part, Party/ies of the Second Part and Party of the Third Part shall unless repugnant to the context include its successors, assigns</p>
+
+<p class="center"><b>WHEREAS</b></p>
+
+<p class="noindent" style="text-align: justify;">a) WHEREAS, the Borrower/s desires to purchase property at Veegaland Green Heights, apartment no. 14F having carpet area of 1149Sqft (Super Builtup area of 1598 Sqft), on 14th floor along with right to use one covered parking from Builder and for financing the same has applied to the Bank for Housing Loan.</p>
+
+<p class="noindent" style="text-align: justify;">b) The Borrower/s and Builder and the Bank have also entered into separate respective Agreements with each other, which shall be duly observed by the concerned parties</p>
+
+<p class="noindent" style="text-align: justify;">c) The Parties are executing the present Agreement setting out mutual obligations required to be necessarily performed forming consideration for each other.</p>
+
+    <p class="noindent" >1. In consideration of Builder and the Borrower/s performing their obligations under the Agreement executed between them, the Third Party i.e. Bank has agreed to give a loan upto<br/>
+
+        Rs.______________________ <br/>(Rupees__________________________________) to the<br/>
+
+   Borrowers in terms of the sanction letter dated _________ and loan Agreement to be executed / executed and on payment of interest, processing fee, administration fee etc. as agreed/ contracted.</p>
+
+<p class="noindent" style="text-align: justify;">2. The Borrower/s have mandated and have authorized the Bank i.e. the Party of the Third Part to pay the loan amount sanctioned by the Bank directly to Builder. The Borrower/s unequivocally and expressly acknowledge and consent that payment to the said Builder shall be deemed to have been done directly to the Borrower/s.</p>
+
+<p class="noindent" style="text-align: justify;">3. In case there is any delay in payment of installment by the Bank or the Borrower/s, in either case it shall be treated as a default on the part of the Borrower/s, and the Borrower/s shall be liable to pay penalty to Builder on the delayed installment as per the terms of the Agreement with Builder.</p>
+
+<p class="noindent" style="text-align: justify;">4. It is agreed by and between the parties to this Agreement that in case if the BORROWER fails to honour the commitment, the developer/BUILDER shall inform the BANK and the BANK shall have the right to pay the Sale consideration and get it registered either in BANK’s name or its nominee. Likewise in the event the Borrower defaults in payment of installments then, in such an event also, the Bank shall have the right to inform about such default on the part of the Borrower to the Builder and shall accordingly have the right to write to the Builder for cancellation of the Agreement executed between the Builder and the Borrower, whereafter the Bank shall have the right to pay the Sale consideration and get the subject property registered either in the Bank's name or in the name of the Bank's nominee.</p>
+
+<p class="noindent" style="text-align: justify;">5. The Borrower agrees and confirms that in the event of the Bank enforcing its rights as stated in clause 4 above, the Borrower shall not object/contest the same in any manner whatsoever.</p>
+
+<p class="noindent" style="text-align: justify;">6. It is hereby specifically agreed and confirmed by the parties to this agreement that in the event of default on the part of the Borrower as mentioned in clause 4 above, the Bank shall in addition to the remedy available to the Bank, as is stated in clause 4 above.</p>
+
+<p class="noindent" style="text-align: justify;">7. It is further specifically agreed by the Builder that in the event of failure on the part of the Builder in honoring the payment so demanded by the Bank as stated in clause 6 above, the Bank shall have the right to take all such necessary steps to recover the such an amount from the Builder that would also include filing of necessary suit against the Builder for recovery of the said amount.</p>
+
+<p class="noindent" style="text-align: justify;">8. The Borrower/s shall be obliged to pay to the Bank the entire loan amount in accordance with loan Agreement to be executed / executed and the Bank can recall the entire loan from the</p>
+
+<p class="noindent" style="text-align: justify;">Borrower/s on any default made by the Borrower/s and/or in circumstances detailed/ set out in the said loan Agreement not affect the Borrower’s obligations to Builder under the Agreement with Builder.</p>
+
+<p class="noindent" style="text-align: justify;">9. The Bank Will be at liberty to substitute a ‘New Borrower’ in its sole direction s after payment of transfer charges if any to Builder, in accordance with necessary Govt. directives in this behalf. The Housing loan advanced to the Borrower/s by AXIS Bank Ltd. Shall be Secured by first mortgage of the residential flat/floor to be acquired in the said Project from Builder and the Borrower/s here by subrogate all their rights in the said flat/floor in favor of the Bank.</p>
+
+<p class="noindent" style="text-align: justify;">10. Builder Would deliver to the Bank the Sale Deed relating to the flat in question as &amp; when executed and registered and shall also inform the Bank in writing at least a week in advance regarding the time date &amp; Venue of registration so that Bank can Send its representative to collect the original sale deed on Registration. The Borrowers expressly and irrevocably authorizes Builder and the Bank in this regard. Builder shall not deliver and/or cause to deliver the Sale Deed as and when executed and registered to the Borrower/s without the written consent of the Bank.</p>
+
+<p class="noindent" style="text-align: justify;">11. Upon the expression and irrevocable consent/authorization of the Borrower/s, Builder recognizes and acknowledges the Bank as a duly authorized agent of the Borrower/s for the purpose of implementation of this Agreement.</p>
+
+<p class="noindent" style="text-align: justify;">12. Builder Specifically agrees that in case of cancellation and/or termination of the Agreement between Builder and the Borrower/s and/or in the event of death of Borrower/s, the Builder shall, after retaining the amounts due to Builder under the said Agreement, refund the balance amount to the Bank within a reasonable time of the termination/cancellation/death as the case may be. Builder further agrees that possession of the flat as and when completed will not be handed over to the Borrower/s without the written consent of the Bank.</p>
+
+<p class="noindent" style="text-align: justify;">13. It is agreed by the Borrower/s that the Bank shall not be responsible or liable to ensure or ascertain the progress of construction and mere demand for payment would be sufficient for the Bank to effect disbursement as aforesaid. Without prejudice to the above and notwithstanding anything the contrary contained herein, the Bank may in its sole discretion refuse to disburse the loan until Bank has ascertained the stage of construction.</p>
+
+<p class="noindent" style="text-align: justify;">14. The Borrower/s has paid his own contribution in full to the Builder i.e. the cost of the dwelling unit (including escalation, if any) less the loan. However, this would be without prejudice to any right available to Builder against the Borrower/s under the Agreement executed with Builder.</p>
+
+<p class="noindent" style="text-align: justify;">15. The Borrower/s will not further mortgage/ charge the said property to any person/ financial institution for raising any loan without the prior written consent of the Bank.</p>
+
+<p class="noindent" style="text-align: justify;">16. This Agreement is executed in Ernakulam and only Ernakulam Courts will have jurisdiction.</p><br/>
+
+<p class="noindent" style="text-align: justify;">In witness whereof the parties hereto have signed this Agreement on the day, month and year first above written in the presence of the following witnesses.</p>
+
+<div class="signature-section">
+    <div class="signature-row">
+        <div class="sign-col">
+           <b>For M/s Veegaland Developers Pvt. Ltd </b><br/><br/>
+            Authorized signatory<br/><br/><br/><br/>
+            Director<br/>
+            Named Borrowers<br/><br/><br/>
+        </div>
+
+        <div class="sign-col">
+            Vinesh Balan
+        </div>
+
+        <div class="sign-col">
+            For AXIS Bank Ltd,<br/>
+            Kochi Branch,<br/>
+            Represented by its authorized official<br/><br/>
+            Signatory
+        </div>
+    </div>
+
+    <div class="witnesses">
+        <p class="noindent center">Witness:</p>
+
+        <p class="noindent">Name &amp; Address</p>
+
+        <table style="width: 100%; border-collapse: collapse; border: none;">
+  <tr>
+    <td style="border: none; padding: 8px;">1. Shri/Smt/Ms</td>
+    <td style="border: none; padding: 8px;">2. Shri/Smt/Ms</td>
+  </tr>
+  <tr>
+    <td style="border: none; padding: 8px;">Signature :</td>
+    <td style="border: none; padding: 8px;">Signature :</td>
+  </tr>
+</table>
+    </div>
+</div>
+</div>
+</body>
+</html>
+</apex:page>

@@ -1,0 +1,173 @@
+<apex:page controller="CoApplicantController" showHeader="false" sidebar="false">
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f9f9f9;
+        }
+        .form-container {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        font-size: 14px;
+        }
+        .section {
+        border: 2px solid #0070d2;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        }
+        .section h2 {
+        text-align: center;
+        color: #0070d2;
+        margin-bottom: 20px;
+        }
+        .add-button {
+        position: absolute;
+       
+        right: 10px;
+        background: #0070d2;
+        color: #ffffff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        }
+        table {
+        width: 100%;
+        border-spacing: 10px;
+        }
+        td {
+        padding: 8px;
+        }
+        td:first-child {
+        text-align: right;
+        font-weight: bold;
+        color: #555;
+        }
+        input, select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        }
+        input[type="file"] {
+        border: none;
+        }
+        .buttons {
+        text-align: center;
+        margin-top: 20px;
+        }
+        .buttons apex|commandButton {
+        background: #0070d2;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+        margin: 0 10px;
+        }
+        .buttons apex|commandButton:hover {
+        background: #005bb5;
+        }
+    </style>
+    
+    <div class="form-container">
+        <apex:form >
+            <div class="section">
+                <table width="100%" style="font-size: 20px;text-align:left"  cellpadding="0" cellspacing="0" >
+                    <tr>
+                        
+                        <td  style="font-size: 14px;text-align:center"><img src="{!$Resource.VeegaLand}" width="100px" height="50" /></td>
+                        
+                    </tr>
+                    
+                </table>
+                 <h2>Co Applicant Details </h2>
+                
+                <button class="add-button" onclick="return false;">Add +</button>
+              
+                <br/><br/><br/>
+                <apex:repeat value="{!coApplicants}" var="coApplicant">
+                    <div class="section">
+              
+                        <table>
+                            <tr>
+                                <td>Name:</td>
+                                <td><apex:inputText value="{!coApplicant.name}" /></td>
+                                <td>Phone:</td>
+                                <td><apex:inputText value="{!coApplicant.phone}" /></td>
+                                <td>EmailId:</td>
+                                <td><apex:inputText value="{!coApplicant.email}" /></td>
+                            </tr>
+                            <tr>
+                                <td>Occupation:</td>
+                                <td><apex:inputText value="{!coApplicant.occupation}" /></td>
+                                <td>Aadhar No:</td>
+                                <td><apex:inputText value="{!coApplicant.aadharNo}" /></td>
+                                <td>PAN No:</td>
+                                <td><apex:inputText value="{!coApplicant.panNo}" /></td>
+                            </tr>
+                            <tr>
+                                <td>Aadhar:</td>
+                                <td><apex:inputFile value="{!coApplicant.aadharFile}" filename="{!coApplicant.aadharFileName}" /></td>
+                                <td>PAN:</td>
+                                <td><apex:inputFile value="{!coApplicant.panFile}" filename="{!coApplicant.panFileName}" /></td>
+                                <td>Passport Size Photo:</td>
+                                <td><apex:inputFile value="{!coApplicant.photoFile}" filename="{!coApplicant.photoFileName}" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                </apex:repeat>
+            </div>
+            <div class="section">
+                <h2>Co Applicant Details </h2>
+                
+                <button class="add-button" onclick="return false;">Add +</button>
+                <br/><br/>
+                <apex:repeat value="{!coApplicants}" var="coApplicant">
+                    <div class="section">
+                        
+                        <table>
+                            <tr>
+                                <td>Name:</td>
+                                <td><apex:inputText value="{!coApplicant.name}" /></td>
+                                <td>Phone:</td>
+                                <td><apex:inputText value="{!coApplicant.phone}" /></td>
+                                <td>EmailId:</td>
+                                <td><apex:inputText value="{!coApplicant.email}" /></td>
+                            </tr>
+                            <tr>
+                                <td>Occupation:</td>
+                                <td><apex:inputText value="{!coApplicant.occupation}" /></td>
+                                <td>Aadhar No:</td>
+                                <td><apex:inputText value="{!coApplicant.aadharNo}" /></td>
+                                <td>PAN No:</td>
+                                <td><apex:inputText value="{!coApplicant.panNo}" /></td>
+                            </tr>
+                            <tr>
+                                <td>Aadhar:</td>
+                                <td><apex:inputFile value="{!coApplicant.aadharFile}" filename="{!coApplicant.aadharFileName}" /></td>
+                                <td>PAN:</td>
+                                <td><apex:inputFile value="{!coApplicant.panFile}" filename="{!coApplicant.panFileName}" /></td>
+                                <td>Passport Size Photo:</td>
+                                <td><apex:inputFile value="{!coApplicant.photoFile}" filename="{!coApplicant.photoFileName}" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                </apex:repeat>
+            </div>
+            
+            <div class="buttons">
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+                <apex:commandButton value="Submit" action="{!submit}" />
+            </div>
+        </apex:form>
+    </div>
+</apex:page>

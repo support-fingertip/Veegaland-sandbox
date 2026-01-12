@@ -1,0 +1,114 @@
+<apex:page renderAs="pdf" showHeader="false" applyHtmlTag="true" standardStylesheets="false" sidebar="false" contentType="application/pdf#TripartiteAgreement.pdf">
+<html>
+<head>
+<meta charset="UTF-8"/>
+<style>
+    @page { 
+        size: A4; 
+        margin: 50pt 55pt 50pt 55pt;
+    }
+    body {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 12pt;
+        line-height: 1.5; 
+        color: #000;
+    }
+    p {
+        margin: 0 0 8pt 0;
+        white-space: pre-wrap; 
+        text-indent: 1.5cm; 
+        text-align: justify; 
+        orphans: 3;
+        widows: 3;
+    }
+    .center { text-align: center; text-indent: 0; }
+    .noindent { text-indent: 0; }
+    .signature-section { margin-top: 50pt; line-height: 1.6; }
+    .signature-row { display: flex; justify-content: space-between; margin-top: 30pt; }
+    .sign-col { width: 30%; text-indent: 0; }
+    .witnesses { margin-top: 18pt; text-indent: 0; }
+</style>
+</head>
+<body >
+<div style="margin-top:360px;">
+<div style="text-align: center; font-weight: bold; font-size: 20px;">
+<span style="border-bottom: 1px solid black;">TRIPARTITE AGREEMENT</span>
+</div>
+
+<p class="noindent" style="text-align: justify;">This Agreement made at Ernakulam on this 07th day of November 2024 between <b>VEEGALAND DEVELOPERS PRIVATE LIMITED VEEGALAND DEVELOPERS PRIVATE LIMITED,</b> (CIN U45201KL2007PTC021107), a  Private Limited  Company incorporated under the Companies Act 1956, having its Registered  office  at  XIII/300  E-26,  4th floor,  K C F  Tower, Bharath  Matha College  Road ,  Kakkanad  Desom, Thrikkakara  P. O., Vazhakkala  Village, Kanayannur Taluk,  Ernakulam  District , Pin code – 682 021,<b>(PAN AACCV 5457 F)</b>, represented by its  Executive Director , Mr. B. Jayaraj , aged 66 (Sixty Six) years , Company Director , son of Late Mr. P. N. Balakrishnan  Nair , residing at ‘Jayahari’, Indira Junction, Padamugal, Kakkanad Desom and P. O.,  Vazhakkala Village, Kanayannur Taluk, Ernakulam District, Pin code - 682030 (Identity card No.KL/11/072/174470 Issued by  Election  Commission  of India) (hereinafter called “the Development Authority) (which expression shall unless the context otherwise requires, includes its successors and assigns) of the FIRST PART  </p>
+
+<p style="text-align: center;"><strong>AND</strong></p>
+    
+<p class="noindent" style="text-align: justify;"><b>1. Mr. Mohamed Arif E.M.,</b>aged 37 (Thirty Seven) years, OT ICS Cyber Security, son of      Mr. Mohamedkutty, (Aadhaar No. 9707 5324 9386 issued by Government of India) and (PAN AVAPM 0678 B); and 2. Mrs. Ruksana, aged 27 (Twenty Seven) years, Homemaker, wife of Mr. Mohamed Arif E.M., (Aadhaar No. 8037 4811 9724 issued by Government of India) and (PAN CAZPR 7548 P); both having address at Erandakattayil, Kowkkanapetty Desom, , Vadakkekkad P.O., Vadakkekkad Village, Chavakkad Taluk, Thrissur District, Pin code - 679562; (hereinafter called “the Borrower”) which expression shall unless the context requires includes his/her heirs, executors, administrators and permitted assigns) of the THIRD PART </p>
+
+<p style="text-align: center;"><strong>AND</strong></p>
+
+<p class="noindent" style="text-align: justify;"><b>ICICI Bank Ltd,</b> ICICI Bank Limited, having its Registered Office at “Landmark”, Alkapuri, Race Course  Road , Vadodara, and a Corporate Office at ICICI Bank Towers, Bandra Kurla Complex, Mumbai - 400 05, hereinafter called “ICICI Bank” (which expression shall unless the context otherwise requires, include its successors and assigns) of the THIRD PART WHERE AS the primary objective of the Development authority is to promote and secure the development of housing scheme according to Plan and for that purpose the Development authority has the power, inter alia to allot plots, construct dwelling units and sell them either on outright basis or on lease basis. </p>
+
+<p class="noindent" style="text-align: justify;">AND WHEREAS in pursuance to the aforesaid, the Development Authority has vide its Allotment letter no. SY/03/0524 dated 03-05-2024 allotted a piece of property bearing No: . 14C situate Chevayur, Calicut(hereinafter referred to as “the said property ”) at a consideration of Rs.1,86,45,628/- (Rupees One Crore Eighty Six Lakh Forty Five Thousand Six Hundred and Twenty Eight Only) to the Borrower.</p>
+
+<p class="noindent" style="text-align: justify;">AND WHEREAS under the terms and conditions of the above allotment letter the Borrower has to make the payment of Rs. 18,64,562/- (Rupees Eighteen Lakhs Sixty Four Thousand Five Hundred and Sixty Two Only) mentioned in payment schedule E of Sale agreement , out of which the Borrower has already made a payment of Rs. 18,64,562/- (Rupees Eighteen Lakhs Sixty Four Thousand Five Hundred and Sixty Two Only) to the Development authority against the allotment of the said property.</p>
+
+<p class="noindent" style="text-align: justify;">AND WHEREAS on the request of the Borrower, ICICI Bank has sanctioned him a loan of Rs________. /- (Rupees________ only) vide its Loan Agreement dated ______________________ for (''the Loan Agreement'') for acquisition of the said property. </p>
+
+<p class="noindent" style="text-align: justify;">AND WHEREAS in consideration of ICICI Bank agreeing to give loan to the Borrower, all the parties have agreed as under.</p>
+
+<h4 style="text-align: justify;"> NOW THEREFORE IT IS HEREBY AGREED BY AND BETWEEN THE PARTIES HERE TO AS FOLLOWS: -</h4>
+    
+<p class="noindent" style="text-align: justify;">1.	The Borrower hereby irrevocably authorises ICICI Bank to make disbursement of the sanctioned loan to the Development Authority directly on his behalf.</p>
+
+<p class="noindent" style="text-align: justify;">2.	ICICI Bank shall make disbursements of the sanctioned loan by making payments to the Development Authority directly on behalf of the Borrower and any payments so made to the Development Authority shall be deemed to be payments made to the Borrower and the Borrower shall in each case be liable for the amount of the Loan disbursed on his behalf to the Development Authority as though the same has been disbursed directly to him.Provided however ICICI Bank shall not be held liable in any manner under this agreement for any payments/disbursements or any delay thereof, to be made to the Borrower as per payment schedule of the Loan Agreement.</p>
+
+<p class="noindent" style="text-align: justify;">3.	The Borrower shall be responsible to follow up with ICICI Bank to make disbursements on his behalf as per any agreement he/she may have with the Development Authority. Notwithstanding anything to the contrary contained herein, ICICI Bank may in its sole    discretion refuse to disburse the sanctioned loan either altogether or any part thereof until the Borrower has paid his own contribution (i.e. cost of the plot less ICICI Bank) in full to the Development Authority as determined by ICICI Bank.</p>
+
+<p class="noindent" style="text-align: justify;">4.	In the event of cancellation of the allotment of the plot to the Borrower   for any reason whatsoever the Development Authority undertakes to refund all the amounts payable to the Borrower directly to ICICI Bank without any reference to the Borrower, which ICICI Bank may adjust against any amount due and payable by the Borrower to it.</p>
+
+<p class="noindent" style="text-align: justify;">5.	The Development Authority further undertake to convey an unencumbered, clear, marketable title by way of registered Lease / Conveyance Deed to the Borrower on full payment of the consideration of the said property.</p>
+
+<p class="noindent" style="text-align: justify;">6.	The Borrower agrees and authorises the Development Authority to note such security as may be furnished by the Borrower in favour of ICICI Bank, in their records as a security against the loan advanced by ICICI Bank, to be held by ICICI Bank until the loan is fully repaid with interest and all other dues to the satisfaction of ICICI Bank. The Development Authority agrees to note permit creation of such security in respect of the said property as may be required by ICICI Bank.</p>
+
+<p class="noindent" style="text-align: justify;">7.	The Development Authority will not allow any kind of transfer of the said property by way of sale, gift, mortgage etc. during the pendency of the loan by ICICI Bank.</p>
+
+<p class="noindent" style="text-align: justify;">8.	The Borrower shall diligently and faithfully observe and comply with all rules and regulations of the Development Authority and shall also strictly comply with all the requirements in his Loan Agreement with ICICI Bank. </p>
+
+<p class="noindent" style="text-align: justify;">9.	The liability of the Development Authority and the Borrower shall not be effected in any manner whatsoever in the event of the death or insolvency of the Borrower or his ceasing to be an allottee of the Development Authority notwithstanding anything to the contrary contained in any constitution, articles, memorandum, rules, bye-laws, agreements, regulations etc. </p>
+
+<p class="noindent" style="text-align: justify;">In witness whereof the parties hereto have signed this Agreement on the day, month and year first above-written. </p>
+    <br/>
+<div class="signature-section">
+    <div class="signature-row">
+        <div class="sign-col">
+           <b>For M/s Veegaland Developers Pvt. Ltd </b><br/><br/>
+            Authorized signatory<br/><br/><br/><br/>
+            Director<br/><br/>
+            <b>ICICI Bank Limited</b><br/><br/><br/>
+        </div>
+
+        <div class="sign-col">
+            Represented by its authorized official<br/><br/>
+            Signatory<br/><br/>
+            <b>Name &amp; Signature of  Borrower (s)</b><br/><br/>
+            Mohamed Arif E.M.<br/><br/>
+            Ruksana 
+        </div>
+    </div>
+
+    <div class="witnesses">
+        <p class="noindent center">Witness:</p>
+
+        <p class="noindent">Name &amp; Address</p>
+        <table style="width: 100%; border-collapse: collapse; border: none;">
+  <tr>
+    <td style="border: none; padding: 8px;">Mr/Mrs.</td>
+  </tr>
+  <tr>
+    <td style="border: none; padding: 8px;">Signature :</td>
+    
+  </tr>
+</table>
+    </div>
+</div>
+</div>
+</body>
+</html>
+</apex:page>

@@ -1,0 +1,80 @@
+<aura:component controller="UpdateFollowUpController" implements="force:appHostable,force:hasRecordId,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global" >
+    <aura:attribute name="isPopup" type="boolean" default="true"/>
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:attribute name="ActiveDiv" type="boolean" default="false"/>
+    <aura:attribute name="VarientValue" type="string" default="brand"/>
+    <aura:attribute name="VarientValues" type="string" default="neutral"/>
+    <aura:attribute name="ButtonValue" type="string" default="New Follow Up"/>
+    <aura:attribute name="Status" type="string" default="Scheduled"/>
+    <aura:attribute name="recordId" type="string" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:html tag="style">
+        .slds-modal__container{ 
+        max-width: 75rem !important;
+        width:75% !important;
+        
+        } 
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        border: 1px solid #000;
+        padding: 0rem !important;
+        }
+        .slds-modal__content{
+        height:unset !important;
+        max-height:unset !important;
+        }
+        .closeIcon{
+        display:none;
+        }
+        .slds-col{
+        margin-left:5px;
+        }
+        
+        
+    </aura:html >
+    <aura:if isTrue="{!v.isPopup}">
+        <div role="dialog" tabindex="-1" aria-labelledby="header43" aura:id="Modalbox" class="slds-modal slds-fade-in-open ">
+            <div class="slds-modal__container ">
+                <lightning:buttonIcon iconName="utility:close"
+                                      onclick="{! c.doCancel }"
+                                      alternativeText="close"
+                                      variant="bare-inverse"
+                                      class="slds-modal__close"/>
+                
+                <header class="slds-modal__header ">
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Update Follow Up Date </h1>
+                </header>
+                <lightning:recordEditForm recordId="{!v.recordId}" aura:id="myform" objectApiName="Lead" onload="{!c.handleLoad}"  onsuccess="{!c.handleSuccess}" onsubmit="{!c.handleOnSubmit}" onerror="{!c.handleError}"> 
+                    <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-1">
+                        <lightning:messages />
+                        <lightning:button label="New Follow Ups" onclick="{!c.NewhandleClick}" variant="{!v.VarientValue}"/>
+                        <lightning:button label="Mark Follow Ups Completed" onclick="{!c.UpdatehandleClick}" variant="{!v.VarientValues}"/>
+                        <aura:if isTrue="{!v.ActiveDiv==false}">
+                        <lightning:inputField fieldName="Follow_up_scheduled_date__c" required='true' value='' />
+                        <!--<lightning:inputField fieldName="Follow_up_Status__c" required='true' />-->
+                        <lightning:inputField fieldName="Follow_up_Subject__c"  value=''/>
+                        <lightning:inputField fieldName="Follow_up_Description__c"  value='' required='true'/> 
+                        </aura:if>
+                        <aura:if isTrue="{!v.ActiveDiv}">
+                        <lightning:inputField fieldName="Follow_up_scheduled_date__c" required='true'/>
+                        <lightning:inputField fieldName="Follow_up_Subject__c"  />
+                        <lightning:inputField fieldName="Follow_up_Description__c"  value='' required='true'/> 
+                        </aura:if>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="Cancel" title="Cancel" onclick="{!c.doCancel }" />
+                        <lightning:button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Update" />
+                    </footer>
+                </lightning:recordEditForm>        
+            </div>
+        </div> 
+    </aura:if>
+    <div>
+        <aura:if isTrue="{!v.spinner}">
+            <lightning:spinner class="spins" size="large" variant="brand" alternativeText="Loading" />
+        </aura:if>
+    </div>
+</aura:component>
